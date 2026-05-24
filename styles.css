@@ -221,7 +221,7 @@ button {
   justify-content: space-between;
   padding: 14px 18px 12px;
   border-bottom: 1px solid var(--bp-rule);
-  font-family: var(--bp-mono);
+  font-family: var(--bp-display);
   font-size: 11px;
   letter-spacing: 0.01em;
 }
@@ -282,7 +282,7 @@ button {
   border: 0;
   background: transparent;
   color: var(--bp-ink);
-  font-family: var(--bp-mono);
+  font-family: var(--bp-display);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -299,7 +299,7 @@ button {
   width: 36px;
   max-width: 36px;
   padding: 0;
-  font-family: var(--bp-mono);
+  font-family: var(--bp-display);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -315,7 +315,7 @@ button {
 .bp-shuffle-toggle {
   display: inline-grid;
   place-items: center;
-  font-family: var(--bp-mono);
+  font-family: var(--bp-display);
   font-size: 13px;
   font-weight: 700;
   line-height: 1;
@@ -346,7 +346,7 @@ button {
   border: 0;
   padding: 5px 11px;
   border-radius: calc(var(--bp-radius-md) - 3px);
-  font-family: inherit;
+  font-family: var(--bp-display);
   font-size: inherit;
   letter-spacing: 0.01em;
   text-transform: uppercase;
@@ -407,7 +407,7 @@ button {
   background: transparent;
   min-height: 34px;
   padding: 0 0 10px;
-  font-family: var(--bp-mono);
+  font-family: var(--bp-display);
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -468,7 +468,7 @@ button {
 }
 
 .cat-pill .de {
-  font-family: var(--bp-mono);
+  font-family: var(--bp-display);
   font-size: 10.5px;
   font-weight: 700;
   text-transform: uppercase;
@@ -875,7 +875,7 @@ button {
 
 .bp-answer .text .en {
   display: block;
-  font-family: var(--bp-display);
+  font-family: var(--bp-mono);
   font-style: normal;
   font-size: 13px;
   color: var(--bp-ink-soft);
@@ -1072,7 +1072,7 @@ button {
   border: 0;
   border-right: 1px solid var(--bp-rule);
   padding: 14px 6px calc(14px + env(safe-area-inset-bottom));
-  font-family: var(--bp-mono);
+  font-family: var(--bp-display);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
