@@ -36,6 +36,18 @@ _Avoid_: Test state, exam run
 The finished test summary showing score, pass status, and missed questions with the learner's answer and correct answer.
 _Avoid_: Score page, report
 
+**Distractor Explanation**:
+The short "why wrong" or "why correct" line shown beneath an answer once the answer is revealed.
+_Avoid_: Hint, footnote
+
+**Duplicate Question**:
+A **Question** whose wording is identical to an earlier **Question** in the catalog. Surfaced as a chip pointing to the earlier **Question**.
+_Avoid_: Repeat, alias
+
+**Answer Variant Note**:
+A note shown on the **Test Result** review when the same **Question** can appear with slightly different wording on the real exam.
+_Avoid_: Warning, disclaimer
+
 ## Relationships
 
 - A **Known Question** is always a **Question**.
@@ -54,6 +66,9 @@ _Avoid_: Score page, report
 - A **Test Result** shows missed **Questions** with the learner's answer and correct answer.
 - A **Test Result** is not kept as long-term learner history.
 - An unfinished **Test Session** can resume after refresh.
+- A **Distractor Explanation** appears only after correctness is revealed for the **Question**.
+- A **Duplicate Question** carries a chip linking back to the canonical (lower-numbered) **Question**.
+- An **Answer Variant Note** only appears on the **Test Result** review, not during the live **Question**.
 
 ## Example dialogue
 

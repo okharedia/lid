@@ -65,6 +65,7 @@ const els = {
   questionText: document.querySelector("#questionText"),
   questionTranslation: document.querySelector("#questionTranslation"),
   questionImage: document.querySelector("#questionImage"),
+  questionChips: document.querySelector("#questionChips"),
   answers: document.querySelector("#answers"),
   hintText: document.querySelector("#hintText"),
   studyDock: document.querySelector("#studyDock"),
@@ -405,6 +406,7 @@ function renderResult() {
                         ${correctTranslation ? `<span class="en">${escapeHtml(correctTranslation)}</span>` : ""}
                       </span>
                     </div>
+                    ${question.answerVariants ? `<p class="variant-note">${escapeHtml(t(question.answerVariants.noteKey))}</p>` : ""}
                   </article>
                 `;
               })
@@ -486,6 +488,8 @@ function render() {
     els.questionImage.removeAttribute("src");
   }
 
+  renderQuestionChips(card);
+
   els.answers.innerHTML = card.answers
     .map((answer, index) => {
       const isCorrectAnswer = index === card.correctIndex;
@@ -497,12 +501,14 @@ function render() {
       }
       const mark = reveal && isCorrectAnswer ? icon("circle-check") : reveal && selected === index ? icon("x") : "";
       const answerTranslation = t(answer.translationKey);
+      const why = reveal ? t(answer.whyKey) : "";
       return `
         <li>
           <button class="${className}" type="button" data-answer="${index}" ${isLearn || isAnswered ? "disabled" : ""}>
             <span class="text">
               ${highlightedAnswerText(answer.text, card, isCorrectAnswer, reveal)}
               ${answerTranslation ? `<span class="en">${escapeHtml(answerTranslation)}</span>` : ""}
+              ${why ? `<span class="why">${escapeHtml(why)}</span>` : ""}
             </span>
             <span class="mark">${mark}</span>
           </button>
@@ -527,6 +533,22 @@ function render() {
   saveState();
   fitLayout();
   setTimeout(fitLayout, 250);
+}
+
+function renderQuestionChips(card) {
+  const chips = [];
+  if (card.duplicateOfId) {
+    const original = questionById.get(card.duplicateOfId);
+    if (original) {
+      chips.push(`
+        <span class="bp-chip duplicate-chip" title="Same as earlier question">
+          ${icon("repeat")} <span>Seen before: FRAGE ${pad(original.localNumber || original.id, 3)}</span>
+        </span>
+      `);
+    }
+  }
+  els.questionChips.innerHTML = chips.join("");
+  els.questionChips.hidden = !chips.length;
 }
 
 function renderNav(card, isLearn, isAnswered, total) {
