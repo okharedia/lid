@@ -292,6 +292,22 @@ function releaseSwipe() {
   }, 180);
 }
 
+function commitSwipe(step) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    move(step);
+    return;
+  }
+  window.clearTimeout(swipeTimer);
+  app.classList.remove("swipe-dragging");
+  app.classList.add("swipe-active", "swipe-release");
+  app.style.setProperty("--swipe-x", `${step > 0 ? -window.innerWidth : window.innerWidth}px`);
+  swipeTimer = window.setTimeout(() => {
+    app.classList.remove("swipe-active", "swipe-release");
+    app.style.setProperty("--swipe-x", "0px");
+    move(step);
+  }, 170);
+}
+
 function move(step) {
   const nextIndex = Math.max(0, Math.min(scenarios.length - 1, index + step));
   if (nextIndex === index) return;
@@ -391,9 +407,7 @@ app.addEventListener("pointerup", (event) => {
     releaseSwipe();
     return;
   }
-  app.classList.remove("swipe-active", "swipe-dragging", "swipe-release");
-  app.style.setProperty("--swipe-x", "0px");
-  move(step);
+  commitSwipe(step);
 });
 
 app.addEventListener("pointercancel", () => {

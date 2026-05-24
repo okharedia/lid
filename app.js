@@ -319,6 +319,22 @@ function releaseSwipe() {
   }, 180);
 }
 
+function commitSwipe(step) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    move(step);
+    return;
+  }
+  window.clearTimeout(swipeTimer);
+  els.app.classList.remove("swipe-dragging");
+  els.app.classList.add("swipe-active", "swipe-release");
+  els.app.style.setProperty("--swipe-x", `${step > 0 ? -window.innerWidth : window.innerWidth}px`);
+  swipeTimer = window.setTimeout(() => {
+    els.app.classList.remove("swipe-active", "swipe-release");
+    els.app.style.setProperty("--swipe-x", "0px");
+    move(step);
+  }, 170);
+}
+
 function hasVerticalOverflow(element) {
   if (!element || element.hidden) return false;
   return element.scrollHeight > element.clientHeight + 1;
@@ -448,9 +464,7 @@ function bindEvents() {
       releaseSwipe();
       return;
     }
-    els.app.classList.remove("swipe-active", "swipe-dragging", "swipe-release");
-    els.app.style.setProperty("--swipe-x", "0px");
-    move(step);
+    commitSwipe(step);
   });
   els.app.addEventListener("pointercancel", () => {
     swipeStart = null;
