@@ -15,6 +15,8 @@ let questions = [];
 let questionById = new Map();
 let categories = [ALL_CATS];
 let messages = {};
+let clusters = [];
+let clusterById = new Map();
 
 const state = {
   mode: "learn",
@@ -65,10 +67,17 @@ const els = {
   questionText: document.querySelector("#questionText"),
   questionTranslation: document.querySelector("#questionTranslation"),
   questionImage: document.querySelector("#questionImage"),
+  imageCaption: document.querySelector("#imageCaption"),
+  questionChips: document.querySelector("#questionChips"),
+  clusterDrawer: document.querySelector("#clusterDrawer"),
+  clusterDrawerTitle: document.querySelector("#clusterDrawerTitle"),
+  clusterDrawerBody: document.querySelector("#clusterDrawerBody"),
+  clusterDrawerClose: document.querySelector("#clusterDrawerClose"),
   answers: document.querySelector("#answers"),
   hintText: document.querySelector("#hintText"),
   studyDock: document.querySelector("#studyDock"),
   keywordList: document.querySelector("#keywordList"),
+  glossaryContext: document.querySelector("#glossaryContext"),
   lockedHint: document.querySelector("#lockedHint"),
   cardNav: document.querySelector("#cardNav"),
   prevButton: document.querySelector("#prevButton"),
@@ -405,6 +414,7 @@ function renderResult() {
                         ${correctTranslation ? `<span class="en">${escapeHtml(correctTranslation)}</span>` : ""}
                       </span>
                     </div>
+                    ${question.answerVariants ? `<p class="variant-note">${escapeHtml(t(question.answerVariants.noteKey))}</p>` : ""}
                   </article>
                 `;
               })
@@ -486,6 +496,12 @@ function render() {
     els.questionImage.removeAttribute("src");
   }
 
+  const caption = t(card.imageCaptionKey);
+  els.imageCaption.hidden = !(card.imageUrl && caption);
+  els.imageCaption.textContent = caption;
+
+  renderQuestionChips(card);
+
   els.answers.innerHTML = card.answers
     .map((answer, index) => {
       const isCorrectAnswer = index === card.correctIndex;
@@ -497,12 +513,14 @@ function render() {
       }
       const mark = reveal && isCorrectAnswer ? icon("circle-check") : reveal && selected === index ? icon("x") : "";
       const answerTranslation = t(answer.translationKey);
+      const why = reveal ? t(answer.whyKey) : "";
       return `
         <li>
           <button class="${className}" type="button" data-answer="${index}" ${isLearn || isAnswered ? "disabled" : ""}>
             <span class="text">
               ${highlightedAnswerText(answer.text, card, isCorrectAnswer, reveal)}
               ${answerTranslation ? `<span class="en">${escapeHtml(answerTranslation)}</span>` : ""}
+              ${why ? `<span class="why">${escapeHtml(why)}</span>` : ""}
             </span>
             <span class="mark">${mark}</span>
           </button>
@@ -515,18 +533,72 @@ function render() {
   const keywords = keywordRefs(card);
   els.hintText.innerHTML = `${icon("sparkle-2", "hint-icon")} ${highlightedText(hint, card)}`;
   els.keywordList.hidden = !keywords.length;
+  els.glossaryContext.hidden = true;
+  els.glossaryContext.textContent = "";
   els.keywordList.innerHTML = keywords
-    .map((keyword) => `
-      <span class="kw-item">
-        <span class="de">${escapeHtml(keyword.term)}</span>
-        <span class="en">${escapeHtml(t(keyword.translationKey))}</span>
-      </span>
-    `)
+    .map((keyword) => {
+      const context = t(`glossary.${keyword.term}.context`);
+      const trigger = context
+        ? `<button type="button" class="kw-info" data-context="${escapeHtml(context)}" aria-label="More about ${escapeHtml(keyword.term)}">${icon("info-circle")}</button>`
+        : "";
+      return `
+        <span class="kw-item ${context ? "has-context" : ""}">
+          <span class="kw-head">
+            <span class="de">${escapeHtml(keyword.term)}</span>
+            ${trigger}
+          </span>
+          <span class="en">${escapeHtml(t(keyword.translationKey))}</span>
+        </span>
+      `;
+    })
     .join("");
 
   saveState();
   fitLayout();
   setTimeout(fitLayout, 250);
+}
+
+function renderQuestionChips(card) {
+  const chips = [];
+  if (card.clusterTag && clusterById.has(card.clusterTag)) {
+    const cluster = clusterById.get(card.clusterTag);
+    const title = t(cluster.titleKey).split(" — ")[0];
+    chips.push(`
+      <button type="button" class="bp-chip cluster-chip" data-cluster="${escapeHtml(card.clusterTag)}">
+        ${icon("book")} <span>Topic: ${escapeHtml(title)}</span>
+      </button>
+    `);
+  }
+  if (card.duplicateOfId) {
+    const original = questionById.get(card.duplicateOfId);
+    if (original) {
+      chips.push(`
+        <span class="bp-chip duplicate-chip" title="Same as earlier question">
+          ${icon("repeat")} <span>Seen before: FRAGE ${pad(original.localNumber || original.id, 3)}</span>
+        </span>
+      `);
+    }
+  }
+  els.questionChips.innerHTML = chips.join("");
+  els.questionChips.hidden = !chips.length;
+}
+
+function openClusterDrawer(clusterId) {
+  const cluster = clusterById.get(clusterId);
+  if (!cluster) return;
+  els.clusterDrawerTitle.textContent = t(cluster.titleKey);
+  const body = t(cluster.bodyKey);
+  els.clusterDrawerBody.innerHTML = body
+    .split("\n")
+    .map((line) => `<p>${escapeHtml(line)}</p>`)
+    .join("");
+  els.clusterDrawer.hidden = false;
+  els.app.classList.add("cluster-open");
+}
+
+function closeClusterDrawer() {
+  els.clusterDrawer.hidden = true;
+  els.app.classList.remove("cluster-open");
 }
 
 function renderNav(card, isLearn, isAnswered, total) {
@@ -778,6 +850,31 @@ function bindEvents() {
     if (!button) return;
     pickAnswer(Number(button.dataset.answer));
   });
+  els.questionChips.addEventListener("click", (event) => {
+    const chip = event.target.closest("[data-cluster]");
+    if (!chip) return;
+    openClusterDrawer(chip.dataset.cluster);
+  });
+  els.clusterDrawerClose.addEventListener("click", closeClusterDrawer);
+  els.clusterDrawer.addEventListener("click", (event) => {
+    if (event.target === els.clusterDrawer) closeClusterDrawer();
+  });
+  els.keywordList.addEventListener("click", (event) => {
+    const trigger = event.target.closest(".kw-info");
+    if (!trigger) return;
+    const item = trigger.closest(".kw-item");
+    const context = trigger.dataset.context || "";
+    const wasOpen = item.classList.contains("open");
+    document.querySelectorAll(".kw-item.open").forEach((other) => other.classList.remove("open"));
+    if (wasOpen) {
+      els.glossaryContext.hidden = true;
+      els.glossaryContext.textContent = "";
+      return;
+    }
+    item.classList.add("open");
+    els.glossaryContext.textContent = context;
+    els.glossaryContext.hidden = !context;
+  });
   els.resultView.addEventListener("click", (event) => {
     const action = event.target.closest("[data-action]")?.dataset.action;
     if (action === "restart-test") startTest(state.category);
@@ -832,6 +929,11 @@ function bindEvents() {
   });
   window.addEventListener("keydown", (event) => {
     if (["INPUT", "SELECT", "TEXTAREA"].includes(event.target.tagName)) return;
+    if (event.key === "Escape" && !els.clusterDrawer.hidden) {
+      event.preventDefault();
+      closeClusterDrawer();
+      return;
+    }
     if (event.key === "ArrowLeft") {
       event.preventDefault();
       move(-1);
@@ -877,6 +979,8 @@ async function init() {
   questions = database.questions;
   questionById = new Map(questions.map((question) => [question.id, question]));
   categories = [ALL_CATS, ...new Set(questions.map((question) => question.theme))];
+  clusters = database.clusters || [];
+  clusterById = new Map(clusters.map((cluster) => [cluster.id, cluster]));
   if (!categories.includes(state.category)) state.category = ALL_CATS;
 
   bindEvents();
