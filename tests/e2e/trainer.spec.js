@@ -84,6 +84,33 @@ test("study help starts expanded and handle toggles it", async ({ page }) => {
   await page.getByRole("button", { name: "Expand study help" }).click();
   await expect(studyDock).not.toHaveClass(/is-collapsed/);
   await expect(page.getByRole("button", { name: "Collapse study help" })).toHaveAttribute("aria-expanded", "true");
+
+  await page.getByRole("button", { name: "Collapse study help" }).focus();
+  await page.keyboard.press("Escape");
+  await expect(studyDock).toHaveClass(/is-collapsed/);
+  await expect(page.getByRole("button", { name: "Expand study help" })).toBeFocused();
+});
+
+test("mobile drawer behaves like a modal dialog", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await openTrainer(page);
+
+  const filterButton = page.locator("#filterButton");
+  const drawer = page.locator("#filterBar");
+  const card = page.locator("#card");
+
+  await filterButton.click();
+  await expect(drawer).toHaveAttribute("role", "dialog");
+  await expect(drawer).toHaveAttribute("aria-modal", "true");
+  await expect(drawer).toHaveAttribute("aria-hidden", "false");
+  await expect(card).toHaveAttribute("inert", "");
+  await expect(page.getByRole("tab", { name: "Filters" })).toBeFocused();
+
+  await page.keyboard.press("Escape");
+  await expect(drawer).not.toHaveAttribute("role", "dialog");
+  await expect(drawer).toHaveAttribute("aria-hidden", "true");
+  await expect(card).not.toHaveAttribute("inert", "");
+  await expect(filterButton).toBeFocused();
 });
 
 test("learn mode renders the correct answer first without changing test answer indexes", async ({ page }) => {

@@ -35,6 +35,13 @@
       <symbol id="tabler-sparkle-2" viewBox="0 0 24 24">
         <path d="M12 3l2.15 5.85l5.85 2.15l-5.85 2.15l-2.15 5.85l-2.15 -5.85l-5.85 -2.15l5.85 -2.15z"></path>
       </symbol>
+      <symbol id="tabler-book" viewBox="0 0 24 24">
+        <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0"></path>
+        <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0"></path>
+        <path d="M3 6v13"></path>
+        <path d="M12 6v13"></path>
+        <path d="M21 6v13"></path>
+      </symbol>
       <symbol id="tabler-check" viewBox="0 0 24 24">
         <path d="M5 12l5 5l10 -10"></path>
       </symbol>
@@ -75,7 +82,7 @@
         <div id="progressFill" class="fill"></div>
       </div>
 
-      <section id="card" class="bp-card">
+      <section id="card" class="bp-card" aria-busy="false">
         <div class="bp-q-label">
           <span id="questionTag" class="tag">FRAGE 001</span>
           <span id="categoryLabel">Alle Kategorien</span>
@@ -86,6 +93,11 @@
           <span id="progressText" class="progress">01<span class="pct">/310</span></span>
         </div>
 
+        <div id="loadingState" class="bp-loading" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
         <h1 id="questionText" class="bp-q">Loading...</h1>
         <p id="questionTranslation" class="bp-q-en"></p>
         <img id="questionImage" class="bp-image" alt="Official question image" />
@@ -96,11 +108,12 @@
       </section>
 
       <div id="emptyState" class="bp-empty" hidden>
+        <svg class="icon" aria-hidden="true"><use href="#tabler-book"></use></svg>
         <div class="big">No cards</div>
         <div>try a different category</div>
       </div>
 
-      <div id="studyDock" class="bp-study-dock" hidden>
+      <div id="studyDock" class="bp-study-dock" role="region" aria-label="Study help" hidden>
         <button
           id="studyHandle"
           class="bp-study-handle"

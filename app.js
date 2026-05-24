@@ -56,8 +56,10 @@ const els = {
   testSizeMeta: document.querySelector("#testSizeMeta"),
   filterBar: document.querySelector("#filterBar"),
   app: document.querySelector(".bp-app"),
+  top: document.querySelector(".bp-top"),
   categoryPills: document.querySelector("#categoryPills"),
   progressFill: document.querySelector("#progressFill"),
+  track: document.querySelector(".bp-track"),
   card: document.querySelector("#card"),
   resultView: document.querySelector("#resultView"),
   emptyState: document.querySelector("#emptyState"),
@@ -337,7 +339,7 @@ function renderKnownPanel() {
           </article>
         `)
         .join("")
-    : `<div class="known-empty">No known questions yet.</div>`;
+    : `<div class="known-empty">${icon("book")}<span>No known questions yet.</span></div>`;
 }
 
 function renderTestConfigPanel() {
@@ -480,13 +482,7 @@ function render() {
   els.testMode.setAttribute("aria-pressed", String(!isLearn));
   els.filterButtonLabel.textContent = state.panelTab === "known" ? "Known" : shortCategoryLabel(state.category);
   els.filterButton.setAttribute("aria-expanded", String(els.app.classList.contains("filters-open")));
-  if (els.app.classList.contains("filters-open") && isMobileDrawer()) {
-    els.filterBar.setAttribute("role", "dialog");
-    els.filterBar.setAttribute("aria-modal", "true");
-  } else {
-    els.filterBar.removeAttribute("role");
-    els.filterBar.removeAttribute("aria-modal");
-  }
+  syncDrawerAccessibility();
   els.shuffleButton.hidden = !isLearn || Boolean(state.result);
   els.shuffleButton.setAttribute("aria-pressed", String(Boolean(state.shuffleSeed)));
   els.resultView.hidden = !state.result;
@@ -809,13 +805,38 @@ function focusableDrawerElements() {
     .filter((element) => element.offsetParent !== null);
 }
 
+function modalSiblings() {
+  return [els.top, els.track, els.card, els.emptyState, els.resultView, els.studyDock, els.cardNav].filter(Boolean);
+}
+
+function setSurfaceInert(isInert) {
+  modalSiblings().forEach((element) => {
+    element.toggleAttribute("inert", isInert);
+    if (isInert) element.setAttribute("aria-hidden", "true");
+    else element.removeAttribute("aria-hidden");
+  });
+}
+
+function syncDrawerAccessibility() {
+  const modal = els.app.classList.contains("filters-open") && isMobileDrawer();
+  els.filterBar.setAttribute("aria-hidden", String(!els.app.classList.contains("filters-open")));
+  if (modal) {
+    els.filterBar.setAttribute("role", "dialog");
+    els.filterBar.setAttribute("aria-modal", "true");
+    setSurfaceInert(true);
+  } else {
+    els.filterBar.removeAttribute("role");
+    els.filterBar.removeAttribute("aria-modal");
+    setSurfaceInert(false);
+  }
+}
+
 function openReviewPanel() {
   drawerReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : els.filterButton;
   els.app.classList.add("filters-open");
   els.filterButton.setAttribute("aria-expanded", "true");
+  syncDrawerAccessibility();
   if (isMobileDrawer()) {
-    els.filterBar.setAttribute("role", "dialog");
-    els.filterBar.setAttribute("aria-modal", "true");
     requestAnimationFrame(() => {
       const selectedTab = els.filterBar.querySelector('[role="tab"][aria-selected="true"]');
       (selectedTab || els.filterBar).focus();
@@ -826,8 +847,7 @@ function openReviewPanel() {
 function closeReviewPanel(restoreFocus = true) {
   els.app.classList.remove("filters-open");
   els.filterButton.setAttribute("aria-expanded", "false");
-  els.filterBar.removeAttribute("role");
-  els.filterBar.removeAttribute("aria-modal");
+  syncDrawerAccessibility();
   if (restoreFocus && drawerReturnFocus instanceof HTMLElement) drawerReturnFocus.focus();
   drawerReturnFocus = null;
 }
@@ -890,6 +910,13 @@ function bindEvents() {
   els.studyHandle.addEventListener("click", () => {
     state.studyExpanded = !state.studyExpanded;
     render();
+  });
+  els.studyDock.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !state.studyExpanded) return;
+    event.preventDefault();
+    state.studyExpanded = false;
+    render();
+    els.studyHandle.focus();
   });
   els.shuffleButton.addEventListener("click", () => {
     state.shuffleSeed = state.shuffleSeed ? 0 : Math.floor(Math.random() * 1e9) + 1;
@@ -1016,8 +1043,12 @@ async function init() {
   if (state.mode === "test") ensureTestSession();
   else buildLearnDeck(false);
   render();
+  els.app.classList.remove("is-loading");
+  els.card.setAttribute("aria-busy", "false");
 }
 
 init().catch((error) => {
+  els.app.classList.remove("is-loading");
   els.questionText.textContent = error.message;
+  els.card.removeAttribute("aria-busy");
 });

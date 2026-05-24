@@ -434,5 +434,15 @@ els.studyHandle?.addEventListener("click", () => {
   fitLayout();
 });
 
+els.studyDock?.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape" || els.studyDock.classList.contains("is-collapsed")) return;
+  event.preventDefault();
+  els.studyDock.classList.add("is-collapsed");
+  els.studyHandle.setAttribute("aria-expanded", "false");
+  els.studyHandle.setAttribute("aria-label", "Expand study help");
+  els.studyHandle.focus();
+  fitLayout();
+});
+
 window.addEventListener("resize", fitLayout);
 render();
