@@ -245,7 +245,8 @@ function buildLearnDeck(resetIndex = true) {
   let deck = availableQuestions();
   if (state.shuffleSeed) deck = shuffled(deck, state.shuffleSeed);
   state.deck = deck;
-  if (resetIndex || state.index >= deck.length) state.index = Math.max(0, deck.length - 1);
+  if (resetIndex) state.index = 0;
+  else if (state.index >= deck.length) state.index = Math.max(0, deck.length - 1);
   state.selected = null;
 }
 

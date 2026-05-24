@@ -102,6 +102,18 @@ test("marking mastered removes a card, can undo, and survives reload", async ({ 
   await expect(page.locator("#knownCount")).toContainText("1");
 });
 
+test("shuffle starts at the beginning of the shuffled deck", async ({ page }) => {
+  await openTrainer(page);
+
+  await page.getByRole("button", { name: "Next" }).click();
+  await expect(page.locator("#progressText")).toContainText("02");
+
+  await page.getByRole("button", { name: "Shuffle study cards" }).click();
+  await expect(page.locator("#progressText")).toContainText("01");
+  await expect(page.getByRole("button", { name: "Previous question" })).toBeDisabled();
+  await expect(page.getByRole("button", { name: "Next question" })).toBeEnabled();
+});
+
 test("study help starts expanded and handle toggles it", async ({ page }) => {
   await openTrainer(page);
 
