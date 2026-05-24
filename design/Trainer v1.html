@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Leben in Deutschland · Trainer</title>
+<link rel="stylesheet" href="tokens.css"/>
+<style>
+  :root {
+    /* semantic answer colors — muted, paper-like */
+    --lid-correct:       #1a6e3b;
+    --lid-correct-soft:  #ecf3ee;
+    --lid-wrong:         #a8281f;
+    --lid-wrong-soft:    #f5e9e7;
+    --lid-page-bg:       #f7f5ef;   /* warm off-white, "study paper" */
+    --lid-card-shadow:   0 1px 0 rgba(0,0,0,0.02), 0 14px 30px -22px rgba(0,0,0,0.12);
+  }
+
+  html, body { background: var(--lid-page-bg); }
+  body { min-height: 100vh; }
+
+  /* layout */
+  .lid-shell { max-width: 760px; margin: 0 auto; padding: 4em 1.5em 6em; }
+
+  .lid-masthead {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 1em;
+    margin-bottom: 2.5em;
+  }
+  .lid-masthead .brand h1 {
+    font-size: 1.6em; font-weight: 900; letter-spacing: -0.015em;
+    margin: 0 0 0.1em;
+  }
+  .lid-masthead .brand .sub {
+    color: var(--ok-ink-soft); font-size: 0.92em;
+  }
+  .lid-masthead .brand .flag {
+    display: inline-block; margin-right: 0.4em;
+    width: 1.1em; height: 0.74em; vertical-align: -0.05em;
+    background: linear-gradient(to bottom, #000 0 33.3%, #d00 33.3% 66.6%, #ffce00 66.6% 100%);
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  /* mode toggle — markdown-style underline tab */
+  .lid-mode {
+    display: inline-flex; gap: 0.6em; align-items: baseline;
+    font-size: 0.95em;
+  }
+  .lid-mode button {
+    appearance: none; background: transparent; border: none;
+    padding: 0.4em 0 0.5em;
+    font: inherit;
+    color: var(--ok-ink-soft);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color var(--ok-dur-fast) var(--ok-ease);
+  }
+  .lid-mode button[aria-pressed="true"] {
+    color: var(--ok-ink); font-weight: 700;
+    border-bottom-color: var(--ok-link);
+  }
+  .lid-mode button:hover { color: var(--ok-ink); }
+
+  /* control row */
+  .lid-controls {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1.5em; flex-wrap: wrap;
+    padding: 0.8em 0 1em;
+    margin-bottom: 1em;
+    border-bottom: 1px solid var(--ok-paper-rule);
+  }
+  .lid-controls .left, .lid-controls .right {
+    display: inline-flex; gap: 1.2em; align-items: center;
+    font-size: 0.92em;
+  }
+  .lid-controls label {
+    color: var(--ok-ink-soft);
+    display: inline-flex; gap: 0.4em; align-items: center;
+  }
+  .lid-controls .ctrl-link {
+    appearance: none; background: none; border: none; padding: 0;
+    color: var(--ok-link); text-decoration: underline; text-underline-offset: 0.2em;
+    cursor: pointer; font: inherit;
+  }
+  .lid-controls .ctrl-link:hover { color: var(--ok-ink); }
+  .lid-controls .ctrl-link[aria-pressed="true"] { color: var(--ok-ink); font-weight: 700; }
+  .lid-controls .pill {
+    font-variant-numeric: tabular-nums;
+    color: var(--ok-ink); font-weight: 700;
+    white-space: nowrap;
+  }
+  .lid-controls .right > span { white-space: nowrap; }
+
+  /* category dropdown — looks like a typed word with caret */
+  .lid-select-wrap {
+    position: relative; display: inline-block;
+  }
+  .lid-select-wrap select {
+    appearance: none; -webkit-appearance: none;
+    background: transparent; border: none;
+    font: inherit; color: var(--ok-ink);
+    padding: 0.15em 1em 0.15em 0;
+    cursor: pointer; font-weight: 600;
+    border-bottom: 1px dotted var(--ok-rule);
+  }
+  .lid-select-wrap::after {
+    content: "▾"; position: absolute;
+    right: 0; top: 50%; transform: translateY(-55%);
+    color: var(--ok-ink-faint); font-size: 0.75em; pointer-events: none;
+  }
+
+  /* progress bar */
+  .lid-track {
+    height: 2px; background: var(--ok-paper-rule);
+    margin-bottom: 2em; position: relative;
+  }
+  .lid-track .fill {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: var(--ok-link);
+    transition: width 0.4s var(--ok-ease);
+  }
+
+  /* question card */
+  .lid-card {
+    background: var(--ok-paper);
+    border: 1px solid var(--ok-paper-rule);
+    padding: 2.6em 2.6em 2em;
+    box-shadow: var(--lid-card-shadow);
+  }
+
+  .lid-meta {
+    display: flex; gap: 0.7em; align-items: center;
+    font-size: 0.78em;
+    color: var(--ok-ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.3em;
+  }
+  .lid-meta .dot { color: var(--ok-rule); }
+  .lid-meta .num { font-weight: 700; color: var(--ok-ink-soft); }
+
+  .lid-question {
+    font-size: 1.42em;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 0 1.8em;
+    letter-spacing: -0.005em;
+    color: var(--ok-ink);
+    text-wrap: pretty;
+  }
+  /* highlighter-pen feel on key German terms */
+  .lid-question .kw {
+    background-image: linear-gradient(transparent 55%, var(--ok-select) 55%);
+    padding: 0 0.1em;
+  }
+
+  /* answers */
+  .lid-answers {
+    display: flex; flex-direction: column; gap: 0.2em;
+    list-style: none; padding: 0; margin: 0 0 0.4em;
+  }
+  .lid-answer {
+    display: grid;
+    grid-template-columns: 1.6em 1fr 1.2em;
+    gap: 0.9em;
+    align-items: baseline;
+    padding: 0.85em 1em 0.85em 0.9em;
+    background: transparent;
+    border: 1px solid transparent;
+    border-left: 3px solid transparent;
+    font: inherit; text-align: left; width: 100%; cursor: pointer;
+    color: var(--ok-ink);
+    transition: background 180ms var(--ok-ease), color 180ms var(--ok-ease), opacity 180ms var(--ok-ease);
+  }
+  .lid-answer:hover:not(:disabled) {
+    background: rgba(17,17,153,0.04);
+  }
+  .lid-answer .letter {
+    color: var(--ok-ink-faint);
+    font-family: var(--ok-font-mono);
+    font-size: 0.78em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    align-self: start;
+    padding-top: 0.3em;
+  }
+  .lid-answer .text { line-height: 1.5; }
+  .lid-answer .mark { font-size: 1em; color: transparent; align-self: center; text-align: right; }
+
+  .lid-answer.is-correct {
+    background: var(--lid-correct-soft);
+    border-left-color: var(--lid-correct);
+  }
+  .lid-answer.is-correct .text { color: var(--lid-correct); font-weight: 600; }
+  .lid-answer.is-correct .letter { color: var(--lid-correct); }
+  .lid-answer.is-correct .mark { color: var(--lid-correct); font-weight: 700; }
+
+  .lid-answer.is-wrong {
+    background: var(--lid-wrong-soft);
+    border-left-color: var(--lid-wrong);
+  }
+  .lid-answer.is-wrong .text { color: var(--lid-wrong); }
+  .lid-answer.is-wrong .letter { color: var(--lid-wrong); }
+  .lid-answer.is-wrong .mark { color: var(--lid-wrong); font-weight: 700; }
+
+  .lid-answer.is-dim { opacity: 0.42; }
+  .lid-answer:disabled { cursor: default; }
+
+  /* hint + keywords */
+  .lid-aside {
+    margin-top: 1.6em;
+    padding-top: 1.6em;
+    border-top: 1px dashed var(--ok-paper-rule);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1em;
+  }
+  .lid-aside .block .label {
+    display: block;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    font-size: 0.72em; font-weight: 700;
+    color: var(--ok-ink-faint);
+    margin-bottom: 0.4em;
+  }
+  .lid-aside .hint-body {
+    font-size: 0.97em; color: var(--ok-ink); line-height: 1.55;
+  }
+
+  .lid-keywords { display: flex; flex-wrap: wrap; gap: 0.6em 1.2em; }
+  .lid-keywords .kw-item {
+    font-size: 0.93em;
+    line-height: 1.4;
+  }
+  .lid-keywords .kw-item .de {
+    font-weight: 700;
+    background-image: linear-gradient(transparent 55%, var(--ok-select) 55%);
+    padding: 0 0.1em;
+  }
+  .lid-keywords .kw-item .en {
+    color: var(--ok-ink-soft);
+    margin-left: 0.4em;
+  }
+
+  /* reveal-on-demand toggle (test mode pre-reveal) */
+  .lid-aside.collapsed {
+    margin-top: 1em; padding-top: 1em;
+    border-top: 1px dashed var(--ok-paper-rule);
+  }
+  .lid-reveal {
+    appearance: none; background: none; border: none; padding: 0;
+    color: var(--ok-link); text-decoration: underline; text-underline-offset: 0.25em;
+    cursor: pointer; font: inherit; font-size: 0.92em;
+  }
+  .lid-reveal:hover { color: var(--ok-ink); }
+
+  /* nav */
+  .lid-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 2.2em;
+    gap: 1em;
+  }
+  .lid-nav .group { display: inline-flex; gap: 1.4em; align-items: center; }
+  .lid-btn {
+    appearance: none; background: transparent; border: none;
+    font: inherit; cursor: pointer; padding: 0.3em 0;
+    color: var(--ok-link); text-decoration: underline; text-underline-offset: 0.25em;
+  }
+  .lid-btn:hover { color: var(--ok-ink); }
+  .lid-btn[disabled] { color: var(--ok-ink-faint); cursor: default; text-decoration: none; }
+  .lid-btn.primary {
+    background: var(--ok-ink); color: var(--ok-paper);
+    text-decoration: none;
+    padding: 0.75em 1.5em;
+    font-weight: 700;
+  }
+  .lid-btn.primary:hover { background: var(--ok-link); color: var(--ok-paper); }
+  .lid-btn.known.on { color: var(--lid-correct); font-weight: 700; }
+
+  /* small icon arrows */
+  .lid-arrow { display: inline-block; opacity: 0.6; }
+
+  /* keyboard hints */
+  .lid-kbd {
+    margin-top: 2.2em; padding-top: 1.5em;
+    display: flex; gap: 1.6em; flex-wrap: wrap; justify-content: center;
+    font-size: 0.82em; color: var(--ok-ink-faint);
+    border-top: 1px solid var(--ok-paper-rule);
+  }
+  .lid-kbd kbd {
+    font-family: var(--ok-font-mono);
+    font-size: 0.92em;
+    background: var(--ok-paper);
+    padding: 0.1em 0.45em;
+    border: 1px solid var(--ok-paper-rule);
+    border-bottom-width: 2px;
+    color: var(--ok-ink);
+    margin-right: 0.25em;
+  }
+
+  /* end state */
+  .lid-empty {
+    text-align: center; padding: 3em 1em; color: var(--ok-ink-soft);
+  }
+  .lid-empty .big { font-size: 2em; font-weight: 900; color: var(--ok-ink); margin-bottom: 0.4em; }
+
+  /* mobile */
+  @media (max-width: 720px) {
+    .lid-shell { padding: 2em 1em 4em; }
+    .lid-card { padding: 1.8em 1.3em 1.4em; }
+    .lid-question { font-size: 1.2em; }
+    .lid-masthead { flex-direction: column; align-items: flex-start; gap: 0.6em; }
+    .lid-controls { flex-direction: column; align-items: stretch; gap: 0.8em; }
+    .lid-controls .left, .lid-controls .right { justify-content: space-between; }
+    .lid-kbd { display: none; }
+  }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script src="data.js"></script>
+  <script type="text/babel" data-presets="react" src="app.jsx"></script>
+</body>
+</html>

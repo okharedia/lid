@@ -1,0 +1,5272 @@
+[
+  {
+    "id": 1,
+    "local": 1,
+    "state": "general",
+    "question": "In Deutschland dürfen Menschen offen etwas gegen die Regierung sagen, weil …",
+    "answers": [
+      "hier Religionsfreiheit gilt.",
+      "die Menschen Steuern zahlen.",
+      "die Menschen das Wahlrecht haben.",
+      "hier Meinungsfreiheit gilt."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "hier Meinungsfreiheit gilt.",
+    "correctAnswerInteractive": "hier Meinungsfreiheit gilt."
+  },
+  {
+    "id": 2,
+    "local": 2,
+    "state": "general",
+    "question": "In Deutschland können Eltern bis zum 14. Lebensjahr ihres Kindes entscheiden, ob es in der Schule am …",
+    "answers": [
+      "Geschichtsunterricht teilnimmt.",
+      "Religionsunterricht teilnimmt.",
+      "Politikunterricht teilnimmt.",
+      "Sprachunterricht teilnimmt."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Religionsunterricht teilnimmt.",
+    "correctAnswerInteractive": "Religionsunterricht teilnimmt."
+  },
+  {
+    "id": 3,
+    "local": 3,
+    "state": "general",
+    "question": "Deutschland ist ein Rechtsstaat. Was ist damit gemeint?",
+    "answers": [
+      "Alle Einwohnerinnen/Einwohner und der Staat müssen sich an die Gesetze halten.",
+      "Der Staat muss sich nicht an die Gesetze halten.",
+      "Nur Deutsche müssen die Gesetze befolgen.",
+      "Die Gerichte machen die Gesetze."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Alle Einwohnerinnen/Einwohner und der Staat müssen sich an die Gesetze halten.",
+    "correctAnswerInteractive": "Alle Einwohner / Einwohnerinnen und der Staat müssen sich an die Gesetze halten."
+  },
+  {
+    "id": 4,
+    "local": 4,
+    "state": "general",
+    "question": "Welches Recht gehört zu den Grundrechten in Deutschland?",
+    "answers": [
+      "Waffenbesitz",
+      "Faustrecht",
+      "Meinungsfreiheit",
+      "Selbstjustiz"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Meinungsfreiheit",
+    "correctAnswerInteractive": "Meinungsfreiheit"
+  },
+  {
+    "id": 5,
+    "local": 5,
+    "state": "general",
+    "question": "Wahlen in Deutschland sind frei. Was bedeutet das?",
+    "answers": [
+      "Man darf Geld annehmen, wenn man dafür eine bestimmte Kandidatin/einen bestimmten Kandidaten wählt.",
+      "Nur Personen, die noch nie im Gefängnis waren, dürfen wählen.",
+      "Die Wählerin/der Wähler darf bei der Wahl weder beeinflusst noch zu einer bestimmten Stimmabgabe gezwungen werden und keine Nachteile durch die Wahl haben.",
+      "Alle wahlberechtigten Personen müssen wählen."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Die Wählerin/der Wähler darf bei der Wahl weder beeinflusst noch zu einer bestimmten Stimmabgabe gezwungen werden und keine Nachteile durch die Wahl haben.",
+    "correctAnswerInteractive": "Der Wähler darf bei der Wahl weder beeinflusst noch zu einer bestimmten Stimmabgabe gezwungen werden und keine Nachteile durch die Wahl haben."
+  },
+  {
+    "id": 6,
+    "local": 6,
+    "state": "general",
+    "question": "Wie heißt die deutsche Verfassung?",
+    "answers": [
+      "Volksgesetz",
+      "Bundesgesetz",
+      "Deutsches Gesetz",
+      "Grundgesetz"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Grundgesetz",
+    "correctAnswerInteractive": "Grundgesetz"
+  },
+  {
+    "id": 7,
+    "local": 7,
+    "state": "general",
+    "question": "Welches Recht gehört zu den Grundrechten, die nach der deutschen Verfassung garantiert werden? Das Recht auf …",
+    "answers": [
+      "Glaubens- und Gewissensfreiheit",
+      "Unterhaltung",
+      "Arbeit",
+      "Wohnung"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Glaubens- und Gewissensfreiheit",
+    "correctAnswerInteractive": "Glaubens- und Gewissensfreiheit."
+  },
+  {
+    "id": 8,
+    "local": 8,
+    "state": "general",
+    "question": "Was steht nicht im Grundgesetz von Deutschland?",
+    "answers": [
+      "Die Würde des Menschen ist unantastbar.",
+      "Alle sollen gleich viel Geld haben.",
+      "Jeder Mensch darf seine Meinung sagen.",
+      "Alle sind vor dem Gesetz gleich."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Alle sollen gleich viel Geld haben.",
+    "correctAnswerInteractive": "Alle sollen gleich viel Geld haben."
+  },
+  {
+    "id": 9,
+    "local": 9,
+    "state": "general",
+    "question": "Welches Grundrecht gilt in Deutschland nur für Ausländerinnen/Ausländer? Das Grundrecht auf …",
+    "answers": [
+      "Schutz der Familie",
+      "Menschenwürde",
+      "Asyl",
+      "Meinungsfreiheit"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Asyl",
+    "correctAnswerInteractive": "Asyl"
+  },
+  {
+    "id": 10,
+    "local": 10,
+    "state": "general",
+    "question": "Was ist mit dem deutschen Grundgesetz vereinbar?",
+    "answers": [
+      "die Prügelstrafe",
+      "die Folter",
+      "die Todesstrafe",
+      "die Geldstrafe"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "die Geldstrafe",
+    "correctAnswerInteractive": "die Geldstrafe"
+  },
+  {
+    "id": 11,
+    "local": 11,
+    "state": "general",
+    "question": "Wie wird die Verfassung der Bundesrepublik Deutschland genannt?",
+    "answers": [
+      "Grundgesetz",
+      "Bundesverfassung",
+      "Gesetzbuch",
+      "Verfassungsvertrag"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Grundgesetz",
+    "correctAnswerInteractive": "Grundgesetz"
+  },
+  {
+    "id": 12,
+    "local": 12,
+    "state": "general",
+    "question": "Eine Partei im Deutschen Bundestag will die Pressefreiheit abschaffen. Ist das möglich?",
+    "answers": [
+      "Ja, wenn mehr als die Hälfte der Abgeordneten im Bundestag dafür sind.",
+      "Ja, aber dazu müssen zwei Drittel der Abgeordneten im Bundestag dafür sein.",
+      "Nein, denn die Pressefreiheit ist ein Grundrecht. Sie kann nicht abgeschafft werden.",
+      "Nein, denn nur der Bundesrat kann die Pressefreiheit abschaffen."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Nein, denn die Pressefreiheit ist ein Grundrecht. Sie kann nicht abgeschafft werden.",
+    "correctAnswerInteractive": "Nein, denn die Pressefreiheit ist ein Grundrecht. Sie kann nicht abgeschafft werden."
+  },
+  {
+    "id": 13,
+    "local": 13,
+    "state": "general",
+    "question": "Im Parlament steht der Begriff \"Opposition\" für …",
+    "answers": [
+      "die regierenden Parteien.",
+      "die Fraktion mit den meisten Abgeordneten.",
+      "alle Parteien, die bei der letzten Wahl die 5%-Hürde erreichen konnten.",
+      "alle Abgeordneten, die nicht zu der Regierungspartei/den Regierungsparteien gehören."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "alle Abgeordneten, die nicht zu der Regierungspartei/den Regierungsparteien gehören.",
+    "correctAnswerInteractive": "alle Abgeordneten, die nicht zu der Regierungspartei/den Regierungsparteien gehören."
+  },
+  {
+    "id": 14,
+    "local": 14,
+    "state": "general",
+    "question": "Meinungsfreiheit in Deutschland heißt, dass ich …",
+    "answers": [
+      "Passanten auf der Straße beschimpfen darf.",
+      "meine Meinung im Internet äußern kann.",
+      "Nazi-, Hamas- oder Islamischer Staat-Symbole öffentlich tragen darf.",
+      "meine Meinung nur dann äußern darf, solange ich der Regierung nicht widerspreche."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "meine Meinung im Internet äußern kann.",
+    "correctAnswerInteractive": "meine Meinung im Internet äußern kann"
+  },
+  {
+    "id": 15,
+    "local": 15,
+    "state": "general",
+    "question": "Was verbietet das deutsche Grundgesetz?",
+    "answers": [
+      "Militärdienst",
+      "Zwangsarbeit",
+      "freie Berufswahl",
+      "Arbeit im Ausland"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Zwangsarbeit",
+    "correctAnswerInteractive": "Zwangsarbeit"
+  },
+  {
+    "id": 16,
+    "local": 16,
+    "state": "general",
+    "question": "Wann ist die Meinungsfreiheit in Deutschland eingeschränkt?",
+    "answers": [
+      "bei der öffentlichen Verbreitung falscher Behauptungen über einzelne Personen",
+      "bei Meinungsäußerungen über die Bundesregierung",
+      "bei Diskussionen über Religionen",
+      "bei Kritik am Staat"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "bei der öffentlichen Verbreitung falscher Behauptungen über einzelne Personen",
+    "correctAnswerInteractive": "bei der öffentlichen Verbreitung falscher Behauptungen über einzelne Personen"
+  },
+  {
+    "id": 17,
+    "local": 17,
+    "state": "general",
+    "question": "Die deutschen Gesetze verbieten …",
+    "answers": [
+      "Meinungsfreiheit der Einwohnerinnen und Einwohner.",
+      "Petitionen der Bürgerinnen und Bürger.",
+      "Versammlungsfreiheit der Einwohnerinnen und Einwohner.",
+      "Ungleichbehandlung der Bürgerinnen und Bürger durch den Staat."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Ungleichbehandlung der Bürgerinnen und Bürger durch den Staat.",
+    "correctAnswerInteractive": "Ungleichbehandlung der Bürger und Bürgerinnen durch den Staat."
+  },
+  {
+    "id": 18,
+    "local": 18,
+    "state": "general",
+    "question": "Welches Grundrecht ist in Artikel 1 des Grundgesetzes der Bundesrepublik Deutschland garantiert?",
+    "answers": [
+      "die Unantastbarkeit der Menschenwürde",
+      "das Recht auf Leben",
+      "Religionsfreiheit",
+      "Meinungsfreiheit"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "die Unantastbarkeit der Menschenwürde",
+    "correctAnswerInteractive": "die Unantastbarkeit der Menschenwürde"
+  },
+  {
+    "id": 19,
+    "local": 19,
+    "state": "general",
+    "question": "Was versteht man unter dem Recht der \"Freizügigkeit\" in Deutschland?",
+    "answers": [
+      "Man darf sich seinen Wohnort selbst aussuchen.",
+      "Man kann seinen Beruf wechseln.",
+      "Man darf sich für eine andere Religion entscheiden.",
+      "Man darf sich in der Öffentlichkeit nur leicht bekleidet bewegen."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Man darf sich seinen Wohnort selbst aussuchen.",
+    "correctAnswerInteractive": "Man darf sich seinen Wohnort selbst aussuchen."
+  },
+  {
+    "id": 20,
+    "local": 20,
+    "state": "general",
+    "question": "Eine Partei in Deutschland verfolgt das Ziel, eine Diktatur zu errichten. Sie ist dann …",
+    "answers": [
+      "tolerant.",
+      "rechtsstaatlich orientiert.",
+      "gesetzestreu.",
+      "verfassungswidrig."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "verfassungswidrig.",
+    "correctAnswerInteractive": "verfassungswidrig."
+  },
+  {
+    "id": 21,
+    "local": 21,
+    "state": "general",
+    "question": "Welches ist das Wappen der Bundesrepublik Deutschland?",
+    "answers": [
+      "Bild 1",
+      "Bild 2",
+      "Bild 3",
+      "Bild 4"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Bild 1",
+    "correctAnswerInteractive": "1"
+  },
+  {
+    "id": 22,
+    "local": 22,
+    "state": "general",
+    "question": "Was für eine Staatsform hat Deutschland?",
+    "answers": [
+      "Monarchie",
+      "Diktatur",
+      "Republik",
+      "Fürstentum"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Republik",
+    "correctAnswerInteractive": "Republik"
+  },
+  {
+    "id": 23,
+    "local": 23,
+    "state": "general",
+    "question": "In Deutschland sind die meisten Erwerbstätigen …",
+    "answers": [
+      "in kleinen Familienunternehmen beschäftigt.",
+      "ehrenamtlich für ein Bundesland tätig.",
+      "selbstständig mit einer eigenen Firma tätig.",
+      "bei einer Firma oder Behörde beschäftigt."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "bei einer Firma oder Behörde beschäftigt.",
+    "correctAnswerInteractive": "bei einer Firma oder Behörde beschäftigt."
+  },
+  {
+    "id": 24,
+    "local": 24,
+    "state": "general",
+    "question": "Wie viele Bundesländer hat die Bundesrepublik Deutschland?",
+    "answers": [
+      "14",
+      "15",
+      "16",
+      "17"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "16",
+    "correctAnswerInteractive": "16"
+  },
+  {
+    "id": 25,
+    "local": 25,
+    "state": "general",
+    "question": "Was ist kein Bundesland der Bundesrepublik Deutschland?",
+    "answers": [
+      "Elsass-Lothringen",
+      "Nordrhein-Westfalen",
+      "Mecklenburg-Vorpommern",
+      "Sachsen-Anhalt"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Elsass-Lothringen",
+    "correctAnswerInteractive": "Elsass-Lothringen"
+  },
+  {
+    "id": 26,
+    "local": 26,
+    "state": "general",
+    "question": "Deutschland ist …",
+    "answers": [
+      "eine kommunistische Republik.",
+      "ein demokratischer und sozialer Bundesstaat.",
+      "eine kapitalistische und soziale Monarchie.",
+      "ein sozialer und sozialistischer Bundesstaat."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "ein demokratischer und sozialer Bundesstaat.",
+    "correctAnswerInteractive": "ein demokratischer und sozialer Bundesstaat."
+  },
+  {
+    "id": 27,
+    "local": 27,
+    "state": "general",
+    "question": "Deutschland ist …",
+    "answers": [
+      "ein sozialistischer Staat.",
+      "ein Bundesstaat.",
+      "eine Diktatur.",
+      "eine Monarchie."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "ein Bundesstaat.",
+    "correctAnswerInteractive": "ein Bundesstaat."
+  },
+  {
+    "id": 28,
+    "local": 28,
+    "state": "general",
+    "question": "Wer wählt in Deutschland die Abgeordneten zum Bundestag?",
+    "answers": [
+      "das Militär",
+      "die Wirtschaft",
+      "das wahlberechtigte Volk",
+      "die Verwaltung"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "das wahlberechtigte Volk",
+    "correctAnswerInteractive": "das wahlberechtigte Volk"
+  },
+  {
+    "id": 29,
+    "local": 29,
+    "state": "general",
+    "question": "Welches Tier ist das Wappentier der Bundesrepublik Deutschland?",
+    "answers": [
+      "Löwe",
+      "Adler",
+      "Bär",
+      "Pferd"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Adler",
+    "correctAnswerInteractive": "Adler"
+  },
+  {
+    "id": 30,
+    "local": 30,
+    "state": "general",
+    "question": "Was ist kein Merkmal unserer Demokratie?",
+    "answers": [
+      "regelmäßige Wahlen",
+      "Pressezensur",
+      "Meinungsfreiheit",
+      "verschiedene Parteien"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Pressezensur",
+    "correctAnswerInteractive": "Pressezensur"
+  },
+  {
+    "id": 31,
+    "local": 31,
+    "state": "general",
+    "question": "Die Zusammenarbeit von Parteien zur Bildung einer Regierung nennt man in Deutschland …",
+    "answers": [
+      "Einheit.",
+      "Koalition.",
+      "Ministerium.",
+      "Fraktion."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Koalition.",
+    "correctAnswerInteractive": "Koalition."
+  },
+  {
+    "id": 32,
+    "local": 32,
+    "state": "general",
+    "question": "Was ist keine staatliche Gewalt in Deutschland?",
+    "answers": [
+      "Gesetzgebung",
+      "Regierung",
+      "Presse",
+      "Rechtsprechung"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Presse",
+    "correctAnswerInteractive": "Presse"
+  },
+  {
+    "id": 33,
+    "local": 33,
+    "state": "general",
+    "question": "Welche Aussage ist richtig? In Deutschland …",
+    "answers": [
+      "sind Staat und Religionsgemeinschaften voneinander getrennt.",
+      "bilden die Religionsgemeinschaften den Staat.",
+      "ist der Staat abhängig von den Religionsgemeinschaften.",
+      "bilden Staat und Religionsgemeinschaften eine Einheit."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "sind Staat und Religionsgemeinschaften voneinander getrennt.",
+    "correctAnswerInteractive": "sind Staat und Religionsgemeinschaften voneinander getrennt."
+  },
+  {
+    "id": 34,
+    "local": 34,
+    "state": "general",
+    "question": "Was ist Deutschland nicht?",
+    "answers": [
+      "eine Demokratie",
+      "ein Rechtsstaat",
+      "eine Monarchie",
+      "ein Sozialstaat"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "eine Monarchie",
+    "correctAnswerInteractive": "eine Monarchie"
+  },
+  {
+    "id": 35,
+    "local": 35,
+    "state": "general",
+    "question": "Womit finanziert der deutsche Staat die Sozialversicherung?",
+    "answers": [
+      "Kirchensteuer",
+      "Sozialabgaben",
+      "Spendengeldern",
+      "Vereinsbeiträgen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Sozialabgaben",
+    "correctAnswerInteractive": "Sozialabgaben"
+  },
+  {
+    "id": 36,
+    "local": 36,
+    "state": "general",
+    "question": "Welche Maßnahme schafft in Deutschland soziale Sicherheit?",
+    "answers": [
+      "die Krankenversicherung",
+      "die Autoversicherung",
+      "die Gebäudeversicherung",
+      "die Haftpflichtversicherung"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "die Krankenversicherung",
+    "correctAnswerInteractive": "die Krankenversicherung"
+  },
+  {
+    "id": 37,
+    "local": 37,
+    "state": "general",
+    "question": "Wie werden die Regierungschefinnen/Regierungschefs der meisten Bundesländer in Deutschland genannt?",
+    "answers": [
+      "Erste Ministerin/Erster Minister",
+      "Premierministerin/Premierminister",
+      "Senatorin/Senator",
+      "Ministerpräsidentin/Ministerpräsident"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Ministerpräsidentin/Ministerpräsident",
+    "correctAnswerInteractive": "Ministerpräsident/ Ministerpräsidentin"
+  },
+  {
+    "id": 38,
+    "local": 38,
+    "state": "general",
+    "question": "Die Bundesrepublik Deutschland ist ein demokratischer und sozialer …",
+    "answers": [
+      "Staatenverbund.",
+      "Bundesstaat.",
+      "Staatenbund.",
+      "Zentralstaat."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Bundesstaat.",
+    "correctAnswerInteractive": "Bundesstaat."
+  },
+  {
+    "id": 39,
+    "local": 39,
+    "state": "general",
+    "question": "Was hat jedes deutsche Bundesland?",
+    "answers": [
+      "eine eigene Außenministerin/einen eigenen Außenminister",
+      "eine eigene Währung",
+      "eine eigene Armee",
+      "eine eigene Regierung"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "eine eigene Regierung",
+    "correctAnswerInteractive": "eine eigene Regierung"
+  },
+  {
+    "id": 40,
+    "local": 40,
+    "state": "general",
+    "question": "Mit welchen Worten beginnt die deutsche Nationalhymne?",
+    "answers": [
+      "Völker, hört die Signale …",
+      "Einigkeit und Recht und Freiheit …",
+      "Freude schöner Götterfunken …",
+      "Deutschland einig Vaterland …"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Einigkeit und Recht und Freiheit …",
+    "correctAnswerInteractive": "Einigkeit und Recht und Freiheit ..."
+  },
+  {
+    "id": 41,
+    "local": 41,
+    "state": "general",
+    "question": "Warum gibt es in einer Demokratie mehr als eine Partei?",
+    "answers": [
+      "weil dadurch die unterschiedlichen Meinungen der Bürgerinnen und Bürger vertreten werden",
+      "damit Bestechung in der Politik begrenzt wird",
+      "um politische Demonstrationen zu verhindern",
+      "um wirtschaftlichen Wettbewerb anzuregen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "weil dadurch die unterschiedlichen Meinungen der Bürgerinnen und Bürger vertreten werden",
+    "correctAnswerInteractive": "weil dadurch die unterschiedlichen Meinungen der Bürger und Bürgerinnen vertreten werden"
+  },
+  {
+    "id": 42,
+    "local": 42,
+    "state": "general",
+    "question": "Wer beschließt in Deutschland ein neues Gesetz?",
+    "answers": [
+      "die Regierung",
+      "das Parlament",
+      "die Gerichte",
+      "die Polizei"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "das Parlament",
+    "correctAnswerInteractive": "das Parlament"
+  },
+  {
+    "id": 43,
+    "local": 43,
+    "state": "general",
+    "question": "Wann kann in Deutschland eine Partei verboten werden?",
+    "answers": [
+      "wenn ihr Wahlkampf zu teuer ist",
+      "wenn sie gegen die Verfassung kämpft",
+      "wenn sie Kritik am Staatsoberhaupt äußert",
+      "wenn ihr Programm eine neue Richtung vorschlägt"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "wenn sie gegen die Verfassung kämpft",
+    "correctAnswerInteractive": "wenn sie gegen die Verfassung kämpft"
+  },
+  {
+    "id": 44,
+    "local": 44,
+    "state": "general",
+    "question": "Wen kann man als Bürgerin/Bürger in Deutschland nicht direkt wählen?",
+    "answers": [
+      "Abgeordnete des EU-Parlaments",
+      "Die Bundespräsidentin/den Bundespräsidenten",
+      "Landtagsabgeordnete",
+      "Bundestagsabgeordnete"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Die Bundespräsidentin/den Bundespräsidenten",
+    "correctAnswerInteractive": "den Bundespräsidenten / die Bundespräsidentin"
+  },
+  {
+    "id": 45,
+    "local": 45,
+    "state": "general",
+    "question": "Zu welcher Versicherung gehört die Pflegeversicherung?",
+    "answers": [
+      "Sozialversicherung",
+      "Unfallversicherung",
+      "Hausratsversicherung",
+      "Haftpflicht- und Feuerversicherung"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Sozialversicherung",
+    "correctAnswerInteractive": "Sozialversicherung"
+  },
+  {
+    "id": 46,
+    "local": 46,
+    "state": "general",
+    "question": "Der deutsche Staat hat viele Aufgaben. Welche Aufgabe gehört dazu?",
+    "answers": [
+      "Er baut Straßen und Schulen.",
+      "Er verkauft Lebensmittel und Kleidung.",
+      "Er versorgt alle Einwohnerinnen und Einwohner kostenlos mit Zeitungen.",
+      "Er produziert Autos und Busse."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Er baut Straßen und Schulen.",
+    "correctAnswerInteractive": "Er baut Straßen und Schulen."
+  },
+  {
+    "id": 47,
+    "local": 47,
+    "state": "general",
+    "question": "Der deutsche Staat hat viele Aufgaben. Welche Aufgabe gehört nicht dazu?",
+    "answers": [
+      "Er bezahlt für alle Staatsangehörigen Urlaubsreisen.",
+      "Er zahlt Kindergeld.",
+      "Er unterstützt Museen.",
+      "Er fördert Sportlerinnen und Sportler."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Er bezahlt für alle Staatsangehörigen Urlaubsreisen.",
+    "correctAnswerInteractive": "Er bezahlt für alle Staatsangehörigen Urlaubsreisen."
+  },
+  {
+    "id": 48,
+    "local": 48,
+    "state": "general",
+    "question": "Welches Organ gehört nicht zu den Verfassungsorganen Deutschlands?",
+    "answers": [
+      "der Bundesrat",
+      "die Bundespräsidentin/der Bundespräsident",
+      "die Bürgerversammlung",
+      "die Regierung"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "die Bürgerversammlung",
+    "correctAnswerInteractive": "die Bürgerversammlung"
+  },
+  {
+    "id": 49,
+    "local": 49,
+    "state": "general",
+    "question": "Wer bestimmt in Deutschland die Schulpolitik?",
+    "answers": [
+      "die Lehrer und Lehrerinnen",
+      "die Bundesländer",
+      "das Familienministerium",
+      "die Universitäten"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "die Bundesländer",
+    "correctAnswerInteractive": "die Bundesländer"
+  },
+  {
+    "id": 50,
+    "local": 50,
+    "state": "general",
+    "question": "Die Wirtschaftsform in Deutschland nennt man …",
+    "answers": [
+      "freie Zentralwirtschaft.",
+      "soziale Marktwirtschaft.",
+      "gelenkte Zentralwirtschaft.",
+      "Planwirtschaft."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "soziale Marktwirtschaft.",
+    "correctAnswerInteractive": "soziale Marktwirtschaft."
+  },
+  {
+    "id": 51,
+    "local": 51,
+    "state": "general",
+    "question": "Zu einem demokratischen Rechtsstaat gehört es nicht, dass …",
+    "answers": [
+      "Menschen sich kritisch über die Regierung äußern können.",
+      "Bürger friedlich demonstrieren gehen dürfen.",
+      "Menschen von einer Privatpolizei ohne Grund verhaftet werden.",
+      "jemand ein Verbrechen begeht und deshalb verhaftet wird."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Menschen von einer Privatpolizei ohne Grund verhaftet werden.",
+    "correctAnswerInteractive": "Menschen von einer Privatpolizei ohne Grund verhaftet werden."
+  },
+  {
+    "id": 52,
+    "local": 52,
+    "state": "general",
+    "question": "Was bedeutet \"Volkssouveränität\"? Alle Staatsgewalt geht vom ...",
+    "answers": [
+      "Volke aus.",
+      "Bundestag aus.",
+      "preußischen König aus.",
+      "Bundesverfassungsgericht aus."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Volke aus.",
+    "correctAnswerInteractive": "Volke aus."
+  },
+  {
+    "id": 53,
+    "local": 53,
+    "state": "general",
+    "question": "Was bedeutet \"Rechtsstaat\" in Deutschland?",
+    "answers": [
+      "Der Staat hat Recht.",
+      "Es gibt nur rechte Parteien.",
+      "Die Bürgerinnen und Bürger entscheiden über Gesetze.",
+      "Der Staat muss die Gesetze einhalten."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Der Staat muss die Gesetze einhalten.",
+    "correctAnswerInteractive": "Der Staat muss die Gesetze einhalten."
+  },
+  {
+    "id": 54,
+    "local": 54,
+    "state": "general",
+    "question": "Was ist keine staatliche Gewalt in Deutschland?",
+    "answers": [
+      "Legislative",
+      "Judikative",
+      "Exekutive",
+      "Direktive"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Direktive",
+    "correctAnswerInteractive": "Direktive"
+  },
+  {
+    "id": 55,
+    "local": 55,
+    "state": "general",
+    "question": "Was zeigt dieses Bild? © Deutscher Bundestag/Achim Melde",
+    "answers": [
+      "den Bundestagssitz in Berlin",
+      "das Bundesverfassungsgericht in Karlsruhe",
+      "das Bundesratsgebäude in Berlin",
+      "das Bundeskanzleramt in Berlin"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "den Bundestagssitz in Berlin",
+    "correctAnswerInteractive": "den Bundestagssitz in Berlin"
+  },
+  {
+    "id": 56,
+    "local": 56,
+    "state": "general",
+    "question": "Welches Amt gehört in Deutschland zur Gemeindeverwaltung?",
+    "answers": [
+      "Pfarramt",
+      "Ordnungsamt",
+      "Finanzamt",
+      "Auswärtiges Amt"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Ordnungsamt",
+    "correctAnswerInteractive": "Ordnungsamt"
+  },
+  {
+    "id": 57,
+    "local": 57,
+    "state": "general",
+    "question": "Wer wird meistens zur Präsidentin/zum Präsidenten des Deutschen Bundestages gewählt?",
+    "answers": [
+      "die/der älteste Abgeordnete im Parlament",
+      "die Ministerpräsidentin/der Ministerpräsident des größten Bundeslandes",
+      "eine ehemalige Bundeskanzlerin/ein ehemaliger Bundeskanzler",
+      "eine Abgeordnete/ein Abgeordneter der stärksten Fraktion"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "eine Abgeordnete/ein Abgeordneter der stärksten Fraktion",
+    "correctAnswerInteractive": "ein Abgeordneter / eine Abgeordnete der stärksten Fraktion"
+  },
+  {
+    "id": 58,
+    "local": 58,
+    "state": "general",
+    "question": "Wer ernennt in Deutschland die Ministerinnen/die Minister der Bundesregierung?",
+    "answers": [
+      "die Präsidentin/der Präsident des Bundesverfassungsgerichtes",
+      "die Bundespräsidentin/der Bundespräsident",
+      "die Bundesratspräsidentin/der Bundesratspräsident",
+      "die Bundestagspräsidentin/der Bundestagspräsident"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "die Bundespräsidentin/der Bundespräsident",
+    "correctAnswerInteractive": "der Bundespräsident / die Bundespräsidentin"
+  },
+  {
+    "id": 59,
+    "local": 59,
+    "state": "general",
+    "question": "Vor wie vielen Jahren gab es erstmals eine jüdische Gemeinde auf dem Gebiet des heutigen Deutschlands?",
+    "answers": [
+      "vor etwa 300 Jahren",
+      "vor etwa 700 Jahren",
+      "vor etwa 1150 Jahren",
+      "vor etwa 1700 Jahren"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "vor etwa 1700 Jahren",
+    "correctAnswerInteractive": "vor etwa 1700 Jahren"
+  },
+  {
+    "id": 60,
+    "local": 60,
+    "state": "general",
+    "question": "In Deutschland gehören der Bundestag und der Bundesrat zur …",
+    "answers": [
+      "Exekutive.",
+      "Legislative.",
+      "Direktive.",
+      "Judikative."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Legislative.",
+    "correctAnswerInteractive": "Legislative."
+  },
+  {
+    "id": 61,
+    "local": 61,
+    "state": "general",
+    "question": "Was bedeutet \"Volkssouveränität\"?",
+    "answers": [
+      "Die Königin/der König herrscht über das Volk.",
+      "Das Bundesverfassungsgericht steht über der Verfassung.",
+      "Die Interessenverbände üben die Souveränität zusammen mit der Regierung aus.",
+      "Die Staatsgewalt geht vom Volke aus."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Die Staatsgewalt geht vom Volke aus.",
+    "correctAnswerInteractive": "Die Staatsgewalt geht vom Volke aus."
+  },
+  {
+    "id": 62,
+    "local": 62,
+    "state": "general",
+    "question": "Wenn das Parlament eines deutschen Bundeslandes gewählt wird, nennt man das …",
+    "answers": [
+      "Kommunalwahl",
+      "Landtagswahl",
+      "Europawahl",
+      "Bundestagswahl"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Landtagswahl",
+    "correctAnswerInteractive": "Landtagswahl."
+  },
+  {
+    "id": 63,
+    "local": 63,
+    "state": "general",
+    "question": "Was gehört in Deutschland nicht zur Exekutive?",
+    "answers": [
+      "die Polizei",
+      "die Gerichte",
+      "das Finanzamt",
+      "die Ministerien"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "die Gerichte",
+    "correctAnswerInteractive": "die Gerichte"
+  },
+  {
+    "id": 64,
+    "local": 64,
+    "state": "general",
+    "question": "Die Bundesrepublik Deutschland ist heute gegliedert in …",
+    "answers": [
+      "vier Besatzungszonen.",
+      "einen Oststaat und einen Weststaat.",
+      "16 Kantone.",
+      "Bund, Länder und Kommunen."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Bund, Länder und Kommunen.",
+    "correctAnswerInteractive": "Bund, Länder und Kommunen."
+  },
+  {
+    "id": 65,
+    "local": 65,
+    "state": "general",
+    "question": "Es gehört nicht zu den Aufgaben des Deutschen Bundestages, …",
+    "answers": [
+      "Gesetze zu entwerfen.",
+      "die Bundesregierung zu kontrollieren.",
+      "die Bundeskanzlerin/den Bundeskanzler zu wählen.",
+      "das Bundeskabinett zu bilden."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "das Bundeskabinett zu bilden.",
+    "correctAnswerInteractive": "das Bundeskabinett zu bilden."
+  },
+  {
+    "id": 66,
+    "local": 66,
+    "state": "general",
+    "question": "Welche Städte haben die größten jüdischen Gemeinden in Deutschland?",
+    "answers": [
+      "Berlin und München",
+      "Hamburg und Essen",
+      "Nürnberg und Stuttgart",
+      "Worms und Speyer"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Berlin und München",
+    "correctAnswerInteractive": "Berlin und München"
+  },
+  {
+    "id": 67,
+    "local": 67,
+    "state": "general",
+    "question": "Was ist in Deutschland vor allem eine Aufgabe der Bundesländer?",
+    "answers": [
+      "Verteidigungspolitik",
+      "Außenpolitik",
+      "Wirtschaftspolitik",
+      "Schulpolitik"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Schulpolitik",
+    "correctAnswerInteractive": "Schulpolitik"
+  },
+  {
+    "id": 68,
+    "local": 68,
+    "state": "general",
+    "question": "Warum kontrolliert der Staat in Deutschland das Schulwesen?",
+    "answers": [
+      "weil es in Deutschland nur staatliche Schulen gibt",
+      "weil alle Schülerinnen und Schüler einen Schulabschluss haben müssen",
+      "weil es in den Bundesländern verschiedene Schulen gibt",
+      "weil es nach dem Grundgesetz seine Aufgabe ist"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "weil es nach dem Grundgesetz seine Aufgabe ist",
+    "correctAnswerInteractive": "weil es nach dem Grundgesetz seine Aufgabe ist"
+  },
+  {
+    "id": 69,
+    "local": 69,
+    "state": "general",
+    "question": "Die Bundesrepublik Deutschland hat einen dreistufigen Verwaltungsaufbau. Wie heißt die unterste politische Stufe?",
+    "answers": [
+      "Stadträte",
+      "Landräte",
+      "Gemeinden",
+      "Bezirksämter"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Gemeinden",
+    "correctAnswerInteractive": "Gemeinden"
+  },
+  {
+    "id": 70,
+    "local": 70,
+    "state": "general",
+    "question": "Der deutsche Bundespräsident Gustav Heinemann gibt Helmut Schmidt 1974 die Ernennungsurkunde zum deutschen Bundeskanzler. Was gehört zu den Aufgaben der deutschen Bundespräsidentin/des deutschen Bundespräsidenten? © Bundesregierung/Engelbert Reineke",
+    "answers": [
+      "Sie/Er führt die Regierungsgeschäfte.",
+      "Sie/Er kontrolliert die Regierungspartei.",
+      "Sie/Er wählt die Ministerinnen/Minister aus.",
+      "Sie/Er schlägt die Kanzlerin/den Kanzler zur Wahl vor."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Sie/Er schlägt die Kanzlerin/den Kanzler zur Wahl vor.",
+    "correctAnswerInteractive": "Er / Sie schlägt den Kanzler / die Kanzlerin zur Wahl vor."
+  },
+  {
+    "id": 71,
+    "local": 71,
+    "state": "general",
+    "question": "Wo hält sich die deutsche Bundeskanzlerin/der deutsche Bundeskanzler am häufigsten auf? Am häufigsten ist sie/er …",
+    "answers": [
+      "in Bonn, weil sich dort das Bundeskanzleramt und der Bundestag befinden.",
+      "auf Schloss Meseberg, dem Gästehaus der Bundesregierung, um Staatsgäste zu empfangen.",
+      "auf Schloss Bellevue, dem Amtssitz der Bundespräsidentin/des Bundespräsidenten, um Staatsgäste zu empfangen.",
+      "in Berlin, weil sich dort das Bundeskanzleramt und der Bundestag befinden."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "in Berlin, weil sich dort das Bundeskanzleramt und der Bundestag befinden.",
+    "correctAnswerInteractive": "in Berlin, weil sich dort das Bundeskanzleramt und der Bundestag befinden."
+  },
+  {
+    "id": 72,
+    "local": 72,
+    "state": "general",
+    "question": "Wie heißt die jetzige Bundeskanzlerin/der jetzige Bundeskanzler von Deutschland?",
+    "answers": [
+      "Gerhard Schröder",
+      "Angela Merkel",
+      "Ursula von der Leyen",
+      "Friedrich Merz"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Friedrich Merz",
+    "correctAnswerInteractive": "Friedrich Merz"
+  },
+  {
+    "id": 73,
+    "local": 73,
+    "state": "general",
+    "question": "Die beiden größten Fraktionen im Deutschen Bundestag heißen zurzeit …",
+    "answers": [
+      "CDU/CSU und AfD.",
+      "Die Linke und Bündnis 90/Die Grünen.",
+      "Bündnis 90/Die Grünen und SPD.",
+      "Die Linke und CDU/CSU."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "CDU/CSU und AfD.",
+    "correctAnswerInteractive": "CDU/CSU und AfD."
+  },
+  {
+    "id": 74,
+    "local": 74,
+    "state": "general",
+    "question": "Wie heißt das Parlament für ganz Deutschland?",
+    "answers": [
+      "Bundesversammlung",
+      "Volkskammer",
+      "Bundestag",
+      "Bundesgerichtshof"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Bundestag",
+    "correctAnswerInteractive": "Bundestag"
+  },
+  {
+    "id": 75,
+    "local": 75,
+    "state": "general",
+    "question": "Wie heißt Deutschlands heutiges Staatsoberhaupt?",
+    "answers": [
+      "Frank-Walter Steinmeier",
+      "Bärbel Bas",
+      "Bodo Ramelow",
+      "Joachim Gauck"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Frank-Walter Steinmeier",
+    "correctAnswerInteractive": "Frank-Walter Steinmeier"
+  },
+  {
+    "id": 76,
+    "local": 76,
+    "state": "general",
+    "question": "Was bedeutet die Abkürzung CDU in Deutschland?",
+    "answers": [
+      "Christliche Deutsche Union",
+      "Club Deutscher Unternehmer",
+      "Christlicher Deutscher Umweltschutz",
+      "Christlich Demokratische Union"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Christlich Demokratische Union",
+    "correctAnswerInteractive": "Christlich Demokratische Union"
+  },
+  {
+    "id": 77,
+    "local": 77,
+    "state": "general",
+    "question": "Was ist die Bundeswehr?",
+    "answers": [
+      "die deutsche Polizei",
+      "ein deutscher Hafen",
+      "eine deutsche Bürgerinitiative",
+      "die deutsche Armee"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "die deutsche Armee",
+    "correctAnswerInteractive": "die deutsche Armee"
+  },
+  {
+    "id": 78,
+    "local": 78,
+    "state": "general",
+    "question": "Was bedeutet die Abkürzung SPD?",
+    "answers": [
+      "Sozialistische Partei Deutschlands",
+      "Sozialpolitische Partei Deutschlands",
+      "Sozialdemokratische Partei Deutschlands",
+      "Sozialgerechte Partei Deutschlands"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Sozialdemokratische Partei Deutschlands",
+    "correctAnswerInteractive": "Sozialdemokratische Partei Deutschlands"
+  },
+  {
+    "id": 79,
+    "local": 79,
+    "state": "general",
+    "question": "Was bedeutet die Abkürzung FDP in Deutschland?",
+    "answers": [
+      "Friedliche Demonstrative Partei",
+      "Freie Deutschland Partei",
+      "Führende Demokratische Partei",
+      "Freie Demokratische Partei"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Freie Demokratische Partei",
+    "correctAnswerInteractive": "Freie Demokratische Partei"
+  },
+  {
+    "id": 80,
+    "local": 80,
+    "state": "general",
+    "question": "Welches Gericht in Deutschland ist zuständig für die Auslegung des Grundgesetzes?",
+    "answers": [
+      "Oberlandesgericht",
+      "Amtsgericht",
+      "Bundesverfassungsgericht",
+      "Verwaltungsgericht"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Bundesverfassungsgericht",
+    "correctAnswerInteractive": "Bundesverfassungsgericht"
+  },
+  {
+    "id": 81,
+    "local": 81,
+    "state": "general",
+    "question": "Wer wählt die Bundeskanzlerin/den Bundeskanzler in Deutschland?",
+    "answers": [
+      "der Bundesrat",
+      "die Bundesversammlung",
+      "das Volk",
+      "der Bundestag"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "der Bundestag",
+    "correctAnswerInteractive": "der Bundestag"
+  },
+  {
+    "id": 82,
+    "local": 82,
+    "state": "general",
+    "question": "Wer leitet das deutsche Bundeskabinett?",
+    "answers": [
+      "die Bundestagspräsidentin/der Bundestagspräsident",
+      "die Bundespräsidentin/der Bundespräsident",
+      "die Bundesratspräsidentin/der Bundesratspräsident",
+      "die Bundeskanzlerin/der Bundeskanzler"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "die Bundeskanzlerin/der Bundeskanzler",
+    "correctAnswerInteractive": "der Bundeskanzler / die Bundeskanzlerin"
+  },
+  {
+    "id": 83,
+    "local": 83,
+    "state": "general",
+    "question": "Wer wählt die deutsche Bundeskanzlerin/den deutschen Bundeskanzler?",
+    "answers": [
+      "das Volk",
+      "die Bundesversammlung",
+      "der Bundestag",
+      "die Bundesregierung"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "der Bundestag",
+    "correctAnswerInteractive": "der Bundestag"
+  },
+  {
+    "id": 84,
+    "local": 84,
+    "state": "general",
+    "question": "Welche Hauptaufgabe hat die deutsche Bundespräsidentin/der deutsche Bundespräsident? Sie/Er …",
+    "answers": [
+      "regiert das Land.",
+      "entwirft die Gesetze.",
+      "repräsentiert das Land.",
+      "überwacht die Einhaltung der Gesetze."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "repräsentiert das Land.",
+    "correctAnswerInteractive": "repräsentiert das Land."
+  },
+  {
+    "id": 85,
+    "local": 85,
+    "state": "general",
+    "question": "Wer bildet den deutschen Bundesrat?",
+    "answers": [
+      "die Abgeordneten des Bundestages",
+      "die Ministerinnen und Minister der Bundesregierung",
+      "die Regierungsvertreter der Bundesländer",
+      "die Parteimitglieder"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "die Regierungsvertreter der Bundesländer",
+    "correctAnswerInteractive": "die Regierungsvertreter der Bundesländer"
+  },
+  {
+    "id": 86,
+    "local": 86,
+    "state": "general",
+    "question": "Wer wählt in Deutschland die Bundespräsidentin/den Bundespräsidenten?",
+    "answers": [
+      "die Bundesversammlung",
+      "der Bundesrat",
+      "das Bundesparlament",
+      "das Bundesverfassungsgericht"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "die Bundesversammlung",
+    "correctAnswerInteractive": "die Bundesversammlung"
+  },
+  {
+    "id": 87,
+    "local": 87,
+    "state": "general",
+    "question": "Wer ist das Staatsoberhaupt der Bundesrepublik Deutschland?",
+    "answers": [
+      "die Bundeskanzlerin/der Bundeskanzler",
+      "die Bundespräsidentin/der Bundespräsident",
+      "die Bundesratspräsidentin/der Bundesratspräsident",
+      "die Bundestagspräsidentin/der Bundestagspräsident"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "die Bundespräsidentin/der Bundespräsident",
+    "correctAnswerInteractive": "der Bundespräsident / die Bundespräsidentin"
+  },
+  {
+    "id": 88,
+    "local": 88,
+    "state": "general",
+    "question": "Die parlamentarische Opposition im Deutschen Bundestag …",
+    "answers": [
+      "kontrolliert die Regierung.",
+      "entscheidet, wer Bundesministerin/Bundesminister wird.",
+      "bestimmt, wer im Bundesrat sitzt.",
+      "schlägt die Regierungschefinnen/Regierungschefs der Länder vor."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "kontrolliert die Regierung.",
+    "correctAnswerInteractive": "kontrolliert die Regierung."
+  },
+  {
+    "id": 89,
+    "local": 89,
+    "state": "general",
+    "question": "Wie nennt man in Deutschland die Vereinigung von Abgeordneten einer Partei im Parlament?",
+    "answers": [
+      "Verband",
+      "Ältestenrat",
+      "Fraktion",
+      "Opposition"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Fraktion",
+    "correctAnswerInteractive": "Fraktion"
+  },
+  {
+    "id": 90,
+    "local": 90,
+    "state": "general",
+    "question": "Die deutschen Bundesländer wirken an der Gesetzgebung des Bundes mit durch …",
+    "answers": [
+      "den Bundesrat.",
+      "die Bundesversammlung.",
+      "den Bundestag.",
+      "die Bundesregierung."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "den Bundesrat.",
+    "correctAnswerInteractive": "den Bundesrat."
+  },
+  {
+    "id": 91,
+    "local": 91,
+    "state": "general",
+    "question": "In Deutschland kann ein Regierungswechsel in einem Bundesland Auswirkungen auf die Bundespolitik haben. Das Regieren wird …",
+    "answers": [
+      "schwieriger, wenn sich dadurch die Mehrheit im Bundestag ändert.",
+      "leichter, wenn dadurch neue Parteien in den Bundesrat kommen.",
+      "schwieriger, wenn dadurch die Mehrheit im Bundesrat verändert wird.",
+      "leichter, wenn es sich um ein reiches Bundesland handelt."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "schwieriger, wenn dadurch die Mehrheit im Bundesrat verändert wird.",
+    "correctAnswerInteractive": "schwieriger, wenn dadurch die Mehrheit im Bundesrat verändert wird."
+  },
+  {
+    "id": 92,
+    "local": 92,
+    "state": "general",
+    "question": "Was bedeutet die Abkürzung CSU in Deutschland?",
+    "answers": [
+      "Christlich Sichere Union",
+      "Christlich Süddeutsche Union",
+      "Christlich Sozialer Unternehmerverband",
+      "Christlich Soziale Union"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Christlich Soziale Union",
+    "correctAnswerInteractive": "Christlich Soziale Union"
+  },
+  {
+    "id": 93,
+    "local": 93,
+    "state": "general",
+    "question": "Je mehr \"Zweitstimmen\" eine Partei bei einer Bundestagswahl bekommt, desto …",
+    "answers": [
+      "weniger Erststimmen kann sie haben.",
+      "mehr Direktkandidaten der Partei ziehen ins Parlament ein.",
+      "größer ist das Risiko, eine Koalition bilden zu müssen.",
+      "mehr Sitze erhält die Partei im Parlament."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "mehr Sitze erhält die Partei im Parlament.",
+    "correctAnswerInteractive": "mehr Sitze erhält die Partei im Parlament."
+  },
+  {
+    "id": 94,
+    "local": 94,
+    "state": "general",
+    "question": "Ab welchem Alter darf man in Deutschland an der Wahl zum Deutschen Bundestag teilnehmen?",
+    "answers": [
+      "16",
+      "18",
+      "21",
+      "23"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "18",
+    "correctAnswerInteractive": "18"
+  },
+  {
+    "id": 95,
+    "local": 95,
+    "state": "general",
+    "question": "Was gilt für die meisten Kinder in Deutschland?",
+    "answers": [
+      "Wahlpflicht",
+      "Schulpflicht",
+      "Schweigepflicht",
+      "Religionspflicht"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Schulpflicht",
+    "correctAnswerInteractive": "Schulpflicht"
+  },
+  {
+    "id": 96,
+    "local": 96,
+    "state": "general",
+    "question": "Wie kann jemand, der den Holocaust leugnet, bestraft werden?",
+    "answers": [
+      "Kürzung sozialer Leistungen",
+      "bis zu 100 Sozialstunden",
+      "gar nicht, Holocaustleugnung ist erlaubt",
+      "mit Freiheitsstrafe bis zu fünf Jahren oder mit Geldstrafe"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "mit Freiheitsstrafe bis zu fünf Jahren oder mit Geldstrafe",
+    "correctAnswerInteractive": "mit Freiheitsstrafe bis zu fünf Jahren oder mit Geldstrafe"
+  },
+  {
+    "id": 97,
+    "local": 97,
+    "state": "general",
+    "question": "Was bezahlt man in Deutschland automatisch, wenn man fest angestellt ist?",
+    "answers": [
+      "Sozialversicherung",
+      "Sozialhilfe",
+      "Kindergeld",
+      "Wohngeld"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Sozialversicherung",
+    "correctAnswerInteractive": "Sozialversicherung"
+  },
+  {
+    "id": 98,
+    "local": 98,
+    "state": "general",
+    "question": "Wenn Abgeordnete im Deutschen Bundestag ihre Fraktion wechseln, …",
+    "answers": [
+      "dürfen sie nicht mehr an den Sitzungen des Parlaments teilnehmen.",
+      "kann die Regierung ihre Mehrheit verlieren.",
+      "muss die Bundespräsidentin/der Bundespräsident zuvor ihr/sein Einverständnis geben.",
+      "dürfen die Wählerinnen/Wähler dieser Abgeordneten noch einmal wählen."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "kann die Regierung ihre Mehrheit verlieren.",
+    "correctAnswerInteractive": "kann die Regierung ihre Mehrheit verlieren."
+  },
+  {
+    "id": 99,
+    "local": 99,
+    "state": "general",
+    "question": "Wer bezahlt in Deutschland die Sozialversicherungen?",
+    "answers": [
+      "Arbeitgeberinnen/Arbeitgeber und Arbeitnehmerinnen/Arbeitnehmer",
+      "nur Arbeitnehmerinnen/Arbeitnehmer",
+      "alle Staatsangehörigen",
+      "nur Arbeitgeberinnen/Arbeitgeber"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Arbeitgeberinnen/Arbeitgeber und Arbeitnehmerinnen/Arbeitnehmer",
+    "correctAnswerInteractive": "Arbeitgeber / Arbeitgeberinnen und Arbeitnehmer / Arbeitnehmerinnen"
+  },
+  {
+    "id": 100,
+    "local": 100,
+    "state": "general",
+    "question": "Was gehört nicht zur gesetzlichen Sozialversicherung?",
+    "answers": [
+      "die Lebensversicherung",
+      "die gesetzliche Rentenversicherung",
+      "die Arbeitslosenversicherung",
+      "die Pflegeversicherung"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "die Lebensversicherung",
+    "correctAnswerInteractive": "die Lebensversicherung"
+  },
+  {
+    "id": 101,
+    "local": 101,
+    "state": "general",
+    "question": "Gewerkschaften sind Interessenverbände der …",
+    "answers": [
+      "Jugendlichen.",
+      "Arbeitnehmerinnen und Arbeitnehmer.",
+      "Rentnerinnen und Rentner.",
+      "Arbeitgeberinnen und Arbeitgeber."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Arbeitnehmerinnen und Arbeitnehmer.",
+    "correctAnswerInteractive": "Arbeitnehmer und Arbeitnehmerinnen."
+  },
+  {
+    "id": 102,
+    "local": 102,
+    "state": "general",
+    "question": "Womit kann man in der Bundesrepublik Deutschland geehrt werden, wenn man auf politischem, wirtschaftlichem, kulturellem, geistigem oder sozialem Gebiet eine besondere Leistung erbracht hat? Mit dem …",
+    "answers": [
+      "Bundesverdienstkreuz",
+      "Bundesadler",
+      "Vaterländischen Verdienstorden",
+      "Ehrentitel \"Held der Deutschen Demokratischen Republik\""
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Bundesverdienstkreuz",
+    "correctAnswerInteractive": "Bundesverdienstkreuz"
+  },
+  {
+    "id": 103,
+    "local": 103,
+    "state": "general",
+    "question": "Was wird in Deutschland als \"Ampelkoalition\" bezeichnet? Die Zusammenarbeit …",
+    "answers": [
+      "der Bundestagsfraktionen von CDU und CSU",
+      "von SPD, FDP und Bündnis 90/Die Grünen in einer Regierung",
+      "von CSU, Die LINKE und Bündnis 90/Die Grünen in einer Regierung",
+      "der Bundestagsfraktionen von CDU und SPD"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "von SPD, FDP und Bündnis 90/Die Grünen in einer Regierung",
+    "correctAnswerInteractive": "von SPD, FDP und Bündnis 90/Die Grünen in einer Regierung"
+  },
+  {
+    "id": 104,
+    "local": 104,
+    "state": "general",
+    "question": "Eine Frau in Deutschland verliert ihre Arbeit. Was darf nicht der Grund für diese Entlassung sein?",
+    "answers": [
+      "Die Frau ist lange krank und arbeitsunfähig.",
+      "Die Frau kam oft zu spät zur Arbeit.",
+      "Die Frau erledigt private Sachen während der Arbeitszeit.",
+      "Die Frau bekommt ein Kind und ihr Chef weiß das."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Die Frau bekommt ein Kind und ihr Chef weiß das.",
+    "correctAnswerInteractive": "Die Frau bekommt ein Kind und ihr Chef weiß das."
+  },
+  {
+    "id": 105,
+    "local": 105,
+    "state": "general",
+    "question": "Was ist eine Aufgabe von Wahlhelferinnen/Wahlhelfern in Deutschland?",
+    "answers": [
+      "Sie helfen alten Menschen bei der Stimmabgabe in der Wahlkabine.",
+      "Sie schreiben die Wahlbenachrichtigungen vor der Wahl.",
+      "Sie geben Zwischenergebnisse an die Medien weiter.",
+      "Sie zählen die Stimmen nach dem Ende der Wahl."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Sie zählen die Stimmen nach dem Ende der Wahl.",
+    "correctAnswerInteractive": "Sie zählen die Stimmen nach dem Ende der Wahl."
+  },
+  {
+    "id": 106,
+    "local": 106,
+    "state": "general",
+    "question": "In Deutschland helfen ehrenamtliche Wahlhelferinnen und Wahlhelfer bei den Wahlen. Was ist eine Aufgabe von Wahlhelferinnen/Wahlhelfern?",
+    "answers": [
+      "Sie helfen Kindern und alten Menschen beim Wählen.",
+      "Sie schreiben Karten und Briefe mit der Angabe des Wahllokals.",
+      "Sie geben Zwischenergebnisse an Journalisten weiter.",
+      "Sie zählen die Stimmen nach dem Ende der Wahl."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Sie zählen die Stimmen nach dem Ende der Wahl.",
+    "correctAnswerInteractive": "Sie zählen die Stimmen nach dem Ende der Wahl."
+  },
+  {
+    "id": 107,
+    "local": 107,
+    "state": "general",
+    "question": "Für wie viele Jahre wird der Bundestag in Deutschland gewählt?",
+    "answers": [
+      "2 Jahre",
+      "4 Jahre",
+      "6 Jahre",
+      "8 Jahre"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "4 Jahre",
+    "correctAnswerInteractive": "4 Jahre"
+  },
+  {
+    "id": 108,
+    "local": 108,
+    "state": "general",
+    "question": "Bei einer Bundestagswahl in Deutschland darf jede/jeder wählen, die/der …",
+    "answers": [
+      "in der Bundesrepublik Deutschland wohnt und wählen möchte.",
+      "Bürgerin/Bürger der Bundesrepublik Deutschland ist und mindestens 18 Jahre alt ist.",
+      "seit mindestens 3 Jahren in der Bundesrepublik Deutschland lebt.",
+      "Bürgerin/Bürger der Bundesrepublik Deutschland ist und mindestens 21 Jahre alt ist."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Bürgerin/Bürger der Bundesrepublik Deutschland ist und mindestens 18 Jahre alt ist.",
+    "correctAnswerInteractive": "Bürger / Bürgerin der Bundesrepublik Deutschland ist und mindestens 18 Jahre alt ist."
+  },
+  {
+    "id": 109,
+    "local": 109,
+    "state": "general",
+    "question": "Wie oft gibt es normalerweise Bundestagswahlen in Deutschland?",
+    "answers": [
+      "alle drei Jahre",
+      "alle vier Jahre",
+      "alle fünf Jahre",
+      "alle sechs Jahre"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "alle vier Jahre",
+    "correctAnswerInteractive": "alle vier Jahre"
+  },
+  {
+    "id": 110,
+    "local": 110,
+    "state": "general",
+    "question": "Für wie viele Jahre wird der Bundestag in Deutschland gewählt?",
+    "answers": [
+      "2 Jahre",
+      "3 Jahre",
+      "4 Jahre",
+      "5 Jahre"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "4 Jahre",
+    "correctAnswerInteractive": "4 Jahre"
+  },
+  {
+    "id": 111,
+    "local": 111,
+    "state": "general",
+    "question": "Welche Handlungen mit Bezug auf den Staat Israel sind in Deutschland verboten?",
+    "answers": [
+      "die Politik Israels öffentlich kritisieren",
+      "das Aufhängen einer israelischen Flagge auf dem Privatgrundstück",
+      "eine Diskussion über die Politik Israels",
+      "der öffentliche Aufruf zur Vernichtung Israels"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "der öffentliche Aufruf zur Vernichtung Israels",
+    "correctAnswerInteractive": "der öffentliche Aufruf zur Vernichtung Israels"
+  },
+  {
+    "id": 112,
+    "local": 112,
+    "state": "general",
+    "question": "Die Wahlen in Deutschland sind …",
+    "answers": [
+      "speziell.",
+      "geheim.",
+      "berufsbezogen.",
+      "geschlechtsabhängig."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "geheim.",
+    "correctAnswerInteractive": "geheim."
+  },
+  {
+    "id": 113,
+    "local": 113,
+    "state": "general",
+    "question": "Wahlen in Deutschland gewinnt die Partei, die …",
+    "answers": [
+      "die meisten Stimmen bekommt.",
+      "die meisten Männer mehrheitlich gewählt haben.",
+      "die meisten Stimmen bei den Arbeiterinnen/Arbeitern bekommen hat.",
+      "die meisten Erststimmen für ihre Kanzlerkandidatin/ihren Kanzlerkandidaten erhalten hat."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "die meisten Stimmen bekommt.",
+    "correctAnswerInteractive": "die meisten Stimmen bekommt."
+  },
+  {
+    "id": 114,
+    "local": 114,
+    "state": "general",
+    "question": "An demokratischen Wahlen in Deutschland teilzunehmen ist …",
+    "answers": [
+      "eine Pflicht.",
+      "ein Recht.",
+      "ein Zwang.",
+      "eine Last."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "ein Recht.",
+    "correctAnswerInteractive": "ein Recht."
+  },
+  {
+    "id": 115,
+    "local": 115,
+    "state": "general",
+    "question": "Was bedeutet \"aktives Wahlrecht\" in Deutschland?",
+    "answers": [
+      "Man kann gewählt werden.",
+      "Man muss wählen gehen.",
+      "Man kann wählen.",
+      "Man muss zur Auszählung der Stimmen gehen."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Man kann wählen.",
+    "correctAnswerInteractive": "Man kann wählen."
+  },
+  {
+    "id": 116,
+    "local": 116,
+    "state": "general",
+    "question": "Wenn Sie bei einer Bundestagswahl in Deutschland wählen dürfen, heißt das …",
+    "answers": [
+      "aktive Wahlkampagne.",
+      "aktives Wahlverfahren.",
+      "aktiver Wahlkampf.",
+      "aktives Wahlrecht."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "aktives Wahlrecht.",
+    "correctAnswerInteractive": "aktives Wahlrecht."
+  },
+  {
+    "id": 117,
+    "local": 117,
+    "state": "general",
+    "question": "Wie viel Prozent der Zweitstimmen müssen Parteien mindestens bekommen, um in den Deutschen Bundestag gewählt zu werden?",
+    "answers": [
+      "3%",
+      "4%",
+      "5%",
+      "6%"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "5%",
+    "correctAnswerInteractive": "5%"
+  },
+  {
+    "id": 118,
+    "local": 118,
+    "state": "general",
+    "question": "Wer darf bei den rund 40 jüdischen Makkabi-Sportvereinen Mitglied werden?",
+    "answers": [
+      "nur Deutsche",
+      "nur Israelis",
+      "nur religiöse Menschen",
+      "alle Menschen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "alle Menschen",
+    "correctAnswerInteractive": "alle Menschen"
+  },
+  {
+    "id": 119,
+    "local": 119,
+    "state": "general",
+    "question": "Wahlen in Deutschland sind frei. Was bedeutet das?",
+    "answers": [
+      "Alle verurteilten Straftäterinnen/Straftäter dürfen nicht wählen.",
+      "Wenn ich wählen gehen möchte, muss meine Arbeitgeberin/mein Arbeitgeber mir frei geben.",
+      "Jede Person kann ohne Zwang entscheiden, ob sie wählen möchte und wen sie wählen möchte.",
+      "Ich kann frei entscheiden, wo ich wählen gehen möchte."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Jede Person kann ohne Zwang entscheiden, ob sie wählen möchte und wen sie wählen möchte.",
+    "correctAnswerInteractive": "Jede Person kann ohne Zwang entscheiden, ob sie wählen möchte und wen sie wählen möchte."
+  },
+  {
+    "id": 120,
+    "local": 120,
+    "state": "general",
+    "question": "Das Wahlsystem in Deutschland ist ein …",
+    "answers": [
+      "Zensuswahlrecht.",
+      "Dreiklassenwahlrecht.",
+      "Mehrheits- und Verhältniswahlrecht.",
+      "allgemeines Männerwahlrecht."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Mehrheits- und Verhältniswahlrecht.",
+    "correctAnswerInteractive": "Mehrheits- und Verhältniswahlrecht."
+  },
+  {
+    "id": 121,
+    "local": 121,
+    "state": "general",
+    "question": "Eine Partei möchte in den Deutschen Bundestag. Sie muss aber einen Mindestanteil an Wählerstimmen haben. Das heißt …",
+    "answers": [
+      "5%-Hürde.",
+      "Zulassungsgrenze.",
+      "Basiswert.",
+      "Richtlinie."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "5%-Hürde.",
+    "correctAnswerInteractive": "5%-Hürde."
+  },
+  {
+    "id": 122,
+    "local": 122,
+    "state": "general",
+    "question": "Welchem Grundsatz unterliegen Wahlen in Deutschland? Wahlen in Deutschland sind …",
+    "answers": [
+      "frei, gleich, geheim.",
+      "offen, sicher, frei.",
+      "geschlossen, gleich, sicher.",
+      "sicher, offen, freiwillig."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "frei, gleich, geheim.",
+    "correctAnswerInteractive": "frei, gleich, geheim."
+  },
+  {
+    "id": 123,
+    "local": 123,
+    "state": "general",
+    "question": "Was ist in Deutschland die \"5%-Hürde\"?",
+    "answers": [
+      "Abstimmungsregelung im Bundestag für kleine Parteien",
+      "Anwesenheitskontrolle im Bundestag für Abstimmungen",
+      "Mindestanteil an Wählerstimmen, um ins Parlament zu kommen",
+      "Anwesenheitskontrolle im Bundesrat für Abstimmungen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Mindestanteil an Wählerstimmen, um ins Parlament zu kommen",
+    "correctAnswerInteractive": "Mindestanteil an Wählerstimmen, um ins Parlament zu kommen"
+  },
+  {
+    "id": 124,
+    "local": 124,
+    "state": "general",
+    "question": "Die Bundestagswahl in Deutschland ist die Wahl …",
+    "answers": [
+      "der Bundeskanzlerin/des Bundeskanzlers.",
+      "der Parlamente der Länder.",
+      "des Parlaments für Deutschland.",
+      "der Bundespräsidentin/des Bundespräsidenten."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "des Parlaments für Deutschland.",
+    "correctAnswerInteractive": "des Parlaments für Deutschland."
+  },
+  {
+    "id": 125,
+    "local": 125,
+    "state": "general",
+    "question": "In einer Demokratie ist eine Funktion von regelmäßigen Wahlen, …",
+    "answers": [
+      "die Bürgerinnen und Bürger zu zwingen, ihre Stimme abzugeben.",
+      "nach dem Willen der Wählermehrheit den Wechsel der Regierung zu ermöglichen.",
+      "im Land bestehende Gesetze beizubehalten.",
+      "den Armen mehr Macht zu geben."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "nach dem Willen der Wählermehrheit den Wechsel der Regierung zu ermöglichen.",
+    "correctAnswerInteractive": "nach dem Willen der Wählermehrheit den Wechsel der Regierung zu ermöglichen."
+  },
+  {
+    "id": 126,
+    "local": 126,
+    "state": "general",
+    "question": "Was bekommen wahlberechtigte Bürgerinnen und Bürger in Deutschland vor einer Wahl?",
+    "answers": [
+      "eine Wahlbenachrichtigung von der Gemeinde",
+      "eine Wahlerlaubnis von der Bundespräsidentin/von dem Bundespräsidenten",
+      "eine Benachrichtigung von der Bundesversammlung",
+      "eine Benachrichtigung vom Pfarramt"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "eine Wahlbenachrichtigung von der Gemeinde",
+    "correctAnswerInteractive": "eine Wahlbenachrichtigung von der Gemeinde"
+  },
+  {
+    "id": 127,
+    "local": 127,
+    "state": "general",
+    "question": "Warum gibt es die 5%-Hürde im Wahlgesetz der Bundesrepublik Deutschland? Es gibt sie, weil …",
+    "answers": [
+      "die Programme von vielen kleinen Parteien viele Gemeinsamkeiten haben.",
+      "die Bürgerinnen und Bürger bei vielen kleinen Parteien die Orientierung verlieren können.",
+      "viele kleine Parteien die Regierungsbildung erschweren.",
+      "die kleinen Parteien nicht so viel Geld haben, um die Politikerinnen und Politiker zu bezahlen."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "viele kleine Parteien die Regierungsbildung erschweren.",
+    "correctAnswerInteractive": "viele kleine Parteien die Regierungsbildung erschweren."
+  },
+  {
+    "id": 128,
+    "local": 128,
+    "state": "general",
+    "question": "Parlamentsmitglieder, die von den Bürgerinnen und Bürgern gewählt werden, nennt man …",
+    "answers": [
+      "Abgeordnete.",
+      "Kanzlerinnen/Kanzler.",
+      "Botschafterinnen/Botschafter.",
+      "Ministerpräsidentinnen/Ministerpräsidenten."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Abgeordnete.",
+    "correctAnswerInteractive": "Abgeordnete."
+  },
+  {
+    "id": 129,
+    "local": 129,
+    "state": "general",
+    "question": "Vom Volk gewählt wird in Deutschland …",
+    "answers": [
+      "die Bundeskanzlerin/der Bundeskanzler.",
+      "die Ministerpräsidentin/der Ministerpräsident eines Bundeslandes.",
+      "der Bundestag.",
+      "die Bundespräsidentin/der Bundespräsident."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "der Bundestag.",
+    "correctAnswerInteractive": "der Bundestag."
+  },
+  {
+    "id": 130,
+    "local": 130,
+    "state": "general",
+    "question": "Welcher Stimmzettel wäre bei einer Bundestagswahl gültig? In Anlehnung an Bundeswahlordnung (BWO), Anlage 26",
+    "answers": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "1",
+    "correctAnswerInteractive": "1"
+  },
+  {
+    "id": 131,
+    "local": 131,
+    "state": "general",
+    "question": "In Deutschland ist eine Bürgermeisterin/ein Bürgermeister …",
+    "answers": [
+      "die Leiterin/der Leiter einer Schule.",
+      "die Chefin/der Chef einer Bank.",
+      "das Oberhaupt einer Gemeinde.",
+      "die/der Vorsitzende einer Partei."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "das Oberhaupt einer Gemeinde.",
+    "correctAnswerInteractive": "das Oberhaupt einer Gemeinde."
+  },
+  {
+    "id": 132,
+    "local": 132,
+    "state": "general",
+    "question": "Viele Menschen in Deutschland arbeiten in ihrer Freizeit ehrenamtlich. Was bedeutet das?",
+    "answers": [
+      "Sie arbeiten als Soldatinnen/Soldaten.",
+      "Sie arbeiten freiwillig und unbezahlt in Vereinen und Verbänden.",
+      "Sie arbeiten in der Bundesregierung.",
+      "Sie arbeiten in einem Krankenhaus und verdienen dabei Geld."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Sie arbeiten freiwillig und unbezahlt in Vereinen und Verbänden.",
+    "correctAnswerInteractive": "Sie arbeiten freiwillig und unbezahlt in Vereinen und Verbänden."
+  },
+  {
+    "id": 133,
+    "local": 133,
+    "state": "general",
+    "question": "Was ist bei Bundestags- und Landtagswahlen in Deutschland erlaubt?",
+    "answers": [
+      "Der Ehemann wählt für seine Frau mit.",
+      "Man kann durch Briefwahl seine Stimme abgeben.",
+      "Man kann am Wahltag telefonisch seine Stimme abgeben.",
+      "Kinder ab dem Alter von 14 Jahren dürfen wählen."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Man kann durch Briefwahl seine Stimme abgeben.",
+    "correctAnswerInteractive": "Man kann durch Briefwahl seine Stimme abgeben."
+  },
+  {
+    "id": 134,
+    "local": 134,
+    "state": "general",
+    "question": "Man will die Buslinie abschaffen, mit der Sie immer zur Arbeit fahren. Was können Sie machen, um die Buslinie zu erhalten?",
+    "answers": [
+      "Ich beteilige mich an einer Bürgerinitiative für die Erhaltung der Buslinie oder gründe selber eine Initiative.",
+      "Ich werde Mitglied in einem Sportverein und trainiere Radfahren.",
+      "Ich wende mich an das Finanzamt, weil ich als Steuerzahlerin/Steuerzahler ein Recht auf die Buslinie habe.",
+      "Ich schreibe einen Brief an das Forstamt der Gemeinde."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Ich beteilige mich an einer Bürgerinitiative für die Erhaltung der Buslinie oder gründe selber eine Initiative.",
+    "correctAnswerInteractive": "Ich beteilige mich an einer Bürgerinitiative für die Erhaltung der Buslinie oder gründe selber eine Initiative."
+  },
+  {
+    "id": 135,
+    "local": 135,
+    "state": "general",
+    "question": "Wen vertreten die Gewerkschaften in Deutschland?",
+    "answers": [
+      "große Unternehmen",
+      "kleine Unternehmen",
+      "Selbstständige",
+      "Arbeitnehmerinnen und Arbeitnehmer"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Arbeitnehmerinnen und Arbeitnehmer",
+    "correctAnswerInteractive": "Arbeitnehmer und Arbeitnehmerinnen"
+  },
+  {
+    "id": 136,
+    "local": 136,
+    "state": "general",
+    "question": "Sie gehen in Deutschland zum Arbeitsgericht bei …",
+    "answers": [
+      "falscher Nebenkostenabrechnung.",
+      "ungerechtfertigter Kündigung durch Ihre Chefin/Ihren Chef.",
+      "Problemen mit den Nachbarinnen/Nachbarn.",
+      "Schwierigkeiten nach einem Verkehrsunfall."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "ungerechtfertigter Kündigung durch Ihre Chefin/Ihren Chef.",
+    "correctAnswerInteractive": "ungerechtfertigter Kündigung durch Ihren Chef / Ihre Chefin."
+  },
+  {
+    "id": 137,
+    "local": 137,
+    "state": "general",
+    "question": "Welches Gericht ist in Deutschland bei Konflikten in der Arbeitswelt zuständig?",
+    "answers": [
+      "das Familiengericht",
+      "das Strafgericht",
+      "das Arbeitsgericht",
+      "das Amtsgericht"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "das Arbeitsgericht",
+    "correctAnswerInteractive": "das Arbeitsgericht"
+  },
+  {
+    "id": 138,
+    "local": 138,
+    "state": "general",
+    "question": "Was kann ich in Deutschland machen, wenn mir meine Arbeitgeberin/mein Arbeitgeber zu Unrecht gekündigt hat?",
+    "answers": [
+      "weiterarbeiten und freundlich zur Chefin/zum Chef sein",
+      "ein Mahnverfahren gegen die Arbeitgeberin/den Arbeitgeber führen",
+      "Kündigungsschutzklage erheben",
+      "die Arbeitgeberin/den Arbeitgeber bei der Polizei anzeigen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Kündigungsschutzklage erheben",
+    "correctAnswerInteractive": "Kündigungsschutzklage erheben"
+  },
+  {
+    "id": 139,
+    "local": 139,
+    "state": "general",
+    "question": "Wann kommt es in Deutschland zu einem Prozess vor Gericht? Wenn jemand …",
+    "answers": [
+      "zu einer anderen Religion übertritt.",
+      "eine Straftat begangen hat und angeklagt wird.",
+      "eine andere Meinung als die der Regierung vertritt.",
+      "sein Auto falsch geparkt hat und es abgeschleppt wird."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "eine Straftat begangen hat und angeklagt wird.",
+    "correctAnswerInteractive": "eine Straftat begangen hat und angeklagt wird."
+  },
+  {
+    "id": 140,
+    "local": 140,
+    "state": "general",
+    "question": "Was macht eine Schöffin/ein Schöffe in Deutschland? Sie/Er …",
+    "answers": [
+      "entscheidet mit Richterinnen/Richtern über Schuld und Strafe.",
+      "gibt Bürgerinnen/Bürgern rechtlichen Rat.",
+      "stellt Urkunden aus.",
+      "verteidigt die Angeklagte/den Angeklagten."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "entscheidet mit Richterinnen/Richtern über Schuld und Strafe.",
+    "correctAnswerInteractive": "entscheidet mit Richtern / Richterinnen über Schuld und Strafe."
+  },
+  {
+    "id": 141,
+    "local": 141,
+    "state": "general",
+    "question": "Wer berät in Deutschland Personen bei Rechtsfragen und vertritt sie vor Gericht?",
+    "answers": [
+      "eine Rechtsanwältin/ein Rechtsanwalt",
+      "eine Richterin/ein Richter",
+      "eine Schöffin/ein Schöffe",
+      "eine Staatsanwältin/ein Staatsanwalt"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "eine Rechtsanwältin/ein Rechtsanwalt",
+    "correctAnswerInteractive": "ein Rechtsanwalt / eine Rechtsanwältin"
+  },
+  {
+    "id": 142,
+    "local": 142,
+    "state": "general",
+    "question": "Was ist die Hauptaufgabe einer Richterin/eines Richters in Deutschland? Eine Richterin/ein Richter …",
+    "answers": [
+      "vertritt Bürgerinnen und Bürger vor einem Gericht.",
+      "arbeitet an einem Gericht und spricht Urteile.",
+      "ändert Gesetze.",
+      "betreut Jugendliche vor Gericht."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "arbeitet an einem Gericht und spricht Urteile.",
+    "correctAnswerInteractive": "arbeitet an einem Gericht und spricht Urteile."
+  },
+  {
+    "id": 143,
+    "local": 143,
+    "state": "general",
+    "question": "Eine Richterin/ein Richter in Deutschland gehört zur …",
+    "answers": [
+      "Judikative.",
+      "Exekutive.",
+      "Operative.",
+      "Legislative."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Judikative.",
+    "correctAnswerInteractive": "Judikative."
+  },
+  {
+    "id": 144,
+    "local": 144,
+    "state": "general",
+    "question": "Eine Richterin/ein Richter gehört in Deutschland zur …",
+    "answers": [
+      "vollziehenden Gewalt.",
+      "rechtsprechenden Gewalt.",
+      "planenden Gewalt.",
+      "gesetzgebenden Gewalt."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "rechtsprechenden Gewalt.",
+    "correctAnswerInteractive": "rechtsprechenden Gewalt."
+  },
+  {
+    "id": 145,
+    "local": 145,
+    "state": "general",
+    "question": "In Deutschland wird die Staatsgewalt geteilt. Für welche Staatsgewalt arbeitet eine Richterin/ein Richter? Für die …",
+    "answers": [
+      "Judikative",
+      "Exekutive",
+      "Presse",
+      "Legislative"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Judikative",
+    "correctAnswerInteractive": "Judikative"
+  },
+  {
+    "id": 146,
+    "local": 146,
+    "state": "general",
+    "question": "Wie nennt man in Deutschland ein Verfahren vor einem Gericht?",
+    "answers": [
+      "Programm",
+      "Prozedur",
+      "Protokoll",
+      "Prozess"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Prozess",
+    "correctAnswerInteractive": "Prozess"
+  },
+  {
+    "id": 147,
+    "local": 147,
+    "state": "general",
+    "question": "Was ist die Arbeit einer Richterin/eines Richters in Deutschland?",
+    "answers": [
+      "Deutschland regieren",
+      "Recht sprechen",
+      "Pläne erstellen",
+      "Gesetze erlassen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Recht sprechen",
+    "correctAnswerInteractive": "Recht sprechen"
+  },
+  {
+    "id": 148,
+    "local": 148,
+    "state": "general",
+    "question": "Was ist eine Aufgabe der Polizei in Deutschland?",
+    "answers": [
+      "das Land zu verteidigen",
+      "die Bürgerinnen und Bürger abzuhören",
+      "die Gesetze zu beschließen",
+      "die Einhaltung von Gesetzen zu überwachen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "die Einhaltung von Gesetzen zu überwachen",
+    "correctAnswerInteractive": "die Einhaltung von Gesetzen zu überwachen"
+  },
+  {
+    "id": 149,
+    "local": 149,
+    "state": "general",
+    "question": "Was ist ein Beispiel für antisemitisches Verhalten?",
+    "answers": [
+      "ein jüdisches Fest besuchen",
+      "die israelische Regierung kritisieren",
+      "den Holocaust leugnen",
+      "gegen Juden Fußball spielen."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "den Holocaust leugnen",
+    "correctAnswerInteractive": "den Holocaust leugnen"
+  },
+  {
+    "id": 150,
+    "local": 150,
+    "state": "general",
+    "question": "Eine Gerichtsschöffin/ein Gerichtsschöffe in Deutschland ist …",
+    "answers": [
+      "die Stellvertreterin/der Stellvertreter des Stadtoberhaupts.",
+      "eine ehrenamtliche Richterin/ein ehrenamtlicher Richter.",
+      "ein Mitglied eines Gemeinderats.",
+      "eine Person, die Jura studiert hat."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "eine ehrenamtliche Richterin/ein ehrenamtlicher Richter.",
+    "correctAnswerInteractive": "ein ehrenamtlicher Richter / eine ehrenamtliche Richterin."
+  },
+  {
+    "id": 151,
+    "local": 151,
+    "state": "general",
+    "question": "Wer baute die Mauer in Berlin?",
+    "answers": [
+      "Großbritannien",
+      "die DDR",
+      "die Bundesrepublik Deutschland",
+      "die USA"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "die DDR",
+    "correctAnswerInteractive": "die DDR"
+  },
+  {
+    "id": 152,
+    "local": 152,
+    "state": "general",
+    "question": "Wann waren die Nationalsozialisten mit Adolf Hitler in Deutschland an der Macht?",
+    "answers": [
+      "1918 bis 1923",
+      "1932 bis 1950",
+      "1933 bis 1945",
+      "1945 bis 1989"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "1933 bis 1945",
+    "correctAnswerInteractive": "1933 bis 1945"
+  },
+  {
+    "id": 153,
+    "local": 153,
+    "state": "general",
+    "question": "Was war am 8. Mai 1945?",
+    "answers": [
+      "Tod Adolf Hitlers",
+      "Beginn des Berliner Mauerbaus",
+      "Wahl von Konrad Adenauer zum Bundeskanzler",
+      "Ende des Zweiten Weltkriegs in Europa"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Ende des Zweiten Weltkriegs in Europa",
+    "correctAnswerInteractive": "Ende des Zweiten Weltkriegs in Europa"
+  },
+  {
+    "id": 154,
+    "local": 154,
+    "state": "general",
+    "question": "Wann war der Zweite Weltkrieg zu Ende?",
+    "answers": [
+      "1933",
+      "1945",
+      "1949",
+      "1961"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "1945",
+    "correctAnswerInteractive": "1945"
+  },
+  {
+    "id": 155,
+    "local": 155,
+    "state": "general",
+    "question": "Wann waren die Nationalsozialisten in Deutschland an der Macht?",
+    "answers": [
+      "1888 bis 1918",
+      "1921 bis 1934",
+      "1933 bis 1945",
+      "1949 bis 1963"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "1933 bis 1945",
+    "correctAnswerInteractive": "1933 bis 1945"
+  },
+  {
+    "id": 156,
+    "local": 156,
+    "state": "general",
+    "question": "In welchem Jahr wurde Hitler Reichskanzler?",
+    "answers": [
+      "1923",
+      "1927",
+      "1933",
+      "1936"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "1933",
+    "correctAnswerInteractive": "1933"
+  },
+  {
+    "id": 157,
+    "local": 157,
+    "state": "general",
+    "question": "Die Nationalsozialisten mit Adolf Hitler errichteten 1933 in Deutschland …",
+    "answers": [
+      "eine Diktatur.",
+      "einen demokratischen Staat.",
+      "eine Monarchie.",
+      "ein Fürstentum."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "eine Diktatur.",
+    "correctAnswerInteractive": "eine Diktatur."
+  },
+  {
+    "id": 158,
+    "local": 158,
+    "state": "general",
+    "question": "Das \"Dritte Reich\" war eine …",
+    "answers": [
+      "Diktatur.",
+      "Demokratie.",
+      "Monarchie.",
+      "Räterepublik."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Diktatur.",
+    "correctAnswerInteractive": "Diktatur."
+  },
+  {
+    "id": 159,
+    "local": 159,
+    "state": "general",
+    "question": "Was gab es in Deutschland nicht während der Zeit des Nationalsozialismus?",
+    "answers": [
+      "freie Wahlen",
+      "Pressezensur",
+      "willkürliche Verhaftungen",
+      "Verfolgung von Juden"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "freie Wahlen",
+    "correctAnswerInteractive": "freie Wahlen"
+  },
+  {
+    "id": 160,
+    "local": 160,
+    "state": "general",
+    "question": "Welcher Krieg dauerte von 1939 bis 1945?",
+    "answers": [
+      "der Erste Weltkrieg",
+      "der Zweite Weltkrieg",
+      "der Vietnamkrieg",
+      "der Golfkrieg"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "der Zweite Weltkrieg",
+    "correctAnswerInteractive": "der Zweite Weltkrieg"
+  },
+  {
+    "id": 161,
+    "local": 161,
+    "state": "general",
+    "question": "Was kennzeichnete den NS-Staat? Eine Politik …",
+    "answers": [
+      "des staatlichen Rassismus",
+      "der Meinungsfreiheit",
+      "der allgemeinen Religionsfreiheit",
+      "der Entwicklung der Demokratie"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "des staatlichen Rassismus",
+    "correctAnswerInteractive": "des staatlichen Rassismus"
+  },
+  {
+    "id": 162,
+    "local": 162,
+    "state": "general",
+    "question": "Claus Schenk Graf von Stauffenberg wurde bekannt durch …",
+    "answers": [
+      "eine Goldmedaille bei den Olympischen Spielen 1936.",
+      "den Bau des Reichstagsgebäudes.",
+      "den Aufbau der Wehrmacht.",
+      "das Attentat auf Hitler am 20. Juli 1944."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "das Attentat auf Hitler am 20. Juli 1944.",
+    "correctAnswerInteractive": "das Attentat auf Hitler am 20. Juli 1944."
+  },
+  {
+    "id": 163,
+    "local": 163,
+    "state": "general",
+    "question": "In welchem Jahr zerstörten die Nationalsozialisten Synagogen und jüdische Geschäfte in Deutschland?",
+    "answers": [
+      "1925",
+      "1930",
+      "1938",
+      "1945"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "1938",
+    "correctAnswerInteractive": "1938"
+  },
+  {
+    "id": 164,
+    "local": 164,
+    "state": "general",
+    "question": "Was passierte am 9. November 1938 in Deutschland?",
+    "answers": [
+      "Mit dem Angriff auf Polen beginnt der Zweite Weltkrieg.",
+      "Die Nationalsozialisten verlieren eine Wahl und lösen den Reichstag auf.",
+      "Jüdische Geschäfte und Synagogen werden durch Nationalsozialisten und ihre Anhänger zerstört.",
+      "Hitler wird Reichspräsident und lässt alle Parteien verbieten."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Jüdische Geschäfte und Synagogen werden durch Nationalsozialisten und ihre Anhänger zerstört.",
+    "correctAnswerInteractive": "Jüdische Geschäfte und Synagogen werden durch Nationalsozialisten und ihre Anhänger zerstört."
+  },
+  {
+    "id": 165,
+    "local": 165,
+    "state": "general",
+    "question": "Wie hieß der erste Bundeskanzler der Bundesrepublik Deutschland?",
+    "answers": [
+      "Konrad Adenauer",
+      "Kurt Georg Kiesinger",
+      "Helmut Schmidt",
+      "Willy Brandt"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Konrad Adenauer",
+    "correctAnswerInteractive": "Konrad Adenauer"
+  },
+  {
+    "id": 166,
+    "local": 166,
+    "state": "general",
+    "question": "Bei welchen Demonstrationen in Deutschland riefen die Menschen \"Wir sind das Volk\"?",
+    "answers": [
+      "beim Arbeiteraufstand 1953 in der DDR",
+      "bei den Demonstrationen 1968 in der Bundesrepublik Deutschland",
+      "bei den Anti-Atomkraft-Demonstrationen 1985 in der Bundesrepublik Deutschland",
+      "bei den Montagsdemonstrationen 1989 in der DDR"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "bei den Montagsdemonstrationen 1989 in der DDR",
+    "correctAnswerInteractive": "bei den Montagsdemonstrationen 1989 in der DDR"
+  },
+  {
+    "id": 167,
+    "local": 167,
+    "state": "general",
+    "question": "Welche Länder wurden nach dem Zweiten Weltkrieg in Deutschland als \"Alliierte Besatzungsmächte\" bezeichnet?",
+    "answers": [
+      "Sowjetunion, Großbritannien, Polen, Schweden",
+      "Frankreich, Sowjetunion, Italien, Japan",
+      "USA, Sowjetunion, Spanien, Portugal",
+      "USA, Sowjetunion, Großbritannien, Frankreich"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "USA, Sowjetunion, Großbritannien, Frankreich",
+    "correctAnswerInteractive": "USA, Sowjetunion, Großbritannien, Frankreich"
+  },
+  {
+    "id": 168,
+    "local": 168,
+    "state": "general",
+    "question": "Welches Land war keine \"Alliierte Besatzungsmacht\" in Deutschland?",
+    "answers": [
+      "USA",
+      "Sowjetunion",
+      "Frankreich",
+      "Japan"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Japan",
+    "correctAnswerInteractive": "Japan"
+  },
+  {
+    "id": 169,
+    "local": 169,
+    "state": "general",
+    "question": "Wann wurde die Bundesrepublik Deutschland gegründet?",
+    "answers": [
+      "1939",
+      "1945",
+      "1949",
+      "1951"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "1949",
+    "correctAnswerInteractive": "1949"
+  },
+  {
+    "id": 170,
+    "local": 170,
+    "state": "general",
+    "question": "Was gab es während der Zeit des Nationalsozialismus in Deutschland?",
+    "answers": [
+      "das Verbot von Parteien",
+      "das Recht zur freien Entfaltung der Persönlichkeit",
+      "Pressefreiheit",
+      "den Schutz der Menschenwürde"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "das Verbot von Parteien",
+    "correctAnswerInteractive": "das Verbot von Parteien"
+  },
+  {
+    "id": 171,
+    "local": 171,
+    "state": "general",
+    "question": "Soziale Marktwirtschaft bedeutet, die Wirtschaft …",
+    "answers": [
+      "steuert sich allein nach Angebot und Nachfrage.",
+      "wird vom Staat geplant und gesteuert, Angebot und Nachfrage werden nicht berücksichtigt.",
+      "richtet sich nach der Nachfrage im Ausland.",
+      "richtet sich nach Angebot und Nachfrage, aber der Staat sorgt für einen sozialen Ausgleich."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "richtet sich nach Angebot und Nachfrage, aber der Staat sorgt für einen sozialen Ausgleich.",
+    "correctAnswerInteractive": "richtet sich nach Angebot und Nachfrage, aber der Staat sorgt für einen sozialen Ausgleich."
+  },
+  {
+    "id": 172,
+    "local": 172,
+    "state": "general",
+    "question": "In welcher Besatzungszone wurde die DDR gegründet? In der …",
+    "answers": [
+      "amerikanischen Besatzungszone",
+      "französischen Besatzungszone",
+      "britischen Besatzungszone",
+      "sowjetischen Besatzungszone"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "sowjetischen Besatzungszone",
+    "correctAnswerInteractive": "sowjetischen Besatzungszone"
+  },
+  {
+    "id": 173,
+    "local": 173,
+    "state": "general",
+    "question": "Die Bundesrepublik Deutschland ist ein Gründungsmitglied …",
+    "answers": [
+      "des Nordatlantikpakts (NATO).",
+      "der Vereinten Nationen (VN).",
+      "der Europäischen Union (EU).",
+      "des Warschauer Pakts."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "der Europäischen Union (EU).",
+    "correctAnswerInteractive": "der Europäischen Union (EU)."
+  },
+  {
+    "id": 174,
+    "local": 174,
+    "state": "general",
+    "question": "Wann wurde die DDR gegründet?",
+    "answers": [
+      "1947",
+      "1949",
+      "1953",
+      "1956"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "1949",
+    "correctAnswerInteractive": "1949"
+  },
+  {
+    "id": 175,
+    "local": 175,
+    "state": "general",
+    "question": "Wie viele Besatzungszonen gab es in Deutschland nach dem Zweiten Weltkrieg?",
+    "answers": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "4",
+    "correctAnswerInteractive": "4"
+  },
+  {
+    "id": 176,
+    "local": 176,
+    "state": "general",
+    "question": "Wie waren die Besatzungszonen Deutschlands nach 1945 verteilt?",
+    "answers": [
+      "1=Großbritannien, 2=Sowjetunion, 3=Frankreich, 4=USA",
+      "1=Sowjetunion, 2=Großbritannien, 3=USA, 4=Frankreich",
+      "1=Großbritannien, 2=Sowjetunion, 3=USA, 4=Frankreich",
+      "1=Großbritannien, 2=USA, 3=Sowjetunion, 4=Frankreich"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "1=Großbritannien, 2=Sowjetunion, 3=USA, 4=Frankreich",
+    "correctAnswerInteractive": "1=Großbritannien, 2=Sowjetunion, 3=USA, 4=Frankreich"
+  },
+  {
+    "id": 177,
+    "local": 177,
+    "state": "general",
+    "question": "Welche deutsche Stadt wurde nach dem Zweiten Weltkrieg in vier Sektoren aufgeteilt?",
+    "answers": [
+      "München",
+      "Berlin",
+      "Dresden",
+      "Frankfurt/Oder"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Berlin",
+    "correctAnswerInteractive": "Berlin"
+  },
+  {
+    "id": 178,
+    "local": 178,
+    "state": "general",
+    "question": "Vom Juni 1948 bis zum Mai 1949 wurden die Bürgerinnen und Bürger von West-Berlin durch eine Luftbrücke versorgt. Welcher Umstand war dafür verantwortlich?",
+    "answers": [
+      "Für Frankreich war eine Versorgung der West-Berliner Bevölkerung mit dem Flugzeug kostengünstiger.",
+      "Die amerikanischen Soldatinnen und Soldaten hatten beim Landtransport Angst vor Überfällen.",
+      "Für Großbritannien war die Versorgung über die Luftbrücke schneller.",
+      "Die Sowjetunion unterbrach den gesamten Verkehr auf dem Landwege."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Die Sowjetunion unterbrach den gesamten Verkehr auf dem Landwege.",
+    "correctAnswerInteractive": "Die Sowjetunion unterbrach den gesamten Verkehr auf dem Landwege."
+  },
+  {
+    "id": 179,
+    "local": 179,
+    "state": "general",
+    "question": "Wie endete der Zweite Weltkrieg in Europa offiziell?",
+    "answers": [
+      "mit dem Tod Adolf Hitlers",
+      "durch die bedingungslose Kapitulation Deutschlands",
+      "mit dem Rückzug der Deutschen aus den besetzten Gebieten",
+      "durch eine Revolution in Deutschland"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "durch die bedingungslose Kapitulation Deutschlands",
+    "correctAnswerInteractive": "durch die bedingungslose Kapitulation Deutschlands"
+  },
+  {
+    "id": 180,
+    "local": 180,
+    "state": "general",
+    "question": "Der erste Bundeskanzler der Bundesrepublik Deutschland war …",
+    "answers": [
+      "Ludwig Erhard.",
+      "Willy Brandt.",
+      "Konrad Adenauer.",
+      "Gerhard Schröder."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Konrad Adenauer.",
+    "correctAnswerInteractive": "Konrad Adenauer."
+  },
+  {
+    "id": 181,
+    "local": 181,
+    "state": "general",
+    "question": "Was wollte Willy Brandt mit seinem Kniefall 1970 im ehemaligen jüdischen Ghetto in Warschau ausdrücken? © Bundesregierung/Engelbert Reineke",
+    "answers": [
+      "Er hat sich den ehemaligen Alliierten unterworfen.",
+      "Er bat Polen und die polnischen Juden um Vergebung.",
+      "Er zeigte seine Demut vor dem Warschauer Pakt.",
+      "Er sprach ein Gebet am Grab des Unbekannten Soldaten."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Er bat Polen und die polnischen Juden um Vergebung.",
+    "correctAnswerInteractive": "Er bat Polen und die polnischen Juden um Vergebung."
+  },
+  {
+    "id": 182,
+    "local": 182,
+    "state": "general",
+    "question": "Wie heißt das jüdische Gebetshaus?",
+    "answers": [
+      "Basilika",
+      "Moschee",
+      "Synagoge",
+      "Kirche"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Synagoge",
+    "correctAnswerInteractive": "Synagoge"
+  },
+  {
+    "id": 183,
+    "local": 183,
+    "state": "general",
+    "question": "Wann war in der Bundesrepublik Deutschland das \"Wirtschaftswunder\"?",
+    "answers": [
+      "40er Jahre",
+      "50er Jahre",
+      "70er Jahre",
+      "80er Jahre"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "50er Jahre",
+    "correctAnswerInteractive": "50er Jahre"
+  },
+  {
+    "id": 184,
+    "local": 184,
+    "state": "general",
+    "question": "184. Auf welcher rechtlichen Grundlage wurde der Staat Israel gegründet?",
+    "answers": [
+      "eine Resolution der Vereinten Nationen",
+      "ein Beschluss des Zionistenkongresses",
+      "ein Vorschlag der Bundesregierung",
+      "ein Vorschlag der UdSSR"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "eine Resolution der Vereinten Nationen",
+    "correctAnswerInteractive": "eine Resolution der Vereinten Nationen"
+  },
+  {
+    "id": 185,
+    "local": 185,
+    "state": "general",
+    "question": "Wofür stand der Ausdruck \"Eiserner Vorhang\"? Für die Abschottung …",
+    "answers": [
+      "des Warschauer Pakts gegen den Westen",
+      "Norddeutschlands gegen Süddeutschland",
+      "Nazi-Deutschlands gegen die Alliierten",
+      "Europas gegen die USA"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "des Warschauer Pakts gegen den Westen",
+    "correctAnswerInteractive": "des Warschauer Pakts gegen den Westen"
+  },
+  {
+    "id": 186,
+    "local": 186,
+    "state": "general",
+    "question": "Im Jahr 1953 gab es in der DDR einen Aufstand, an den lange Zeit in der Bundesrepublik Deutschland ein Feiertag erinnerte. Wann war das?",
+    "answers": [
+      "1. Mai",
+      "17. Juni",
+      "20. Juli",
+      "9. November"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "17. Juni",
+    "correctAnswerInteractive": "17. Juni"
+  },
+  {
+    "id": 187,
+    "local": 187,
+    "state": "general",
+    "question": "Welcher deutsche Staat hatte eine schwarz-rot-goldene Flagge mit Hammer, Zirkel und Ährenkranz?",
+    "answers": [
+      "Preußen",
+      "Bundesrepublik Deutschland",
+      "\"Drittes Reich\"",
+      "DDR"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "DDR",
+    "correctAnswerInteractive": "DDR"
+  },
+  {
+    "id": 188,
+    "local": 188,
+    "state": "general",
+    "question": "In welchem Jahr wurde die Mauer in Berlin gebaut?",
+    "answers": [
+      "1953",
+      "1956",
+      "1959",
+      "1961"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "1961",
+    "correctAnswerInteractive": "1961"
+  },
+  {
+    "id": 189,
+    "local": 189,
+    "state": "general",
+    "question": "Wann baute die DDR die Mauer in Berlin?",
+    "answers": [
+      "1919",
+      "1933",
+      "1961",
+      "1990"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "1961",
+    "correctAnswerInteractive": "1961"
+  },
+  {
+    "id": 190,
+    "local": 190,
+    "state": "general",
+    "question": "Was bedeutet die Abkürzung DDR?",
+    "answers": [
+      "Dritter Deutscher Rundfunk",
+      "Die Deutsche Republik",
+      "Dritte Deutsche Republik",
+      "Deutsche Demokratische Republik"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Deutsche Demokratische Republik",
+    "correctAnswerInteractive": "Deutsche Demokratische Republik"
+  },
+  {
+    "id": 191,
+    "local": 191,
+    "state": "general",
+    "question": "Wann wurde die Mauer in Berlin für alle geöffnet?",
+    "answers": [
+      "1987",
+      "1989",
+      "1992",
+      "1995"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "1989",
+    "correctAnswerInteractive": "1989"
+  },
+  {
+    "id": 192,
+    "local": 192,
+    "state": "general",
+    "question": "Welches heutige deutsche Bundesland gehörte früher zum Gebiet der DDR?",
+    "answers": [
+      "Brandenburg",
+      "Bayern",
+      "Saarland",
+      "Hessen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Brandenburg",
+    "correctAnswerInteractive": "Brandenburg"
+  },
+  {
+    "id": 193,
+    "local": 193,
+    "state": "general",
+    "question": "Von 1961 bis 1989 war Berlin …",
+    "answers": [
+      "ohne Bürgermeister.",
+      "ein eigener Staat.",
+      "durch eine Mauer geteilt.",
+      "nur mit dem Flugzeug erreichbar."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "durch eine Mauer geteilt.",
+    "correctAnswerInteractive": "durch eine Mauer geteilt."
+  },
+  {
+    "id": 194,
+    "local": 194,
+    "state": "general",
+    "question": "Am 3. Oktober feiert man in Deutschland den Tag der Deutschen …",
+    "answers": [
+      "Einheit.",
+      "Nation.",
+      "Bundesländer.",
+      "Städte."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Einheit.",
+    "correctAnswerInteractive": "Einheit."
+  },
+  {
+    "id": 195,
+    "local": 195,
+    "state": "general",
+    "question": "Welches heutige deutsche Bundesland gehörte früher zum Gebiet der DDR?",
+    "answers": [
+      "Hessen",
+      "Sachsen-Anhalt",
+      "Nordrhein-Westfalen",
+      "Saarland"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Sachsen-Anhalt",
+    "correctAnswerInteractive": "Sachsen-Anhalt"
+  },
+  {
+    "id": 196,
+    "local": 196,
+    "state": "general",
+    "question": "Warum nennt man die Zeit im Herbst 1989 in der DDR \"Die Wende\"? In dieser Zeit veränderte sich die DDR politisch …",
+    "answers": [
+      "von einer Diktatur zur Demokratie.",
+      "von einer liberalen Marktwirtschaft zum Sozialismus.",
+      "von einer Monarchie zur Sozialdemokratie.",
+      "von einem religiösen Staat zu einem kommunistischen Staat."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "von einer Diktatur zur Demokratie.",
+    "correctAnswerInteractive": "von einer Diktatur zur Demokratie."
+  },
+  {
+    "id": 197,
+    "local": 197,
+    "state": "general",
+    "question": "Welches heutige deutsche Bundesland gehörte früher zum Gebiet der DDR?",
+    "answers": [
+      "Thüringen",
+      "Hessen",
+      "Bayern",
+      "Bremen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Thüringen",
+    "correctAnswerInteractive": "Thüringen"
+  },
+  {
+    "id": 198,
+    "local": 198,
+    "state": "general",
+    "question": "Welches heutige deutsche Bundesland gehörte früher zum Gebiet der DDR?",
+    "answers": [
+      "Bayern",
+      "Niedersachsen",
+      "Sachsen",
+      "Baden-Württemberg"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Sachsen",
+    "correctAnswerInteractive": "Sachsen"
+  },
+  {
+    "id": 199,
+    "local": 199,
+    "state": "general",
+    "question": "Mit der Abkürzung \"Stasi\" meinte man in der DDR …",
+    "answers": [
+      "das Parlament.",
+      "das Ministerium für Staatssicherheit.",
+      "eine regierende Partei.",
+      "das Ministerium für Volksbildung."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "das Ministerium für Staatssicherheit.",
+    "correctAnswerInteractive": "das Ministerium für Staatssicherheit."
+  },
+  {
+    "id": 200,
+    "local": 200,
+    "state": "general",
+    "question": "Welches heutige deutsche Bundesland gehörte früher zum Gebiet der DDR?",
+    "answers": [
+      "Hessen",
+      "Schleswig-Holstein",
+      "Mecklenburg-Vorpommern",
+      "Saarland"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Mecklenburg-Vorpommern",
+    "correctAnswerInteractive": "Mecklenburg-Vorpommern"
+  },
+  {
+    "id": 201,
+    "local": 201,
+    "state": "general",
+    "question": "Welche der folgenden Auflistungen enthält nur Bundesländer, die zum Gebiet der früheren DDR gehörten?",
+    "answers": [
+      "Niedersachsen, Nordrhein-Westfalen, Hessen, Schleswig-Holstein, Brandenburg",
+      "Mecklenburg-Vorpommern, Brandenburg, Sachsen, Sachsen-Anhalt, Thüringen",
+      "Bayern, Baden-Württemberg, Rheinland-Pfalz, Thüringen, Sachsen",
+      "Sachsen, Thüringen, Hessen, Niedersachen, Brandenburg"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Mecklenburg-Vorpommern, Brandenburg, Sachsen, Sachsen-Anhalt, Thüringen",
+    "correctAnswerInteractive": "Mecklenburg-Vorpommern, Brandenburg, Sachsen, Sachsen-Anhalt, Thüringen"
+  },
+  {
+    "id": 202,
+    "local": 202,
+    "state": "general",
+    "question": "Zu wem gehörte die DDR im \"Kalten Krieg\"?",
+    "answers": [
+      "zu den Westmächten",
+      "zum Warschauer Pakt",
+      "zur NATO",
+      "zu den blockfreien Staaten"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "zum Warschauer Pakt",
+    "correctAnswerInteractive": "zum Warschauer Pakt"
+  },
+  {
+    "id": 203,
+    "local": 203,
+    "state": "general",
+    "question": "Wie hieß das Wirtschaftssystem der DDR?",
+    "answers": [
+      "Marktwirtschaft",
+      "Planwirtschaft",
+      "Angebot und Nachfrage",
+      "Kapitalismus"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Planwirtschaft",
+    "correctAnswerInteractive": "Planwirtschaft"
+  },
+  {
+    "id": 204,
+    "local": 204,
+    "state": "general",
+    "question": "Wie wurden die Bundesrepublik Deutschland und die DDR zu einem Staat?",
+    "answers": [
+      "Die Bundesrepublik hat die DDR besetzt.",
+      "Die heutigen fünf östlichen Bundesländer sind der Bundesrepublik Deutschland beigetreten.",
+      "Die westlichen Bundesländer sind der DDR beigetreten.",
+      "Die DDR hat die Bundesrepublik Deutschland besetzt."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Die heutigen fünf östlichen Bundesländer sind der Bundesrepublik Deutschland beigetreten.",
+    "correctAnswerInteractive": "Die heutigen fünf östlichen Bundesländer sind der Bundesrepublik Deutschland beigetreten."
+  },
+  {
+    "id": 205,
+    "local": 205,
+    "state": "general",
+    "question": "Mit dem Beitritt der DDR zur Bundesrepublik Deutschland gehören die neuen Bundesländer nun auch …",
+    "answers": [
+      "zur Europäischen Union.",
+      "zum Warschauer Pakt.",
+      "zur OPEC.",
+      "zur Europäischen Verteidigungsgemeinschaft."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "zur Europäischen Union.",
+    "correctAnswerInteractive": "zur Europäischen Union."
+  },
+  {
+    "id": 206,
+    "local": 206,
+    "state": "general",
+    "question": "206. Woran erinnern die sogenannten „Stolpersteine“ in Deutschland?",
+    "answers": [
+      "an berühmte deutsche Politikerinnen und Politiker",
+      "an die Opfer des Nationalsozialismus",
+      "an Verkehrstote",
+      "an bekannte jüdische Musiker"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "an die Opfer des Nationalsozialismus",
+    "correctAnswerInteractive": "an die Opfer des Nationalsozialismus"
+  },
+  {
+    "id": 207,
+    "local": 207,
+    "state": "general",
+    "question": "In welchem Militärbündnis war die DDR Mitglied?",
+    "answers": [
+      "in der NATO",
+      "im Rheinbund",
+      "im Warschauer Pakt",
+      "im Europabündnis"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "im Warschauer Pakt",
+    "correctAnswerInteractive": "im Warschauer Pakt"
+  },
+  {
+    "id": 208,
+    "local": 208,
+    "state": "general",
+    "question": "Was war die \"Stasi\"?",
+    "answers": [
+      "der Geheimdienst im \"Dritten Reich\"",
+      "eine berühmte deutsche Gedenkstätte",
+      "der Geheimdienst der DDR",
+      "ein deutscher Sportverein während des Zweiten Weltkrieges"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "der Geheimdienst der DDR",
+    "correctAnswerInteractive": "der Geheimdienst der DDR"
+  },
+  {
+    "id": 209,
+    "local": 209,
+    "state": "general",
+    "question": "Welches war das Wappen der Deutschen Demokratischen Republik?",
+    "answers": [
+      "Bild 1",
+      "Bild 2",
+      "Bild 3",
+      "Bild 4"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Bild 4",
+    "correctAnswerInteractive": "4"
+  },
+  {
+    "id": 210,
+    "local": 210,
+    "state": "general",
+    "question": "Was ereignete sich am 17. Juni 1953 in der DDR?",
+    "answers": [
+      "der feierliche Beitritt zum Warschauer Pakt",
+      "landesweite Streiks und ein Volksaufstand",
+      "der 1. SED-Parteitag",
+      "der erste Besuch Fidel Castros"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "landesweite Streiks und ein Volksaufstand",
+    "correctAnswerInteractive": "landesweite Streiks und ein Volksaufstand"
+  },
+  {
+    "id": 211,
+    "local": 211,
+    "state": "general",
+    "question": "Welcher Politiker steht für die \"Ostverträge\"?",
+    "answers": [
+      "Helmut Kohl",
+      "Willy Brandt",
+      "Michail Gorbatschow",
+      "Ludwig Erhard"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Willy Brandt",
+    "correctAnswerInteractive": "Willy Brandt"
+  },
+  {
+    "id": 212,
+    "local": 212,
+    "state": "general",
+    "question": "Wie heißt Deutschland mit vollem Namen?",
+    "answers": [
+      "Bundesstaat Deutschland",
+      "Bundesländer Deutschland",
+      "Bundesrepublik Deutschland",
+      "Bundesbezirk Deutschland"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Bundesrepublik Deutschland",
+    "correctAnswerInteractive": "Bundesrepublik Deutschland"
+  },
+  {
+    "id": 213,
+    "local": 213,
+    "state": "general",
+    "question": "Wie viele Einwohner hat Deutschland?",
+    "answers": [
+      "70 Millionen",
+      "78 Millionen",
+      "84 Millionen",
+      "90 Millionen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "84 Millionen",
+    "correctAnswerInteractive": "84 Millionen"
+  },
+  {
+    "id": 214,
+    "local": 214,
+    "state": "general",
+    "question": "Welche Farben hat die deutsche Flagge?",
+    "answers": [
+      "schwarz-rot-gold",
+      "rot-weiß-schwarz",
+      "schwarz-rot-grün",
+      "schwarz-gelb-rot"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "schwarz-rot-gold",
+    "correctAnswerInteractive": "schwarz-rot-gold"
+  },
+  {
+    "id": 215,
+    "local": 215,
+    "state": "general",
+    "question": "Wer wird als \"Kanzler der Deutschen Einheit\" bezeichnet?",
+    "answers": [
+      "Gerhard Schröder",
+      "Helmut Kohl",
+      "Konrad Adenauer",
+      "Helmut Schmidt"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Helmut Kohl",
+    "correctAnswerInteractive": "Helmut Kohl"
+  },
+  {
+    "id": 216,
+    "local": 216,
+    "state": "general",
+    "question": "Welches Symbol ist im Plenarsaal des Deutschen Bundestages zu sehen? © Deutscher Bundestag/Janine Schmitz",
+    "answers": [
+      "der Bundesadler",
+      "die Fahne der Stadt Berlin",
+      "der Reichsadler",
+      "die Reichskrone"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "der Bundesadler",
+    "correctAnswerInteractive": "der Bundesadler."
+  },
+  {
+    "id": 217,
+    "local": 217,
+    "state": "general",
+    "question": "In welchem Zeitraum gab es die Deutsche Demokratische Republik (DDR)?",
+    "answers": [
+      "1919 bis 1927",
+      "1933 bis 1945",
+      "1945 bis 1961",
+      "1949 bis 1990"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "1949 bis 1990",
+    "correctAnswerInteractive": "1949 bis 1990"
+  },
+  {
+    "id": 218,
+    "local": 218,
+    "state": "general",
+    "question": "Wie viele Bundesländer kamen bei der Wiedervereinigung 1990 zur Bundesrepublik Deutschland hinzu?",
+    "answers": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "5",
+    "correctAnswerInteractive": "5"
+  },
+  {
+    "id": 219,
+    "local": 219,
+    "state": "general",
+    "question": "Die Bundesrepublik Deutschland hat die Grenzen von heute seit …",
+    "answers": [
+      "1933",
+      "1949",
+      "1971",
+      "1990"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "1990",
+    "correctAnswerInteractive": "1990"
+  },
+  {
+    "id": 220,
+    "local": 220,
+    "state": "general",
+    "question": "Der 27. Januar ist in Deutschland ein offizieller Gedenktag. Woran erinnert dieser Tag?",
+    "answers": [
+      "an das Ende des Zweiten Weltkrieges",
+      "an die Verabschiedung des Grundgesetzes",
+      "an die Wiedervereinigung Deutschlands",
+      "an die Opfer des Nationalsozialismus (Tag der Befreiung des Vernichtungslagers Auschwitz)"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "an die Opfer des Nationalsozialismus (Tag der Befreiung des Vernichtungslagers Auschwitz)",
+    "correctAnswerInteractive": "an die Opfer des Nationalsozialismus (Tag der Befreiung des Vernichtungslagers Auschwitz)"
+  },
+  {
+    "id": 221,
+    "local": 221,
+    "state": "general",
+    "question": "Deutschland ist Mitglied des Schengener Abkommens. Was bedeutet das?",
+    "answers": [
+      "Deutsche können in viele Länder Europas ohne Passkontrolle reisen.",
+      "Alle Menschen können ohne Personenkontrolle in Deutschland einreisen.",
+      "Deutsche können ohne Passkontrolle in jedes Land reisen.",
+      "Deutsche können in jedem Land mit dem Euro bezahlen."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Deutsche können in viele Länder Europas ohne Passkontrolle reisen.",
+    "correctAnswerInteractive": "Deutsche können in viele Länder Europas ohne Passkontrolle reisen."
+  },
+  {
+    "id": 222,
+    "local": 222,
+    "state": "general",
+    "question": "Welches Land ist ein Nachbarland von Deutschland?",
+    "answers": [
+      "Ungarn",
+      "Portugal",
+      "Spanien",
+      "Schweiz"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Schweiz",
+    "correctAnswerInteractive": "Schweiz"
+  },
+  {
+    "id": 223,
+    "local": 223,
+    "state": "general",
+    "question": "Welches Land ist ein Nachbarland von Deutschland?",
+    "answers": [
+      "Rumänien",
+      "Bulgarien",
+      "Polen",
+      "Griechenland"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Polen",
+    "correctAnswerInteractive": "Polen"
+  },
+  {
+    "id": 224,
+    "local": 224,
+    "state": "general",
+    "question": "Was bedeutet die Abkürzung EU?",
+    "answers": [
+      "Europäische Unternehmen",
+      "Europäische Union",
+      "Einheitliche Union",
+      "Euro Union"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Europäische Union",
+    "correctAnswerInteractive": "Europäische Union"
+  },
+  {
+    "id": 225,
+    "local": 225,
+    "state": "general",
+    "question": "In welchem anderen Land gibt es eine große deutschsprachige Bevölkerung?",
+    "answers": [
+      "Tschechien",
+      "Norwegen",
+      "Spanien",
+      "Österreich"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Österreich",
+    "correctAnswerInteractive": "Österreich"
+  },
+  {
+    "id": 226,
+    "local": 226,
+    "state": "general",
+    "question": "Welche ist die Flagge der Europäischen Union?",
+    "answers": [
+      "Bild 1",
+      "Bild 2",
+      "Bild 3",
+      "Bild 4"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Bild 2",
+    "correctAnswerInteractive": "2"
+  },
+  {
+    "id": 227,
+    "local": 227,
+    "state": "general",
+    "question": "Welches Land ist ein Nachbarland von Deutschland?",
+    "answers": [
+      "Finnland",
+      "Dänemark",
+      "Norwegen",
+      "Schweden"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Dänemark",
+    "correctAnswerInteractive": "Dänemark"
+  },
+  {
+    "id": 228,
+    "local": 228,
+    "state": "general",
+    "question": "Wie wird der Beitritt der DDR zur Bundesrepublik Deutschland im Jahr 1990 allgemein genannt?",
+    "answers": [
+      "NATO-Osterweiterung",
+      "EU-Osterweiterung",
+      "Deutsche Wiedervereinigung",
+      "Europäische Gemeinschaft"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Deutsche Wiedervereinigung",
+    "correctAnswerInteractive": "Deutsche Wiedervereinigung"
+  },
+  {
+    "id": 229,
+    "local": 229,
+    "state": "general",
+    "question": "Welches Land ist ein Nachbarland von Deutschland?",
+    "answers": [
+      "Spanien",
+      "Bulgarien",
+      "Norwegen",
+      "Luxemburg"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Luxemburg",
+    "correctAnswerInteractive": "Luxemburg"
+  },
+  {
+    "id": 230,
+    "local": 230,
+    "state": "general",
+    "question": "Das Europäische Parlament wird regelmäßig gewählt, nämlich alle …",
+    "answers": [
+      "5 Jahre.",
+      "6 Jahre.",
+      "7 Jahre.",
+      "8 Jahre."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "5 Jahre.",
+    "correctAnswerInteractive": "5 Jahre."
+  },
+  {
+    "id": 231,
+    "local": 231,
+    "state": "general",
+    "question": "Was bedeutet der Begriff \"europäische Integration\"?",
+    "answers": [
+      "Damit sind amerikanische Einwanderinnen und Einwanderer in Europa gemeint.",
+      "Der Begriff meint den Einwanderungsstopp nach Europa.",
+      "Damit sind europäische Auswanderinnen und Auswanderer in den USA gemeint.",
+      "Der Begriff meint den Zusammenschluss europäischer Staaten zur EU."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Der Begriff meint den Zusammenschluss europäischer Staaten zur EU.",
+    "correctAnswerInteractive": "Der Begriff meint den Zusammenschluss europäischer Staaten zur EU."
+  },
+  {
+    "id": 232,
+    "local": 232,
+    "state": "general",
+    "question": "Wer wird bei der Europawahl gewählt?",
+    "answers": [
+      "die Europäische Kommission",
+      "die Länder, die in die EU eintreten dürfen",
+      "die Abgeordneten des Europäischen Parlaments",
+      "die europäische Verfassung"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "die Abgeordneten des Europäischen Parlaments",
+    "correctAnswerInteractive": "die Abgeordneten des Europäischen Parlaments"
+  },
+  {
+    "id": 233,
+    "local": 233,
+    "state": "general",
+    "question": "Welches Land ist ein Nachbarland von Deutschland?",
+    "answers": [
+      "Tschechien",
+      "Bulgarien",
+      "Griechenland",
+      "Portugal"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Tschechien",
+    "correctAnswerInteractive": "Tschechien"
+  },
+  {
+    "id": 234,
+    "local": 234,
+    "state": "general",
+    "question": "Wo ist ein Sitz des Europäischen Parlaments?",
+    "answers": [
+      "London",
+      "Paris",
+      "Berlin",
+      "Straßburg"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Straßburg",
+    "correctAnswerInteractive": "Straßburg"
+  },
+  {
+    "id": 235,
+    "local": 235,
+    "state": "general",
+    "question": "Der damalige französische Staatspräsident François Mitterrand und der damalige deutsche Bundeskanzler Helmut Kohl gedenken in Verdun gemeinsam der Toten beider Weltkriege. Welches Ziel der Europäischen Union wird bei diesem Treffen deutlich? © Bundesregierung/Richard Schulze-Vorberg",
+    "answers": [
+      "Freundschaft zwischen England und Deutschland",
+      "Reisefreiheit in alle Länder der EU",
+      "Frieden und Sicherheit in den Ländern der EU",
+      "einheitliche Feiertage in den Ländern der EU"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Frieden und Sicherheit in den Ländern der EU",
+    "correctAnswerInteractive": "Frieden und Sicherheit in den Ländern der EU"
+  },
+  {
+    "id": 236,
+    "local": 236,
+    "state": "general",
+    "question": "Wie viele Mitgliedstaaten hat die EU heute?",
+    "answers": [
+      "21",
+      "23",
+      "25",
+      "27"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "27",
+    "correctAnswerInteractive": "27"
+  },
+  {
+    "id": 237,
+    "local": 237,
+    "state": "general",
+    "question": "2007 wurde das 50-jährige Jubiläum der \"Römischen Verträge\" gefeiert. Was war der Inhalt der Verträge?",
+    "answers": [
+      "Beitritt Deutschlands zur NATO",
+      "Gründung der Europäischen Wirtschaftsgemeinschaft (EWG)",
+      "Verpflichtung Deutschlands zu Reparationsleistungen",
+      "Festlegung der Oder-Neiße-Linie als Ostgrenze"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Gründung der Europäischen Wirtschaftsgemeinschaft (EWG)",
+    "correctAnswerInteractive": "Gründung der Europäischen Wirtschaftsgemeinschaft (EWG)"
+  },
+  {
+    "id": 238,
+    "local": 238,
+    "state": "general",
+    "question": "An welchen Orten arbeitet das Europäische Parlament?",
+    "answers": [
+      "Paris, London und Den Haag",
+      "Straßburg, Luxemburg und Brüssel",
+      "Rom, Bern und Wien",
+      "Bonn, Zürich und Mailand"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Straßburg, Luxemburg und Brüssel",
+    "correctAnswerInteractive": "Straßburg, Luxemburg und Brüssel"
+  },
+  {
+    "id": 239,
+    "local": 239,
+    "state": "general",
+    "question": "Durch welche Verträge schloss sich die Bundesrepublik Deutschland mit anderen Staaten zur Europäischen Wirtschaftsgemeinschaft zusammen?",
+    "answers": [
+      "durch die \"Hamburger Verträge\"",
+      "durch die \"Römischen Verträge\"",
+      "durch die \"Pariser Verträge\"",
+      "durch die \"Londoner Verträge\""
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "durch die \"Römischen Verträge\"",
+    "correctAnswerInteractive": "durch die \"Römischen Verträge\""
+  },
+  {
+    "id": 240,
+    "local": 240,
+    "state": "general",
+    "question": "Seit wann bezahlt man in Deutschland mit dem Euro in bar?",
+    "answers": [
+      "1995",
+      "1998",
+      "2002",
+      "2005"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "2002",
+    "correctAnswerInteractive": "2002"
+  },
+  {
+    "id": 241,
+    "local": 241,
+    "state": "general",
+    "question": "Frau Seger bekommt ein Kind. Was muss sie tun, um Elterngeld zu erhalten?",
+    "answers": [
+      "Sie muss an ihre Krankenkasse schreiben.",
+      "Sie muss einen Antrag bei der Elterngeldstelle stellen.",
+      "Sie muss nichts tun, denn sie bekommt automatisch Elterngeld.",
+      "Sie muss das Arbeitsamt um Erlaubnis bitten."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Sie muss einen Antrag bei der Elterngeldstelle stellen.",
+    "correctAnswerInteractive": "Sie muss einen Antrag bei der Elterngeldstelle stellen."
+  },
+  {
+    "id": 242,
+    "local": 242,
+    "state": "general",
+    "question": "Wer entscheidet, ob ein Kind in Deutschland in den Kindergarten geht?",
+    "answers": [
+      "der Staat",
+      "die Bundesländer",
+      "die Eltern/die Erziehungsberechtigten",
+      "die Schulen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "die Eltern/die Erziehungsberechtigten",
+    "correctAnswerInteractive": "die Eltern/die Erziehungsberechtigten"
+  },
+  {
+    "id": 243,
+    "local": 243,
+    "state": "general",
+    "question": "Maik und Sybille wollen mit Freunden an ihrem deutschen Wohnort eine Demonstration auf der Straße abhalten. Was müssen sie vorher tun?",
+    "answers": [
+      "Sie müssen die Demonstration anmelden.",
+      "Sie müssen nichts tun. Man darf in Deutschland jederzeit überall demonstrieren.",
+      "Sie können gar nichts tun, denn Demonstrationen sind in Deutschland grundsätzlich verboten.",
+      "Maik und Sybille müssen einen neuen Verein gründen, weil nur Vereine demonstrieren dürfen."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Sie müssen die Demonstration anmelden.",
+    "correctAnswerInteractive": "Sie müssen die Demonstration anmelden."
+  },
+  {
+    "id": 244,
+    "local": 244,
+    "state": "general",
+    "question": "Welchen Schulabschluss braucht man normalerweise, um an einer Universität in Deutschland ein Studium zu beginnen?",
+    "answers": [
+      "das Abitur",
+      "ein Diplom",
+      "die Prokura",
+      "eine Gesellenprüfung"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "das Abitur",
+    "correctAnswerInteractive": "das Abitur"
+  },
+  {
+    "id": 245,
+    "local": 245,
+    "state": "general",
+    "question": "Wer darf in Deutschland nicht als Paar zusammenleben?",
+    "answers": [
+      "Hans (20 Jahre) und Marie (19 Jahre)",
+      "Tom (20 Jahre) und Klaus (45 Jahre)",
+      "Sofie (35 Jahre) und Lisa (40 Jahre)",
+      "Anne (13 Jahre) und Tim (25 Jahre)"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Anne (13 Jahre) und Tim (25 Jahre)",
+    "correctAnswerInteractive": "Anne (13 Jahre) und Tim (25 Jahre)"
+  },
+  {
+    "id": 246,
+    "local": 246,
+    "state": "general",
+    "question": "Ab welchem Alter ist man in Deutschland volljährig?",
+    "answers": [
+      "16",
+      "18",
+      "19",
+      "21"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "18",
+    "correctAnswerInteractive": "18"
+  },
+  {
+    "id": 247,
+    "local": 247,
+    "state": "general",
+    "question": "Eine Frau ist schwanger. Sie ist kurz vor und nach der Geburt ihres Kindes vom Gesetz besonders beschützt. Wie heißt dieser Schutz?",
+    "answers": [
+      "Elternzeit",
+      "Mutterschutz",
+      "Geburtsvorbereitung",
+      "Wochenbett"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Mutterschutz",
+    "correctAnswerInteractive": "Mutterschutz"
+  },
+  {
+    "id": 248,
+    "local": 248,
+    "state": "general",
+    "question": "Die Erziehung der Kinder ist in Deutschland vor allem Aufgabe …",
+    "answers": [
+      "des Staates.",
+      "der Eltern.",
+      "der Großeltern.",
+      "der Schulen."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "der Eltern.",
+    "correctAnswerInteractive": "der Eltern."
+  },
+  {
+    "id": 249,
+    "local": 249,
+    "state": "general",
+    "question": "Wer ist in Deutschland hauptsächlich verantwortlich für die Kindererziehung?",
+    "answers": [
+      "der Staat",
+      "die Eltern",
+      "die Verwandten",
+      "die Schulen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "die Eltern",
+    "correctAnswerInteractive": "die Eltern"
+  },
+  {
+    "id": 250,
+    "local": 250,
+    "state": "general",
+    "question": "In Deutschland hat man die besten Chancen auf einen gut bezahlten Arbeitsplatz, wenn man …",
+    "answers": [
+      "katholisch ist.",
+      "gut ausgebildet ist.",
+      "eine Frau ist.",
+      "Mitglied einer Partei ist."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "gut ausgebildet ist.",
+    "correctAnswerInteractive": "gut ausgebildet ist."
+  },
+  {
+    "id": 251,
+    "local": 251,
+    "state": "general",
+    "question": "Wenn man in Deutschland ein Kind schlägt, …",
+    "answers": [
+      "geht das niemanden etwas an.",
+      "geht das nur die Familie etwas an.",
+      "kann man dafür nicht bestraft werden.",
+      "kann man dafür bestraft werden."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "kann man dafür bestraft werden.",
+    "correctAnswerInteractive": "kann man dafür bestraft werden."
+  },
+  {
+    "id": 252,
+    "local": 252,
+    "state": "general",
+    "question": "In Deutschland …",
+    "answers": [
+      "darf man zur gleichen Zeit nur mit einer Partnerin/einem Partner verheiratet sein.",
+      "kann man mehrere Ehepartnerinnen/Ehepartner gleichzeitig haben.",
+      "darf man nicht wieder heiraten, wenn man einmal verheiratet war.",
+      "darf eine Frau nicht wieder heiraten, wenn ihr Mann gestorben ist."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "darf man zur gleichen Zeit nur mit einer Partnerin/einem Partner verheiratet sein.",
+    "correctAnswerInteractive": "darf man zur gleichen Zeit nur mit einem Partner / einer Partnerin verheiratet sein."
+  },
+  {
+    "id": 253,
+    "local": 253,
+    "state": "general",
+    "question": "Wo müssen Sie sich anmelden, wenn Sie in Deutschland umziehen?",
+    "answers": [
+      "beim Einwohnermeldeamt",
+      "beim Standesamt",
+      "beim Ordnungsamt",
+      "beim Gewerbeamt"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "beim Einwohnermeldeamt",
+    "correctAnswerInteractive": "beim Einwohnermeldeamt"
+  },
+  {
+    "id": 254,
+    "local": 254,
+    "state": "general",
+    "question": "In Deutschland dürfen Ehepaare sich scheiden lassen. Meistens müssen sie dazu das \"Trennungsjahr\" einhalten. Was bedeutet das?",
+    "answers": [
+      "Der Scheidungsprozess dauert ein Jahr.",
+      "Die Ehegatten sind ein Jahr verheiratet, dann ist die Scheidung möglich.",
+      "Das Besuchsrecht für die Kinder gilt ein Jahr.",
+      "Die Ehegatten führen mindestens ein Jahr getrennt ihr eigenes Leben. Danach ist die Scheidung möglich."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Die Ehegatten führen mindestens ein Jahr getrennt ihr eigenes Leben. Danach ist die Scheidung möglich.",
+    "correctAnswerInteractive": "Die Ehegatten führen mindestens ein Jahr getrennt ihr eigenes Leben. Danach ist die Scheidung möglich"
+  },
+  {
+    "id": 255,
+    "local": 255,
+    "state": "general",
+    "question": "Bei Erziehungsproblemen können Eltern in Deutschland Hilfe erhalten vom …",
+    "answers": [
+      "Ordnungsamt.",
+      "Schulamt.",
+      "Jugendamt.",
+      "Gesundheitsamt."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Jugendamt.",
+    "correctAnswerInteractive": "Jugendamt."
+  },
+  {
+    "id": 256,
+    "local": 256,
+    "state": "general",
+    "question": "Ein Ehepaar möchte in Deutschland ein Restaurant eröffnen. Was braucht es dazu unbedingt?",
+    "answers": [
+      "eine Erlaubnis der Polizei",
+      "eine Genehmigung einer Partei",
+      "eine Genehmigung des Einwohnermeldeamts",
+      "eine Gaststättenerlaubnis von der zuständigen Behörde"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "eine Gaststättenerlaubnis von der zuständigen Behörde",
+    "correctAnswerInteractive": "eine Gaststättenerlaubnis von der zuständigen Behörde"
+  },
+  {
+    "id": 257,
+    "local": 257,
+    "state": "general",
+    "question": "Eine erwachsene Frau möchte in Deutschland das Abitur nachholen. Das kann sie an …",
+    "answers": [
+      "einer Hochschule.",
+      "einem Abendgymnasium.",
+      "einer Hauptschule.",
+      "einer Privatuniversität."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "einem Abendgymnasium.",
+    "correctAnswerInteractive": "einem Abendgymnasium."
+  },
+  {
+    "id": 258,
+    "local": 258,
+    "state": "general",
+    "question": "Was darf das Jugendamt in Deutschland?",
+    "answers": [
+      "Es entscheidet, welche Schule das Kind besucht.",
+      "Es kann ein Kind, das geschlagen wird oder hungern muss, aus der Familie nehmen.",
+      "Es bezahlt das Kindergeld an die Eltern.",
+      "Es kontrolliert, ob das Kind einen Kindergarten besucht."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Es kann ein Kind, das geschlagen wird oder hungern muss, aus der Familie nehmen.",
+    "correctAnswerInteractive": "Es kann ein Kind, das geschlagen wird oder hungern muss, aus der Familie nehmen."
+  },
+  {
+    "id": 259,
+    "local": 259,
+    "state": "general",
+    "question": "Das Berufsinformationszentrum BIZ bei der Bundesagentur für Arbeit in Deutschland hilft bei der …",
+    "answers": [
+      "Rentenberechnung.",
+      "Lehrstellensuche.",
+      "Steuererklärung.",
+      "Krankenversicherung."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Lehrstellensuche.",
+    "correctAnswerInteractive": "Lehrstellensuche."
+  },
+  {
+    "id": 260,
+    "local": 260,
+    "state": "general",
+    "question": "In Deutschland hat ein Kind in der Schule …",
+    "answers": [
+      "Recht auf unbegrenzte Freizeit.",
+      "Wahlfreiheit für alle Fächer.",
+      "Anspruch auf Schulgeld.",
+      "Anwesenheitspflicht."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Anwesenheitspflicht.",
+    "correctAnswerInteractive": "Anwesenheitspflicht."
+  },
+  {
+    "id": 261,
+    "local": 261,
+    "state": "general",
+    "question": "Ein Mann möchte mit 30 Jahren in Deutschland sein Abitur nachholen. Wo kann er das tun? An …",
+    "answers": [
+      "einer Hochschule.",
+      "einem Abendgymnasium.",
+      "einer Hauptschule.",
+      "einer Privatuniversität."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "einem Abendgymnasium.",
+    "correctAnswerInteractive": "einem Abendgymnasium"
+  },
+  {
+    "id": 262,
+    "local": 262,
+    "state": "general",
+    "question": "Was bedeutet in Deutschland der Grundsatz der Gleichbehandlung?",
+    "answers": [
+      "Niemand darf z.B. wegen einer Behinderung benachteiligt werden.",
+      "Man darf andere Personen benachteiligen, wenn ausreichende persönliche Gründe hierfür vorliegen.",
+      "Niemand darf gegen Personen klagen, wenn sie benachteiligt wurden.",
+      "Es ist für alle Gesetz, benachteiligten Gruppen jährlich Geld zu spenden."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Niemand darf z.B. wegen einer Behinderung benachteiligt werden.",
+    "correctAnswerInteractive": "Niemand darf z.B. wegen einer Behinderung benachteiligt werden."
+  },
+  {
+    "id": 263,
+    "local": 263,
+    "state": "general",
+    "question": "In Deutschland sind Jugendliche ab 14 Jahren strafmündig. Das bedeutet: Jugendliche, die 14 Jahre und älter sind und gegen Strafgesetze verstoßen, …",
+    "answers": [
+      "werden bestraft.",
+      "werden wie Erwachsene behandelt.",
+      "teilen die Strafe mit ihren Eltern.",
+      "werden nicht bestraft."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "werden bestraft.",
+    "correctAnswerInteractive": "werden bestraft."
+  },
+  {
+    "id": 264,
+    "local": 264,
+    "state": "general",
+    "question": "Zu welchem Fest tragen Menschen in Deutschland bunte Kostüme und Masken?",
+    "answers": [
+      "am Rosenmontag",
+      "am Maifeiertag",
+      "beim Oktoberfest",
+      "an Pfingsten"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "am Rosenmontag",
+    "correctAnswerInteractive": "am Rosenmontag"
+  },
+  {
+    "id": 265,
+    "local": 265,
+    "state": "general",
+    "question": "Wohin muss man in Deutschland zuerst gehen, wenn man heiraten möchte?",
+    "answers": [
+      "zum Einwohnermeldeamt",
+      "zum Ordnungsamt",
+      "zur Agentur für Arbeit",
+      "zum Standesamt"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "zum Standesamt",
+    "correctAnswerInteractive": "zum Standesamt"
+  },
+  {
+    "id": 266,
+    "local": 266,
+    "state": "general",
+    "question": "Wann beginnt die gesetzliche Nachtruhe in Deutschland?",
+    "answers": [
+      "wenn die Sonne untergeht",
+      "wenn die Nachbarn schlafen gehen",
+      "um 0 Uhr, Mitternacht",
+      "um 22 Uhr"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "um 22 Uhr",
+    "correctAnswerInteractive": "um 22 Uhr"
+  },
+  {
+    "id": 267,
+    "local": 267,
+    "state": "general",
+    "question": "Eine junge Frau in Deutschland, 22 Jahre alt, lebt mit ihrem Freund zusammen. Die Eltern der Frau finden das nicht gut, weil ihnen der Freund nicht gefällt. Was können die Eltern tun?",
+    "answers": [
+      "Sie müssen die Entscheidung der volljährigen Tochter respektieren.",
+      "Sie haben das Recht, die Tochter in die elterliche Wohnung zurückzuholen.",
+      "Sie können zur Polizei gehen und die Tochter anzeigen.",
+      "Sie suchen einen anderen Mann für die Tochter."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Sie müssen die Entscheidung der volljährigen Tochter respektieren.",
+    "correctAnswerInteractive": "Sie müssen die Entscheidung der volljährigen Tochter respektieren."
+  },
+  {
+    "id": 268,
+    "local": 268,
+    "state": "general",
+    "question": "Eine junge Frau will den Führerschein machen. Sie hat Angst vor der Prüfung, weil ihre Muttersprache nicht Deutsch ist. Was ist richtig?",
+    "answers": [
+      "Sie muss mindestens zehn Jahre in Deutschland leben, bevor sie den Führerschein machen kann.",
+      "Wenn sie kein Deutsch kann, darf sie keinen Führerschein haben.",
+      "Sie muss den Führerschein in dem Land machen, in dem man ihre Sprache spricht.",
+      "Sie kann die Theorie-Prüfung vielleicht in ihrer Muttersprache machen. Es gibt mehr als zehn Sprachen zur Auswahl."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Sie kann die Theorie-Prüfung vielleicht in ihrer Muttersprache machen. Es gibt mehr als zehn Sprachen zur Auswahl.",
+    "correctAnswerInteractive": "Sie kann die Theorie-Prüfung vielleicht in ihrer Muttersprache machen. Es gibt mehr als zehn Sprachen zur Auswahl."
+  },
+  {
+    "id": 269,
+    "local": 269,
+    "state": "general",
+    "question": "In Deutschland haben Kinder ab dem Alter von drei Jahren bis zur Ersteinschulung einen Anspruch auf …",
+    "answers": [
+      "monatliches Taschengeld.",
+      "einen Platz in einem Sportverein.",
+      "einen Kindergartenplatz.",
+      "einen Ferienpass."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "einen Kindergartenplatz.",
+    "correctAnswerInteractive": "einen Kindergartenplatz."
+  },
+  {
+    "id": 270,
+    "local": 270,
+    "state": "general",
+    "question": "Die Volkshochschule in Deutschland ist eine Einrichtung …",
+    "answers": [
+      "für den Religionsunterricht.",
+      "nur für Jugendliche.",
+      "zur Weiterbildung.",
+      "nur für Rentnerinnen und Rentner."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "zur Weiterbildung.",
+    "correctAnswerInteractive": "zur Weiterbildung."
+  },
+  {
+    "id": 271,
+    "local": 271,
+    "state": "general",
+    "question": "Was ist in Deutschland ein Brauch zu Weihnachten?",
+    "answers": [
+      "bunte Eier verstecken",
+      "einen Tannenbaum schmücken",
+      "sich mit Masken und Kostümen verkleiden",
+      "Kürbisse vor die Tür stellen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "einen Tannenbaum schmücken",
+    "correctAnswerInteractive": "einen Tannenbaum schmücken"
+  },
+  {
+    "id": 272,
+    "local": 272,
+    "state": "general",
+    "question": "Welche Lebensform ist in Deutschland nicht erlaubt?",
+    "answers": [
+      "Mann und Frau sind geschieden und leben mit neuen Partnern zusammen.",
+      "Zwei Frauen leben zusammen.",
+      "Ein alleinerziehender Vater lebt mit seinen zwei Kindern zusammen.",
+      "Ein Mann ist mit zwei Frauen zur selben Zeit verheiratet."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Ein Mann ist mit zwei Frauen zur selben Zeit verheiratet.",
+    "correctAnswerInteractive": "Ein Mann ist mit zwei Frauen zur selben Zeit verheiratet."
+  },
+  {
+    "id": 273,
+    "local": 273,
+    "state": "general",
+    "question": "Bei Erziehungsproblemen gehen Sie in Deutschland …",
+    "answers": [
+      "zur Ärztin/zum Arzt.",
+      "zum Gesundheitsamt.",
+      "zum Einwohnermeldeamt.",
+      "zum Jugendamt."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "zum Jugendamt.",
+    "correctAnswerInteractive": "zum Jugendamt."
+  },
+  {
+    "id": 274,
+    "local": 274,
+    "state": "general",
+    "question": "Sie haben in Deutschland absichtlich einen Brief geöffnet, der an eine andere Person adressiert ist. Was haben Sie nicht beachtet?",
+    "answers": [
+      "das Schweigerecht",
+      "das Briefgeheimnis",
+      "die Schweigepflicht",
+      "die Meinungsfreiheit"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "das Briefgeheimnis",
+    "correctAnswerInteractive": "das Briefgeheimnis"
+  },
+  {
+    "id": 275,
+    "local": 275,
+    "state": "general",
+    "question": "Was braucht man in Deutschland für eine Ehescheidung?",
+    "answers": [
+      "die Einwilligung der Eltern",
+      "ein Attest einer Ärztin/eines Arztes",
+      "die Einwilligung der Kinder",
+      "die Unterstützung einer Anwältin/eines Anwalts"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "die Unterstützung einer Anwältin/eines Anwalts",
+    "correctAnswerInteractive": "die Unterstützung eines Anwalts / einer Anwältin"
+  },
+  {
+    "id": 276,
+    "local": 276,
+    "state": "general",
+    "question": "Was sollten Sie tun, wenn Sie von Ihrer Ansprechpartnerin/Ihrem Ansprechpartner in einer deutschen Behörde schlecht behandelt werden?",
+    "answers": [
+      "Ich kann nichts tun.",
+      "Ich muss mir diese Behandlung gefallen lassen.",
+      "Ich drohe der Person.",
+      "Ich kann mich bei der Behördenleiterin/beim Behördenleiter beschweren."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Ich kann mich bei der Behördenleiterin/beim Behördenleiter beschweren.",
+    "correctAnswerInteractive": "Ich kann mich beim Behördenleiter / bei der Behördenleiterin beschweren."
+  },
+  {
+    "id": 277,
+    "local": 277,
+    "state": "general",
+    "question": "Eine Frau, die ein zweijähriges Kind hat, bewirbt sich in Deutschland um eine Stelle. Was ist ein Beispiel für Diskriminierung? Sie bekommt die Stelle nur deshalb nicht, weil sie …",
+    "answers": [
+      "kein Englisch spricht.",
+      "zu hohe Gehaltsvorstellungen hat.",
+      "keine Erfahrungen in diesem Beruf hat.",
+      "Mutter ist."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Mutter ist.",
+    "correctAnswerInteractive": "Mutter ist."
+  },
+  {
+    "id": 278,
+    "local": 278,
+    "state": "general",
+    "question": "Ein Mann im Rollstuhl hat sich auf eine Stelle als Buchhalter beworben. Was ist ein Beispiel für Diskriminierung? Er bekommt die Stelle nur deshalb nicht, weil er …",
+    "answers": [
+      "im Rollstuhl sitzt.",
+      "keine Erfahrung hat.",
+      "zu hohe Gehaltsvorstellungen hat.",
+      "kein Englisch spricht."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "im Rollstuhl sitzt.",
+    "correctAnswerInteractive": "im Rollstuhl sitzt."
+  },
+  {
+    "id": 279,
+    "local": 279,
+    "state": "general",
+    "question": "In den meisten Mietshäusern in Deutschland gibt es eine \"Hausordnung\". Was steht in einer solchen \"Hausordnung\"? Sie nennt …",
+    "answers": [
+      "Regeln für die Benutzung öffentlicher Verkehrsmittel.",
+      "alle Mieterinnen und Mieter im Haus.",
+      "Regeln, an die sich alle Bewohnerinnen und Bewohner halten müssen.",
+      "die Adresse des nächsten Ordnungsamtes."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Regeln, an die sich alle Bewohnerinnen und Bewohner halten müssen.",
+    "correctAnswerInteractive": "Regeln, an die sich alle Bewohner und Bewohnerinnen halten müssen."
+  },
+  {
+    "id": 280,
+    "local": 280,
+    "state": "general",
+    "question": "Wenn Sie sich in Deutschland gegen einen falschen Steuerbescheid wehren wollen, müssen Sie …",
+    "answers": [
+      "nichts machen.",
+      "den Bescheid wegwerfen.",
+      "Einspruch einlegen.",
+      "warten, bis ein anderer Bescheid kommt."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Einspruch einlegen.",
+    "correctAnswerInteractive": "Einspruch einlegen."
+  },
+  {
+    "id": 281,
+    "local": 281,
+    "state": "general",
+    "question": "Zwei Freunde wollen in ein öffentliches Schwimmbad in Deutschland. Beide haben eine dunkle Hautfarbe und werden deshalb nicht hineingelassen. Welches Recht wird in dieser Situation verletzt? Das Recht auf …",
+    "answers": [
+      "Meinungsfreiheit",
+      "Gleichbehandlung",
+      "Versammlungsfreiheit",
+      "Freizügigkeit"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Gleichbehandlung",
+    "correctAnswerInteractive": "Gleichbehandlung."
+  },
+  {
+    "id": 282,
+    "local": 282,
+    "state": "general",
+    "question": "Welches Ehrenamt müssen deutsche Staatsbürgerinnen und Staatsbürger übernehmen, wenn sie dazu aufgefordert werden?",
+    "answers": [
+      "Vereinstrainerin/Vereinstrainer",
+      "Wahlhelferin/Wahlhelfer",
+      "Bibliotheksaufsicht",
+      "Lehrerin/Lehrer"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Wahlhelferin/Wahlhelfer",
+    "correctAnswerInteractive": "Wahlhelfer / Wahlhelferin"
+  },
+  {
+    "id": 283,
+    "local": 283,
+    "state": "general",
+    "question": "Was tun Sie, wenn Sie eine falsche Rechnung von einer deutschen Behörde bekommen?",
+    "answers": [
+      "Ich lasse die Rechnung liegen.",
+      "Ich lege Widerspruch bei der Behörde ein.",
+      "Ich schicke die Rechnung an die Behörde zurück.",
+      "Ich gehe mit der Rechnung zum Finanzamt."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Ich lege Widerspruch bei der Behörde ein.",
+    "correctAnswerInteractive": "Ich lege Widerspruch bei der Behörde ein."
+  },
+  {
+    "id": 284,
+    "local": 284,
+    "state": "general",
+    "question": "Was man für die Arbeit können muss, ändert sich in Zukunft sehr schnell. Was kann man tun?",
+    "answers": [
+      "Es ist egal, was man lernt.",
+      "Erwachsene müssen auch nach der Ausbildung immer weiter lernen.",
+      "Kinder lernen in der Schule alles, was im Beruf wichtig ist. Nach der Schule muss man nicht weiter lernen.",
+      "Alle müssen früher aufhören zu arbeiten, weil sich alles ändert."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Erwachsene müssen auch nach der Ausbildung immer weiter lernen.",
+    "correctAnswerInteractive": "Erwachsene müssen auch nach der Ausbildung immer weiter lernen."
+  },
+  {
+    "id": 285,
+    "local": 285,
+    "state": "general",
+    "question": "Frau Frost arbeitet als fest angestellte Mitarbeiterin in einem Büro. Was muss sie nicht von ihrem Gehalt bezahlen?",
+    "answers": [
+      "Lohnsteuer",
+      "Beiträge zur Arbeitslosenversicherung",
+      "Beiträge zur Renten- und Krankenversicherung",
+      "Umsatzsteuer"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Umsatzsteuer",
+    "correctAnswerInteractive": "Umsatzsteuer"
+  },
+  {
+    "id": 286,
+    "local": 286,
+    "state": "general",
+    "question": "Welche Organisation in einer Firma hilft den Arbeitnehmerinnen und Arbeitnehmern bei Problemen mit der Arbeitgeberin/dem Arbeitgeber?",
+    "answers": [
+      "der Betriebsrat",
+      "die Betriebsprüferin/der Betriebsprüfer",
+      "die Betriebsgruppe",
+      "das Betriebsmanagement"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "der Betriebsrat",
+    "correctAnswerInteractive": "der Betriebsrat"
+  },
+  {
+    "id": 287,
+    "local": 287,
+    "state": "general",
+    "question": "Sie möchten bei einer Firma in Deutschland ihr Arbeitsverhältnis beenden. Was müssen Sie beachten?",
+    "answers": [
+      "die Gehaltszahlungen",
+      "die Arbeitszeit",
+      "die Kündigungsfrist",
+      "die Versicherungspflicht"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "die Kündigungsfrist",
+    "correctAnswerInteractive": "die Kündigungsfrist"
+  },
+  {
+    "id": 288,
+    "local": 288,
+    "state": "general",
+    "question": "Woraus begründet sich Deutschlands besondere Verantwortung für Israel?",
+    "answers": [
+      "aus der Mitgliedschaft in der Europäischen Union (EU)",
+      "aus den nationalsozialistischen Verbrechen gegen Juden",
+      "aus dem Grundgesetz der Bundesrepublik Deutschland",
+      "aus der christlichen Tradition"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "aus den nationalsozialistischen Verbrechen gegen Juden",
+    "correctAnswerInteractive": "aus den nationalsozialistischen Verbrechen gegen Juden"
+  },
+  {
+    "id": 289,
+    "local": 289,
+    "state": "general",
+    "question": "Ein Mann mit dunkler Hautfarbe bewirbt sich um eine Stelle als Kellner in einem Restaurant in Deutschland. Was ist ein Beispiel für Diskriminierung? Er bekommt die Stelle nur deshalb nicht, weil …",
+    "answers": [
+      "seine Deutschkenntnisse zu gering sind.",
+      "er zu hohe Gehaltsvorstellungen hat.",
+      "er eine dunkle Haut hat.",
+      "er keine Erfahrungen im Beruf hat."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "er eine dunkle Haut hat.",
+    "correctAnswerInteractive": "er eine dunkle Haut hat."
+  },
+  {
+    "id": 290,
+    "local": 290,
+    "state": "general",
+    "question": "Sie haben in Deutschland einen Fernseher gekauft. Zu Hause packen Sie den Fernseher aus, doch er funktioniert nicht. Der Fernseher ist kaputt. Was können Sie machen?",
+    "answers": [
+      "eine Anzeige schreiben",
+      "den Fernseher reklamieren",
+      "das Gerät ungefragt austauschen",
+      "die Garantie verlängern"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "den Fernseher reklamieren",
+    "correctAnswerInteractive": "den Fernseher reklamieren"
+  },
+  {
+    "id": 291,
+    "local": 291,
+    "state": "general",
+    "question": "Warum muss man in Deutschland bei der Steuererklärung aufschreiben, ob man zu einer Kirche gehört oder nicht? Weil …",
+    "answers": [
+      "es eine Kirchensteuer gibt, die an die Einkommen- und Lohnsteuer geknüpft ist.",
+      "das für die Statistik in Deutschland wichtig ist.",
+      "man mehr Steuern zahlen muss, wenn man nicht zu einer Kirche gehört.",
+      "die Kirche für die Steuererklärung verantwortlich ist."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "es eine Kirchensteuer gibt, die an die Einkommen- und Lohnsteuer geknüpft ist.",
+    "correctAnswerInteractive": "es eine Kirchensteuer gibt, die an die Einkommen- und Lohnsteuer geknüpft ist."
+  },
+  {
+    "id": 292,
+    "local": 292,
+    "state": "general",
+    "question": "Die Menschen in Deutschland leben nach dem Grundsatz der religiösen Toleranz. Was bedeutet das?",
+    "answers": [
+      "Es dürfen keine Moscheen gebaut werden.",
+      "Alle Menschen glauben an Gott.",
+      "Jeder kann glauben, was er möchte.",
+      "Der Staat entscheidet, an welchen Gott die Menschen glauben."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Jeder kann glauben, was er möchte.",
+    "correctAnswerInteractive": "Jeder kann glauben, was er möchte."
+  },
+  {
+    "id": 293,
+    "local": 293,
+    "state": "general",
+    "question": "Was ist in Deutschland ein Brauch zu Ostern?",
+    "answers": [
+      "Kürbisse vor die Tür stellen",
+      "einen Tannenbaum schmücken",
+      "Eier bemalen",
+      "Raketen in die Luft schießen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Eier bemalen",
+    "correctAnswerInteractive": "Eier bemalen"
+  },
+  {
+    "id": 294,
+    "local": 294,
+    "state": "general",
+    "question": "Pfingsten ist ein …",
+    "answers": [
+      "christlicher Feiertag.",
+      "deutscher Gedenktag.",
+      "internationaler Trauertag.",
+      "bayerischer Brauch."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "christlicher Feiertag.",
+    "correctAnswerInteractive": "christlicher Feiertag."
+  },
+  {
+    "id": 295,
+    "local": 295,
+    "state": "general",
+    "question": "Welche Religion hat die europäische und deutsche Kultur geprägt?",
+    "answers": [
+      "der Hinduismus",
+      "das Christentum",
+      "der Buddhismus",
+      "der Islam"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "das Christentum",
+    "correctAnswerInteractive": "das Christentum"
+  },
+  {
+    "id": 296,
+    "local": 296,
+    "state": "general",
+    "question": "In Deutschland nennt man die letzten vier Wochen vor Weihnachten …",
+    "answers": [
+      "den Buß- und Bettag.",
+      "das Erntedankfest.",
+      "die Adventszeit.",
+      "Allerheiligen."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "die Adventszeit.",
+    "correctAnswerInteractive": "die Adventszeit."
+  },
+  {
+    "id": 297,
+    "local": 297,
+    "state": "general",
+    "question": "Aus welchem Land sind die meisten Migrantinnen und Migranten nach Deutschland gekommen?",
+    "answers": [
+      "Italien",
+      "Polen",
+      "Marokko",
+      "Türkei"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Türkei",
+    "correctAnswerInteractive": "Türkei"
+  },
+  {
+    "id": 298,
+    "local": 298,
+    "state": "general",
+    "question": "In der DDR lebten vor allem Migrantinnen und Migranten aus …",
+    "answers": [
+      "Vietnam, Polen, Mosambik.",
+      "Frankreich, Rumänien, Somalia.",
+      "Chile, Ungarn, Simbabwe.",
+      "Nordkorea, Mexiko, Ägypten."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Vietnam, Polen, Mosambik.",
+    "correctAnswerInteractive": "Vietnam, Polen, Mosambik."
+  },
+  {
+    "id": 299,
+    "local": 299,
+    "state": "general",
+    "question": "Ausländische Arbeitnehmerinnen und Arbeitnehmer, die in den 50er und 60er Jahren von der Bundesrepublik Deutschland angeworben wurden, nannte man …",
+    "answers": [
+      "Schwarzarbeiterinnen/Schwarzarbeiter.",
+      "Gastarbeiterinnen/Gastarbeiter.",
+      "Zeitarbeiterinnen/Zeitarbeiter.",
+      "Schichtarbeiterinnen/Schichtarbeiter."
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "Gastarbeiterinnen/Gastarbeiter.",
+    "correctAnswerInteractive": "Gastarbeiter / Gastarbeiterinnen."
+  },
+  {
+    "id": 300,
+    "local": 300,
+    "state": "general",
+    "question": "Aus welchem Land kamen die ersten Gastarbeiterinnen und Gastarbeiter in die Bundesrepublik Deutschland?",
+    "answers": [
+      "Italien",
+      "Spanien",
+      "Portugal",
+      "Türkei"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Italien",
+    "correctAnswerInteractive": "Italien"
+  },
+  {
+    "id": 301,
+    "local": 1,
+    "state": "berlin",
+    "question": "Welches Wappen gehört zum Bundesland Berlin?",
+    "answers": [
+      "Bild 1",
+      "Bild 2",
+      "Bild 3",
+      "Bild 4"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Bild 4",
+    "correctAnswerInteractive": "4"
+  },
+  {
+    "id": 302,
+    "local": 2,
+    "state": "berlin",
+    "question": "Welches ist ein Bezirk von Berlin?",
+    "answers": [
+      "Altona",
+      "Prignitz",
+      "Pankow",
+      "Mecklenburgische Seenplatte"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Pankow",
+    "correctAnswerInteractive": "Pankow"
+  },
+  {
+    "id": 303,
+    "local": 3,
+    "state": "berlin",
+    "question": "Für wie viele Jahre wird das Landesparlament in Berlin gewählt?",
+    "answers": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "5",
+    "correctAnswerInteractive": "5"
+  },
+  {
+    "id": 304,
+    "local": 4,
+    "state": "berlin",
+    "question": "Ab welchem Alter darf man in Berlin bei Kommunalwahlen (Wahl der Bezirksverordnetenversammlung) wählen?",
+    "answers": [
+      "14",
+      "16",
+      "18",
+      "20"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "16",
+    "correctAnswerInteractive": "16"
+  },
+  {
+    "id": 305,
+    "local": 5,
+    "state": "berlin",
+    "question": "Welche Farben hat die Landesflagge von Berlin?",
+    "answers": [
+      "blau-weiß-rot",
+      "weiß-rot",
+      "grün-weiß-rot",
+      "schwarz-gold"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 1,
+    "correctAnswer": "weiß-rot",
+    "correctAnswerInteractive": "weiß-rot"
+  },
+  {
+    "id": 306,
+    "local": 6,
+    "state": "berlin",
+    "question": "Wo können Sie sich in Berlin über politische Themen informieren?",
+    "answers": [
+      "beim Ordnungsamt der Gemeinde",
+      "bei den Kirchen",
+      "bei der Verbraucherzentrale",
+      "bei der Landeszentrale für politische Bildung"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "bei der Landeszentrale für politische Bildung",
+    "correctAnswerInteractive": "bei der Landeszentrale für politische Bildung"
+  },
+  {
+    "id": 307,
+    "local": 7,
+    "state": "berlin",
+    "question": "Welches Bundesland ist ein Stadtstaat?",
+    "answers": [
+      "Berlin",
+      "Saarland",
+      "Brandenburg",
+      "Hessen"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 0,
+    "correctAnswer": "Berlin",
+    "correctAnswerInteractive": "Berlin"
+  },
+  {
+    "id": 308,
+    "local": 8,
+    "state": "berlin",
+    "question": "Welches Bundesland ist Berlin?",
+    "answers": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "4",
+    "correctAnswerInteractive": "4"
+  },
+  {
+    "id": 309,
+    "local": 9,
+    "state": "berlin",
+    "question": "Wie nennt man die Regierungschefin/den Regierungschef des Stadtstaates Berlin?",
+    "answers": [
+      "Ministerpräsidentin/Ministerpräsident",
+      "Oberbürgermeisterin/Oberbürgermeister",
+      "Präsidentin/Präsident des Senates",
+      "Regierende Bürgermeisterin/Regierender Bürgermeister"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 3,
+    "correctAnswer": "Regierende Bürgermeisterin/Regierender Bürgermeister",
+    "correctAnswerInteractive": "Regierender Bürgermeister/ Regierende Bürgermeisterin"
+  },
+  {
+    "id": 310,
+    "local": 10,
+    "state": "berlin",
+    "question": "Welche Senatorin/welchen Senator hat Berlin nicht?",
+    "answers": [
+      "Finanzsenatorin/Finanzsenator",
+      "Innensenatorin/Innensenator",
+      "Senatorin/Senator für Außenbeziehungen",
+      "Justizsenatorin/Justizsenator"
+    ],
+    "sourceQuestion": "BAMF PDF Stand 07.05.2025",
+    "sourceAnswer": "BAMF official interactive trainer scraped 2026-05-24",
+    "correctIndex": 2,
+    "correctAnswer": "Senatorin/Senator für Außenbeziehungen",
+    "correctAnswerInteractive": "Senator / Senatorin für Außenbeziehungen"
+  }
+]

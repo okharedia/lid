@@ -1,0 +1,129 @@
+/* Joseph Okharedia Design System
+ * Tokens for the okharedia.com personal site + CV.
+ * Aesthetic: plain markdown. system-ui on screen, ink-on-paper colors,
+ * indigo links, generous line-height, no chrome. MyGeorgia in PDF only.
+ */
+
+/* MyGeorgia is a base64-embedded font used only inside the print/PDF CV.
+ * The actual @font-face data lives in src/lib/font.css of the source repo
+ * (a giant base64 woff2 blob). On screen the site uses plain system-ui. */
+
+:root {
+  /* ── Color: ink on paper ─────────────────────────────────── */
+  --ok-paper:        #ffffff;       /* page background */
+  --ok-paper-soft:   #f0f0f0;       /* PDF header band, code blocks */
+  --ok-paper-rule:   #e0e0e0;       /* dividers */
+
+  --ok-ink:          #222222;       /* body text */
+  --ok-ink-soft:     #555555;       /* secondary text */
+  --ok-ink-faint:    #999999;       /* tertiary, opacity 0.6 of ink */
+  --ok-rule:         #cccccc;       /* mobile-divider rule */
+  --ok-rule-soft:    #c0c0c0;       /* PDF section rule (grey) */
+
+  /* Link / accent — old-web indigo */
+  --ok-link:         #111199;
+  --ok-link-visited: #111199;
+
+  /* CV download FAB — material blue (kept for fidelity) */
+  --ok-fab:          #2196f3;
+  --ok-fab-hover:    #1976d2;
+  --ok-fab-disabled: #90caf9;
+
+  /* Selection — soft yellow highlighter */
+  --ok-select:       #fff4a3;
+
+  /* ── Type families ───────────────────────────────────────── */
+  /* On-screen: just system-ui — whatever the OS provides. No webfont. */
+  --ok-font-ui:      system-ui, sans-serif;
+  --ok-font-hand:    system-ui, sans-serif; /* legacy alias */
+  /* Print/PDF only: MyGeorgia (custom serif, base64-embedded in repo) */
+  --ok-font-serif:   "MyGeorgia", "Georgia", "Times New Roman", serif;
+  --ok-font-mono:    ui-monospace, SFMono-Regular, Menlo,
+                     "Courier New", monospace;
+
+  /* ── Type scale (responsive base) ────────────────────────── */
+  --ok-base-size:    calc(1rem + 0.25vw);  /* ~17–20px */
+  --ok-leading:      1.6;
+  --ok-leading-tight: 1.2;                  /* PDF */
+
+  --ok-h1:           1.7em;
+  --ok-h2:           1.3em;
+  --ok-h3:           1.1em;
+  --ok-weight-body:  400;
+  --ok-weight-heavy: 900;
+
+  /* ── Spacing — markdown rhythm ───────────────────────────── */
+  --ok-gutter-x:     1em;
+  --ok-gutter-y:     2em;
+  --ok-stack-sm:     0.5em;
+  --ok-stack-md:     1em;
+  --ok-stack-lg:     2em;
+
+  /* ── Layout ──────────────────────────────────────────────── */
+  --ok-content-max:  50rem;          /* home/article */
+  --ok-cv-aside-max: 12em;           /* CV contact column */
+  --ok-cv-body-max:  32em;           /* CV experience column */
+  --ok-side-min:     1em;
+  --ok-side-max:     4em;
+
+  /* ── Borders / radii / shadow ────────────────────────────── */
+  --ok-radius-none:  0;
+  --ok-radius-pill:  999px;          /* FAB */
+  --ok-shadow-fab:   0 2px 5px rgba(0,0,0,0.2);
+  --ok-shadow-fab-h: 0 4px 8px rgba(0,0,0,0.3);
+
+  /* ── Motion ──────────────────────────────────────────────── */
+  --ok-ease:         ease;
+  --ok-dur-fast:     0.3s;
+
+  /* ── Breakpoint ──────────────────────────────────────────── */
+  --ok-bp-mobile:    975px;
+}
+
+/* ── Semantic primitives ─────────────────────────────────── */
+body, .ok-body {
+  background: var(--ok-paper);
+  color: var(--ok-ink);
+  font-family: var(--ok-font-ui);
+  font-size: var(--ok-base-size);
+  line-height: var(--ok-leading);
+  margin: 0;
+}
+
+a, a:link, a:visited, .ok-link {
+  color: var(--ok-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+h1, .ok-h1 { font-size: var(--ok-h1); font-weight: var(--ok-weight-heavy); margin: 0 0 var(--ok-stack-sm); }
+h2, .ok-h2 { font-size: var(--ok-h2); font-weight: var(--ok-weight-heavy); margin: 0 0 var(--ok-stack-sm); }
+h3, .ok-h3 { font-size: var(--ok-h3); font-weight: var(--ok-weight-heavy); margin: 0 0 var(--ok-stack-sm); }
+p,  .ok-p  { margin: 0 0 var(--ok-stack-md); }
+
+code, .ok-code {
+  font-family: var(--ok-font-mono);
+  background: var(--ok-paper-soft);
+  padding: 0.05em 0.3em;
+  border-radius: 0.2em;
+  font-size: 0.92em;
+}
+
+hr, .ok-rule {
+  border: none;
+  border-top: 1px solid var(--ok-rule);
+  margin: var(--ok-stack-md) 0;
+}
+
+::selection { background: var(--ok-select); color: var(--ok-ink); }
+
+/* PDF/print mode swap — serif body */
+.ok-print-body {
+  font-family: var(--ok-font-serif);
+  line-height: var(--ok-leading-tight);
+  background: var(--ok-paper);
+}
+.ok-print-band {
+  background: var(--ok-paper-soft);
+  border-bottom: 1px solid var(--ok-paper-rule);
+}

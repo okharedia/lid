@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1"/>
+<title>Leben in Deutschland · Trainer</title>
+<link rel="stylesheet" href="tokens.css"/>
+<style>
+  :root {
+    --lid-correct:       #1a6e3b;
+    --lid-correct-soft:  #ecf3ee;
+    --lid-wrong:         #a8281f;
+    --lid-wrong-soft:    #f6e9e7;
+    --lid-page-bg:       #f7f5ef;
+    --lid-sheet-shadow:  0 -8px 40px -10px rgba(0,0,0,0.18), 0 -1px 0 var(--ok-paper-rule);
+    /* tightened type scale on phones */
+    --lid-q-size:        1.05rem;
+    --lid-a-size:        0.95rem;
+  }
+
+  html, body {
+    background: var(--lid-page-bg);
+    margin: 0; padding: 0;
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    height: 100vh; height: 100dvh;
+    overflow: hidden;
+    color: var(--ok-ink);
+    font-family: var(--ok-font-ui);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  #root { height: 100%; }
+  button { font: inherit; color: inherit; }
+
+  /* ────────── app shell ────────── */
+  .lid-app {
+    height: 100%;
+    display: flex; flex-direction: column;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* ── top bar ── */
+  .lid-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 0.8em;
+    padding: 0.6em 1em 0.6em;
+    border-bottom: 1px solid var(--ok-paper-rule);
+  }
+  .lid-top .brand {
+    display: inline-flex; align-items: baseline; gap: 0.5em;
+    min-width: 0;
+  }
+  .lid-top .brand .flag {
+    display: inline-block;
+    width: 0.95em; height: 0.65em;
+    background: linear-gradient(to bottom, #000 0 33.3%, #d00 33.3% 66.6%, #ffce00 66.6% 100%);
+    border: 1px solid rgba(0,0,0,0.1);
+    align-self: center;
+    flex-shrink: 0;
+  }
+  .lid-top .brand .title {
+    font-weight: 900; letter-spacing: -0.01em;
+    font-size: 0.98rem;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .lid-top .brand .sub {
+    color: var(--ok-ink-faint);
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
+  .lid-mode {
+    display: inline-flex; gap: 0; align-items: stretch;
+    border: 1px solid var(--ok-paper-rule);
+    background: var(--ok-paper);
+    font-size: 0.82rem;
+    flex-shrink: 0;
+  }
+  .lid-mode button {
+    background: transparent; border: none;
+    padding: 0.35em 0.75em;
+    color: var(--ok-ink-soft);
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .lid-mode button[aria-pressed="true"] {
+    background: var(--ok-ink);
+    color: var(--ok-paper);
+  }
+
+  /* ── sub bar: filter, progress ── */
+  .lid-sub {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 0.8em;
+    padding: 0.55em 1em 0.55em;
+    font-size: 0.85rem;
+  }
+  .lid-sub .left, .lid-sub .right {
+    display: inline-flex; align-items: center; gap: 0.7em;
+    min-width: 0;
+  }
+  .lid-sub .right { flex-shrink: 0; }
+
+  .lid-select-wrap { position: relative; min-width: 0; }
+  .lid-select-wrap select {
+    appearance: none; -webkit-appearance: none;
+    background: transparent; border: none;
+    font: inherit; color: var(--ok-ink); font-weight: 700;
+    padding: 0.15em 1.1em 0.15em 0;
+    max-width: 56vw;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    border-bottom: 1px dotted var(--ok-rule);
+  }
+  .lid-select-wrap::after {
+    content: "▾"; position: absolute; right: 0; top: 50%;
+    transform: translateY(-55%);
+    color: var(--ok-ink-faint); font-size: 0.75em; pointer-events: none;
+  }
+  .lid-iconbtn {
+    background: transparent; border: 1px solid var(--ok-paper-rule);
+    width: 2em; height: 2em; padding: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--ok-ink-soft);
+    cursor: pointer;
+    font-size: 0.95em;
+  }
+  .lid-iconbtn[aria-pressed="true"] { background: var(--ok-ink); color: var(--ok-paper); border-color: var(--ok-ink); }
+  .lid-iconbtn:hover { color: var(--ok-ink); }
+
+  .lid-count {
+    font-variant-numeric: tabular-nums;
+    color: var(--ok-ink); font-weight: 700;
+    white-space: nowrap;
+  }
+  .lid-count .of { color: var(--ok-ink-faint); font-weight: 400; }
+  .lid-known {
+    color: var(--lid-correct); font-weight: 700;
+    white-space: nowrap;
+    font-size: 0.85em;
+  }
+
+  /* ── progress ── */
+  .lid-track {
+    height: 2px; background: var(--ok-paper-rule); position: relative;
+  }
+  .lid-track .fill {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: var(--ok-ink);
+    transition: width 0.4s var(--ok-ease);
+  }
+
+  /* ── card / question area ── */
+  .lid-card {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex; flex-direction: column;
+    padding: 0.9em 1em 0.6em;
+    gap: 0.7em;
+    overflow: hidden;
+  }
+  .lid-meta {
+    display: flex; gap: 0.5em; align-items: center;
+    font-size: 0.7rem;
+    color: var(--ok-ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    flex-wrap: wrap;
+  }
+  .lid-meta .num { font-weight: 700; color: var(--ok-ink-soft); }
+  .lid-meta .dot { color: var(--ok-rule); }
+  .lid-meta .known-tag { color: var(--lid-correct); font-weight: 700; }
+
+  .lid-question {
+    font-size: var(--lid-q-size);
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+    color: var(--ok-ink);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .lid-question .kw {
+    background-image: linear-gradient(transparent 55%, var(--ok-select) 55%);
+    padding: 0 0.05em;
+  }
+  .lid-q-en {
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: var(--ok-ink-soft);
+    font-weight: 400;
+    margin: 0.35em 0 0;
+    font-style: italic;
+    text-wrap: pretty;
+  }
+
+  /* ── answers ── */
+  .lid-answers {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 0.3em;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .lid-answer {
+    display: grid;
+    grid-template-columns: 1.2em 1fr 1.1em;
+    column-gap: 0.7em;
+    align-items: baseline;
+    padding: 0.65em 0.7em 0.65em 0.6em;
+    background: transparent;
+    border: none;
+    border-left: 3px solid transparent;
+    text-align: left; width: 100%; cursor: pointer;
+    color: var(--ok-ink);
+    transition: background 180ms var(--ok-ease), color 180ms var(--ok-ease), opacity 180ms var(--ok-ease);
+    font-size: var(--lid-a-size);
+  }
+  .lid-answer:active:not(:disabled) { background: rgba(17,17,153,0.05); }
+  .lid-answer .letter {
+    font-family: var(--ok-font-mono);
+    font-size: 0.75em;
+    color: var(--ok-ink-faint);
+    text-transform: uppercase;
+    padding-top: 0.2em;
+    align-self: start;
+  }
+  .lid-answer .text { line-height: 1.35; }
+  .lid-answer .text-en {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    color: var(--ok-ink-soft);
+    font-weight: 400;
+    font-style: italic;
+    margin-top: 0.18em;
+    display: block;
+  }
+  .lid-answer.is-correct .text-en { color: var(--lid-correct); opacity: 0.75; }
+  .lid-answer.is-wrong .text-en { color: var(--lid-wrong); opacity: 0.75; }
+  .lid-answer.is-dim .text-en { color: var(--ok-ink-faint); }
+  .lid-answer .mark {
+    align-self: center; text-align: right;
+    color: transparent; font-size: 1em;
+  }
+
+  .lid-answer.is-correct {
+    background: var(--lid-correct-soft);
+    border-left-color: var(--lid-correct);
+  }
+  .lid-answer.is-correct .text { color: var(--lid-correct); font-weight: 600; }
+  .lid-answer.is-correct .letter { color: var(--lid-correct); }
+  .lid-answer.is-correct .mark { color: var(--lid-correct); font-weight: 700; }
+
+  .lid-answer.is-wrong {
+    background: var(--lid-wrong-soft);
+    border-left-color: var(--lid-wrong);
+  }
+  .lid-answer.is-wrong .text { color: var(--lid-wrong); }
+  .lid-answer.is-wrong .letter { color: var(--lid-wrong); }
+  .lid-answer.is-wrong .mark { color: var(--lid-wrong); font-weight: 700; }
+  .lid-answer.is-dim { opacity: 0.4; }
+  .lid-answer:disabled { cursor: default; }
+
+  /* ── hint trigger row (just above bottom nav) ── */
+  .lid-hint-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 0.6em;
+    padding: 0.1em 0 0.1em;
+    font-size: 0.85rem;
+  }
+  .lid-hint-trigger {
+    appearance: none; background: transparent; border: none;
+    padding: 0.35em 0;
+    color: var(--ok-link);
+    text-decoration: underline; text-underline-offset: 0.22em;
+    cursor: pointer; font: inherit; font-size: 0.88rem;
+    display: inline-flex; align-items: center; gap: 0.4em;
+  }
+  .lid-hint-trigger .info-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.25em; height: 1.25em; border-radius: 999px;
+    border: 1px solid var(--ok-link); color: var(--ok-link);
+    font-family: var(--ok-font-serif);
+    font-style: italic; font-weight: 700; font-size: 0.78em;
+  }
+  .lid-hint-row .feedback {
+    font-size: 0.82rem; font-weight: 600;
+  }
+  .lid-hint-row .feedback.correct { color: var(--lid-correct); }
+  .lid-hint-row .feedback.wrong { color: var(--lid-wrong); }
+
+  /* ── bottom nav ── */
+  .lid-nav {
+    display: grid; grid-template-columns: auto 1fr auto;
+    align-items: stretch; gap: 0.5em;
+    border-top: 1px solid var(--ok-paper-rule);
+    padding: 0.5em 0.7em calc(0.5em + env(safe-area-inset-bottom));
+    background: var(--ok-paper);
+  }
+  .lid-nav-btn {
+    appearance: none; background: transparent; border: 1px solid transparent;
+    padding: 0.7em 0.9em;
+    color: var(--ok-ink); font-weight: 600;
+    cursor: pointer; font-size: 0.92rem;
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.35em;
+  }
+  .lid-nav-btn:disabled { color: var(--ok-ink-faint); cursor: default; }
+  .lid-nav-btn.ghost { color: var(--ok-ink); }
+  .lid-nav-btn.ghost.on { color: var(--lid-correct); }
+  .lid-nav-btn.primary {
+    background: var(--ok-ink); color: var(--ok-paper);
+    padding: 0.7em 1.1em;
+    font-weight: 700;
+  }
+  .lid-nav-btn.primary:disabled { background: var(--ok-rule); color: var(--ok-paper); }
+  .lid-nav-btn .arrow { opacity: 0.7; }
+
+  /* ── bottom sheet ── */
+  .lid-sheet-backdrop {
+    position: fixed; inset: 0; z-index: 50;
+    background: rgba(20,20,20,0.32);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms var(--ok-ease);
+  }
+  .lid-sheet-backdrop.open { opacity: 1; pointer-events: auto; }
+
+  .lid-sheet {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+    background: var(--ok-paper);
+    box-shadow: var(--lid-sheet-shadow);
+    transform: translateY(100%);
+    transition: transform 280ms cubic-bezier(0.32, 0.72, 0.2, 1);
+    max-height: 78dvh;
+    overflow-y: auto;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .lid-sheet.open { transform: translateY(0); }
+  .lid-sheet .handle {
+    width: 38px; height: 4px; border-radius: 999px;
+    background: var(--ok-rule); margin: 0.55em auto 0.4em;
+  }
+  .lid-sheet .inner { padding: 0.5em 1.25em 1.5em; }
+  .lid-sheet h3 {
+    text-transform: uppercase; letter-spacing: 0.1em;
+    font-size: 0.72rem; font-weight: 700;
+    color: var(--ok-ink-faint);
+    margin: 1.1em 0 0.45em;
+  }
+  .lid-sheet h3:first-child { margin-top: 0.4em; }
+  .lid-sheet .why { font-size: 0.97rem; line-height: 1.55; }
+  .lid-sheet .kw-list {
+    display: flex; flex-direction: column; gap: 0.5em;
+    margin-top: 0.2em;
+  }
+  .lid-sheet .kw-item {
+    font-size: 0.93rem; line-height: 1.4;
+  }
+  .lid-sheet .kw-item .de {
+    font-weight: 700;
+    background-image: linear-gradient(transparent 55%, var(--ok-select) 55%);
+    padding: 0 0.1em;
+  }
+  .lid-sheet .kw-item .en {
+    display: block;
+    color: var(--ok-ink-soft);
+    font-size: 0.88rem;
+    margin-top: 0.15em;
+  }
+  .lid-sheet .close {
+    width: 100%;
+    margin-top: 1.2em;
+    background: var(--ok-ink); color: var(--ok-paper);
+    border: none; padding: 0.85em 1em;
+    font-weight: 700; font-size: 0.95rem;
+    cursor: pointer;
+  }
+
+  /* ── menu sheet (category, shuffle, reset) ── */
+  .lid-menu {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .lid-menu li { border-bottom: 1px solid var(--ok-paper-rule); }
+  .lid-menu li:last-child { border-bottom: none; }
+  .lid-menu button {
+    appearance: none; background: transparent; border: none;
+    width: 100%; text-align: left;
+    padding: 0.9em 0.2em; font: inherit;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer;
+  }
+  .lid-menu button[aria-pressed="true"] {
+    font-weight: 700;
+  }
+  .lid-menu button[aria-pressed="true"] .tick { color: var(--lid-correct); }
+  .lid-menu .tick { color: transparent; }
+
+  /* ── empty state ── */
+  .lid-empty {
+    flex: 1 1 auto; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 2em; text-align: center; color: var(--ok-ink-soft);
+  }
+  .lid-empty .big { font-size: 1.4em; font-weight: 900; color: var(--ok-ink); margin-bottom: 0.5em; }
+
+  /* ─────────────── desktop ─────────────── */
+  @media (min-width: 720px) {
+    :root { --lid-q-size: 1.4rem; --lid-a-size: 1.05rem; }
+    body { font-size: 17px; background: var(--lid-page-bg); }
+    .lid-app {
+      max-width: 720px; margin: 0 auto;
+      height: 100dvh;
+      background: var(--lid-page-bg);
+    }
+    .lid-top { padding: 1em 1.5em; }
+    .lid-top .brand .title { font-size: 1.15rem; }
+    .lid-top .brand .sub { font-size: 0.88rem; }
+    .lid-mode { font-size: 0.92rem; }
+    .lid-mode button { padding: 0.45em 1em; }
+    .lid-sub { padding: 0.7em 1.5em; font-size: 0.92rem; }
+    .lid-card { padding: 1.5em 1.5em 0.8em; gap: 1em; }
+    .lid-meta { font-size: 0.76rem; }
+    .lid-answer { padding: 0.85em 0.9em 0.85em 0.7em; }
+    .lid-answer .letter { font-size: 0.78em; }
+    .lid-q-en { font-size: 0.95rem; }
+    .lid-answer .text-en { font-size: 0.88rem; }
+    .lid-nav { padding: 0.8em 1.5em calc(0.8em + env(safe-area-inset-bottom)); }
+    .lid-nav-btn { padding: 0.8em 1.2em; }
+    .lid-nav-btn.primary { padding: 0.8em 1.6em; }
+    .lid-sheet { left: auto; right: auto; max-width: 480px;
+      left: 50%; transform: translate(-50%, 100%);
+      bottom: 1.5em;
+      border: 1px solid var(--ok-paper-rule);
+    }
+    .lid-sheet.open { transform: translate(-50%, 0); }
+  }
+
+  @media (min-width: 1100px) {
+    body { background: #efece4; }
+    .lid-app {
+      box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 30px 60px -30px rgba(0,0,0,0.18);
+    }
+  }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script src="data.js"></script>
+  <script type="text/babel" data-presets="react" src="app.jsx"></script>
+</body>
+</html>

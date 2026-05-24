@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+    <base href="../" />
+    <title>LiD // Trainer Design</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="bp-app" aria-live="polite">
+      <header class="bp-top">
+        <span class="brand">
+          <span class="flag" aria-hidden="true"></span>
+        </span>
+        <div class="bp-top-actions">
+          <button id="filterButton" class="bp-filter-toggle" type="button" aria-label="Toggle filters" aria-expanded="false" aria-controls="filterBar">
+            <span id="filterButtonLabel">All</span>
+          </button>
+          <button id="shuffleButton" class="bp-shuffle-toggle" type="button" aria-pressed="false" aria-label="Shuffle" title="Shuffle deck">
+            ⇆
+          </button>
+          <span class="bp-mode" role="group" aria-label="Mode">
+            <button id="learnMode" type="button" aria-pressed="true">Learn</button>
+            <button id="testMode" type="button" aria-pressed="false">Test</button>
+          </span>
+        </div>
+      </header>
+
+      <section id="filterBar" class="bp-pills-bar" aria-label="Question categories">
+        <div id="categoryPills" class="pills"></div>
+      </section>
+
+      <div class="bp-track" aria-hidden="true">
+        <div id="progressFill" class="fill"></div>
+      </div>
+
+      <section id="card" class="bp-card">
+        <div class="bp-q-label">
+          <span id="questionTag" class="tag">FRAGE 001</span>
+          <span id="categoryLabel">Alle Kategorien</span>
+          <span id="knownTag" class="known-tag" hidden>✓ KNOWN</span>
+          <span class="grow"></span>
+          <span id="feedback" class="bp-feedback" hidden></span>
+          <span id="knownCount" class="bp-known" hidden><span class="check">✓</span> 0</span>
+          <span id="progressText" class="progress">01<span class="pct">/310</span></span>
+        </div>
+
+        <h1 id="questionText" class="bp-q">Loading...</h1>
+        <p id="questionTranslation" class="bp-q-en"></p>
+        <img id="questionImage" class="bp-image" alt="Official question image" />
+
+        <ul id="answers" class="bp-answers"></ul>
+
+        <div id="lockedHint" class="bp-locked" hidden>— answer to reveal explanation &amp; keywords —</div>
+      </section>
+
+      <div id="emptyState" class="bp-empty" hidden>
+        <div class="big">No cards</div>
+        <div>try a different category</div>
+      </div>
+
+      <div id="studyDock" class="bp-study-dock" hidden>
+        <p id="hintText" class="bp-hint"></p>
+        <div id="keywordList" class="bp-kw-list"></div>
+      </div>
+
+      <nav class="bp-nav" aria-label="Card navigation">
+        <button id="prevButton" type="button" aria-label="Previous">
+          <span class="arrow">←</span> Prev
+        </button>
+        <button id="knownButton" class="known-btn" type="button">★ Mark known</button>
+        <button id="nextButton" type="button">
+          Next <span class="arrow">→</span>
+        </button>
+      </nav>
+    </main>
+
+    <script src="design/trainer-design-data.js"></script>
+  </body>
+</html>
