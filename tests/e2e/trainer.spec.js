@@ -36,8 +36,33 @@ test("takes a two-question test through result view", async ({ page }) => {
   await page.getByRole("button", { name: /Finish/ }).click();
 
   await expect(page.locator("#resultView")).toBeVisible();
-  await expect(page.locator("#resultView")).toContainText(/correct/);
+  await expect(page.locator("#resultView")).toContainText(/Correct/);
+  await expect(page.locator(".result-stats")).toContainText("Correct");
+  await expect(page.locator(".result-stats")).toContainText("Missed");
   await expect(page.getByRole("button", { name: /Retry test/ })).toBeVisible();
+});
+
+test("theme preference defaults to system and persists explicit selection", async ({ page }) => {
+  await openTrainer(page);
+
+  const initialState = await page.evaluate(() => JSON.parse(localStorage.getItem("lid-trainer-v7")));
+  expect(initialState.theme).toBeUndefined();
+
+  await page.locator("#filterButton").click();
+  await page.getByRole("tab", { name: /Config/ }).click();
+  await expect(page.getByRole("button", { name: "System" })).toHaveAttribute("aria-pressed", "true");
+
+  await page.getByRole("button", { name: "Dark" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(page.locator("html")).toHaveAttribute("data-theme-preference", "dark");
+
+  const savedState = await page.evaluate(() => JSON.parse(localStorage.getItem("lid-trainer-v7")));
+  expect(savedState.theme).toBe("dark");
+
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page.locator("#filterButton").click();
+  await expect(page.getByRole("button", { name: "Dark" })).toHaveAttribute("aria-pressed", "true");
 });
 
 test("persists test answers across reload", async ({ page }) => {

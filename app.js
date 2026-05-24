@@ -30,6 +30,8 @@ const state = {
   testSession: null,
   result: null,
   studyExpanded: true,
+  theme: "system",
+  themeExplicit: false,
 };
 
 let slideTimer = 0;
@@ -56,6 +58,7 @@ const els = {
   testSizeMinus: document.querySelector("#testSizeMinus"),
   testSizePlus: document.querySelector("#testSizePlus"),
   testSizeMeta: document.querySelector("#testSizeMeta"),
+  themeButtons: [...document.querySelectorAll("[data-theme-choice]")],
   filterBar: document.querySelector("#filterBar"),
   app: document.querySelector(".bp-app"),
   top: document.querySelector(".bp-top"),
@@ -100,19 +103,28 @@ function loadSavedState() {
 
 function saveState() {
   try {
+    const payload = {
+      mode: state.mode,
+      category: state.category,
+      shuffleSeed: state.shuffleSeed,
+      known: [...state.known],
+      index: state.index,
+      panelTab: state.panelTab,
+      testSession: state.testSession,
+    };
+    if (state.themeExplicit) payload.theme = state.theme;
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({
-        mode: state.mode,
-        category: state.category,
-        shuffleSeed: state.shuffleSeed,
-        known: [...state.known],
-        index: state.index,
-        panelTab: state.panelTab,
-        testSession: state.testSession,
-      }),
+      JSON.stringify(payload),
     );
   } catch {}
+}
+
+function applyTheme() {
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const resolved = state.theme === "system" ? (prefersDark ? "dark" : "light") : state.theme;
+  document.documentElement.dataset.theme = resolved;
+  document.documentElement.dataset.themePreference = state.theme;
 }
 
 function mulberry32(seed) {
@@ -353,11 +365,16 @@ function renderTestConfigPanel() {
   els.testSizeMinus.disabled = value <= 1;
   els.testSizePlus.disabled = value >= max;
   els.testSizeMeta.textContent = `Current test: ${Math.min(value, max)} question${Math.min(value, max) === 1 ? "" : "s"}`;
+  els.themeButtons.forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.themeChoice === state.theme));
+  });
 }
 
 function renderPanel() {
   const isKnownTab = state.panelTab === "known";
   const isTestConfigTab = state.panelTab === "test";
+  els.knownTab.setAttribute("aria-label", `Known questions, ${state.known.size} marked`);
+  els.testConfigTab.setAttribute("aria-label", `Config, theme ${state.theme}`);
   const tabStates = [
     [els.filtersTab, !isKnownTab && !isTestConfigTab],
     [els.knownTab, isKnownTab],
@@ -408,11 +425,16 @@ function renderResult() {
   const passed = percent >= PASS_SCORE;
   els.resultView.classList.toggle("passed", passed);
   els.resultView.innerHTML = `
-    <div class="result-hero">
+    <div class="result-hero" aria-live="polite">
       <div class="result-icon">${icon(passed ? "confetti" : "trophy")}</div>
       <p class="result-kicker">${passed ? "Passed" : "Keep going"}</p>
       <h1>${percent}%</h1>
-      <p>${correct}/${total} correct · ${escapeHtml(shortCategoryLabel(state.category))}</p>
+      <div class="result-stats" aria-label="Test score">
+        <span><strong>${correct}</strong><small>Correct</small></span>
+        <span><strong>${total - correct}</strong><small>Missed</small></span>
+        <span><strong>${total}</strong><small>Total</small></span>
+      </div>
+      <p>${escapeHtml(shortCategoryLabel(state.category))}</p>
     </div>
     <div class="result-actions">
       <button class="btn btn-secondary" type="button" data-action="restart-test">${icon("refresh")} Retry test</button>
@@ -496,7 +518,9 @@ function render() {
   syncStudyDockState();
   els.lockedHint.hidden = Boolean(state.result) || reveal;
   els.prevButton.disabled = Boolean(state.result) || state.index === 0;
-  els.progressFill.style.width = total ? `${((state.index + 1) / total) * 100}%` : state.result ? `${state.result.percent}%` : "0%";
+  const progressValue = total ? Math.round(((state.index + 1) / total) * 100) : state.result ? state.result.percent : 0;
+  els.progressFill.style.width = `${progressValue}%`;
+  els.track.setAttribute("aria-valuenow", String(progressValue));
 
   if (state.result) {
     renderResult();
@@ -929,6 +953,15 @@ function bindEvents() {
     setTestSize(Number(els.testSizeInput.value));
     els.testSizeInput.blur();
   });
+  els.themeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      state.theme = button.dataset.themeChoice;
+      state.themeExplicit = true;
+      applyTheme();
+      saveState();
+      renderTestConfigPanel();
+    });
+  });
   els.filterButton.addEventListener("click", () => {
     if (els.app.classList.contains("filters-open")) closeReviewPanel();
     else openReviewPanel();
@@ -1079,6 +1112,9 @@ function bindEvents() {
     syncStudyDockState();
     fitLayout();
   });
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    if (state.theme === "system") applyTheme();
+  });
 }
 
 async function init() {
@@ -1090,6 +1126,9 @@ async function init() {
   state.index = saved.index || 0;
   state.panelTab = ["known", "test"].includes(saved.panelTab) ? saved.panelTab : "filters";
   state.testSession = saved.testSession || null;
+  state.theme = ["system", "light", "dark"].includes(saved.theme) ? saved.theme : "system";
+  state.themeExplicit = ["system", "light", "dark"].includes(saved.theme);
+  applyTheme();
 
   const response = await fetch("./data/lid-berlin-source-of-truth.json");
   if (!response.ok) throw new Error(`Could not load LiD database: ${response.status}`);
