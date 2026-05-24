@@ -3,6 +3,8 @@ const OLD_STORAGE_KEY = "lid-trainer-v6";
 const ALL_CATS = "Alle Kategorien";
 const DEFAULT_TEST_SIZE = 3;
 const PASS_SCORE = 90;
+const MOTION_MEDIUM_MS = 180;
+const MOTION_LONG_MS = 240;
 
 function configuredTestSize() {
   const urlValue = new URLSearchParams(window.location.search).get("testSize");
@@ -643,7 +645,7 @@ function animateMove(step) {
   els.app.classList.add(step > 0 ? "slide-next" : "slide-prev");
   slideTimer = window.setTimeout(() => {
     els.app.classList.remove("slide-next", "slide-prev");
-  }, 260);
+  }, MOTION_LONG_MS);
 }
 
 function clampSwipeDistance(dx) {
@@ -661,7 +663,7 @@ function releaseSwipe() {
   els.app.style.setProperty("--swipe-x", "0px");
   swipeTimer = window.setTimeout(() => {
     els.app.classList.remove("swipe-active", "swipe-release");
-  }, 180);
+  }, MOTION_MEDIUM_MS);
 }
 
 function commitSwipe(step) {
@@ -677,7 +679,7 @@ function commitSwipe(step) {
     els.app.classList.remove("swipe-active", "swipe-release");
     els.app.style.setProperty("--swipe-x", "0px");
     move(step);
-  }, 170);
+  }, MOTION_MEDIUM_MS);
 }
 
 function hasVerticalOverflow(element) {
