@@ -1,32 +1,64 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400..900&family=Roboto+Mono:wght@400;500;700&display=swap");
 
-/* Joseph Okharedia Design System
- * LiD design tokens. Type is restricted to Roboto Flex and Roboto Mono.
+/* LiD Material 3-inspired Design System
+ * Tokens mirror the implementation direction in styles.css.
+ * Type remains restricted to Roboto Flex and Roboto Mono.
  */
 
 :root {
-  /* ── Color: ink on paper ─────────────────────────────────── */
-  --ok-paper:        #ffffff;       /* page background */
-  --ok-paper-soft:   #f0f0f0;       /* PDF header band, code blocks */
-  --ok-paper-rule:   #e0e0e0;       /* dividers */
+  /* ── Material 3-inspired color roles ─────────────────────── */
+  --md-sys-color-primary: #285d4d;
+  --md-sys-color-primary-hover: #174738;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #abe3cd;
+  --md-sys-color-on-primary-container: #0b2119;
+  --md-sys-color-secondary: #4f5f68;
+  --md-sys-color-secondary-container: #dce6eb;
+  --md-sys-color-on-secondary-container: #111d23;
+  --md-sys-color-tertiary: #3f5f7f;
+  --md-sys-color-tertiary-container: #c9ddfb;
+  --md-sys-color-on-tertiary-container: #071d35;
+  --md-sys-color-error: #ba1a1a;
+  --md-sys-color-error-container: #ffdad6;
+  --md-sys-color-surface: #ffffff;
+  --md-sys-color-surface-container-low: #fafcff;
+  --md-sys-color-surface-container: #f2f6f8;
+  --md-sys-color-surface-container-high: #eaf0f3;
+  --md-sys-color-on-surface: #191c1e;
+  --md-sys-color-on-surface-variant: #434b50;
+  --md-sys-color-outline: #737c82;
+  --md-sys-color-outline-variant: #d2dade;
+  --md-sys-color-success: #246b45;
+  --md-sys-color-success-container: #b6f1c9;
+  --md-sys-color-on-success-container: #062114;
+  --md-sys-color-success-outline: #65c98b;
+  --md-sys-color-warning: #7b5800;
+  --md-sys-color-warning-container: #ffdea0;
+  --md-sys-color-on-warning-container: #241900;
+  --md-sys-color-learning-highlight: #ffe66d;
+  --md-sys-color-learning-highlight-soft: rgba(255,230,109,0.58);
+  --md-sys-color-error-state-layer: rgba(186,26,26,0.12);
+  --md-sys-color-scrim: rgba(25,28,30,0.18);
+  --lid-flag-black: #000000;
+  --lid-flag-red: #dd0000;
+  --lid-flag-gold: #ffce00;
+  --lid-flag-outline: rgba(0,0,0,0.12);
 
-  --ok-ink:          #222222;       /* body text */
-  --ok-ink-soft:     #555555;       /* secondary text */
-  --ok-ink-faint:    #999999;       /* tertiary, opacity 0.6 of ink */
-  --ok-rule:         #cccccc;       /* mobile-divider rule */
-  --ok-rule-soft:    #c0c0c0;       /* PDF section rule (grey) */
-
-  /* Link / accent — old-web indigo */
-  --ok-link:         #111199;
-  --ok-link-visited: #111199;
-
-  /* CV download FAB — material blue (kept for fidelity) */
-  --ok-fab:          #2196f3;
-  --ok-fab-hover:    #1976d2;
-  --ok-fab-disabled: #90caf9;
-
-  /* Selection — soft yellow highlighter */
-  --ok-select:       #fff4a3;
+  /* Legacy design aliases used by older design prototypes. */
+  --ok-paper:        var(--md-sys-color-surface);
+  --ok-paper-soft:   var(--md-sys-color-surface-container-low);
+  --ok-paper-rule:   var(--md-sys-color-outline-variant);
+  --ok-ink:          var(--md-sys-color-on-surface);
+  --ok-ink-soft:     var(--md-sys-color-on-surface-variant);
+  --ok-ink-faint:    color-mix(in srgb, var(--md-sys-color-on-surface-variant) 62%, var(--md-sys-color-surface));
+  --ok-rule:         var(--md-sys-color-outline-variant);
+  --ok-rule-soft:    var(--md-sys-color-outline);
+  --ok-link:         var(--md-sys-color-primary);
+  --ok-link-visited: var(--md-sys-color-primary);
+  --ok-fab:          var(--md-sys-color-primary);
+  --ok-fab-hover:    var(--md-sys-color-primary-hover);
+  --ok-fab-disabled: var(--md-sys-color-primary-container);
+  --ok-select:       var(--md-sys-color-learning-highlight);
 
   /* ── Type families ───────────────────────────────────────── */
   --ok-font-ui:      "Roboto Flex";
@@ -60,9 +92,12 @@
 
   /* ── Borders / radii / shadow ────────────────────────────── */
   --ok-radius-none:  0;
-  --ok-radius-pill:  999px;          /* FAB */
-  --ok-shadow-fab:   0 2px 5px rgba(0,0,0,0.2);
-  --ok-shadow-fab-h: 0 4px 8px rgba(0,0,0,0.3);
+  --ok-radius-sm:    12px;
+  --ok-radius-md:    18px;
+  --ok-radius-lg:    28px;
+  --ok-radius-pill:  999px;
+  --ok-shadow-fab:   0 1px 2px rgba(25,28,30,0.12), 0 1px 3px 1px rgba(25,28,30,0.08);
+  --ok-shadow-fab-h: 0 2px 6px rgba(25,28,30,0.12), 0 2px 10px 1px rgba(25,28,30,0.08);
 
   /* ── Motion ──────────────────────────────────────────────── */
   --ok-ease:         ease;
