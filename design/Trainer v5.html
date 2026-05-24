@@ -25,11 +25,13 @@
     margin: 0; padding: 0;
     background: var(--bp-paper);
     -webkit-tap-highlight-color: transparent;
-    overscroll-behavior: none;
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: auto;
   }
   body {
-    height: 100vh; height: 100dvh;
-    overflow: hidden;
+    min-height: 100vh; min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
     color: var(--bp-ink);
     font-family: var(--bp-display);
     font-size: 16px;
