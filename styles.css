@@ -34,6 +34,9 @@
   --md-sys-color-on-warning-container: #241900;
   --md-sys-color-learning-highlight: #ffe66d;
   --md-sys-color-learning-highlight-soft: rgba(255, 230, 109, 0.58);
+  --md-sys-color-on-surface-state-layer: rgba(25, 28, 30, 0.08);
+  --md-sys-color-primary-state-layer: rgba(40, 93, 77, 0.12);
+  --md-sys-color-secondary-state-layer: rgba(79, 95, 104, 0.12);
   --md-sys-color-error-state-layer: rgba(186, 26, 26, 0.12);
   --md-sys-color-scrim: rgba(25, 28, 30, 0.18);
   --lid-flag-black: #000000;
@@ -42,6 +45,7 @@
   --lid-flag-outline: rgba(0, 0, 0, 0.12);
   --md-state-hover-opacity: 0.08;
   --md-state-focus-opacity: 0.12;
+  --md-state-pressed-opacity: 0.12;
   --md-sys-shape-corner-extra-small: 4px;
   --md-sys-shape-corner-small: 8px;
   --md-sys-shape-corner-medium: 12px;
@@ -52,6 +56,8 @@
   --md-sys-motion-duration-medium: 180ms;
   --md-sys-motion-duration-long: 240ms;
   --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-elevation-0: none;
   --md-elevation-1: 0 1px 2px rgba(25, 28, 30, 0.12), 0 1px 3px 1px rgba(25, 28, 30, 0.08);
   --md-elevation-2: 0 2px 6px rgba(25, 28, 30, 0.12), 0 2px 10px 1px rgba(25, 28, 30, 0.08);
   --bp-ink: var(--md-sys-color-on-surface);
@@ -70,6 +76,7 @@
   --bp-canvas: var(--md-sys-color-surface-container);
   --bp-rule: var(--md-sys-color-outline-variant);
   --bp-rule-strong: var(--md-sys-color-outline);
+  --bp-focus: var(--md-sys-color-primary);
   --bp-wrong: var(--md-sys-color-error);
   --bp-wrong-soft: var(--md-sys-color-error-container);
   --bp-mark: var(--md-sys-color-learning-highlight);
@@ -133,11 +140,20 @@ button {
   justify-content: center;
   gap: 6px;
   padding: 0 15px;
-  transition: transform 100ms ease, background 140ms ease, border-color 140ms ease, color 140ms ease;
+  transition: transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+    background var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+    border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+    color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+    box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
 }
 
 .btn:active {
   transform: scale(0.98);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--bp-focus);
+  outline-offset: 2px;
 }
 
 .btn-primary {
@@ -149,6 +165,11 @@ button {
 .btn-primary:hover {
   background: var(--bp-indigo-hover);
   border-color: var(--bp-indigo-hover);
+  box-shadow: inset 0 0 0 999px rgba(255, 255, 255, var(--md-state-hover-opacity));
+}
+
+.btn-primary:active {
+  box-shadow: inset 0 0 0 999px rgba(255, 255, 255, var(--md-state-pressed-opacity));
 }
 
 .btn-secondary {
@@ -158,7 +179,11 @@ button {
 }
 
 .btn-secondary:hover {
-  background: var(--bp-indigo-soft);
+  background: var(--md-sys-color-primary-state-layer);
+}
+
+.btn-secondary:active {
+  background: color-mix(in srgb, var(--bp-indigo) 16%, transparent);
 }
 
 .btn-tertiary {
@@ -169,7 +194,11 @@ button {
 
 .btn-tertiary:hover {
   color: var(--bp-indigo);
-  background: var(--bp-indigo-soft);
+  background: var(--md-sys-color-primary-state-layer);
+}
+
+.btn-tertiary:active {
+  background: color-mix(in srgb, var(--bp-indigo) 16%, transparent);
 }
 
 .icon-sprite {
@@ -323,6 +352,24 @@ button {
   cursor: pointer;
   position: relative;
   padding: 0;
+  transition: background var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+    border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+    color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+    transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+    box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+
+.bp-filter-toggle:hover,
+.bp-shuffle-toggle:hover,
+.bp-language:hover {
+  background: color-mix(in srgb, var(--bp-ink) 8%, var(--md-sys-color-surface-container-high));
+}
+
+.bp-filter-toggle:active,
+.bp-shuffle-toggle:active,
+.bp-language:active {
+  transform: scale(0.98);
+  background: color-mix(in srgb, var(--bp-ink) 12%, var(--md-sys-color-surface-container-high));
 }
 
 .bp-language {
@@ -347,6 +394,7 @@ button {
 .bp-language:focus-within {
   outline: 2px solid var(--bp-indigo);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--md-sys-color-primary-state-layer);
 }
 
 .bp-filter-toggle {
@@ -381,10 +429,18 @@ button {
   border-color: var(--bp-indigo);
 }
 
+.bp-shuffle-toggle[aria-pressed="true"]:hover {
+  box-shadow: inset 0 0 0 999px var(--md-sys-color-primary-state-layer);
+}
+
 .bp-filter-toggle[aria-expanded="true"] {
   background: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
   border-color: var(--bp-indigo);
+}
+
+.bp-filter-toggle[aria-expanded="true"]:hover {
+  box-shadow: inset 0 0 0 999px var(--md-sys-color-primary-state-layer);
 }
 
 .bp-mode {
@@ -413,12 +469,20 @@ button {
 }
 
 .bp-mode button:not([aria-pressed="true"]):hover {
-  background: color-mix(in srgb, var(--bp-ink) 8%, transparent);
+  background: var(--md-sys-color-on-surface-state-layer);
+}
+
+.bp-mode button:not([aria-pressed="true"]):active {
+  background: color-mix(in srgb, var(--bp-ink) 12%, transparent);
 }
 
 .bp-mode button[aria-pressed="true"] {
   background: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
+}
+
+.bp-mode button[aria-pressed="true"]:hover {
+  box-shadow: inset 0 0 0 999px var(--md-sys-color-secondary-state-layer);
 }
 
 .bp-mode button:focus-visible,
@@ -432,6 +496,7 @@ button {
 .bp-nav button:focus-visible {
   outline: 2px solid var(--bp-indigo);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--md-sys-color-primary-state-layer);
 }
 
 .bp-pills-bar {
@@ -572,8 +637,12 @@ button {
 }
 
 .cat-pill:hover {
-  background: color-mix(in srgb, var(--bp-ink) 8%, transparent);
+  background: var(--md-sys-color-on-surface-state-layer);
   border-color: var(--md-sys-color-outline);
+}
+
+.cat-pill:active {
+  background: color-mix(in srgb, var(--bp-ink) 12%, transparent);
 }
 
 .cat-pill[aria-pressed="true"] {
@@ -581,6 +650,10 @@ button {
   gap: 8px;
   background: var(--md-sys-color-secondary-container);
   border-color: transparent;
+}
+
+.cat-pill[aria-pressed="true"]:hover {
+  box-shadow: inset 0 0 0 999px var(--md-sys-color-secondary-state-layer);
 }
 
 .cat-pill[aria-pressed="true"] .cat-check {
@@ -952,12 +1025,23 @@ button {
 }
 
 .bp-answer:active:not(:disabled) {
-  transform: scale(0.995);
+  transform: scale(0.992);
+  box-shadow: inset 0 0 0 999px color-mix(in srgb, var(--bp-ink) 12%, transparent);
 }
 
 .bp-answer:not(:disabled):hover {
   background: color-mix(in srgb, var(--bp-ink) 8%, var(--md-sys-color-surface-container-low));
   border-color: var(--md-sys-color-outline);
+}
+
+.bp-answer.is-correct:not(:disabled):hover,
+.bp-answer.is-correct:not(:disabled):active {
+  box-shadow: inset 0 0 0 999px color-mix(in srgb, var(--bp-green) 8%, transparent);
+}
+
+.bp-answer.is-wrong:not(:disabled):hover,
+.bp-answer.is-wrong:not(:disabled):active {
+  box-shadow: inset 0 0 0 999px var(--md-sys-color-error-state-layer);
 }
 
 .bp-answer:disabled {
@@ -1148,9 +1232,15 @@ button {
   background: var(--md-sys-color-outline);
 }
 
+.bp-study-handle:active::before {
+  width: 58px;
+  background: var(--bp-indigo);
+}
+
 .bp-study-handle:focus-visible {
   outline: 2px solid var(--bp-focus);
   outline-offset: -2px;
+  background: var(--md-sys-color-primary-state-layer);
 }
 
 .bp-study-dock.is-collapsed {
@@ -1263,7 +1353,11 @@ button {
 }
 
 .bp-nav button:not(:disabled):hover {
-  background: color-mix(in srgb, var(--bp-ink) 8%, transparent);
+  background: var(--md-sys-color-on-surface-state-layer);
+}
+
+.bp-nav button:not(:disabled):active {
+  background: color-mix(in srgb, var(--bp-ink) 12%, transparent);
 }
 
 .bp-nav button:last-child {
@@ -1274,6 +1368,12 @@ button {
 
 .bp-nav button:last-child:not(:disabled):hover {
   background: var(--bp-indigo-hover);
+  box-shadow: var(--md-elevation-1), inset 0 0 0 999px rgba(255, 255, 255, var(--md-state-hover-opacity));
+}
+
+.bp-nav button:last-child:not(:disabled):active {
+  background: var(--bp-indigo-hover);
+  box-shadow: var(--md-elevation-1), inset 0 0 0 999px rgba(255, 255, 255, var(--md-state-pressed-opacity));
 }
 
 .bp-nav button:disabled {
@@ -1295,6 +1395,22 @@ button {
 .bp-nav .known-btn.on {
   background: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
+}
+
+.bp-nav .known-btn:not(:disabled):hover {
+  box-shadow: inset 0 0 0 999px var(--md-sys-color-secondary-state-layer);
+}
+
+.bp-nav .known-btn.on:not(:disabled):hover {
+  box-shadow: inset 0 0 0 999px var(--md-sys-color-primary-state-layer);
+}
+
+.bp-nav button:focus-visible {
+  box-shadow: 0 0 0 4px var(--md-sys-color-primary-state-layer);
+}
+
+.bp-nav button:last-child:focus-visible {
+  box-shadow: var(--md-elevation-1), 0 0 0 4px var(--md-sys-color-primary-state-layer);
 }
 
 .bp-nav .arrow {
