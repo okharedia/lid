@@ -72,6 +72,17 @@
     border: 1px solid rgba(0,0,0,0.12);
     display: inline-block;
   }
+  .bp-filter-toggle {
+    display: inline-grid; place-items: center;
+    width: 30px; height: 28px;
+    border: 1.5px solid var(--bp-ink);
+    background: var(--bp-paper);
+    cursor: pointer;
+  }
+  .bp-filter-toggle .icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; }
+  .bp-filter-toggle[aria-expanded="true"] {
+    background: var(--bp-ink); color: var(--bp-paper);
+  }
   .bp-mode {
     display: inline-flex; gap: 0;
     border: 1.5px solid var(--bp-ink);
@@ -94,11 +105,12 @@
 
   /* pills bar (filter + shuffle) */
   .bp-pills-bar {
-    display: grid; grid-template-columns: auto 1fr;
+    display: none; grid-template-columns: auto 1fr;
     align-items: center; gap: 8px;
     padding: 8px 12px;
     border-bottom: 1px solid var(--bp-rule);
   }
+  .bp-app.filters-open .bp-pills-bar { display: grid; }
   .bp-pills-bar .pills {
     display: flex; gap: 6px;
     overflow-x: auto; overflow-y: hidden;

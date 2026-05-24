@@ -119,6 +119,10 @@
     <main class="bp-app" aria-live="polite">
       <header class="bp-top">
         <span class="brand">
+          <button id="filterButton" class="bp-filter-toggle" type="button" aria-label="Toggle filters" aria-expanded="false" aria-controls="filterBar">
+            <svg class="icon" aria-hidden="true"><use href="#tabler-adjustments-horizontal"></use></svg>
+            <span id="filterButtonLabel" class="sr-only">Options</span>
+          </button>
           <span class="flag" aria-hidden="true"></span>
         </span>
         <div class="bp-top-actions">
@@ -130,10 +134,6 @@
               <option value="fr" disabled>FR</option>
             </select>
           </label>
-          <button id="filterButton" class="bp-filter-toggle" type="button" aria-label="Toggle filters" aria-expanded="false" aria-controls="filterBar">
-            <svg class="icon" aria-hidden="true"><use href="#tabler-adjustments-horizontal"></use></svg>
-            <span id="filterButtonLabel" class="sr-only">Options</span>
-          </button>
           <button id="shuffleButton" class="bp-shuffle-toggle" type="button" aria-pressed="false" aria-label="Shuffle" title="Shuffle deck">
             <svg class="icon" aria-hidden="true"><use href="#tabler-arrows-shuffle"></use></svg>
           </button>

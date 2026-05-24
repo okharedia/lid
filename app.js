@@ -766,6 +766,7 @@ function bindEvents() {
     els.filterButton.setAttribute("aria-expanded", String(els.app.classList.contains("filters-open")));
   });
   els.app.addEventListener("click", (event) => {
+    if (window.innerWidth >= 720) return;
     if (!els.app.classList.contains("filters-open")) return;
     if (event.target.closest("#filterBar") || event.target.closest("#filterButton")) return;
     els.app.classList.remove("filters-open");

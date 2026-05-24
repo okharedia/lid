@@ -63,6 +63,7 @@ function App() {
   const [known, setKnown] = useState(new Set(initial.known || []));
   const [index, setIndex] = useState(initial.index || 0);
   const [selected, setSelected] = useState(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const deck = useMemo(() => {
     let list = window.LID_QUESTIONS;
@@ -133,9 +134,27 @@ function App() {
   const wrongChosen = isAnswered && selected !== current?.correct;
 
   return (
-    <div className="bp-app">
+    <div className={`bp-app ${filtersOpen ? 'filters-open' : ''}`}>
       <header className="bp-top">
         <span className="brand">
+          <button
+            className="bp-filter-toggle"
+            type="button"
+            aria-label="Toggle filters"
+            aria-expanded={filtersOpen}
+            onClick={() => setFiltersOpen((open) => !open)}>
+            <svg className="icon" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M4 6h7"></path>
+              <path d="M15 6h5"></path>
+              <path d="M12 4v4"></path>
+              <path d="M4 12h3"></path>
+              <path d="M11 12h9"></path>
+              <path d="M8 10v4"></path>
+              <path d="M4 18h9"></path>
+              <path d="M17 18h3"></path>
+              <path d="M14 16v4"></path>
+            </svg>
+          </button>
           <span className="flag" aria-hidden="true"></span>
           LiD//Trainer
         </span>
