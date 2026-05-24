@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "generatedAt": "2026-05-24",
   "exam": {
     "name": "Leben in Deutschland / Einbürgerungstest",
@@ -437,28 +437,32 @@
           "text": "hier Religionsfreiheit gilt.",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.1.answers.0"
+          "translationKey": "questions.1.answers.0",
+          "whyKey": "questions.1.answers.0.why"
         },
         {
           "index": 1,
           "text": "die Menschen Steuern zahlen.",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.1.answers.1"
+          "translationKey": "questions.1.answers.1",
+          "whyKey": "questions.1.answers.1.why"
         },
         {
           "index": 2,
           "text": "die Menschen das Wahlrecht haben.",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.1.answers.2"
+          "translationKey": "questions.1.answers.2",
+          "whyKey": "questions.1.answers.2.why"
         },
         {
           "index": 3,
           "text": "hier Meinungsfreiheit gilt.",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.1.answers.3"
+          "translationKey": "questions.1.answers.3",
+          "whyKey": "questions.1.answers.3.why"
         }
       ],
       "provenance": {
@@ -481,7 +485,8 @@
           "Meinungsfreiheit"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 2,
@@ -499,28 +504,32 @@
           "text": "Geschichtsunterricht teilnimmt.",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.2.answers.0"
+          "translationKey": "questions.2.answers.0",
+          "whyKey": "questions.2.answers.0.why"
         },
         {
           "index": 1,
           "text": "Religionsunterricht teilnimmt.",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.2.answers.1"
+          "translationKey": "questions.2.answers.1",
+          "whyKey": "questions.2.answers.1.why"
         },
         {
           "index": 2,
           "text": "Politikunterricht teilnimmt.",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.2.answers.2"
+          "translationKey": "questions.2.answers.2",
+          "whyKey": "questions.2.answers.2.why"
         },
         {
           "index": 3,
           "text": "Sprachunterricht teilnimmt.",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.2.answers.3"
+          "translationKey": "questions.2.answers.3",
+          "whyKey": "questions.2.answers.3.why"
         }
       ],
       "provenance": {
@@ -556,7 +565,8 @@
           "dangerWords": [
             "alle"
           ],
-          "translationKey": "questions.3.answers.0"
+          "translationKey": "questions.3.answers.0",
+          "whyKey": "questions.3.answers.0.why"
         },
         {
           "index": 1,
@@ -566,7 +576,8 @@
             "nicht",
             "muss"
           ],
-          "translationKey": "questions.3.answers.1"
+          "translationKey": "questions.3.answers.1",
+          "whyKey": "questions.3.answers.1.why"
         },
         {
           "index": 2,
@@ -575,14 +586,16 @@
           "dangerWords": [
             "nur"
           ],
-          "translationKey": "questions.3.answers.2"
+          "translationKey": "questions.3.answers.2",
+          "whyKey": "questions.3.answers.2.why"
         },
         {
           "index": 3,
           "text": "Die Gerichte machen die Gesetze.",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.3.answers.3"
+          "translationKey": "questions.3.answers.3",
+          "whyKey": "questions.3.answers.3.why"
         }
       ],
       "provenance": {
@@ -623,11 +636,15 @@
           "nur"
         ],
         "dangerTerms": [
-          "alle",
           "nicht",
           "muss",
           "nur"
         ]
+      },
+      "clusterTag": "grundrechte",
+      "answerVariants": {
+        "hasVariants": true,
+        "noteKey": "ui.answerVariantNote"
       }
     },
     {
@@ -646,21 +663,24 @@
           "text": "Waffenbesitz",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.4.answers.0"
+          "translationKey": "questions.4.answers.0",
+          "whyKey": "questions.4.answers.0.why"
         },
         {
           "index": 1,
           "text": "Faustrecht",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.4.answers.1"
+          "translationKey": "questions.4.answers.1",
+          "whyKey": "questions.4.answers.1.why"
         },
         {
           "index": 2,
           "text": "Meinungsfreiheit",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.4.answers.2"
+          "translationKey": "questions.4.answers.2",
+          "whyKey": "questions.4.answers.2.why"
         },
         {
           "index": 3,
@@ -690,7 +710,8 @@
           "Meinungsfreiheit"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 5,
@@ -710,7 +731,8 @@
           "dangerWords": [
             "darf"
           ],
-          "translationKey": "questions.5.answers.0"
+          "translationKey": "questions.5.answers.0",
+          "whyKey": "questions.5.answers.0.why"
         },
         {
           "index": 1,
@@ -719,7 +741,8 @@
           "dangerWords": [
             "nur"
           ],
-          "translationKey": "questions.5.answers.1"
+          "translationKey": "questions.5.answers.1",
+          "whyKey": "questions.5.answers.1.why"
         },
         {
           "index": 2,
@@ -729,7 +752,8 @@
             "keine",
             "darf"
           ],
-          "translationKey": "questions.5.answers.2"
+          "translationKey": "questions.5.answers.2",
+          "whyKey": "questions.5.answers.2.why"
         },
         {
           "index": 3,
@@ -738,7 +762,8 @@
           "dangerWords": [
             "alle"
           ],
-          "translationKey": "questions.5.answers.3"
+          "translationKey": "questions.5.answers.3",
+          "whyKey": "questions.5.answers.3.why"
         }
       ],
       "provenance": {
@@ -785,10 +810,10 @@
         "dangerTerms": [
           "darf",
           "nur",
-          "keine",
           "alle"
         ]
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 6,
@@ -860,7 +885,8 @@
           "Gesetz"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 7,
@@ -922,7 +948,8 @@
           "Verfassung"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 8,
@@ -1008,11 +1035,11 @@
           "darf"
         ],
         "dangerTerms": [
-          "nicht",
-          "alle",
-          "darf"
+          "darf",
+          "alle"
         ]
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 9,
@@ -1080,9 +1107,7 @@
           "nur",
           "Asyl"
         ],
-        "dangerTerms": [
-          "nur"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -1150,7 +1175,8 @@
           "Gesetz"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 11,
@@ -1222,7 +1248,8 @@
           "Gesetz"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 12,
@@ -1311,11 +1338,11 @@
           "nur"
         ],
         "dangerTerms": [
-          "nicht",
-          "kann",
-          "nur"
+          "nur",
+          "kann"
         ]
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 13,
@@ -1402,10 +1429,10 @@
           "Opposition"
         ],
         "dangerTerms": [
-          "alle",
-          "nicht"
+          "alle"
         ]
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 14,
@@ -1486,11 +1513,11 @@
         ],
         "dangerTerms": [
           "darf",
-          "kann",
           "nicht",
           "nur"
         ]
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 15,
@@ -1557,7 +1584,8 @@
           "Gesetz"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 16,
@@ -1624,7 +1652,8 @@
           "falsch"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 17,
@@ -1773,7 +1802,8 @@
           "Gesetze"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 19,
@@ -1846,8 +1876,8 @@
           "nur"
         ],
         "dangerTerms": [
-          "darf",
           "kann",
+          "darf",
           "nur"
         ]
       }
@@ -1917,7 +1947,8 @@
           "Partei"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 21,
@@ -1979,7 +2010,8 @@
           "Wappen"
         ],
         "dangerTerms": []
-      }
+      },
+      "imageCaptionKey": "questions.21.imageCaption"
     },
     {
       "id": 22,
@@ -2164,28 +2196,32 @@
           "text": "Elsass-Lothringen",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.25.answers.0"
+          "translationKey": "questions.25.answers.0",
+          "whyKey": "questions.25.answers.0.why"
         },
         {
           "index": 1,
           "text": "Nordrhein-Westfalen",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.25.answers.1"
+          "translationKey": "questions.25.answers.1",
+          "whyKey": "questions.25.answers.1.why"
         },
         {
           "index": 2,
           "text": "Mecklenburg-Vorpommern",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.25.answers.2"
+          "translationKey": "questions.25.answers.2",
+          "whyKey": "questions.25.answers.2.why"
         },
         {
           "index": 3,
           "text": "Sachsen-Anhalt",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.25.answers.3"
+          "translationKey": "questions.25.answers.3",
+          "whyKey": "questions.25.answers.3.why"
         }
       ],
       "provenance": {
@@ -2212,9 +2248,7 @@
           "kein",
           "Bundesland"
         ],
-        "dangerTerms": [
-          "kein"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -2325,7 +2359,8 @@
         "correctAnswerRef": 1,
         "highlightTerms": [],
         "dangerTerms": []
-      }
+      },
+      "duplicateOfId": 26
     },
     {
       "id": 28,
@@ -2392,7 +2427,8 @@
           "Wahl"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 29,
@@ -2479,28 +2515,32 @@
           "text": "regelmäßige Wahlen",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.30.answers.0"
+          "translationKey": "questions.30.answers.0",
+          "whyKey": "questions.30.answers.0.why"
         },
         {
           "index": 1,
           "text": "Pressezensur",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.30.answers.1"
+          "translationKey": "questions.30.answers.1",
+          "whyKey": "questions.30.answers.1.why"
         },
         {
           "index": 2,
           "text": "Meinungsfreiheit",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.30.answers.2"
+          "translationKey": "questions.30.answers.2",
+          "whyKey": "questions.30.answers.2.why"
         },
         {
           "index": 3,
           "text": "verschiedene Parteien",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.30.answers.3"
+          "translationKey": "questions.30.answers.3",
+          "whyKey": "questions.30.answers.3.why"
         }
       ],
       "provenance": {
@@ -2527,9 +2567,7 @@
           "Demokratie",
           "kein"
         ],
-        "dangerTerms": [
-          "kein"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -2602,7 +2640,8 @@
           "Koalition"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 32,
@@ -2670,9 +2709,7 @@
           "kein",
           "keine"
         ],
-        "dangerTerms": [
-          "keine"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -2736,9 +2773,7 @@
         "highlightTerms": [
           "richtig"
         ],
-        "dangerTerms": [
-          "richtig"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -2802,9 +2837,7 @@
         "highlightTerms": [
           "nicht"
         ],
-        "dangerTerms": [
-          "nicht"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -3216,7 +3249,8 @@
           "Partei"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 42,
@@ -3357,11 +3391,9 @@
           "verboten",
           "kann"
         ],
-        "dangerTerms": [
-          "verboten",
-          "kann"
-        ]
-      }
+        "dangerTerms": []
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 44,
@@ -3440,10 +3472,7 @@
           "nicht",
           "kann"
         ],
-        "dangerTerms": [
-          "nicht",
-          "kann"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -3637,10 +3666,7 @@
           "nicht",
           "alle"
         ],
-        "dangerTerms": [
-          "nicht",
-          "alle"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -3709,10 +3735,9 @@
           "Verfassung",
           "nicht"
         ],
-        "dangerTerms": [
-          "nicht"
-        ]
-      }
+        "dangerTerms": []
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 49,
@@ -3895,10 +3920,9 @@
           "Polizei",
           "nicht"
         ],
-        "dangerTerms": [
-          "nicht"
-        ]
-      }
+        "dangerTerms": []
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 52,
@@ -3961,9 +3985,7 @@
         "highlightTerms": [
           "alle"
         ],
-        "dangerTerms": [
-          "alle"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -4046,10 +4068,10 @@
           "nur"
         ],
         "dangerTerms": [
-          "nur",
-          "muss"
+          "nur"
         ]
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 54,
@@ -4117,10 +4139,9 @@
           "kein",
           "keine"
         ],
-        "dangerTerms": [
-          "keine"
-        ]
-      }
+        "dangerTerms": []
+      },
+      "duplicateOfId": 32
     },
     {
       "id": 55,
@@ -4187,7 +4208,8 @@
           "Berlin"
         ],
         "dangerTerms": []
-      }
+      },
+      "imageCaptionKey": "questions.55.imageCaption"
     },
     {
       "id": 56,
@@ -4309,7 +4331,8 @@
           "Fraktion"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 58,
@@ -4625,7 +4648,8 @@
           "Bundesland"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 63,
@@ -4693,9 +4717,7 @@
           "Gericht",
           "nicht"
         ],
-        "dangerTerms": [
-          "nicht"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -4819,9 +4841,7 @@
           "Bundestag",
           "nicht"
         ],
-        "dangerTerms": [
-          "nicht"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -5022,7 +5042,8 @@
           "nur",
           "alle"
         ]
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 69,
@@ -5159,7 +5180,9 @@
           "Wahl"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht",
+      "imageCaptionKey": "questions.70.imageCaption"
     },
     {
       "id": 71,
@@ -5370,7 +5393,8 @@
           "Fraktion"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 74,
@@ -5450,28 +5474,32 @@
           "text": "Frank-Walter Steinmeier",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.75.answers.0"
+          "translationKey": "questions.75.answers.0",
+          "whyKey": "questions.75.answers.0.why"
         },
         {
           "index": 1,
           "text": "Bärbel Bas",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.75.answers.1"
+          "translationKey": "questions.75.answers.1",
+          "whyKey": "questions.75.answers.1.why"
         },
         {
           "index": 2,
           "text": "Bodo Ramelow",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.75.answers.2"
+          "translationKey": "questions.75.answers.2",
+          "whyKey": "questions.75.answers.2.why"
         },
         {
           "index": 3,
           "text": "Joachim Gauck",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.75.answers.3"
+          "translationKey": "questions.75.answers.3",
+          "whyKey": "questions.75.answers.3.why"
         }
       ],
       "provenance": {
@@ -5659,7 +5687,8 @@
           "Partei"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 79,
@@ -5721,7 +5750,8 @@
           "Partei"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 80,
@@ -5803,7 +5833,8 @@
           "Gesetze"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "grundrechte"
     },
     {
       "id": 81,
@@ -6416,7 +6447,8 @@
           "Fraktion"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 90,
@@ -6556,9 +6588,7 @@
           "kann",
           "Bundesland"
         ],
-        "dangerTerms": [
-          "kann"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -6691,7 +6721,8 @@
         "dangerTerms": [
           "kann"
         ]
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 94,
@@ -6764,10 +6795,9 @@
           "Wahl",
           "darf"
         ],
-        "dangerTerms": [
-          "darf"
-        ]
-      }
+        "dangerTerms": []
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 95,
@@ -6896,11 +6926,11 @@
           "erlaubt"
         ],
         "dangerTerms": [
-          "kann",
           "nicht",
           "erlaubt"
         ]
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 97,
@@ -7043,10 +7073,10 @@
         ],
         "dangerTerms": [
           "nicht",
-          "kann",
           "muss"
         ]
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 99,
@@ -7139,28 +7169,32 @@
           "text": "die Lebensversicherung",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.100.answers.0"
+          "translationKey": "questions.100.answers.0",
+          "whyKey": "questions.100.answers.0.why"
         },
         {
           "index": 1,
           "text": "die gesetzliche Rentenversicherung",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.100.answers.1"
+          "translationKey": "questions.100.answers.1",
+          "whyKey": "questions.100.answers.1.why"
         },
         {
           "index": 2,
           "text": "die Arbeitslosenversicherung",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.100.answers.2"
+          "translationKey": "questions.100.answers.2",
+          "whyKey": "questions.100.answers.2.why"
         },
         {
           "index": 3,
           "text": "die Pflegeversicherung",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.100.answers.3"
+          "translationKey": "questions.100.answers.3",
+          "whyKey": "questions.100.answers.3.why"
         }
       ],
       "provenance": {
@@ -7192,9 +7226,7 @@
           "nicht",
           "Sozialversicherung"
         ],
-        "dangerTerms": [
-          "nicht"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -7320,9 +7352,7 @@
         "highlightTerms": [
           "kann"
         ],
-        "dangerTerms": [
-          "kann"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -7385,7 +7415,8 @@
           "Koalition"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 104,
@@ -7406,28 +7437,32 @@
           "text": "Die Frau ist lange krank und arbeitsunfähig.",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.104.answers.0"
+          "translationKey": "questions.104.answers.0",
+          "whyKey": "questions.104.answers.0.why"
         },
         {
           "index": 1,
           "text": "Die Frau kam oft zu spät zur Arbeit.",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.104.answers.1"
+          "translationKey": "questions.104.answers.1",
+          "whyKey": "questions.104.answers.1.why"
         },
         {
           "index": 2,
           "text": "Die Frau erledigt private Sachen während der Arbeitszeit.",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.104.answers.2"
+          "translationKey": "questions.104.answers.2",
+          "whyKey": "questions.104.answers.2.why"
         },
         {
           "index": 3,
           "text": "Die Frau bekommt ein Kind und ihr Chef weiß das.",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.104.answers.3"
+          "translationKey": "questions.104.answers.3",
+          "whyKey": "questions.104.answers.3.why"
         }
       ],
       "provenance": {
@@ -7454,10 +7489,7 @@
           "nicht",
           "darf"
         ],
-        "dangerTerms": [
-          "nicht",
-          "darf"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -7520,7 +7552,8 @@
           "Wahl"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 106,
@@ -7592,7 +7625,8 @@
           "Ehrenamt"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 107,
@@ -7610,28 +7644,32 @@
           "text": "2 Jahre",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.107.answers.0"
+          "translationKey": "questions.107.answers.0",
+          "whyKey": "questions.107.answers.0.why"
         },
         {
           "index": 1,
           "text": "4 Jahre",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.107.answers.1"
+          "translationKey": "questions.107.answers.1",
+          "whyKey": "questions.107.answers.1.why"
         },
         {
           "index": 2,
           "text": "6 Jahre",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.107.answers.2"
+          "translationKey": "questions.107.answers.2",
+          "whyKey": "questions.107.answers.2.why"
         },
         {
           "index": 3,
           "text": "8 Jahre",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.107.answers.3"
+          "translationKey": "questions.107.answers.3",
+          "whyKey": "questions.107.answers.3.why"
         }
       ],
       "provenance": {
@@ -7727,10 +7765,9 @@
           "Wahl",
           "darf"
         ],
-        "dangerTerms": [
-          "darf"
-        ]
-      }
+        "dangerTerms": []
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 109,
@@ -7817,7 +7854,8 @@
         "dangerTerms": [
           "alle"
         ]
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 110,
@@ -7835,28 +7873,32 @@
           "text": "2 Jahre",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.110.answers.0"
+          "translationKey": "questions.110.answers.0",
+          "whyKey": "questions.110.answers.0.why"
         },
         {
           "index": 1,
           "text": "3 Jahre",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.110.answers.1"
+          "translationKey": "questions.110.answers.1",
+          "whyKey": "questions.110.answers.1.why"
         },
         {
           "index": 2,
           "text": "4 Jahre",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.110.answers.2"
+          "translationKey": "questions.110.answers.2",
+          "whyKey": "questions.110.answers.2.why"
         },
         {
           "index": 3,
           "text": "5 Jahre",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.110.answers.3"
+          "translationKey": "questions.110.answers.3",
+          "whyKey": "questions.110.answers.3.why"
         }
       ],
       "provenance": {
@@ -7879,7 +7921,8 @@
           "Bundestag"
         ],
         "dangerTerms": []
-      }
+      },
+      "duplicateOfId": 107
     },
     {
       "id": 111,
@@ -7947,9 +7990,7 @@
           "verboten",
           "nicht"
         ],
-        "dangerTerms": [
-          "verboten"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -8017,7 +8058,8 @@
           "Wahlen"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 113,
@@ -8089,7 +8131,8 @@
           "Partei"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 114,
@@ -8156,7 +8199,8 @@
           "Wahlen"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 115,
@@ -8235,7 +8279,8 @@
           "kann",
           "muss"
         ]
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 116,
@@ -8302,7 +8347,8 @@
           "Wahl"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 117,
@@ -8374,7 +8420,8 @@
           "Partei"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 118,
@@ -8452,9 +8499,7 @@
           "nur"
         ],
         "dangerTerms": [
-          "darf",
-          "nur",
-          "alle"
+          "nur"
         ]
       }
     },
@@ -8545,7 +8590,9 @@
           "muss",
           "kann"
         ]
-      }
+      },
+      "clusterTag": "wahlrecht",
+      "duplicateOfId": 5
     },
     {
       "id": 120,
@@ -8607,7 +8654,8 @@
           "Wahl"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 121,
@@ -8685,10 +8733,9 @@
           "muss",
           "5%-Hürde"
         ],
-        "dangerTerms": [
-          "muss"
-        ]
-      }
+        "dangerTerms": []
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 122,
@@ -8755,7 +8802,8 @@
           "Wahlen"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 123,
@@ -8817,7 +8865,8 @@
           "5%-Hürde"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 124,
@@ -8884,7 +8933,8 @@
           "Wahl"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 125,
@@ -8956,7 +9006,8 @@
           "Wahlen"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 126,
@@ -9023,7 +9074,8 @@
           "richtig"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 127,
@@ -9110,7 +9162,8 @@
         "dangerTerms": [
           "nicht"
         ]
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 128,
@@ -9294,7 +9347,9 @@
           "Wahl"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht",
+      "imageCaptionKey": "questions.130.imageCaption"
     },
     {
       "id": 131,
@@ -9506,10 +9561,10 @@
           "kann"
         ],
         "dangerTerms": [
-          "erlaubt",
           "kann"
         ]
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 134,
@@ -9572,9 +9627,7 @@
         "highlightTerms": [
           "immer"
         ],
-        "dangerTerms": [
-          "immer"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -9834,9 +9887,7 @@
         "highlightTerms": [
           "kann"
         ],
-        "dangerTerms": [
-          "kann"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -10539,7 +10590,8 @@
           "Holocaust"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 150,
@@ -10683,7 +10735,8 @@
           "Berlin"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 152,
@@ -10701,28 +10754,32 @@
           "text": "1918 bis 1923",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.152.answers.0"
+          "translationKey": "questions.152.answers.0",
+          "whyKey": "questions.152.answers.0.why"
         },
         {
           "index": 1,
           "text": "1932 bis 1950",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.152.answers.1"
+          "translationKey": "questions.152.answers.1",
+          "whyKey": "questions.152.answers.1.why"
         },
         {
           "index": 2,
           "text": "1933 bis 1945",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.152.answers.2"
+          "translationKey": "questions.152.answers.2",
+          "whyKey": "questions.152.answers.2.why"
         },
         {
           "index": 3,
           "text": "1945 bis 1989",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.152.answers.3"
+          "translationKey": "questions.152.answers.3",
+          "whyKey": "questions.152.answers.3.why"
         }
       ],
       "provenance": {
@@ -10755,7 +10812,8 @@
           "Nationalsozialisten"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 153,
@@ -10822,7 +10880,8 @@
           "8. Mai 1945"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 154,
@@ -10884,7 +10943,8 @@
           "1945"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 155,
@@ -10902,28 +10962,32 @@
           "text": "1888 bis 1918",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.155.answers.0"
+          "translationKey": "questions.155.answers.0",
+          "whyKey": "questions.155.answers.0.why"
         },
         {
           "index": 1,
           "text": "1921 bis 1934",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.155.answers.1"
+          "translationKey": "questions.155.answers.1",
+          "whyKey": "questions.155.answers.1.why"
         },
         {
           "index": 2,
           "text": "1933 bis 1945",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.155.answers.2"
+          "translationKey": "questions.155.answers.2",
+          "whyKey": "questions.155.answers.2.why"
         },
         {
           "index": 3,
           "text": "1949 bis 1963",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.155.answers.3"
+          "translationKey": "questions.155.answers.3",
+          "whyKey": "questions.155.answers.3.why"
         }
       ],
       "provenance": {
@@ -10956,7 +11020,8 @@
           "Nationalsozialisten"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 156,
@@ -11018,7 +11083,8 @@
           "1933"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 157,
@@ -11085,7 +11151,8 @@
           "Nationalsozialisten"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 158,
@@ -11218,10 +11285,9 @@
           "Nationalsozialismus",
           "nicht"
         ],
-        "dangerTerms": [
-          "nicht"
-        ]
-      }
+        "dangerTerms": []
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 160,
@@ -11283,7 +11349,8 @@
           "1945"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 161,
@@ -11462,7 +11529,8 @@
           "Nationalsozialisten"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 164,
@@ -11529,7 +11597,8 @@
         "dangerTerms": [
           "alle"
         ]
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 165,
@@ -11658,7 +11727,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 167,
@@ -11781,9 +11851,7 @@
           "kein",
           "keine"
         ],
-        "dangerTerms": [
-          "keine"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -11911,7 +11979,8 @@
           "Nationalsozialismus"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 171,
@@ -12034,7 +12103,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 173,
@@ -12151,7 +12221,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 175,
@@ -12268,7 +12339,9 @@
           "1945"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit",
+      "imageCaptionKey": "questions.176.imageCaption"
     },
     {
       "id": 177,
@@ -12465,28 +12538,32 @@
           "text": "Ludwig Erhard.",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.180.answers.0"
+          "translationKey": "questions.180.answers.0",
+          "whyKey": "questions.180.answers.0.why"
         },
         {
           "index": 1,
           "text": "Willy Brandt.",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.180.answers.1"
+          "translationKey": "questions.180.answers.1",
+          "whyKey": "questions.180.answers.1.why"
         },
         {
           "index": 2,
           "text": "Konrad Adenauer.",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.180.answers.2"
+          "translationKey": "questions.180.answers.2",
+          "whyKey": "questions.180.answers.2.why"
         },
         {
           "index": 3,
           "text": "Gerhard Schröder.",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.180.answers.3"
+          "translationKey": "questions.180.answers.3",
+          "whyKey": "questions.180.answers.3.why"
         }
       ],
       "provenance": {
@@ -12571,7 +12648,8 @@
           "Bundesregierung"
         ],
         "dangerTerms": []
-      }
+      },
+      "imageCaptionKey": "questions.181.imageCaption"
     },
     {
       "id": 182,
@@ -12853,7 +12931,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 187,
@@ -12915,7 +12994,9 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit",
+      "imageCaptionKey": "questions.187.imageCaption"
     },
     {
       "id": 188,
@@ -12987,7 +13068,8 @@
           "Berlin"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 189,
@@ -13064,7 +13146,8 @@
           "Berlin"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 190,
@@ -13126,7 +13209,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 191,
@@ -13204,10 +13288,9 @@
           "alle",
           "Berlin"
         ],
-        "dangerTerms": [
-          "alle"
-        ]
-      }
+        "dangerTerms": []
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 192,
@@ -13274,7 +13357,8 @@
           "Bundesland"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 193,
@@ -13356,7 +13440,8 @@
         "dangerTerms": [
           "nur"
         ]
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 194,
@@ -13423,7 +13508,8 @@
           "3. Oktober"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 195,
@@ -13490,7 +13576,8 @@
           "Bundesland"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 196,
@@ -13562,7 +13649,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 197,
@@ -13629,7 +13717,8 @@
           "Bundesland"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 198,
@@ -13696,7 +13785,8 @@
           "Bundesland"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 199,
@@ -13758,7 +13848,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 200,
@@ -13825,7 +13916,8 @@
           "Bundesland"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 201,
@@ -13893,10 +13985,9 @@
           "DDR",
           "nur"
         ],
-        "dangerTerms": [
-          "nur"
-        ]
-      }
+        "dangerTerms": []
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 202,
@@ -13958,7 +14049,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 203,
@@ -14020,7 +14112,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 204,
@@ -14082,7 +14175,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 205,
@@ -14144,7 +14238,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 206,
@@ -14206,7 +14301,8 @@
           "Nationalsozialismus"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 207,
@@ -14268,7 +14364,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 208,
@@ -14330,7 +14427,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 209,
@@ -14392,7 +14490,8 @@
           "Wappen"
         ],
         "dangerTerms": []
-      }
+      },
+      "imageCaptionKey": "questions.209.imageCaption"
     },
     {
       "id": 210,
@@ -14454,7 +14553,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 211,
@@ -14736,7 +14836,8 @@
           "Einheit"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 216,
@@ -14803,7 +14904,8 @@
           "Adler"
         ],
         "dangerTerms": []
-      }
+      },
+      "imageCaptionKey": "questions.216.imageCaption"
     },
     {
       "id": 217,
@@ -14821,28 +14923,32 @@
           "text": "1919 bis 1927",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.217.answers.0"
+          "translationKey": "questions.217.answers.0",
+          "whyKey": "questions.217.answers.0.why"
         },
         {
           "index": 1,
           "text": "1933 bis 1945",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.217.answers.1"
+          "translationKey": "questions.217.answers.1",
+          "whyKey": "questions.217.answers.1.why"
         },
         {
           "index": 2,
           "text": "1945 bis 1961",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.217.answers.2"
+          "translationKey": "questions.217.answers.2",
+          "whyKey": "questions.217.answers.2.why"
         },
         {
           "index": 3,
           "text": "1949 bis 1990",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.217.answers.3"
+          "translationKey": "questions.217.answers.3",
+          "whyKey": "questions.217.answers.3.why"
         }
       ],
       "provenance": {
@@ -14870,7 +14976,8 @@
           "DDR"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 218,
@@ -14937,7 +15044,8 @@
           "Wiedervereinigung"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 219,
@@ -14999,7 +15107,8 @@
           "1990"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 220,
@@ -15066,7 +15175,8 @@
           "nicht"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 221,
@@ -15402,7 +15512,8 @@
         "correctAnswerRef": 1,
         "highlightTerms": [],
         "dangerTerms": []
-      }
+      },
+      "imageCaptionKey": "questions.226.imageCaption"
     },
     {
       "id": 227,
@@ -15529,7 +15640,8 @@
           "Wiedervereinigung"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 229,
@@ -15647,9 +15759,7 @@
         "highlightTerms": [
           "alle"
         ],
-        "dangerTerms": [
-          "alle"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -15767,7 +15877,8 @@
           "Wahl"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 233,
@@ -15949,7 +16060,8 @@
         "dangerTerms": [
           "alle"
         ]
-      }
+      },
+      "imageCaptionKey": "questions.235.imageCaption"
     },
     {
       "id": 236,
@@ -16546,10 +16658,7 @@
           "nicht",
           "darf"
         ],
-        "dangerTerms": [
-          "nicht",
-          "darf"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -16994,10 +17103,9 @@
           "nicht"
         ],
         "dangerTerms": [
-          "nur",
-          "darf",
           "kann",
-          "nicht"
+          "nicht",
+          "darf"
         ]
       }
     },
@@ -17282,9 +17390,7 @@
         "highlightTerms": [
           "kann"
         ],
-        "dangerTerms": [
-          "kann"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -17361,11 +17467,7 @@
           "darf",
           "kann"
         ],
-        "dangerTerms": [
-          "darf",
-          "muss",
-          "kann"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -17545,9 +17647,7 @@
         "highlightTerms": [
           "kann"
         ],
-        "dangerTerms": [
-          "kann"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -17812,9 +17912,7 @@
         "highlightTerms": [
           "muss"
         ],
-        "dangerTerms": [
-          "muss"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -17940,9 +18038,7 @@
         "highlightTerms": [
           "nicht"
         ],
-        "dangerTerms": [
-          "nicht"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -18037,14 +18133,13 @@
           "darf"
         ],
         "dangerTerms": [
-          "nicht",
-          "richtig",
           "muss",
           "kann",
           "kein",
           "darf"
         ]
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 269,
@@ -18286,10 +18381,7 @@
           "erlaubt",
           "nicht"
         ],
-        "dangerTerms": [
-          "nicht",
-          "erlaubt"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -18408,9 +18500,7 @@
         "highlightTerms": [
           "nicht"
         ],
-        "dangerTerms": [
-          "nicht"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -18614,8 +18704,6 @@
           "keine"
         ],
         "dangerTerms": [
-          "nicht",
-          "nur",
           "kein",
           "keine"
         ]
@@ -18695,8 +18783,6 @@
           "kein"
         ],
         "dangerTerms": [
-          "nicht",
-          "nur",
           "keine",
           "kein"
         ]
@@ -18893,9 +18979,7 @@
         "highlightTerms": [
           "nicht"
         ],
-        "dangerTerms": [
-          "nicht"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -18963,7 +19047,8 @@
           "Ehrenamt"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "wahlrecht"
     },
     {
       "id": 283,
@@ -19109,10 +19194,8 @@
           "alle"
         ],
         "dangerTerms": [
-          "muss",
-          "kann",
-          "immer",
           "nicht",
+          "muss",
           "alle"
         ]
       }
@@ -19184,10 +19267,7 @@
           "nicht",
           "muss"
         ],
-        "dangerTerms": [
-          "nicht",
-          "muss"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -19353,7 +19433,8 @@
         "correctAnswerRef": 1,
         "highlightTerms": [],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 289,
@@ -19426,8 +19507,6 @@
           "keine"
         ],
         "dangerTerms": [
-          "nicht",
-          "nur",
           "keine"
         ]
       }
@@ -19493,9 +19572,7 @@
         "highlightTerms": [
           "nicht"
         ],
-        "dangerTerms": [
-          "nicht"
-        ]
+        "dangerTerms": []
       }
     },
     {
@@ -19643,8 +19720,7 @@
         ],
         "dangerTerms": [
           "keine",
-          "alle",
-          "kann"
+          "alle"
         ]
       }
     },
@@ -19988,7 +20064,8 @@
           "alle"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "nszeit"
     },
     {
       "id": 299,
@@ -20116,28 +20193,32 @@
           "text": "Bild 1",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.301.answers.0"
+          "translationKey": "questions.301.answers.0",
+          "whyKey": "questions.301.answers.0.why"
         },
         {
           "index": 1,
           "text": "Bild 2",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.301.answers.1"
+          "translationKey": "questions.301.answers.1",
+          "whyKey": "questions.301.answers.1.why"
         },
         {
           "index": 2,
           "text": "Bild 3",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.301.answers.2"
+          "translationKey": "questions.301.answers.2",
+          "whyKey": "questions.301.answers.2.why"
         },
         {
           "index": 3,
           "text": "Bild 4",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.301.answers.3"
+          "translationKey": "questions.301.answers.3",
+          "whyKey": "questions.301.answers.3.why"
         }
       ],
       "provenance": {
@@ -20170,7 +20251,9 @@
           "Wappen"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "berlin",
+      "imageCaptionKey": "questions.301.imageCaption"
     },
     {
       "id": 302,
@@ -20188,28 +20271,32 @@
           "text": "Altona",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.302.answers.0"
+          "translationKey": "questions.302.answers.0",
+          "whyKey": "questions.302.answers.0.why"
         },
         {
           "index": 1,
           "text": "Prignitz",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.302.answers.1"
+          "translationKey": "questions.302.answers.1",
+          "whyKey": "questions.302.answers.1.why"
         },
         {
           "index": 2,
           "text": "Pankow",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.302.answers.2"
+          "translationKey": "questions.302.answers.2",
+          "whyKey": "questions.302.answers.2.why"
         },
         {
           "index": 3,
           "text": "Mecklenburgische Seenplatte",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.302.answers.3"
+          "translationKey": "questions.302.answers.3",
+          "whyKey": "questions.302.answers.3.why"
         }
       ],
       "provenance": {
@@ -20237,7 +20324,8 @@
           "Bezirk"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "berlin"
     },
     {
       "id": 303,
@@ -20255,28 +20343,32 @@
           "text": "3",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.303.answers.0"
+          "translationKey": "questions.303.answers.0",
+          "whyKey": "questions.303.answers.0.why"
         },
         {
           "index": 1,
           "text": "4",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.303.answers.1"
+          "translationKey": "questions.303.answers.1",
+          "whyKey": "questions.303.answers.1.why"
         },
         {
           "index": 2,
           "text": "5",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.303.answers.2"
+          "translationKey": "questions.303.answers.2",
+          "whyKey": "questions.303.answers.2.why"
         },
         {
           "index": 3,
           "text": "6",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.303.answers.3"
+          "translationKey": "questions.303.answers.3",
+          "whyKey": "questions.303.answers.3.why"
         }
       ],
       "provenance": {
@@ -20304,7 +20396,8 @@
           "Landesparlament"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "berlin"
     },
     {
       "id": 304,
@@ -20324,28 +20417,32 @@
           "text": "14",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.304.answers.0"
+          "translationKey": "questions.304.answers.0",
+          "whyKey": "questions.304.answers.0.why"
         },
         {
           "index": 1,
           "text": "16",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.304.answers.1"
+          "translationKey": "questions.304.answers.1",
+          "whyKey": "questions.304.answers.1.why"
         },
         {
           "index": 2,
           "text": "18",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.304.answers.2"
+          "translationKey": "questions.304.answers.2",
+          "whyKey": "questions.304.answers.2.why"
         },
         {
           "index": 3,
           "text": "20",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.304.answers.3"
+          "translationKey": "questions.304.answers.3",
+          "whyKey": "questions.304.answers.3.why"
         }
       ],
       "provenance": {
@@ -20392,10 +20489,9 @@
           "Bezirk",
           "Kommunalwahlen"
         ],
-        "dangerTerms": [
-          "darf"
-        ]
-      }
+        "dangerTerms": []
+      },
+      "clusterTag": "berlin"
     },
     {
       "id": 305,
@@ -20413,28 +20509,32 @@
           "text": "blau-weiß-rot",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.305.answers.0"
+          "translationKey": "questions.305.answers.0",
+          "whyKey": "questions.305.answers.0.why"
         },
         {
           "index": 1,
           "text": "weiß-rot",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.305.answers.1"
+          "translationKey": "questions.305.answers.1",
+          "whyKey": "questions.305.answers.1.why"
         },
         {
           "index": 2,
           "text": "grün-weiß-rot",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.305.answers.2"
+          "translationKey": "questions.305.answers.2",
+          "whyKey": "questions.305.answers.2.why"
         },
         {
           "index": 3,
           "text": "schwarz-gold",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.305.answers.3"
+          "translationKey": "questions.305.answers.3",
+          "whyKey": "questions.305.answers.3.why"
         }
       ],
       "provenance": {
@@ -20462,7 +20562,8 @@
           "Landesflagge"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "berlin"
     },
     {
       "id": 306,
@@ -20480,28 +20581,32 @@
           "text": "beim Ordnungsamt der Gemeinde",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.306.answers.0"
+          "translationKey": "questions.306.answers.0",
+          "whyKey": "questions.306.answers.0.why"
         },
         {
           "index": 1,
           "text": "bei den Kirchen",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.306.answers.1"
+          "translationKey": "questions.306.answers.1",
+          "whyKey": "questions.306.answers.1.why"
         },
         {
           "index": 2,
           "text": "bei der Verbraucherzentrale",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.306.answers.2"
+          "translationKey": "questions.306.answers.2",
+          "whyKey": "questions.306.answers.2.why"
         },
         {
           "index": 3,
           "text": "bei der Landeszentrale für politische Bildung",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.306.answers.3"
+          "translationKey": "questions.306.answers.3",
+          "whyKey": "questions.306.answers.3.why"
         }
       ],
       "provenance": {
@@ -20524,7 +20629,8 @@
           "Berlin"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "berlin"
     },
     {
       "id": 307,
@@ -20542,28 +20648,32 @@
           "text": "Berlin",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.307.answers.0"
+          "translationKey": "questions.307.answers.0",
+          "whyKey": "questions.307.answers.0.why"
         },
         {
           "index": 1,
           "text": "Saarland",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.307.answers.1"
+          "translationKey": "questions.307.answers.1",
+          "whyKey": "questions.307.answers.1.why"
         },
         {
           "index": 2,
           "text": "Brandenburg",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.307.answers.2"
+          "translationKey": "questions.307.answers.2",
+          "whyKey": "questions.307.answers.2.why"
         },
         {
           "index": 3,
           "text": "Hessen",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.307.answers.3"
+          "translationKey": "questions.307.answers.3",
+          "whyKey": "questions.307.answers.3.why"
         }
       ],
       "provenance": {
@@ -20596,7 +20706,8 @@
           "Stadtstaat"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "berlin"
     },
     {
       "id": 308,
@@ -20663,7 +20774,9 @@
           "Bundesland"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "berlin",
+      "imageCaptionKey": "questions.308.imageCaption"
     },
     {
       "id": 309,
@@ -20681,28 +20794,32 @@
           "text": "Ministerpräsidentin/Ministerpräsident",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.309.answers.0"
+          "translationKey": "questions.309.answers.0",
+          "whyKey": "questions.309.answers.0.why"
         },
         {
           "index": 1,
           "text": "Oberbürgermeisterin/Oberbürgermeister",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.309.answers.1"
+          "translationKey": "questions.309.answers.1",
+          "whyKey": "questions.309.answers.1.why"
         },
         {
           "index": 2,
           "text": "Präsidentin/Präsident des Senates",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.309.answers.2"
+          "translationKey": "questions.309.answers.2",
+          "whyKey": "questions.309.answers.2.why"
         },
         {
           "index": 3,
           "text": "Regierende Bürgermeisterin/Regierender Bürgermeister",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.309.answers.3"
+          "translationKey": "questions.309.answers.3",
+          "whyKey": "questions.309.answers.3.why"
         }
       ],
       "provenance": {
@@ -20740,7 +20857,8 @@
           "Stadtstaat"
         ],
         "dangerTerms": []
-      }
+      },
+      "clusterTag": "berlin"
     },
     {
       "id": 310,
@@ -20760,28 +20878,32 @@
           "text": "Finanzsenatorin/Finanzsenator",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.310.answers.0"
+          "translationKey": "questions.310.answers.0",
+          "whyKey": "questions.310.answers.0.why"
         },
         {
           "index": 1,
           "text": "Innensenatorin/Innensenator",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.310.answers.1"
+          "translationKey": "questions.310.answers.1",
+          "whyKey": "questions.310.answers.1.why"
         },
         {
           "index": 2,
           "text": "Senatorin/Senator für Außenbeziehungen",
           "isCorrect": true,
           "dangerWords": [],
-          "translationKey": "questions.310.answers.2"
+          "translationKey": "questions.310.answers.2",
+          "whyKey": "questions.310.answers.2.why"
         },
         {
           "index": 3,
           "text": "Justizsenatorin/Justizsenator",
           "isCorrect": false,
           "dangerWords": [],
-          "translationKey": "questions.310.answers.3"
+          "translationKey": "questions.310.answers.3",
+          "whyKey": "questions.310.answers.3.why"
         }
       ],
       "provenance": {
@@ -20813,10 +20935,9 @@
           "Berlin",
           "Senat"
         ],
-        "dangerTerms": [
-          "nicht"
-        ]
-      }
+        "dangerTerms": []
+      },
+      "clusterTag": "berlin"
     }
   ],
   "i18n": {
@@ -20835,5 +20956,27 @@
       "dangerTerms": "German negation/constraint words that need extra attention.",
       "correctAnswerRef": "Index of the official correct answer in answers[]."
     }
-  }
+  },
+  "clusters": [
+    {
+      "id": "wahlrecht",
+      "titleKey": "cluster.wahlrecht.title",
+      "bodyKey": "cluster.wahlrecht.body"
+    },
+    {
+      "id": "grundrechte",
+      "titleKey": "cluster.grundrechte.title",
+      "bodyKey": "cluster.grundrechte.body"
+    },
+    {
+      "id": "nszeit",
+      "titleKey": "cluster.nszeit.title",
+      "bodyKey": "cluster.nszeit.body"
+    },
+    {
+      "id": "berlin",
+      "titleKey": "cluster.berlin.title",
+      "bodyKey": "cluster.berlin.body"
+    }
+  ]
 }
