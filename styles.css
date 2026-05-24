@@ -1573,8 +1573,8 @@ button {
 .bp-q {
   font-family: var(--bp-display);
   font-size: clamp(20px, 6.4vw, 26px);
-  font-weight: 900;
-  line-height: 1.08;
+  font-weight: 780;
+  line-height: 1.12;
   letter-spacing: 0;
   color: var(--bp-ink);
   margin: 0;
@@ -1589,7 +1589,7 @@ button {
 }
 
 .bp-q-en {
-  font-family: var(--bp-mono);
+  font-family: var(--bp-display);
   font-size: 14px;
   line-height: 1.45;
   color: var(--bp-ink-soft);
@@ -1632,12 +1632,12 @@ button {
   display: grid;
   grid-template-columns: 1fr auto;
   column-gap: 14px;
-  align-items: start;
+  align-items: center;
   padding: var(--md-density-answer-padding-block) var(--md-density-answer-padding-inline-end)
     var(--md-density-answer-padding-block) var(--md-density-answer-padding-inline-start);
-  background: var(--md-comp-study-sheet-container-color);
+  background: var(--md-comp-answer-container-color);
   color: var(--bp-ink);
-  border: 1px solid var(--md-sys-color-outline-variant);
+  border: 1px solid color-mix(in srgb, var(--md-sys-color-outline-variant) 46%, transparent);
   border-radius: var(--md-sys-shape-corner-large);
   text-align: left;
   width: 100%;
@@ -1656,8 +1656,8 @@ button {
 }
 
 .bp-answer:not(:disabled):hover {
-  background: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, var(--md-sys-color-surface-container-low));
-  border-color: var(--md-sys-color-outline);
+  background: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, var(--md-comp-answer-container-color));
+  border-color: color-mix(in srgb, var(--md-sys-color-outline) 48%, transparent);
 }
 
 .bp-answer.is-correct:not(:disabled):hover,
@@ -1676,14 +1676,14 @@ button {
 
 .bp-answer .text {
   font-size: var(--md-type-body-large);
-  font-weight: 600;
-  line-height: 1.3;
+  font-weight: 560;
+  line-height: 1.32;
   letter-spacing: 0;
 }
 
 .bp-answer .text .en {
   display: block;
-  font-family: var(--bp-mono);
+  font-family: var(--bp-display);
   font-style: normal;
   font-size: var(--md-type-body-medium);
   color: var(--bp-ink-soft);
@@ -1971,7 +1971,7 @@ button {
 
 .bp-nav {
   display: grid;
-  grid-template-columns: 1fr 1.35fr 1fr;
+  grid-template-columns: minmax(64px, 0.9fr) minmax(128px, 1.18fr) minmax(72px, 0.9fr);
   border-top: 1px solid var(--bp-rule);
   background: var(--md-comp-dialog-container-color);
   gap: 10px;
@@ -1996,6 +1996,8 @@ button {
   align-items: center;
   justify-content: center;
   gap: 6px;
+  min-width: 0;
+  white-space: nowrap;
   transition: background var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
     color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
     box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
@@ -2039,6 +2041,7 @@ button {
 .bp-nav .known-btn {
   background: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
+  padding-inline: 12px;
 }
 
 .bp-nav .known-btn.on {
@@ -2812,7 +2815,7 @@ button {
 
   .bp-q {
     font-size: clamp(26px, 3.4vw, 32px);
-    line-height: 1.05;
+    line-height: 1.08;
   }
 
   .bp-q-en {
@@ -2824,16 +2827,17 @@ button {
   }
 
   .bp-answer {
-    padding: 11px 14px 11px 16px;
+    padding: 11px 14px 11px 18px;
   }
 
   .bp-answer .text {
     font-size: 15.5px;
+    line-height: 1.3;
   }
 
   .bp-nav button {
     min-height: 46px;
-    padding: 0 14px;
+    padding: 0 12px;
     font-size: 12px;
   }
 
@@ -3184,6 +3188,8 @@ button {
 
   .bp-answer {
     min-height: 0;
+    padding-inline-start: 16px;
+    padding-inline-end: 12px;
   }
 
   .bp-answer .text {
@@ -3215,8 +3221,8 @@ button {
   }
 
   .bp-nav button {
-    padding: 0 12px;
-    font-size: 11px;
+    padding: 0 10px;
+    font-size: 10.5px;
   }
 
   .bp-app.fit-tight .bp-card {
