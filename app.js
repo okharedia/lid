@@ -77,7 +77,6 @@ const els = {
   hintText: document.querySelector("#hintText"),
   studyDock: document.querySelector("#studyDock"),
   keywordList: document.querySelector("#keywordList"),
-  glossaryContext: document.querySelector("#glossaryContext"),
   lockedHint: document.querySelector("#lockedHint"),
   cardNav: document.querySelector("#cardNav"),
   prevButton: document.querySelector("#prevButton"),
@@ -533,24 +532,13 @@ function render() {
   const keywords = keywordRefs(card);
   els.hintText.innerHTML = `${icon("sparkle-2", "hint-icon")} ${highlightedText(hint, card)}`;
   els.keywordList.hidden = !keywords.length;
-  els.glossaryContext.hidden = true;
-  els.glossaryContext.textContent = "";
   els.keywordList.innerHTML = keywords
-    .map((keyword) => {
-      const context = t(`glossary.${keyword.term}.context`);
-      const trigger = context
-        ? `<button type="button" class="kw-info" data-context="${escapeHtml(context)}" aria-label="More about ${escapeHtml(keyword.term)}">${icon("info-circle")}</button>`
-        : "";
-      return `
-        <span class="kw-item ${context ? "has-context" : ""}">
-          <span class="kw-head">
-            <span class="de">${escapeHtml(keyword.term)}</span>
-            ${trigger}
-          </span>
-          <span class="en">${escapeHtml(t(keyword.translationKey))}</span>
-        </span>
-      `;
-    })
+    .map((keyword) => `
+      <span class="kw-item">
+        <span class="de">${escapeHtml(keyword.term)}</span>
+        <span class="en">${escapeHtml(t(keyword.translationKey))}</span>
+      </span>
+    `)
     .join("");
 
   saveState();
@@ -858,22 +846,6 @@ function bindEvents() {
   els.clusterDrawerClose.addEventListener("click", closeClusterDrawer);
   els.clusterDrawer.addEventListener("click", (event) => {
     if (event.target === els.clusterDrawer) closeClusterDrawer();
-  });
-  els.keywordList.addEventListener("click", (event) => {
-    const trigger = event.target.closest(".kw-info");
-    if (!trigger) return;
-    const item = trigger.closest(".kw-item");
-    const context = trigger.dataset.context || "";
-    const wasOpen = item.classList.contains("open");
-    document.querySelectorAll(".kw-item.open").forEach((other) => other.classList.remove("open"));
-    if (wasOpen) {
-      els.glossaryContext.hidden = true;
-      els.glossaryContext.textContent = "";
-      return;
-    }
-    item.classList.add("open");
-    els.glossaryContext.textContent = context;
-    els.glossaryContext.hidden = !context;
   });
   els.resultView.addEventListener("click", (event) => {
     const action = event.target.closest("[data-action]")?.dataset.action;

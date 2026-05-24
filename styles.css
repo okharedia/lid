@@ -1402,59 +1402,6 @@ button {
   opacity: 0.85;
 }
 
-.bp-kw-list .kw-item .kw-head {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.bp-kw-list .kw-item .kw-info {
-  appearance: none;
-  border: 0;
-  background: transparent;
-  padding: 0;
-  color: var(--bp-ink-faint);
-  cursor: pointer;
-  line-height: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.bp-kw-list .kw-item .kw-info .icon {
-  width: 13px;
-  height: 13px;
-}
-
-.bp-kw-list .kw-item .kw-info:hover {
-  color: var(--bp-indigo);
-}
-
-.bp-kw-list .kw-item.open {
-  background: var(--bp-indigo-soft);
-  border-color: var(--bp-indigo);
-}
-
-.bp-kw-list .kw-item.open .kw-info {
-  color: var(--bp-indigo);
-}
-
-.bp-glossary-context {
-  margin: 0 18px;
-  padding: 8px 11px;
-  background: var(--bp-ink);
-  color: var(--bp-paper);
-  border-radius: var(--bp-radius-sm);
-  font-family: var(--bp-mono);
-  font-size: 12.5px;
-  line-height: 1.4;
-  text-wrap: pretty;
-}
-
-.bp-glossary-context[hidden] {
-  display: none;
-}
-
 .bp-cluster-drawer {
   position: fixed;
   inset: 0;
