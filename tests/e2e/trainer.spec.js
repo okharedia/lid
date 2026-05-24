@@ -78,11 +78,21 @@ test("persists test answers across reload", async ({ page }) => {
   await expect(page.getByRole("button", { name: /Next/ })).toBeEnabled();
 });
 
-test("marking known removes a card and survives reload", async ({ page }) => {
+test("marking mastered removes a card, can undo, and survives reload", async ({ page }) => {
   await openTrainer(page);
 
   const firstQuestion = await page.locator("#questionText").innerText();
-  await page.getByRole("button", { name: /Mark as known/ }).click();
+  await page.getByRole("button", { name: /Mark as mastered/ }).click();
+  await expect(page.locator("#questionText")).not.toHaveText(firstQuestion);
+  await expect(page.locator("#snackbar")).toContainText("Marked as mastered");
+
+  await page.getByRole("button", { name: "Undo" }).click();
+  await expect(page.locator("#questionText")).toHaveText(firstQuestion);
+
+  const undoneState = await page.evaluate(() => JSON.parse(localStorage.getItem("lid-trainer-v7")));
+  expect(undoneState.known.length).toBe(0);
+
+  await page.getByRole("button", { name: /Mark as mastered/ }).click();
   await expect(page.locator("#questionText")).not.toHaveText(firstQuestion);
 
   const savedState = await page.evaluate(() => JSON.parse(localStorage.getItem("lid-trainer-v7")));
@@ -127,6 +137,26 @@ test("study help hides the drawer handle when content already fits", async ({ pa
   await expect(page.locator("#questionTag")).toContainText("002");
   await expect(studyDock).toHaveClass(/is-static/);
   await expect(studyHandle).toBeHidden();
+});
+
+test("jump dialog navigates quickly through the deck", async ({ page }) => {
+  await openTrainer(page);
+
+  await page.getByRole("button", { name: /Jump to question/ }).click();
+  await expect(page.getByRole("dialog", { name: "Jump to question" })).toBeVisible();
+  await page.getByRole("button", { name: "Last" }).click();
+  await expect(page.locator("#progressText")).toContainText("/310");
+  await expect(page.locator("#progressText")).toContainText("310");
+
+  await page.getByRole("button", { name: /Jump to question/ }).click();
+  await page.locator("#jumpInput").fill("1");
+  await page.getByRole("button", { name: "Go" }).click();
+  await expect(page.locator("#progressText")).toContainText("01");
+
+  await page.keyboard.press("End");
+  await expect(page.locator("#progressText")).toContainText("310");
+  await page.keyboard.press("Home");
+  await expect(page.locator("#progressText")).toContainText("01");
 });
 
 test("mobile drawer behaves like a modal dialog", async ({ page }) => {

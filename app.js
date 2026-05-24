@@ -74,6 +74,9 @@ const els = {
   feedback: document.querySelector("#feedback"),
   knownCount: document.querySelector("#knownCount"),
   progressText: document.querySelector("#progressText"),
+  jumpDialog: document.querySelector("#jumpDialog"),
+  jumpInput: document.querySelector("#jumpInput"),
+  jumpClose: document.querySelector("#jumpClose"),
   questionText: document.querySelector("#questionText"),
   questionTranslation: document.querySelector("#questionTranslation"),
   questionImage: document.querySelector("#questionImage"),
@@ -90,7 +93,13 @@ const els = {
   shuffleButton: document.querySelector("#shuffleButton"),
   middleButton: document.querySelector("#middleButton"),
   nextButton: document.querySelector("#nextButton"),
+  snackbar: document.querySelector("#snackbar"),
+  snackbarText: document.querySelector("#snackbarText"),
+  snackbarAction: document.querySelector("#snackbarAction"),
 };
+
+let snackbarTimer = 0;
+let knownUndo = null;
 
 function loadSavedState() {
   try {
@@ -337,7 +346,7 @@ function renderCategories() {
 function renderKnownPanel() {
   const knownQuestions = questions.filter((question) => state.known.has(question.id));
   els.knownSummary.innerHTML = `
-    <span>${knownQuestions.length} known</span>
+    <span>${knownQuestions.length} mastered</span>
     <span>${questions.length - knownQuestions.length}/${questions.length} available</span>
   `;
   els.knownList.innerHTML = knownQuestions.length
@@ -348,13 +357,13 @@ function renderKnownPanel() {
               <span class="known-meta">FRAGE ${pad(question.localNumber || question.id, 3)} · ${escapeHtml(question.theme)}</span>
               <p>${escapeHtml(question.question)}</p>
             </div>
-            <button type="button" data-remove-known="${question.id}" aria-label="Remove known mark">
+            <button type="button" data-remove-known="${question.id}" aria-label="Remove mastered mark">
               ${icon("trash")}
             </button>
           </article>
         `)
         .join("")
-    : `<div class="known-empty">${icon("book")}<span>No known questions yet</span></div>`;
+    : `<div class="known-empty">${icon("book")}<strong>No mastered cards yet</strong><span>Mark questions as mastered when they feel easy.</span></div>`;
 }
 
 function renderTestConfigPanel() {
@@ -373,7 +382,7 @@ function renderTestConfigPanel() {
 function renderPanel() {
   const isKnownTab = state.panelTab === "known";
   const isTestConfigTab = state.panelTab === "test";
-  els.knownTab.setAttribute("aria-label", `Known questions, ${state.known.size} marked`);
+  els.knownTab.setAttribute("aria-label", `Mastered questions, ${state.known.size} marked`);
   els.testConfigTab.setAttribute("aria-label", `Config, theme ${state.theme}`);
   const tabStates = [
     [els.filtersTab, !isKnownTab && !isTestConfigTab],
@@ -505,7 +514,7 @@ function render() {
 
   els.learnMode.setAttribute("aria-pressed", String(isLearn));
   els.testMode.setAttribute("aria-pressed", String(!isLearn));
-  els.filterButtonLabel.textContent = state.panelTab === "known" ? "Known" : shortCategoryLabel(state.category);
+  els.filterButtonLabel.textContent = state.panelTab === "known" ? "Mastered" : shortCategoryLabel(state.category);
   els.filterButton.setAttribute("aria-label", `${els.app.classList.contains("filters-open") ? "Close" : "Open"} review panel`);
   els.filterButton.setAttribute("aria-expanded", String(els.app.classList.contains("filters-open")));
   syncDrawerAccessibility();
@@ -553,6 +562,8 @@ function render() {
   els.knownCount.hidden = Boolean(correctChosen || wrongChosen || !knownCount);
   els.knownCount.innerHTML = `${icon("circle-check", "check")} ${knownCount}`;
   els.progressText.innerHTML = `${pad(state.index + 1)}<span class="pct">/${pad(total)}</span>`;
+  els.progressText.disabled = Boolean(state.result) || total <= 1;
+  els.progressText.setAttribute("aria-label", `Jump to question, currently ${state.index + 1} of ${total}`);
   els.questionText.innerHTML = highlightedText(card.question, card);
   const questionTranslation = t(card.translationKey);
   els.questionTranslation.textContent = questionTranslation;
@@ -646,8 +657,8 @@ function renderNav(card, isLearn, isAnswered, total) {
     els.prevButton.setAttribute("aria-label", "Previous question");
     els.middleButton.className = `known-btn ${isKnown ? "on" : ""}`;
     els.middleButton.disabled = !card;
-    els.middleButton.setAttribute("aria-label", isKnown ? "Remove known mark" : "Mark as known");
-    els.middleButton.innerHTML = isKnown ? `${icon("circle-check")} Known` : `${icon("star")} Mark as known`;
+    els.middleButton.setAttribute("aria-label", isKnown ? "Remove mastered mark" : "Mark as mastered");
+    els.middleButton.innerHTML = isKnown ? `${icon("circle-check")} Mastered` : `${icon("star")} Mark as mastered`;
     els.nextButton.disabled = !card || state.index >= total - 1;
     els.nextButton.setAttribute("aria-label", "Next question");
     els.nextButton.innerHTML = `Next ${icon("arrow-right", "arrow")}`;
@@ -698,6 +709,69 @@ function animateAnswerReveal() {
   answerTimer = window.setTimeout(() => {
     els.app.classList.remove("answer-reveal");
   }, MOTION_LONG_MS);
+}
+
+function hideSnackbar() {
+  window.clearTimeout(snackbarTimer);
+  els.snackbar.hidden = true;
+  els.snackbar.classList.remove("is-visible");
+  els.snackbarAction.hidden = true;
+  els.snackbarAction.textContent = "";
+  knownUndo = null;
+}
+
+function showSnackbar(message, actionLabel = "") {
+  window.clearTimeout(snackbarTimer);
+  els.snackbarText.textContent = message;
+  els.snackbarAction.textContent = actionLabel;
+  els.snackbarAction.hidden = !actionLabel;
+  els.snackbar.hidden = false;
+  requestAnimationFrame(() => els.snackbar.classList.add("is-visible"));
+  snackbarTimer = window.setTimeout(hideSnackbar, 5200);
+}
+
+function undoKnownMark() {
+  if (!knownUndo) return;
+  state.known.delete(knownUndo.id);
+  state.index = knownUndo.index;
+  if (state.mode === "learn") buildLearnDeck(false);
+  hideSnackbar();
+  render();
+}
+
+function jumpToIndex(index) {
+  if (state.result || !state.deck.length) return;
+  const nextIndex = Math.max(0, Math.min(state.deck.length - 1, index));
+  if (nextIndex === state.index) return;
+  const direction = nextIndex > state.index ? 1 : -1;
+  state.index = nextIndex;
+  state.selected = null;
+  if (state.testSession) state.testSession.index = state.index;
+  render();
+  animateMove(direction);
+}
+
+function openJumpDialog() {
+  if (state.result || !state.deck.length) return;
+  els.jumpInput.max = String(state.deck.length);
+  els.jumpInput.value = String(state.index + 1);
+  if (typeof els.jumpDialog.showModal === "function") els.jumpDialog.showModal();
+  else els.jumpDialog.setAttribute("open", "");
+  requestAnimationFrame(() => {
+    els.jumpInput.focus();
+    els.jumpInput.select();
+  });
+}
+
+function closeJumpDialog() {
+  if (els.jumpDialog.open) els.jumpDialog.close();
+}
+
+function submitJump() {
+  const target = Number(els.jumpInput.value);
+  if (!Number.isFinite(target)) return;
+  closeJumpDialog();
+  jumpToIndex(target - 1);
 }
 
 function clampSwipeDistance(dx) {
@@ -839,9 +913,12 @@ function toggleKnown() {
   if (!card) return;
   if (state.known.has(card.id)) {
     state.known.delete(card.id);
+    hideSnackbar();
   } else {
+    knownUndo = { id: card.id, index: state.index };
     state.known.add(card.id);
     state.index = Math.min(state.index, Math.max(0, availableQuestions().length - 1));
+    showSnackbar("Marked as mastered", "Undo");
   }
   buildLearnDeck(false);
   render();
@@ -849,6 +926,7 @@ function toggleKnown() {
 
 function removeKnown(id) {
   state.known.delete(Number(id));
+  hideSnackbar();
   if (state.mode === "learn") buildLearnDeck(false);
   render();
 }
@@ -1011,6 +1089,7 @@ function bindEvents() {
     move(1);
   });
   els.middleButton.addEventListener("click", toggleKnown);
+  els.snackbarAction.addEventListener("click", undoKnownMark);
   els.studyHandle.addEventListener("click", () => {
     if (els.studyHandle.hidden || els.studyHandle.disabled) return;
     state.studyExpanded = !state.studyExpanded;
@@ -1042,6 +1121,23 @@ function bindEvents() {
     const button = event.target.closest("[data-answer]");
     if (!button) return;
     pickAnswer(Number(button.dataset.answer));
+  });
+  els.progressText.addEventListener("click", openJumpDialog);
+  els.jumpClose.addEventListener("click", closeJumpDialog);
+  els.jumpDialog.addEventListener("click", (event) => {
+    if (event.target === els.jumpDialog) closeJumpDialog();
+  });
+  els.jumpDialog.addEventListener("submit", (event) => {
+    event.preventDefault();
+    submitJump();
+  });
+  els.jumpDialog.addEventListener("click", (event) => {
+    const shortcut = event.target.closest("[data-jump]")?.dataset.jump;
+    if (!shortcut) return;
+    const last = state.deck.length - 1;
+    const target = shortcut === "first" ? 0 : shortcut === "middle" ? Math.floor(last / 2) : last;
+    closeJumpDialog();
+    jumpToIndex(target);
   });
   els.resultView.addEventListener("click", (event) => {
     const action = event.target.closest("[data-action]")?.dataset.action;
@@ -1096,8 +1192,15 @@ function bindEvents() {
     releaseSwipe();
   });
   window.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || els.jumpDialog.open) return;
     if (["INPUT", "SELECT", "TEXTAREA"].includes(event.target.tagName)) return;
-    if (event.key === "ArrowLeft") {
+    if (event.key === "Home") {
+      event.preventDefault();
+      jumpToIndex(0);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      jumpToIndex(state.deck.length - 1);
+    } else if (event.key === "ArrowLeft") {
       event.preventDefault();
       move(-1);
     } else if (event.key === "ArrowRight") {
