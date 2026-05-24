@@ -44,10 +44,6 @@ _Avoid_: Hint, footnote
 A **Question** whose wording is identical to an earlier **Question** in the catalog. Surfaced as a chip pointing to the earlier **Question**.
 _Avoid_: Repeat, alias
 
-**Image Caption**:
-A short visual mnemonic shown beneath an image-based **Question** so the learner remembers the correct image even when the option order shifts.
-_Avoid_: Alt text, description
-
 **Answer Variant Note**:
 A note shown on the **Test Result** review when the same **Question** can appear with slightly different wording on the real exam.
 _Avoid_: Warning, disclaimer
@@ -72,7 +68,6 @@ _Avoid_: Warning, disclaimer
 - An unfinished **Test Session** can resume after refresh.
 - A **Distractor Explanation** appears only after correctness is revealed for the **Question**.
 - A **Duplicate Question** carries a chip linking back to the canonical (lower-numbered) **Question**.
-- An **Image Caption** describes the correct image conceptually, not by position number.
 - An **Answer Variant Note** only appears on the **Test Result** review, not during the live **Question**.
 
 ## Example dialogue

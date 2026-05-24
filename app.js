@@ -65,7 +65,6 @@ const els = {
   questionText: document.querySelector("#questionText"),
   questionTranslation: document.querySelector("#questionTranslation"),
   questionImage: document.querySelector("#questionImage"),
-  imageCaption: document.querySelector("#imageCaption"),
   questionChips: document.querySelector("#questionChips"),
   answers: document.querySelector("#answers"),
   hintText: document.querySelector("#hintText"),
@@ -488,10 +487,6 @@ function render() {
   } else {
     els.questionImage.removeAttribute("src");
   }
-
-  const caption = t(card.imageCaptionKey);
-  els.imageCaption.hidden = !(card.imageUrl && caption);
-  els.imageCaption.textContent = caption;
 
   renderQuestionChips(card);
 

@@ -1364,16 +1364,6 @@ button {
   color: #8a6a17;
 }
 
-.bp-image-caption {
-  margin: 6px 0 0;
-  font-family: var(--bp-mono);
-  font-size: 12px;
-  line-height: 1.35;
-  color: var(--bp-ink-soft);
-  font-style: italic;
-  text-align: left;
-}
-
 .bp-answer .text .why {
   display: block;
   margin-top: 5px;
