@@ -1369,8 +1369,12 @@ button {
 }
 
 .bp-answer .text .why {
-  display: block;
-  margin-top: 5px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 6px;
+  margin-top: 6px;
+  padding-top: 1px;
   font-family: var(--bp-display);
   font-size: 12px;
   font-weight: 400;
@@ -1380,9 +1384,21 @@ button {
   letter-spacing: 0;
 }
 
+.bp-answer .text .why-icon {
+  width: 13px;
+  height: 13px;
+  margin-top: 1px;
+  color: var(--bp-ink-faint);
+  stroke-width: 2.25;
+}
+
 .bp-answer.is-correct .text .why {
   color: #397653;
   font-style: normal;
+}
+
+.bp-answer.is-correct .text .why-icon {
+  color: var(--bp-green);
 }
 
 .bp-answer.is-wrong .text .why {

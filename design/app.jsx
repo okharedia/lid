@@ -225,6 +225,16 @@ function App() {
                     <span className="text">
                       <AnswerText text={opt} keywords={current.keywords} isCorrect={isCorrectAns} reveal={revealNow} />
                       {current.optionsEn?.[i] && <span className="en">{current.optionsEn[i]}</span>}
+                      {revealNow && (
+                        <span className="why">
+                          <svg className="icon why-icon" aria-hidden="true" viewBox="0 0 24 24">
+                            <path d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0 -20"></path>
+                            <path d="M12 9h.01"></path>
+                            <path d="M11 12h1v4h1"></path>
+                          </svg>
+                          <span>{isCorrectAns ? 'Correct because this names the right civic right.' : 'This explains why the choice does not answer the question.'}</span>
+                        </span>
+                      )}
                     </span>
                     <span className="mark">
                       {revealNow && isCorrectAns ? '✓' : revealNow && selected === i ? '✕' : ''}

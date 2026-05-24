@@ -508,7 +508,7 @@ function render() {
             <span class="text">
               ${highlightedAnswerText(answer.text, card, isCorrectAnswer, reveal)}
               ${answerTranslation ? `<span class="en">${escapeHtml(answerTranslation)}</span>` : ""}
-              ${why ? `<span class="why">${escapeHtml(why)}</span>` : ""}
+              ${why ? `<span class="why">${icon("info-circle", "why-icon")}<span>${escapeHtml(why)}</span></span>` : ""}
             </span>
             <span class="mark">${mark}</span>
           </button>
