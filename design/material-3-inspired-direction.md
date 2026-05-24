@@ -21,15 +21,16 @@ This pass keeps the static LiD trainer architecture and Tabler icons, but shifts
 - `learning-highlight`: inline learning highlights only.
 - `scrim`: review panel backdrop only.
 - `shape-corner-*`: small chips, medium controls, large answer options, extra-large sheets.
-- `motion-duration-*`, `motion-easing-standard`: consistent component state transitions.
+- `motion-duration-*`, `motion-easing-standard`: consistent drawer, navigation, answer, and card transitions.
 
 ## Component Direction
 
 - Top bar: low surface app bar with filled tonal icon buttons.
+- Review panel: desktop persistent drawer; mobile modal drawer with scrim and Escape/outside-click close.
 - Mode switch: outlined segmented control with tonal selected state.
 - Filters: Material-style filter chips with leading check on selected tonal fill.
 - Answers: rounded list-item/radio hybrids with outline controls and filled feedback controls.
-- Study dock: low container surface with rounded keyword chips.
+- Study dock: persistent bottom sheet with a handle, elevated container, and rounded keyword chips.
 - Bottom nav: action bar with text `Prev`, tonal `Mark known`, and filled `Next`.
 
 ## Implementation Notes

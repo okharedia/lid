@@ -53,6 +53,7 @@
   --md-sys-shape-corner-full: 999px;
   --md-sys-motion-duration-short: 120ms;
   --md-sys-motion-duration-medium: 180ms;
+  --md-sys-motion-duration-long: 240ms;
   --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
 
   /* Legacy design aliases used by older design prototypes. */

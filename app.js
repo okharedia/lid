@@ -769,6 +769,12 @@ function bindEvents() {
     els.app.classList.toggle("filters-open");
     els.filterButton.setAttribute("aria-expanded", String(els.app.classList.contains("filters-open")));
   });
+  window.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !els.app.classList.contains("filters-open")) return;
+    els.app.classList.remove("filters-open");
+    els.filterButton.setAttribute("aria-expanded", "false");
+    els.filterButton.focus();
+  });
   els.app.addEventListener("click", (event) => {
     if (window.innerWidth >= 720) return;
     if (!els.app.classList.contains("filters-open")) return;
