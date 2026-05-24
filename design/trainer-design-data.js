@@ -157,6 +157,7 @@ const els = {
   lockedHint: document.querySelector("#lockedHint"),
   studyDock: document.querySelector("#studyDock"),
   studyHandle: document.querySelector("#studyHandle"),
+  studyContent: document.querySelector("#studyContent"),
   hintText: document.querySelector("#hintText"),
   keywordList: document.querySelector("#keywordList"),
   prevButton: document.querySelector("#prevButton"),
@@ -257,9 +258,6 @@ function render() {
 
   els.lockedHint.hidden = reveal;
   els.studyDock.hidden = !reveal;
-  els.studyDock.classList.remove("is-collapsed");
-  els.studyHandle?.setAttribute("aria-expanded", "true");
-  els.studyHandle?.setAttribute("aria-label", "Collapse study help");
   els.hintText.innerHTML = `${icon("sparkle-2", "hint-icon")} ${highlight(scenario.hint, scenario.keywords)}`;
   els.keywordList.innerHTML = scenario.keywords
     .map((keyword) => `
@@ -270,6 +268,7 @@ function render() {
     `)
     .join("");
 
+  syncStudyDockState();
   fitLayout();
   setTimeout(fitLayout, 250);
 }
@@ -333,8 +332,44 @@ function hasVerticalOverflow(element) {
   return element.scrollHeight > element.clientHeight + 1;
 }
 
+function collapsedStudyHeight() {
+  return window.innerWidth < 720 ? 96 : 104;
+}
+
+function canToggleStudyDock() {
+  if (els.studyDock.hidden) return false;
+  const wasCollapsed = els.studyDock.classList.contains("is-collapsed");
+  const wasStatic = els.studyDock.classList.contains("is-static");
+  els.studyDock.classList.remove("is-collapsed", "is-static");
+  const styles = window.getComputedStyle(els.studyDock);
+  const padding = Number.parseFloat(styles.paddingTop) + Number.parseFloat(styles.paddingBottom);
+  const toggleable = els.studyContent.scrollHeight + padding > collapsedStudyHeight() + 2;
+  els.studyDock.classList.toggle("is-collapsed", wasCollapsed);
+  els.studyDock.classList.toggle("is-static", wasStatic);
+  return toggleable;
+}
+
+function syncStudyDockState() {
+  if (els.studyDock.hidden) {
+    els.studyDock.classList.remove("is-collapsed", "is-static");
+    els.studyHandle.hidden = true;
+    return;
+  }
+  const toggleable = canToggleStudyDock();
+  els.studyDock.classList.toggle("is-static", !toggleable);
+  if (!toggleable) els.studyDock.classList.remove("is-collapsed");
+  els.studyHandle.hidden = !toggleable;
+  els.studyHandle.disabled = !toggleable;
+  els.studyHandle.setAttribute("aria-expanded", String(!els.studyDock.classList.contains("is-collapsed")));
+  els.studyHandle.setAttribute(
+    "aria-label",
+    els.studyDock.classList.contains("is-collapsed") ? "Expand study help" : "Collapse study help",
+  );
+}
+
 function fitLayout() {
   requestAnimationFrame(() => {
+    syncStudyDockState();
     app.classList.remove("fit-tight", "fit-tighter");
     const overflows = () =>
       hasVerticalOverflow(document.querySelector("#card")) ||
@@ -344,6 +379,7 @@ function fitLayout() {
     if (!overflows()) return;
     app.classList.add("fit-tight");
     requestAnimationFrame(() => {
+      syncStudyDockState();
       if (overflows()) app.classList.add("fit-tighter");
     });
   });
@@ -428,6 +464,7 @@ app.addEventListener("pointercancel", () => {
 });
 
 els.studyHandle?.addEventListener("click", () => {
+  if (els.studyHandle.hidden || els.studyHandle.disabled) return;
   const collapsed = els.studyDock.classList.toggle("is-collapsed");
   els.studyHandle.setAttribute("aria-expanded", String(!collapsed));
   els.studyHandle.setAttribute("aria-label", collapsed ? "Expand study help" : "Collapse study help");
@@ -435,7 +472,7 @@ els.studyHandle?.addEventListener("click", () => {
 });
 
 els.studyDock?.addEventListener("keydown", (event) => {
-  if (event.key !== "Escape" || els.studyDock.classList.contains("is-collapsed")) return;
+  if (event.key !== "Escape" || els.studyDock.classList.contains("is-collapsed") || els.studyHandle.hidden) return;
   event.preventDefault();
   els.studyDock.classList.add("is-collapsed");
   els.studyHandle.setAttribute("aria-expanded", "false");

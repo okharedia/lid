@@ -84,6 +84,18 @@
         <path d="M17 18h3"></path>
         <path d="M14 16v4"></path>
       </symbol>
+      <symbol id="tabler-list-check" viewBox="0 0 24 24">
+        <path d="M11 6h9"></path>
+        <path d="M11 12h9"></path>
+        <path d="M11 18h9"></path>
+        <path d="M4 6l1 1l3 -3"></path>
+        <path d="M4 12l1 1l3 -3"></path>
+        <path d="M4 18l1 1l3 -3"></path>
+      </symbol>
+      <symbol id="tabler-settings" viewBox="0 0 24 24">
+        <path d="M10.325 4.317a1.724 1.724 0 0 0 3.35 0a1.724 1.724 0 0 1 2.573 -1.066a1.724 1.724 0 0 0 2.438 2.438a1.724 1.724 0 0 1 1.066 2.573a1.724 1.724 0 0 0 0 3.35a1.724 1.724 0 0 1 -1.066 2.573a1.724 1.724 0 0 0 -2.438 2.438a1.724 1.724 0 0 1 -2.573 1.066a1.724 1.724 0 0 0 -3.35 0a1.724 1.724 0 0 1 -2.573 1.066a1.724 1.724 0 0 0 -2.438 -2.438a1.724 1.724 0 0 1 -1.066 -2.573a1.724 1.724 0 0 0 0 -3.35a1.724 1.724 0 0 1 1.066 -2.573a1.724 1.724 0 0 0 2.438 -2.438a1.724 1.724 0 0 1 2.573 -1.066"></path>
+        <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+      </symbol>
       <symbol id="tabler-minus" viewBox="0 0 24 24">
         <path d="M5 12h14"></path>
       </symbol>
@@ -146,9 +158,18 @@
 
       <section id="filterBar" class="bp-pills-bar" aria-label="Review panel" tabindex="-1">
         <div class="panel-tabs" role="tablist" aria-label="Review panel">
-          <button id="filtersTab" type="button" role="tab" aria-selected="true" aria-controls="filtersPane">Filters</button>
-          <button id="knownTab" type="button" role="tab" aria-selected="false" aria-controls="knownPane" tabindex="-1">Known</button>
-          <button id="testConfigTab" type="button" role="tab" aria-selected="false" aria-controls="testConfigPane" tabindex="-1">Test</button>
+          <button id="filtersTab" type="button" role="tab" aria-selected="true" aria-controls="filtersPane">
+            <svg class="icon tab-icon" aria-hidden="true"><use href="#tabler-adjustments-horizontal"></use></svg>
+            <span class="tab-label">Filters</span>
+          </button>
+          <button id="knownTab" type="button" role="tab" aria-selected="false" aria-controls="knownPane" tabindex="-1">
+            <svg class="icon tab-icon" aria-hidden="true"><use href="#tabler-list-check"></use></svg>
+            <span class="tab-label">Known</span>
+          </button>
+          <button id="testConfigTab" type="button" role="tab" aria-selected="false" aria-controls="testConfigPane" tabindex="-1">
+            <svg class="icon tab-icon" aria-hidden="true"><use href="#tabler-settings"></use></svg>
+            <span class="tab-label">Test</span>
+          </button>
         </div>
         <div id="filtersPane" class="panel-pane" role="tabpanel" aria-labelledby="filtersTab">
           <div id="categoryPills" class="pills"></div>

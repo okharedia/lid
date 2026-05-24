@@ -91,6 +91,19 @@ test("study help starts expanded and handle toggles it", async ({ page }) => {
   await expect(page.getByRole("button", { name: "Expand study help" })).toBeFocused();
 });
 
+test("study help hides the drawer handle when content already fits", async ({ page }) => {
+  await openTrainer(page);
+
+  const studyDock = page.locator("#studyDock");
+  const studyHandle = page.locator("#studyHandle");
+
+  await expect(studyHandle).toBeVisible();
+  await page.getByRole("button", { name: "Next" }).click();
+  await expect(page.locator("#questionTag")).toContainText("002");
+  await expect(studyDock).toHaveClass(/is-static/);
+  await expect(studyHandle).toBeHidden();
+});
+
 test("mobile drawer behaves like a modal dialog", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await openTrainer(page);
@@ -111,6 +124,25 @@ test("mobile drawer behaves like a modal dialog", async ({ page }) => {
   await expect(drawer).toHaveAttribute("aria-hidden", "true");
   await expect(card).not.toHaveAttribute("inert", "");
   await expect(filterButton).toBeFocused();
+});
+
+test("desktop review panel stays open after selecting a filter", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 860 });
+  await openTrainer(page);
+
+  const filterButton = page.locator("#filterButton");
+  const drawer = page.locator("#filterBar");
+
+  await filterButton.click();
+  await expect(drawer).toHaveAttribute("aria-hidden", "false");
+
+  await page.getByRole("button", { name: /Elections/i }).click();
+  await expect(drawer).toHaveAttribute("aria-hidden", "false");
+  await expect(filterButton).toHaveAttribute("aria-expanded", "true");
+
+  await filterButton.click();
+  await expect(drawer).toHaveAttribute("aria-hidden", "true");
+  await expect(filterButton).toHaveAttribute("aria-expanded", "false");
 });
 
 test("learn mode renders the correct answer first without changing test answer indexes", async ({ page }) => {

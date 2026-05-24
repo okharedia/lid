@@ -33,6 +33,8 @@ const state = {
 };
 
 let slideTimer = 0;
+let modeTimer = 0;
+let answerTimer = 0;
 let swipeTimer = 0;
 let swipeStart = null;
 let drawerReturnFocus = null;
@@ -77,6 +79,7 @@ const els = {
   hintText: document.querySelector("#hintText"),
   studyDock: document.querySelector("#studyDock"),
   studyHandle: document.querySelector("#studyHandle"),
+  studyContent: document.querySelector("#studyContent"),
   keywordList: document.querySelector("#keywordList"),
   lockedHint: document.querySelector("#lockedHint"),
   cardNav: document.querySelector("#cardNav"),
@@ -388,8 +391,8 @@ function movePanelTab(event) {
   const currentIndex = tabs.indexOf(document.activeElement);
   if (currentIndex === -1) return;
   let nextIndex = currentIndex;
-  if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % tabs.length;
-  else if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+  if (event.key === "ArrowRight" || event.key === "ArrowDown") nextIndex = (currentIndex + 1) % tabs.length;
+  else if (event.key === "ArrowLeft" || event.key === "ArrowUp") nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
   else if (event.key === "Home") nextIndex = 0;
   else if (event.key === "End") nextIndex = tabs.length - 1;
   else return;
@@ -490,10 +493,7 @@ function render() {
   els.card.hidden = Boolean(state.result) || !card;
   els.emptyState.hidden = Boolean(state.result) || Boolean(card);
   els.studyDock.hidden = Boolean(state.result) || !reveal;
-  els.studyDock.classList.toggle("is-collapsed", !state.studyExpanded);
-  els.studyHandle.setAttribute("aria-expanded", String(state.studyExpanded));
-  els.studyHandle.setAttribute("aria-label", state.studyExpanded ? "Collapse study help" : "Expand study help");
-  els.studyHandle.title = state.studyExpanded ? "Collapse study help" : "Expand study help";
+  syncStudyDockState();
   els.lockedHint.hidden = Boolean(state.result) || reveal;
   els.prevButton.disabled = Boolean(state.result) || state.index === 0;
   els.progressFill.style.width = total ? `${((state.index + 1) / total) * 100}%` : state.result ? `${state.result.percent}%` : "0%";
@@ -590,6 +590,7 @@ function render() {
     `)
     .join("");
 
+  syncStudyDockState();
   saveState();
   fitLayout();
   setTimeout(fitLayout, 250);
@@ -644,6 +645,28 @@ function animateMove(step) {
   }, MOTION_LONG_MS);
 }
 
+function animateModeChange() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  window.clearTimeout(modeTimer);
+  els.app.classList.remove("mode-switch");
+  void els.app.offsetWidth;
+  els.app.classList.add("mode-switch");
+  modeTimer = window.setTimeout(() => {
+    els.app.classList.remove("mode-switch");
+  }, MOTION_LONG_MS);
+}
+
+function animateAnswerReveal() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  window.clearTimeout(answerTimer);
+  els.app.classList.remove("answer-reveal");
+  void els.app.offsetWidth;
+  els.app.classList.add("answer-reveal");
+  answerTimer = window.setTimeout(() => {
+    els.app.classList.remove("answer-reveal");
+  }, MOTION_LONG_MS);
+}
+
 function clampSwipeDistance(dx) {
   const max = Math.min(118, window.innerWidth * 0.32);
   const atStart = state.index === 0 && dx > 0;
@@ -683,8 +706,43 @@ function hasVerticalOverflow(element) {
   return element.scrollHeight > element.clientHeight + 1;
 }
 
+function collapsedStudyHeight() {
+  return window.innerWidth < 720 ? 96 : 104;
+}
+
+function canToggleStudyDock() {
+  if (els.studyDock.hidden) return false;
+  const wasCollapsed = els.studyDock.classList.contains("is-collapsed");
+  const wasStatic = els.studyDock.classList.contains("is-static");
+  els.studyDock.classList.remove("is-collapsed", "is-static");
+  const styles = window.getComputedStyle(els.studyDock);
+  const padding = Number.parseFloat(styles.paddingTop) + Number.parseFloat(styles.paddingBottom);
+  const toggleable = els.studyContent.scrollHeight + padding > collapsedStudyHeight() + 2;
+  els.studyDock.classList.toggle("is-collapsed", wasCollapsed);
+  els.studyDock.classList.toggle("is-static", wasStatic);
+  return toggleable;
+}
+
+function syncStudyDockState() {
+  if (els.studyDock.hidden) {
+    els.studyDock.classList.remove("is-collapsed", "is-static");
+    els.studyHandle.hidden = true;
+    return;
+  }
+
+  const toggleable = canToggleStudyDock();
+  els.studyDock.classList.toggle("is-static", !toggleable);
+  els.studyDock.classList.toggle("is-collapsed", toggleable && !state.studyExpanded);
+  els.studyHandle.hidden = !toggleable;
+  els.studyHandle.disabled = !toggleable;
+  els.studyHandle.setAttribute("aria-expanded", String(toggleable ? state.studyExpanded : true));
+  els.studyHandle.setAttribute("aria-label", state.studyExpanded ? "Collapse study help" : "Expand study help");
+  els.studyHandle.title = toggleable ? (state.studyExpanded ? "Collapse study help" : "Expand study help") : "";
+}
+
 function fitLayout() {
   requestAnimationFrame(() => {
+    syncStudyDockState();
     els.app.classList.remove("fit-tight", "fit-tighter");
 
     const overflows = () =>
@@ -697,6 +755,7 @@ function fitLayout() {
     els.app.classList.add("fit-tight");
 
     requestAnimationFrame(() => {
+      syncStudyDockState();
       if (!overflows()) return;
       els.app.classList.add("fit-tighter");
     });
@@ -714,6 +773,7 @@ function setMode(mode) {
     ensureTestSession();
   }
   render();
+  animateModeChange();
 }
 
 function move(step) {
@@ -734,6 +794,7 @@ function pickAnswer(index) {
   if (!card || !state.testSession) return;
   state.testSession.answers[String(card.id)] = index;
   render();
+  animateAnswerReveal();
 }
 
 function toggleKnown() {
@@ -792,7 +853,7 @@ function changeCategory(category) {
   state.selected = null;
   state.result = null;
   if (state.mode === "test") state.testSession = newTestSession(category);
-  closeReviewPanel(false);
+  if (isMobileDrawer()) closeReviewPanel(false);
   render();
 }
 
@@ -908,11 +969,12 @@ function bindEvents() {
   });
   els.middleButton.addEventListener("click", toggleKnown);
   els.studyHandle.addEventListener("click", () => {
+    if (els.studyHandle.hidden || els.studyHandle.disabled) return;
     state.studyExpanded = !state.studyExpanded;
     render();
   });
   els.studyDock.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape" || !state.studyExpanded) return;
+    if (event.key !== "Escape" || !state.studyExpanded || els.studyHandle.hidden) return;
     event.preventDefault();
     state.studyExpanded = false;
     render();
@@ -1013,7 +1075,10 @@ function bindEvents() {
       pickAnswer(Number(event.key) - 1);
     }
   });
-  window.addEventListener("resize", fitLayout);
+  window.addEventListener("resize", () => {
+    syncStudyDockState();
+    fitLayout();
+  });
 }
 
 async function init() {

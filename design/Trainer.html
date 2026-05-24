@@ -12,6 +12,17 @@
       <symbol id="tabler-filter" viewBox="0 0 24 24">
         <path d="M4 4h16l-6 7v5l-4 3v-8z"></path>
       </symbol>
+      <symbol id="tabler-adjustments-horizontal" viewBox="0 0 24 24">
+        <path d="M4 6h7"></path>
+        <path d="M15 6h5"></path>
+        <path d="M12 4v4"></path>
+        <path d="M4 12h3"></path>
+        <path d="M11 12h9"></path>
+        <path d="M8 10v4"></path>
+        <path d="M4 18h9"></path>
+        <path d="M17 18h3"></path>
+        <path d="M14 16v4"></path>
+      </symbol>
       <symbol id="tabler-arrows-shuffle" viewBox="0 0 24 24">
         <path d="M18 4l3 3l-3 3"></path>
         <path d="M18 20l3 -3l-3 -3"></path>
@@ -41,6 +52,25 @@
         <path d="M3 6v13"></path>
         <path d="M12 6v13"></path>
         <path d="M21 6v13"></path>
+      </symbol>
+      <symbol id="tabler-minus" viewBox="0 0 24 24">
+        <path d="M5 12h14"></path>
+      </symbol>
+      <symbol id="tabler-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14"></path>
+        <path d="M5 12h14"></path>
+      </symbol>
+      <symbol id="tabler-list-check" viewBox="0 0 24 24">
+        <path d="M11 6h9"></path>
+        <path d="M11 12h9"></path>
+        <path d="M11 18h9"></path>
+        <path d="M4 6l1 1l3 -3"></path>
+        <path d="M4 12l1 1l3 -3"></path>
+        <path d="M4 18l1 1l3 -3"></path>
+      </symbol>
+      <symbol id="tabler-settings" viewBox="0 0 24 24">
+        <path d="M10.325 4.317a1.724 1.724 0 0 0 3.35 0a1.724 1.724 0 0 1 2.573 -1.066a1.724 1.724 0 0 0 2.438 2.438a1.724 1.724 0 0 1 1.066 2.573a1.724 1.724 0 0 0 0 3.35a1.724 1.724 0 0 1 -1.066 2.573a1.724 1.724 0 0 0 -2.438 2.438a1.724 1.724 0 0 1 -2.573 1.066a1.724 1.724 0 0 0 -3.35 0a1.724 1.724 0 0 1 -2.573 1.066a1.724 1.724 0 0 0 -2.438 -2.438a1.724 1.724 0 0 1 -1.066 -2.573a1.724 1.724 0 0 0 0 -3.35a1.724 1.724 0 0 1 1.066 -2.573a1.724 1.724 0 0 0 2.438 -2.438a1.724 1.724 0 0 1 2.573 -1.066"></path>
+        <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
       </symbol>
       <symbol id="tabler-check" viewBox="0 0 24 24">
         <path d="M5 12l5 5l10 -10"></path>
@@ -74,8 +104,43 @@
         </div>
       </header>
 
-      <section id="filterBar" class="bp-pills-bar" aria-label="Question categories">
-        <div id="categoryPills" class="pills"></div>
+      <section id="filterBar" class="bp-pills-bar" aria-label="Review panel" tabindex="-1">
+        <div class="panel-tabs" role="tablist" aria-label="Review panel">
+          <button id="filtersTab" type="button" role="tab" aria-selected="true" aria-controls="filtersPane">
+            <svg class="icon tab-icon" aria-hidden="true"><use href="#tabler-adjustments-horizontal"></use></svg>
+            <span class="tab-label">Filters</span>
+          </button>
+          <button id="knownTab" type="button" role="tab" aria-selected="false" aria-controls="knownPane" tabindex="-1">
+            <svg class="icon tab-icon" aria-hidden="true"><use href="#tabler-list-check"></use></svg>
+            <span class="tab-label">Known</span>
+          </button>
+          <button id="testConfigTab" type="button" role="tab" aria-selected="false" aria-controls="testConfigPane" tabindex="-1">
+            <svg class="icon tab-icon" aria-hidden="true"><use href="#tabler-settings"></use></svg>
+            <span class="tab-label">Test</span>
+          </button>
+        </div>
+        <div id="filtersPane" class="panel-pane" role="tabpanel" aria-labelledby="filtersTab">
+          <div id="categoryPills" class="pills"></div>
+        </div>
+        <div id="knownPane" class="panel-pane" role="tabpanel" aria-labelledby="knownTab" hidden>
+          <div id="knownSummary" class="known-summary"></div>
+          <div id="knownList" class="known-list"></div>
+        </div>
+        <div id="testConfigPane" class="panel-pane" role="tabpanel" aria-labelledby="testConfigTab" hidden>
+          <div class="test-config">
+            <label for="testSizeInput">Questions per test</label>
+            <div class="test-size-control">
+              <button id="testSizeMinus" type="button" aria-label="Decrease test count">
+                <svg class="icon" aria-hidden="true"><use href="#tabler-minus"></use></svg>
+              </button>
+              <input id="testSizeInput" type="number" min="1" max="310" step="1" inputmode="numeric" aria-label="Questions per test" />
+              <button id="testSizePlus" type="button" aria-label="Increase test count">
+                <svg class="icon" aria-hidden="true"><use href="#tabler-plus"></use></svg>
+              </button>
+            </div>
+            <div id="testSizeMeta" class="test-size-meta"></div>
+          </div>
+        </div>
       </section>
 
       <div class="bp-track" aria-hidden="true">
