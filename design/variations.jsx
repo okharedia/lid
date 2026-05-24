@@ -224,7 +224,7 @@ function V4Chat() {
 }
 
 // ───────────────────────────────────────────────────────────
-// V5 — Brutalist monospace (high density, technical)
+// V5 — Technical mono (high density)
 // ───────────────────────────────────────────────────────────
 function V5Brutal() {
   return (

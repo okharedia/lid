@@ -1,12 +1,8 @@
-/* Joseph Okharedia Design System
- * Tokens for the okharedia.com personal site + CV.
- * Aesthetic: plain markdown. system-ui on screen, ink-on-paper colors,
- * indigo links, generous line-height, no chrome. MyGeorgia in PDF only.
- */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400..900&family=Roboto+Mono:wght@400;500;700&display=swap");
 
-/* MyGeorgia is a base64-embedded font used only inside the print/PDF CV.
- * The actual @font-face data lives in src/lib/font.css of the source repo
- * (a giant base64 woff2 blob). On screen the site uses plain system-ui. */
+/* Joseph Okharedia Design System
+ * LiD design tokens. Type is restricted to Roboto Flex and Roboto Mono.
+ */
 
 :root {
   /* ── Color: ink on paper ─────────────────────────────────── */
@@ -33,13 +29,9 @@
   --ok-select:       #fff4a3;
 
   /* ── Type families ───────────────────────────────────────── */
-  /* On-screen: just system-ui — whatever the OS provides. No webfont. */
-  --ok-font-ui:      system-ui, sans-serif;
-  --ok-font-hand:    system-ui, sans-serif; /* legacy alias */
-  /* Print/PDF only: MyGeorgia (custom serif, base64-embedded in repo) */
-  --ok-font-serif:   "MyGeorgia", "Georgia", "Times New Roman", serif;
-  --ok-font-mono:    ui-monospace, SFMono-Regular, Menlo,
-                     "Courier New", monospace;
+  --ok-font-ui:      "Roboto Flex";
+  --ok-font-hand:    "Roboto Flex"; /* legacy alias */
+  --ok-font-mono:    "Roboto Mono";
 
   /* ── Type scale (responsive base) ────────────────────────── */
   --ok-base-size:    calc(1rem + 0.25vw);  /* ~17–20px */
@@ -117,9 +109,9 @@ hr, .ok-rule {
 
 ::selection { background: var(--ok-select); color: var(--ok-ink); }
 
-/* PDF/print mode swap — serif body */
+/* Print mode keeps the same approved display family. */
 .ok-print-body {
-  font-family: var(--ok-font-serif);
+  font-family: var(--ok-font-ui);
   line-height: var(--ok-leading-tight);
   background: var(--ok-paper);
 }

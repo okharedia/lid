@@ -49,7 +49,7 @@
   .v1-qen { font-size: 13px; line-height:1.4; color:#555; font-style:italic; margin:0; }
   .v1-ans { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:4px; }
   .v1-ans li button { width:100%; text-align:left; display:grid; grid-template-columns: 18px 1fr 18px; gap:10px; padding:10px 8px; background:transparent; border:none; border-left:3px solid transparent; color:#222; font-family:inherit; }
-  .v1-ans .letter { font-family: ui-monospace, monospace; font-size:11px; color:#999; padding-top:3px; }
+  .v1-ans .letter { font-family: "Roboto Mono"; font-size:11px; color:#999; padding-top:3px; }
   .v1-ans .text { font-size:15px; line-height:1.35; }
   .v1-ans .text .en { display:block; font-size:12px; color:#555; font-style:italic; margin-top:2px; }
   .v1-ans .mark { color:transparent; align-self:center; text-align:right; }
@@ -60,7 +60,7 @@
   .v1-ans .ok .mark { color:#1a6e3b; font-weight:700; }
   .v1-hint { font-size:13px; }
   .v1-hint a { color:#111199; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; gap:5px; }
-  .v1-hint .i { display:inline-flex;align-items:center;justify-content:center; width:16px;height:16px;border-radius:999px;border:1px solid #111199;font-style:italic;font-weight:700;font-size:10px;font-family:Georgia,serif; }
+  .v1-hint .i { display:inline-flex;align-items:center;justify-content:center; width:16px;height:16px;border-radius:999px;border:1px solid #111199;font-style:italic;font-weight:700;font-size:10px;font-family:"Roboto Flex"; }
   .v1-nav { display:grid; grid-template-columns:auto 1fr auto; gap:8px; border-top:1px solid #e0e0e0; padding:10px 12px; background:#fff; }
   .v1-nav button { padding:10px 14px; border:none; background:transparent; font-family:inherit; font-weight:600; font-size:14px; cursor:pointer; }
   .v1-nav .primary { background:#222; color:#fff; font-weight:700; padding:10px 16px; }
@@ -79,16 +79,16 @@
   .v2-head .title { font-size: 19px; font-weight: 800; letter-spacing:-0.005em; margin-top:2px; }
   .v2-head .meta { font-size: 12px; color:#88826c; margin-top:1px; font-style:italic; }
   .v2-body { flex:1; padding: 2px 24px 14px 70px; overflow:hidden; display:flex; flex-direction:column; gap:4px; min-height:0; }
-  .v2-num { float:left; font-family: Georgia, serif; font-weight:700; font-size:22px; line-height:28px; margin-right: 8px; color:#2b2a26; }
+  .v2-num { float:left; font-family: "Roboto Flex"; font-weight:700; font-size:22px; line-height:28px; margin-right: 8px; color:#2b2a26; }
   .v2-q { font-size: 15.5px; line-height: 28px; font-weight: 600; margin: 0; }
   .v2-q .kw { background: rgba(255,212,80,0.55); padding: 0 2px; }
   .v2-qen { font-size: 13px; line-height: 28px; font-style: italic; color:#88826c; margin:0; }
   .v2-ans { list-style:none; padding:0; margin: 4px 0 0; }
   .v2-ans li { line-height: 28px; font-size: 14.5px; display:flex; align-items:baseline; gap:8px; }
-  .v2-ans .label { font-family: Georgia, serif; font-weight:700; color:#88826c; min-width: 18px; }
+  .v2-ans .label { font-family: "Roboto Flex"; font-weight:700; color:#88826c; min-width: 18px; }
   .v2-ans .label-correct { color:#a8281f; }
   .v2-ans .en { font-size: 12px; font-style:italic; color:#88826c; margin-left:6px; }
-  .v2-ans .tick { color:#a8281f; font-family: Georgia, serif; font-weight:900; margin-left:6px; }
+  .v2-ans .tick { color:#a8281f; font-family: "Roboto Flex"; font-weight:900; margin-left:6px; }
   .v2-ans .underline { text-decoration: underline; text-decoration-color: #a8281f; text-decoration-thickness: 2px; text-underline-offset: 4px; font-weight:700; }
   .v2-foot {
     margin-top: auto;
@@ -111,7 +111,7 @@
     padding: 10px 14px;
     background: #f0ebd6;
     border-top: 1px solid #c8c2a8;
-    font-family: Georgia, serif;
+    font-family: "Roboto Flex";
   }
   .v2-nav button { background:transparent; border:1px solid #2b2a26; padding:8px 12px; font-family:inherit; font-size:14px; cursor:pointer; }
   .v2-nav .primary { background:#2b2a26; color:#faf6e8; }
@@ -145,7 +145,7 @@
     font-family:inherit; font-size:15px; text-align:left; cursor:pointer;
     font-weight: 600;
   }
-  .v3-ans .letter { font-family: ui-monospace, monospace; font-size:13px; font-weight:800; min-width:14px; }
+  .v3-ans .letter { font-family: "Roboto Mono"; font-size:13px; font-weight:800; min-width:14px; }
   .v3-ans .text { flex:1; line-height:1.3; }
   .v3-ans .text .en { display:block; font-size:11px; color:#888; font-weight:400; font-style:italic; margin-top:2px; }
   .v3-ans .ok { background: #0f0f12; color:#fff; }
@@ -190,8 +190,8 @@
   .v4-input .chip { background:#eef0f4; color:#6a728c; border:none; padding: 9px 14px; border-radius:999px; font-family:inherit; font-size:13px; cursor:pointer; flex:1; text-align:left; }
   .v4-input .send { width:36px; height:36px; border-radius:999px; background:#111199; color:#fff; border:none; font-size:16px; cursor:pointer; }
 
-  /* ========== V5 Brutalist monospace ========== */
-  .v5 { background: #fff; color:#000; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }
+  /* ========== V5 Technical Mono ========== */
+  .v5 { background: #fff; color:#000; font-family: "Roboto Mono"; }
   .v5-top { display:flex; justify-content:space-between; align-items:center; padding: 10px 14px; border-bottom: 2px solid #000; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
   .v5-top .brand { font-weight: 700; }
   .v5-top .blip { background:#000; color:#fff; padding: 2px 6px; font-weight:700; }
