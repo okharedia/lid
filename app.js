@@ -297,10 +297,14 @@ function renderCategories() {
       const total = baseFilteredQuestions(category).length;
       const available = availableQuestions(category).length;
       const label = isAll ? "All" : category;
+      const selected = category === state.category;
       return `
-        <button class="cat-pill" type="button" data-category="${escapeHtml(category)}" aria-pressed="${category === state.category}">
-          <span class="de">${escapeHtml(label)}</span>
-          <span class="en">${available}/${total} available</span>
+        <button class="cat-pill" type="button" data-category="${escapeHtml(category)}" aria-pressed="${selected}">
+          <span class="cat-check" aria-hidden="true">${icon("check")}</span>
+          <span class="cat-copy">
+            <span class="de">${escapeHtml(label)}</span>
+            <span class="en">${available}/${total} available</span>
+          </span>
         </button>
       `;
     })
@@ -499,7 +503,7 @@ function render() {
         else if (selected === index) className += " is-wrong";
         else className += " is-dim";
       }
-      const mark = reveal && isCorrectAnswer ? icon("circle-check") : reveal && selected === index ? icon("x") : "";
+      const mark = reveal && isCorrectAnswer ? icon("check") : reveal && selected === index ? icon("x") : "";
       const answerTranslation = t(answer.translationKey);
       const why = reveal ? t(answer.whyKey) : "";
       return `
