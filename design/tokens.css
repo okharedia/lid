@@ -6,26 +6,55 @@
  */
 
 :root {
+  /* ── Reference tokens: source palette and typefaces ──────── */
+  --md-ref-palette-primary40: #285d4d;
+  --md-ref-palette-primary80: #9bd2bc;
+  --md-ref-palette-primary90: #abe3cd;
+  --md-ref-palette-secondary40: #4f5f68;
+  --md-ref-palette-secondary90: #dce6eb;
+  --md-ref-palette-tertiary40: #3f5f7f;
+  --md-ref-palette-tertiary90: #c9ddfb;
+  --md-ref-palette-neutral6: #0c0f10;
+  --md-ref-palette-neutral10: #111416;
+  --md-ref-palette-neutral12: #191c1e;
+  --md-ref-palette-neutral17: #1f2426;
+  --md-ref-palette-neutral22: #2a3033;
+  --md-ref-palette-neutral24: #353c40;
+  --md-ref-palette-neutral87: #e3e8eb;
+  --md-ref-palette-neutral90: #dde5e9;
+  --md-ref-palette-neutral92: #eaf0f3;
+  --md-ref-palette-neutral94: #f2f6f8;
+  --md-ref-palette-neutral96: #fafcff;
+  --md-ref-palette-neutral98: #ffffff;
+  --md-ref-palette-neutral100: #ffffff;
+  --md-ref-typeface-brand: "Roboto Flex";
+  --md-ref-typeface-plain: "Roboto Flex";
+  --md-ref-typeface-mono: "Roboto Mono";
+
   /* ── Material 3-inspired color roles ─────────────────────── */
-  --md-sys-color-primary: #285d4d;
+  --md-sys-color-primary: var(--md-ref-palette-primary40);
   --md-sys-color-primary-hover: #174738;
   --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-primary-container: #abe3cd;
+  --md-sys-color-primary-container: var(--md-ref-palette-primary90);
   --md-sys-color-on-primary-container: #0b2119;
-  --md-sys-color-secondary: #4f5f68;
-  --md-sys-color-secondary-container: #dce6eb;
+  --md-sys-color-secondary: var(--md-ref-palette-secondary40);
+  --md-sys-color-secondary-container: var(--md-ref-palette-secondary90);
   --md-sys-color-on-secondary-container: #111d23;
-  --md-sys-color-tertiary: #3f5f7f;
-  --md-sys-color-tertiary-container: #c9ddfb;
+  --md-sys-color-tertiary: var(--md-ref-palette-tertiary40);
+  --md-sys-color-tertiary-container: var(--md-ref-palette-tertiary90);
   --md-sys-color-on-tertiary-container: #071d35;
   --md-sys-color-error: #ba1a1a;
   --md-sys-color-error-container: #ffdad6;
-  --md-sys-color-surface: #ffffff;
-  --md-sys-color-surface-container-low: #fafcff;
-  --md-sys-color-surface-container: #f2f6f8;
-  --md-sys-color-surface-container-high: #eaf0f3;
+  --md-sys-color-surface-bright: var(--md-ref-palette-neutral98);
+  --md-sys-color-surface: var(--md-ref-palette-neutral98);
+  --md-sys-color-surface-container-lowest: var(--md-ref-palette-neutral100);
+  --md-sys-color-surface-container-low: var(--md-ref-palette-neutral96);
+  --md-sys-color-surface-container: var(--md-ref-palette-neutral94);
+  --md-sys-color-surface-container-high: var(--md-ref-palette-neutral92);
+  --md-sys-color-surface-container-highest: var(--md-ref-palette-neutral90);
   --md-sys-color-on-surface: #191c1e;
   --md-sys-color-on-surface-variant: #434b50;
+  --md-sys-color-on-surface-disabled: color-mix(in srgb, var(--md-sys-color-on-surface) 46%, var(--md-sys-color-surface));
   --md-sys-color-outline: #737c82;
   --md-sys-color-outline-variant: #d2dade;
   --md-sys-color-success: #246b45;
@@ -35,9 +64,23 @@
   --md-sys-color-warning: #7b5800;
   --md-sys-color-warning-container: #ffdea0;
   --md-sys-color-on-warning-container: #241900;
+  --md-sys-color-inverse-surface: #2e3133;
+  --md-sys-color-inverse-on-surface: #f0f2f3;
+  --md-sys-color-inverse-primary: #9bd2bc;
   --md-sys-color-learning-highlight: #ffe66d;
   --md-sys-color-learning-highlight-soft: rgba(255,230,109,0.58);
+  --md-sys-color-on-surface-state-layer: rgba(25,28,30,0.08);
+  --md-sys-color-primary-state-layer: rgba(40,93,77,0.12);
+  --md-sys-color-secondary-state-layer: rgba(79,95,104,0.12);
   --md-sys-color-error-state-layer: rgba(186,26,26,0.12);
+  --md-state-layer-on-surface-hover: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent);
+  --md-state-layer-on-surface-pressed: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  --md-state-layer-primary-hover: color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent);
+  --md-state-layer-primary-pressed: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+  --md-state-layer-secondary-hover: color-mix(in srgb, var(--md-sys-color-secondary) 8%, transparent);
+  --md-state-layer-secondary-pressed: color-mix(in srgb, var(--md-sys-color-secondary) 12%, transparent);
+  --md-state-layer-error-hover: color-mix(in srgb, var(--md-sys-color-error) 8%, transparent);
+  --md-state-layer-error-pressed: color-mix(in srgb, var(--md-sys-color-error) 12%, transparent);
   --md-sys-color-scrim: rgba(25,28,30,0.18);
   --lid-flag-black: #000000;
   --lid-flag-red: #dd0000;
@@ -51,10 +94,60 @@
   --md-sys-shape-corner-large: 16px;
   --md-sys-shape-corner-extra-large: 28px;
   --md-sys-shape-corner-full: 999px;
-  --md-sys-motion-duration-short: 120ms;
-  --md-sys-motion-duration-medium: 180ms;
-  --md-sys-motion-duration-long: 240ms;
+  --md-sys-motion-duration-short1: 50ms;
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium1: 250ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-medium3: 350ms;
+  --md-sys-motion-duration-medium4: 400ms;
+  --md-sys-motion-duration-long1: 450ms;
+  --md-sys-motion-duration-long2: 500ms;
+  --md-sys-motion-duration-long3: 550ms;
+  --md-sys-motion-duration-long4: 600ms;
+  --md-sys-motion-duration-short: var(--md-sys-motion-duration-short3);
+  --md-sys-motion-duration-medium: var(--md-sys-motion-duration-short4);
+  --md-sys-motion-duration-long: var(--md-sys-motion-duration-medium1);
   --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+
+  /* ── Material type roles used by the trainer ─────────────── */
+  --md-sys-typescale-headline-medium-size: 28px;
+  --md-sys-typescale-headline-medium-line-height: 36px;
+  --md-sys-typescale-title-medium-size: 16px;
+  --md-sys-typescale-title-medium-line-height: 24px;
+  --md-sys-typescale-body-large-size: 16px;
+  --md-sys-typescale-body-large-line-height: 24px;
+  --md-sys-typescale-body-medium-size: 14px;
+  --md-sys-typescale-body-medium-line-height: 20px;
+  --md-sys-typescale-body-small-size: 12px;
+  --md-sys-typescale-body-small-line-height: 16px;
+  --md-sys-typescale-label-large-size: 14px;
+  --md-sys-typescale-label-large-line-height: 20px;
+  --md-sys-typescale-label-medium-size: 12px;
+  --md-sys-typescale-label-medium-line-height: 16px;
+  --md-sys-typescale-label-small-size: 11px;
+  --md-sys-typescale-label-small-line-height: 16px;
+
+  /* ── Component tokens: trainer-specific MD3 surfaces ─────── */
+  --md-comp-app-container-color: var(--md-sys-color-surface);
+  --md-comp-app-canvas-color: var(--md-sys-color-surface-container);
+  --md-comp-top-app-bar-container-color: var(--md-sys-color-surface-container-low);
+  --md-comp-review-panel-container-color: var(--md-sys-color-surface-container-low);
+  --md-comp-review-rail-container-color: var(--md-sys-color-surface-container);
+  --md-comp-card-container-color: var(--md-sys-color-surface);
+  --md-comp-answer-container-color: var(--md-sys-color-surface-container-low);
+  --md-comp-study-sheet-container-color: var(--md-sys-color-surface-container-low);
+  --md-comp-bottom-app-bar-container-color: var(--md-sys-color-surface-container-low);
+  --md-comp-dialog-container-color: var(--md-sys-color-surface-container-high);
+  --md-comp-snackbar-container-color: var(--md-sys-color-inverse-surface);
+  --md-comp-snackbar-label-color: var(--md-sys-color-inverse-on-surface);
+  --md-comp-snackbar-action-color: var(--md-sys-color-inverse-primary);
 
   /* Legacy design aliases used by older design prototypes. */
   --ok-paper:        var(--md-sys-color-surface);
@@ -73,9 +166,9 @@
   --ok-select:       var(--md-sys-color-learning-highlight);
 
   /* ── Type families ───────────────────────────────────────── */
-  --ok-font-ui:      "Roboto Flex";
-  --ok-font-hand:    "Roboto Flex"; /* legacy alias */
-  --ok-font-mono:    "Roboto Mono";
+  --ok-font-ui:      var(--md-ref-typeface-plain);
+  --ok-font-hand:    var(--md-ref-typeface-brand); /* legacy alias */
+  --ok-font-mono:    var(--md-ref-typeface-mono);
 
   /* ── Type scale (responsive base) ────────────────────────── */
   --ok-base-size:    calc(1rem + 0.25vw);  /* ~17–20px */
@@ -117,6 +210,21 @@
 
   /* ── Breakpoint ──────────────────────────────────────────── */
   --ok-bp-mobile:    975px;
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --md-sys-color-primary: #073d2e;
+    --md-sys-color-primary-hover: #00291f;
+    --md-sys-color-primary-container: #8fd4b9;
+    --md-sys-color-on-primary-container: #001a12;
+    --md-sys-color-on-surface: #05080a;
+    --md-sys-color-on-surface-variant: #202a30;
+    --md-sys-color-outline: #334047;
+    --md-sys-color-outline-variant: #9da9af;
+    --md-state-layer-on-surface-hover: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+    --md-state-layer-on-surface-pressed: color-mix(in srgb, var(--md-sys-color-on-surface) 16%, transparent);
+  }
 }
 
 /* ── Semantic primitives ─────────────────────────────────── */

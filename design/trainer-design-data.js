@@ -204,8 +204,11 @@ function render() {
   els.categoryPills.innerHTML = categories
     .map(([de, en], i) => `
       <button class="cat-pill" type="button" data-case="${i}" aria-pressed="${i === index}">
-        <span class="de">${escapeHtml(de)}</span>
-        <span class="en">${escapeHtml(en)}</span>
+        <span class="cat-check" aria-hidden="true">${icon("check")}</span>
+        <span class="cat-copy">
+          <span class="de">${escapeHtml(de)}</span>
+          <span class="en">${escapeHtml(en)}</span>
+        </span>
       </button>
     `)
     .join("");
@@ -333,7 +336,7 @@ function hasVerticalOverflow(element) {
 }
 
 function collapsedStudyHeight() {
-  return window.innerWidth < 720 ? 96 : 104;
+  return window.innerWidth < 600 ? 96 : 104;
 }
 
 function canToggleStudyDock() {

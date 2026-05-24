@@ -970,7 +970,7 @@ function changeCategory(category) {
 }
 
 function isMobileDrawer() {
-  return window.innerWidth < 720;
+  return window.innerWidth < 600;
 }
 
 function focusableDrawerElements() {
