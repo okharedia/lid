@@ -45,6 +45,63 @@
         <path d="M18 6l-12 12"></path>
         <path d="M6 6l12 12"></path>
       </symbol>
+      <symbol id="tabler-trash" viewBox="0 0 24 24">
+        <path d="M4 7h16"></path>
+        <path d="M10 11v6"></path>
+        <path d="M14 11v6"></path>
+        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+        <path d="M9 7v-3h6v3"></path>
+      </symbol>
+      <symbol id="tabler-refresh" viewBox="0 0 24 24">
+        <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"></path>
+        <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"></path>
+      </symbol>
+      <symbol id="tabler-trophy" viewBox="0 0 24 24">
+        <path d="M8 21h8"></path>
+        <path d="M12 17v4"></path>
+        <path d="M7 4h10v6a5 5 0 0 1 -10 0z"></path>
+        <path d="M5 5h-2v3a4 4 0 0 0 4 4"></path>
+        <path d="M19 5h2v3a4 4 0 0 1 -4 4"></path>
+      </symbol>
+      <symbol id="tabler-confetti" viewBox="0 0 24 24">
+        <path d="M4 5h2"></path>
+        <path d="M5 4v2"></path>
+        <path d="M11.5 4l.5 2"></path>
+        <path d="M18 5h2"></path>
+        <path d="M19 4v2"></path>
+        <path d="M15 10l4 4"></path>
+        <path d="M4 20l6.5 -6.5"></path>
+        <path d="M4 20l4 -11l7 7z"></path>
+      </symbol>
+      <symbol id="tabler-adjustments-horizontal" viewBox="0 0 24 24">
+        <path d="M4 6h7"></path>
+        <path d="M15 6h5"></path>
+        <path d="M12 4v4"></path>
+        <path d="M4 12h3"></path>
+        <path d="M11 12h9"></path>
+        <path d="M8 10v4"></path>
+        <path d="M4 18h9"></path>
+        <path d="M17 18h3"></path>
+        <path d="M14 16v4"></path>
+      </symbol>
+      <symbol id="tabler-minus" viewBox="0 0 24 24">
+        <path d="M5 12h14"></path>
+      </symbol>
+      <symbol id="tabler-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14"></path>
+        <path d="M5 12h14"></path>
+      </symbol>
+      <symbol id="tabler-arrow-back-up" viewBox="0 0 24 24">
+        <path d="M9 14l-4 -4l4 -4"></path>
+        <path d="M5 10h11a4 4 0 1 1 0 8h-1"></path>
+      </symbol>
+      <symbol id="tabler-language" viewBox="0 0 24 24">
+        <path d="M4 5h7"></path>
+        <path d="M9 3v2c0 4.418 -2.239 8 -5 8"></path>
+        <path d="M5 9c0 2.144 2.952 3.908 6.7 4"></path>
+        <path d="M12 20l4 -9l4 9"></path>
+        <path d="M19.1 18h-6.2"></path>
+      </symbol>
     </svg>
     <main class="bp-app" aria-live="polite">
       <header class="bp-top">
@@ -52,9 +109,17 @@
           <span class="flag" aria-hidden="true"></span>
         </span>
         <div class="bp-top-actions">
+          <label class="bp-language" aria-label="Translation language">
+            <svg class="icon" aria-hidden="true"><use href="#tabler-language"></use></svg>
+            <select id="languageSelect" aria-label="Translation language">
+              <option value="en" selected>EN</option>
+              <option value="es" disabled>ES</option>
+              <option value="fr" disabled>FR</option>
+            </select>
+          </label>
           <button id="filterButton" class="bp-filter-toggle" type="button" aria-label="Toggle filters" aria-expanded="false" aria-controls="filterBar">
-            <svg class="icon" aria-hidden="true"><use href="#tabler-filter"></use></svg>
-            <span id="filterButtonLabel">All</span>
+            <svg class="icon" aria-hidden="true"><use href="#tabler-adjustments-horizontal"></use></svg>
+            <span id="filterButtonLabel" class="sr-only">Options</span>
           </button>
           <button id="shuffleButton" class="bp-shuffle-toggle" type="button" aria-pressed="false" aria-label="Shuffle" title="Shuffle deck">
             <svg class="icon" aria-hidden="true"><use href="#tabler-arrows-shuffle"></use></svg>
@@ -66,8 +131,34 @@
         </div>
       </header>
 
-      <section id="filterBar" class="bp-pills-bar" aria-label="Question categories">
-        <div id="categoryPills" class="pills"></div>
+      <section id="filterBar" class="bp-pills-bar" aria-label="Review panel">
+        <div class="panel-tabs" role="tablist" aria-label="Review panel">
+          <button id="filtersTab" type="button" aria-pressed="true">Filters</button>
+          <button id="knownTab" type="button" aria-pressed="false">Known</button>
+          <button id="testConfigTab" type="button" aria-pressed="false">Test</button>
+        </div>
+        <div id="filtersPane" class="panel-pane">
+          <div id="categoryPills" class="pills"></div>
+        </div>
+        <div id="knownPane" class="panel-pane" hidden>
+          <div id="knownSummary" class="known-summary"></div>
+          <div id="knownList" class="known-list"></div>
+        </div>
+        <div id="testConfigPane" class="panel-pane" hidden>
+          <div class="test-config">
+            <label for="testSizeInput">Questions per test</label>
+            <div class="test-size-control">
+              <button id="testSizeMinus" type="button" aria-label="Decrease test count">
+                <svg class="icon" aria-hidden="true"><use href="#tabler-minus"></use></svg>
+              </button>
+              <input id="testSizeInput" type="number" min="1" max="310" step="1" inputmode="numeric" aria-label="Questions per test" />
+              <button id="testSizePlus" type="button" aria-label="Increase test count">
+                <svg class="icon" aria-hidden="true"><use href="#tabler-plus"></use></svg>
+              </button>
+            </div>
+            <div id="testSizeMeta" class="test-size-meta"></div>
+          </div>
+        </div>
       </section>
 
       <div class="bp-track" aria-hidden="true">
@@ -99,16 +190,18 @@
         <div>try a different category</div>
       </div>
 
+      <section id="resultView" class="bp-result" hidden></section>
+
       <div id="studyDock" class="bp-study-dock" hidden>
         <p id="hintText" class="bp-hint"></p>
         <div id="keywordList" class="bp-kw-list"></div>
       </div>
 
-      <nav class="bp-nav" aria-label="Card navigation">
+      <nav id="cardNav" class="bp-nav" aria-label="Card navigation">
         <button id="prevButton" type="button" aria-label="Previous">
           <svg class="icon arrow" aria-hidden="true"><use href="#tabler-arrow-left"></use></svg> Prev
         </button>
-        <button id="knownButton" class="known-btn" type="button"><svg class="icon" aria-hidden="true"><use href="#tabler-star"></use></svg> Mark known</button>
+        <button id="middleButton" class="known-btn" type="button"><svg class="icon" aria-hidden="true"><use href="#tabler-star"></use></svg> Mark known</button>
         <button id="nextButton" type="button">
           Next <svg class="icon arrow" aria-hidden="true"><use href="#tabler-arrow-right"></use></svg>
         </button>
