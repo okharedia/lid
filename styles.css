@@ -874,7 +874,8 @@ button {
 
 .bp-answer .text .en {
   display: block;
-  font-family: var(--bp-mono);
+  font-family: var(--bp-display);
+  font-style: normal;
   font-size: 13px;
   color: var(--bp-ink-soft);
   font-weight: 400;
@@ -957,6 +958,8 @@ button {
 }
 
 .bp-hint {
+  font-family: var(--bp-display);
+  font-style: normal;
   font-size: 15px;
   line-height: 1.45;
   color: var(--bp-ink-soft);
