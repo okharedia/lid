@@ -1370,10 +1370,10 @@ button {
 .bp-answer .text .why {
   display: block;
   margin-top: 5px;
-  font-family: var(--bp-mono);
+  font-family: var(--bp-display);
   font-size: 12px;
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   line-height: 1.3;
   color: var(--bp-ink-soft);
   letter-spacing: 0;
