@@ -407,10 +407,7 @@ button {
 
 @keyframes answerReveal {
   0% {
-    transform: scale(0.992);
-  }
-  60% {
-    transform: scale(1.006);
+    transform: scale(0.998);
   }
   100% {
     transform: scale(1);
@@ -832,11 +829,10 @@ button {
   justify-content: space-between;
   gap: 8px;
   margin-bottom: 9px;
-  font-family: var(--bp-mono);
-  font-size: var(--md-type-label-small);
-  font-weight: 700;
+  font-family: var(--bp-display);
+  font-size: var(--md-type-label-large);
+  font-weight: 650;
   color: var(--bp-ink-soft);
-  text-transform: uppercase;
 }
 
 .known-list {
@@ -876,10 +872,10 @@ button {
 .known-meta,
 .known-empty {
   font-family: var(--bp-mono);
-  font-size: 9.5px;
+  font-size: var(--md-type-body-small);
   line-height: 1.2;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--bp-ink-soft);
 }
 
@@ -1794,10 +1790,12 @@ button {
 
 @keyframes popResult {
   0% {
-    transform: scale(0.74) rotate(-10deg);
+    opacity: 0.72;
+    transform: scale(0.92);
   }
   100% {
-    transform: scale(1) rotate(0);
+    opacity: 1;
+    transform: scale(1);
   }
 }
 

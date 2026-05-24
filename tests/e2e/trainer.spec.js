@@ -39,7 +39,7 @@ test("takes a two-question test through result view", async ({ page }) => {
   await expect(page.locator("#resultView")).toContainText(/Correct/);
   await expect(page.locator(".result-stats")).toContainText("Correct");
   await expect(page.locator(".result-stats")).toContainText("Missed");
-  await expect(page.getByRole("button", { name: /Retry test/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Try again/ })).toBeVisible();
 });
 
 test("theme preference defaults to system and persists explicit selection", async ({ page }) => {
@@ -82,7 +82,7 @@ test("marking known removes a card and survives reload", async ({ page }) => {
   await openTrainer(page);
 
   const firstQuestion = await page.locator("#questionText").innerText();
-  await page.getByRole("button", { name: /Mark known/ }).click();
+  await page.getByRole("button", { name: /Mark as known/ }).click();
   await expect(page.locator("#questionText")).not.toHaveText(firstQuestion);
 
   const savedState = await page.evaluate(() => JSON.parse(localStorage.getItem("lid-trainer-v7")));

@@ -354,7 +354,7 @@ function renderKnownPanel() {
           </article>
         `)
         .join("")
-    : `<div class="known-empty">${icon("book")}<span>No known questions yet.</span></div>`;
+    : `<div class="known-empty">${icon("book")}<span>No known questions yet</span></div>`;
 }
 
 function renderTestConfigPanel() {
@@ -364,7 +364,7 @@ function renderTestConfigPanel() {
   els.testSizeInput.value = String(value);
   els.testSizeMinus.disabled = value <= 1;
   els.testSizePlus.disabled = value >= max;
-  els.testSizeMeta.textContent = `Current test: ${Math.min(value, max)} question${Math.min(value, max) === 1 ? "" : "s"}`;
+  els.testSizeMeta.textContent = `Test length: ${Math.min(value, max)} question${Math.min(value, max) === 1 ? "" : "s"}`;
   els.themeButtons.forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.themeChoice === state.theme));
   });
@@ -427,7 +427,7 @@ function renderResult() {
   els.resultView.innerHTML = `
     <div class="result-hero" aria-live="polite">
       <div class="result-icon">${icon(passed ? "confetti" : "trophy")}</div>
-      <p class="result-kicker">${passed ? "Passed" : "Keep going"}</p>
+      <p class="result-kicker">${passed ? "Passed" : "Keep practicing"}</p>
       <h1>${percent}%</h1>
       <div class="result-stats" aria-label="Test score">
         <span><strong>${correct}</strong><small>Correct</small></span>
@@ -437,8 +437,8 @@ function renderResult() {
       <p>${escapeHtml(shortCategoryLabel(state.category))}</p>
     </div>
     <div class="result-actions">
-      <button class="btn btn-secondary" type="button" data-action="restart-test">${icon("refresh")} Retry test</button>
-      <button class="btn btn-tertiary" type="button" data-action="learn-mode">${icon("arrow-back-up")} Back to learn</button>
+      <button class="btn btn-secondary" type="button" data-action="restart-test">${icon("refresh")} Try again</button>
+      <button class="btn btn-tertiary" type="button" data-action="learn-mode">${icon("arrow-back-up")} Study mode</button>
     </div>
     <section class="missed-review">
       <h2>${missed.length ? "Review misses" : "Clean run"}</h2>
@@ -506,10 +506,12 @@ function render() {
   els.learnMode.setAttribute("aria-pressed", String(isLearn));
   els.testMode.setAttribute("aria-pressed", String(!isLearn));
   els.filterButtonLabel.textContent = state.panelTab === "known" ? "Known" : shortCategoryLabel(state.category);
+  els.filterButton.setAttribute("aria-label", `${els.app.classList.contains("filters-open") ? "Close" : "Open"} review panel`);
   els.filterButton.setAttribute("aria-expanded", String(els.app.classList.contains("filters-open")));
   syncDrawerAccessibility();
   els.shuffleButton.hidden = !isLearn || Boolean(state.result);
   els.shuffleButton.setAttribute("aria-pressed", String(Boolean(state.shuffleSeed)));
+  els.shuffleButton.setAttribute("aria-label", state.shuffleSeed ? "Use original order" : "Shuffle study cards");
   els.resultView.hidden = !state.result;
   els.cardNav.hidden = Boolean(state.result);
   els.card.hidden = Boolean(state.result) || !card;
@@ -521,6 +523,7 @@ function render() {
   const progressValue = total ? Math.round(((state.index + 1) / total) * 100) : state.result ? state.result.percent : 0;
   els.progressFill.style.width = `${progressValue}%`;
   els.track.setAttribute("aria-valuenow", String(progressValue));
+  els.track.setAttribute("aria-valuetext", state.result ? `${progressValue}% test score` : `${state.index + 1} of ${total || 0} questions`);
 
   if (state.result) {
     renderResult();
@@ -640,20 +643,26 @@ function renderNav(card, isLearn, isAnswered, total) {
   if (isLearn) {
     const isKnown = Boolean(card && state.known.has(card.id));
     els.prevButton.innerHTML = `${icon("arrow-left", "arrow")} Prev`;
+    els.prevButton.setAttribute("aria-label", "Previous question");
     els.middleButton.className = `known-btn ${isKnown ? "on" : ""}`;
     els.middleButton.disabled = !card;
-    els.middleButton.innerHTML = isKnown ? `${icon("circle-check")} Gewusst` : `${icon("star")} Mark known`;
+    els.middleButton.setAttribute("aria-label", isKnown ? "Remove known mark" : "Mark as known");
+    els.middleButton.innerHTML = isKnown ? `${icon("circle-check")} Known` : `${icon("star")} Mark as known`;
     els.nextButton.disabled = !card || state.index >= total - 1;
+    els.nextButton.setAttribute("aria-label", "Next question");
     els.nextButton.innerHTML = `Next ${icon("arrow-right", "arrow")}`;
     return;
   }
 
   const finalQuestion = state.index >= total - 1;
   els.prevButton.innerHTML = `${icon("arrow-left", "arrow")} Prev`;
+  els.prevButton.setAttribute("aria-label", "Previous question");
   els.middleButton.className = "known-btn";
   els.middleButton.disabled = false;
+  els.middleButton.setAttribute("aria-label", "Restart test");
   els.middleButton.innerHTML = `${icon("refresh")} Restart`;
   els.nextButton.disabled = !card || !isAnswered;
+  els.nextButton.setAttribute("aria-label", finalQuestion ? "Finish test" : "Next question");
   els.nextButton.innerHTML = finalQuestion ? `Finish ${icon("trophy")}` : `Next ${icon("arrow-right", "arrow")}`;
 }
 
@@ -864,6 +873,7 @@ function finishTest() {
   state.deck = [];
   state.index = 0;
   render();
+  els.resultView.focus({ preventScroll: true });
 }
 
 function changeCategory(category) {
