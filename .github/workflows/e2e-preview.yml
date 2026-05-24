@@ -1,0 +1,53 @@
+name: E2E Preview
+
+on:
+  repository_dispatch:
+    types:
+      - vercel.deployment.ready
+      - vercel.deployment.success
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "Preview URL to test"
+        required: true
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  e2e-preview:
+    name: Playwright preview E2E
+    if: github.event_name == 'workflow_dispatch' || github.event.client_payload.environment == 'preview'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout deployment commit
+        if: github.event_name == 'repository_dispatch'
+        uses: vercel/repository-dispatch/actions/checkout@v1
+
+      - name: Checkout manual run
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright against preview
+        run: npm run test:e2e
+        env:
+          BASE_URL: ${{ github.event_name == 'workflow_dispatch' && inputs.base_url || github.event.client_payload.url }}
+
+      - name: Notify Vercel
+        if: always() && github.event_name == 'repository_dispatch'
+        uses: vercel/repository-dispatch/actions/status@v1
+        with:
+          name: "E2E Preview"
