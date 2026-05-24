@@ -131,6 +131,9 @@ const categories = [
 
 let index = Number(new URLSearchParams(location.search).get("case") || 0);
 index = Math.max(0, Math.min(scenarios.length - 1, index));
+let slideTimer = 0;
+let swipeTimer = 0;
+let swipeStart = null;
 
 const app = document.querySelector(".bp-app");
 const els = {
@@ -167,6 +170,10 @@ function escapeHtml(value = "") {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+function icon(name, className = "") {
+  return `<svg class="icon ${className}" aria-hidden="true"><use href="#tabler-${name}"></use></svg>`;
 }
 
 function highlight(text, keywords) {
@@ -232,7 +239,7 @@ function render() {
               ${highlightAnswer(de, scenario.keywords, i === scenario.correct, reveal)}
               <span class="en">${escapeHtml(en)}</span>
             </span>
-            <span class="mark">${reveal && i === scenario.correct ? "✓" : ""}</span>
+            <span class="mark">${reveal && i === scenario.correct ? icon("circle-check") : ""}</span>
           </button>
         </li>
       `;
@@ -241,7 +248,7 @@ function render() {
 
   els.lockedHint.hidden = reveal;
   els.studyDock.hidden = !reveal;
-  els.hintText.innerHTML = highlight(scenario.hint, scenario.keywords);
+  els.hintText.innerHTML = `${icon("sparkle-2", "hint-icon")} ${highlight(scenario.hint, scenario.keywords)}`;
   els.keywordList.innerHTML = scenario.keywords
     .map((keyword) => `
       <span class="kw-item">
@@ -253,6 +260,44 @@ function render() {
 
   fitLayout();
   setTimeout(fitLayout, 250);
+}
+
+function animateMove(step) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  window.clearTimeout(slideTimer);
+  app.classList.remove("slide-next", "slide-prev", "swipe-active", "swipe-dragging", "swipe-release");
+  app.style.setProperty("--swipe-x", "0px");
+  void app.offsetWidth;
+  app.classList.add(step > 0 ? "slide-next" : "slide-prev");
+  slideTimer = window.setTimeout(() => {
+    app.classList.remove("slide-next", "slide-prev");
+  }, 260);
+}
+
+function clampSwipeDistance(dx) {
+  const max = Math.min(118, window.innerWidth * 0.32);
+  const atStart = index === 0 && dx > 0;
+  const atEnd = index >= scenarios.length - 1 && dx < 0;
+  const resistance = atStart || atEnd ? 0.28 : 1;
+  return Math.max(-max, Math.min(max, dx * resistance));
+}
+
+function releaseSwipe() {
+  window.clearTimeout(swipeTimer);
+  app.classList.remove("swipe-dragging");
+  app.classList.add("swipe-release");
+  app.style.setProperty("--swipe-x", "0px");
+  swipeTimer = window.setTimeout(() => {
+    app.classList.remove("swipe-active", "swipe-release");
+  }, 180);
+}
+
+function move(step) {
+  const nextIndex = Math.max(0, Math.min(scenarios.length - 1, index + step));
+  if (nextIndex === index) return;
+  index = nextIndex;
+  render();
+  animateMove(step);
 }
 
 function hasVerticalOverflow(element) {
@@ -288,14 +333,72 @@ els.filterButton.addEventListener("click", () => {
   els.filterButton.setAttribute("aria-expanded", String(app.classList.contains("filters-open")));
 });
 
+app.addEventListener("click", (event) => {
+  if (!app.classList.contains("filters-open")) return;
+  if (event.target.closest("#filterBar") || event.target.closest("#filterButton")) return;
+  app.classList.remove("filters-open");
+  els.filterButton.setAttribute("aria-expanded", "false");
+});
+
 els.prevButton.addEventListener("click", () => {
-  index = Math.max(0, index - 1);
-  render();
+  move(-1);
 });
 
 els.nextButton.addEventListener("click", () => {
-  index = Math.min(scenarios.length - 1, index + 1);
-  render();
+  move(1);
+});
+
+app.addEventListener("pointerdown", (event) => {
+  if (window.innerWidth >= 720 || app.classList.contains("filters-open")) return;
+  if (event.pointerType === "mouse") return;
+  if (event.target.closest(".bp-top, .bp-nav, #filterBar")) return;
+  window.clearTimeout(swipeTimer);
+  app.classList.remove("swipe-active", "swipe-dragging", "swipe-release");
+  app.style.setProperty("--swipe-x", "0px");
+  swipeStart = { x: event.clientX, y: event.clientY, dragging: false };
+});
+
+app.addEventListener("pointermove", (event) => {
+  if (!swipeStart) return;
+  const dx = event.clientX - swipeStart.x;
+  const dy = event.clientY - swipeStart.y;
+  if (!swipeStart.dragging) {
+    if (Math.abs(dx) < 10) return;
+    if (Math.abs(dx) < Math.abs(dy) * 1.2) {
+      swipeStart = null;
+      return;
+    }
+    swipeStart.dragging = true;
+    app.classList.add("swipe-active", "swipe-dragging");
+  }
+  if (event.cancelable) event.preventDefault();
+  app.style.setProperty("--swipe-x", `${clampSwipeDistance(dx)}px`);
+});
+
+app.addEventListener("pointerup", (event) => {
+  if (!swipeStart) return;
+  const dx = event.clientX - swipeStart.x;
+  const dy = event.clientY - swipeStart.y;
+  const wasDragging = swipeStart.dragging;
+  swipeStart = null;
+  if (!wasDragging || Math.abs(dx) < 64 || Math.abs(dx) < Math.abs(dy) * 1.35) {
+    releaseSwipe();
+    return;
+  }
+  const step = dx < 0 ? 1 : -1;
+  const nextIndex = Math.max(0, Math.min(scenarios.length - 1, index + step));
+  if (nextIndex === index) {
+    releaseSwipe();
+    return;
+  }
+  app.classList.remove("swipe-active", "swipe-dragging", "swipe-release");
+  app.style.setProperty("--swipe-x", "0px");
+  move(step);
+});
+
+app.addEventListener("pointercancel", () => {
+  swipeStart = null;
+  releaseSwipe();
 });
 
 window.addEventListener("resize", fitLayout);

@@ -7,6 +7,45 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <svg aria-hidden="true" class="icon-sprite">
+      <symbol id="tabler-filter" viewBox="0 0 24 24">
+        <path d="M4 4h16l-6 7v5l-4 3v-8z"></path>
+      </symbol>
+      <symbol id="tabler-arrows-shuffle" viewBox="0 0 24 24">
+        <path d="M18 4l3 3l-3 3"></path>
+        <path d="M18 20l3 -3l-3 -3"></path>
+        <path d="M3 7h3a5 5 0 0 1 5 5a5 5 0 0 0 5 5h5"></path>
+        <path d="M21 7h-5a4.98 4.98 0 0 0 -4 2"></path>
+        <path d="M3 17h3a4.98 4.98 0 0 0 4 -2"></path>
+      </symbol>
+      <symbol id="tabler-arrow-left" viewBox="0 0 24 24">
+        <path d="M5 12h14"></path>
+        <path d="M5 12l6 6"></path>
+        <path d="M5 12l6 -6"></path>
+      </symbol>
+      <symbol id="tabler-arrow-right" viewBox="0 0 24 24">
+        <path d="M5 12h14"></path>
+        <path d="M13 18l6 -6"></path>
+        <path d="M13 6l6 6"></path>
+      </symbol>
+      <symbol id="tabler-star" viewBox="0 0 24 24">
+        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-4.993 -4.867l6.9 -1.003l3.086 -6.252l3.086 6.252l6.9 1.003l-4.993 4.867l1.179 6.873z"></path>
+      </symbol>
+      <symbol id="tabler-sparkle-2" viewBox="0 0 24 24">
+        <path d="M12 3l2.15 5.85l5.85 2.15l-5.85 2.15l-2.15 5.85l-2.15 -5.85l-5.85 -2.15l5.85 -2.15z"></path>
+      </symbol>
+      <symbol id="tabler-check" viewBox="0 0 24 24">
+        <path d="M5 12l5 5l10 -10"></path>
+      </symbol>
+      <symbol id="tabler-circle-check" viewBox="0 0 24 24">
+        <path d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0 -20" fill="currentColor" stroke="none"></path>
+        <path d="M7.5 12.5l3 3l6 -7" stroke="#fff"></path>
+      </symbol>
+      <symbol id="tabler-x" viewBox="0 0 24 24">
+        <path d="M18 6l-12 12"></path>
+        <path d="M6 6l12 12"></path>
+      </symbol>
+    </svg>
     <main class="bp-app" aria-live="polite">
       <header class="bp-top">
         <span class="brand">
@@ -14,10 +53,11 @@
         </span>
         <div class="bp-top-actions">
           <button id="filterButton" class="bp-filter-toggle" type="button" aria-label="Toggle filters" aria-expanded="false" aria-controls="filterBar">
+            <svg class="icon" aria-hidden="true"><use href="#tabler-filter"></use></svg>
             <span id="filterButtonLabel">All</span>
           </button>
           <button id="shuffleButton" class="bp-shuffle-toggle" type="button" aria-pressed="false" aria-label="Shuffle" title="Shuffle deck">
-            ⇆
+            <svg class="icon" aria-hidden="true"><use href="#tabler-arrows-shuffle"></use></svg>
           </button>
           <span class="bp-mode" role="group" aria-label="Mode">
             <button id="learnMode" type="button" aria-pressed="true">Learn</button>
@@ -38,10 +78,10 @@
         <div class="bp-q-label">
           <span id="questionTag" class="tag">FRAGE 001</span>
           <span id="categoryLabel">Alle Kategorien</span>
-          <span id="knownTag" class="known-tag" hidden>✓ KNOWN</span>
+          <span id="knownTag" class="known-tag" hidden><svg class="icon" aria-hidden="true"><use href="#tabler-check"></use></svg> KNOWN</span>
           <span class="grow"></span>
           <span id="feedback" class="bp-feedback" hidden></span>
-          <span id="knownCount" class="bp-known" hidden><span class="check">✓</span> 0</span>
+          <span id="knownCount" class="bp-known" hidden><svg class="icon check" aria-hidden="true"><use href="#tabler-check"></use></svg> 0</span>
           <span id="progressText" class="progress">01<span class="pct">/310</span></span>
         </div>
 
@@ -66,11 +106,11 @@
 
       <nav class="bp-nav" aria-label="Card navigation">
         <button id="prevButton" type="button" aria-label="Previous">
-          <span class="arrow">←</span> Prev
+          <svg class="icon arrow" aria-hidden="true"><use href="#tabler-arrow-left"></use></svg> Prev
         </button>
-        <button id="knownButton" class="known-btn" type="button">★ Mark known</button>
+        <button id="knownButton" class="known-btn" type="button"><svg class="icon" aria-hidden="true"><use href="#tabler-star"></use></svg> Mark known</button>
         <button id="nextButton" type="button">
-          Next <span class="arrow">→</span>
+          Next <svg class="icon arrow" aria-hidden="true"><use href="#tabler-arrow-right"></use></svg>
         </button>
       </nav>
     </main>

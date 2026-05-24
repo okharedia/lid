@@ -15,6 +15,10 @@ const state = {
   deck: [],
 };
 
+let slideTimer = 0;
+let swipeTimer = 0;
+let swipeStart = null;
+
 const els = {
   learnMode: document.querySelector("#learnMode"),
   testMode: document.querySelector("#testMode"),
@@ -98,6 +102,10 @@ function escapeHtml(value = "") {
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function icon(name, className = "") {
+  return `<svg class="icon ${className}" aria-hidden="true"><use href="#tabler-${name}"></use></svg>`;
 }
 
 function highlightedText(text, card) {
@@ -217,10 +225,10 @@ function render() {
   els.categoryLabel.textContent = card.theme;
   els.knownTag.hidden = !isKnown;
   els.feedback.hidden = !(correctChosen || wrongChosen);
-  els.feedback.textContent = correctChosen ? "Richtig" : wrongChosen ? "Falsch" : "";
+  els.feedback.innerHTML = correctChosen ? `${icon("circle-check")} Richtig` : wrongChosen ? `${icon("x")} Falsch` : "";
   els.feedback.className = `bp-feedback ${correctChosen ? "correct" : wrongChosen ? "wrong" : ""}`;
   els.knownCount.hidden = Boolean(correctChosen || wrongChosen || !knownCount);
-  els.knownCount.innerHTML = `<span class="check">✓</span> ${knownCount}`;
+  els.knownCount.innerHTML = `${icon("circle-check", "check")} ${knownCount}`;
   els.progressText.innerHTML = `${pad(state.index + 1)}<span class="pct">/${pad(total)}</span>`;
   els.questionText.innerHTML = highlightedText(card.question, card);
   const questionTranslation = t(card.translationKey);
@@ -232,7 +240,9 @@ function render() {
     els.questionImage.src = card.imageUrl;
   }
   els.knownButton.classList.toggle("on", isKnown);
-  els.knownButton.textContent = isKnown ? "✓ Gewusst" : "★ Mark known";
+  els.knownButton.innerHTML = isKnown
+    ? `${icon("circle-check")} Gewusst`
+    : `${icon("star")} Mark known`;
 
   els.answers.innerHTML = card.answers
     .map((answer, index) => {
@@ -243,7 +253,7 @@ function render() {
         else if (state.selected === index) className += " is-wrong";
         else className += " is-dim";
       }
-      const mark = reveal && isCorrectAnswer ? "✓" : reveal && state.selected === index ? "✕" : "";
+      const mark = reveal && isCorrectAnswer ? icon("circle-check") : reveal && state.selected === index ? icon("x") : "";
       const answerTranslation = t(answer.translationKey);
       return `
         <li>
@@ -263,7 +273,7 @@ function render() {
   els.lockedHint.hidden = reveal;
   const hint = t(card.study?.hintKey) || t(card.study?.memoryKey);
   const keywords = keywordRefs(card);
-  els.hintText.innerHTML = highlightedText(hint, card);
+  els.hintText.innerHTML = `${icon("sparkle-2", "hint-icon")} ${highlightedText(hint, card)}`;
   els.keywordList.hidden = !keywords.length;
   els.keywordList.innerHTML = keywords
     .map((keyword) => `
@@ -277,6 +287,36 @@ function render() {
   saveState();
   fitLayout();
   setTimeout(fitLayout, 250);
+}
+
+function animateMove(step) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  window.clearTimeout(slideTimer);
+  els.app.classList.remove("slide-next", "slide-prev", "swipe-active", "swipe-dragging", "swipe-release");
+  els.app.style.setProperty("--swipe-x", "0px");
+  void els.app.offsetWidth;
+  els.app.classList.add(step > 0 ? "slide-next" : "slide-prev");
+  slideTimer = window.setTimeout(() => {
+    els.app.classList.remove("slide-next", "slide-prev");
+  }, 260);
+}
+
+function clampSwipeDistance(dx) {
+  const max = Math.min(118, window.innerWidth * 0.32);
+  const atStart = state.index === 0 && dx > 0;
+  const atEnd = state.index >= state.deck.length - 1 && dx < 0;
+  const resistance = atStart || atEnd ? 0.28 : 1;
+  return Math.max(-max, Math.min(max, dx * resistance));
+}
+
+function releaseSwipe() {
+  window.clearTimeout(swipeTimer);
+  els.app.classList.remove("swipe-dragging");
+  els.app.classList.add("swipe-release");
+  els.app.style.setProperty("--swipe-x", "0px");
+  swipeTimer = window.setTimeout(() => {
+    els.app.classList.remove("swipe-active", "swipe-release");
+  }, 180);
 }
 
 function hasVerticalOverflow(element) {
@@ -312,9 +352,12 @@ function setMode(mode) {
 
 function move(step) {
   if (!state.deck.length) return;
-  state.index = Math.max(0, Math.min(state.deck.length - 1, state.index + step));
+  const nextIndex = Math.max(0, Math.min(state.deck.length - 1, state.index + step));
+  if (nextIndex === state.index) return;
+  state.index = nextIndex;
   state.selected = null;
   render();
+  animateMove(step);
 }
 
 function pickAnswer(index) {
@@ -338,6 +381,12 @@ function bindEvents() {
     els.app.classList.toggle("filters-open");
     els.filterButton.setAttribute("aria-expanded", String(els.app.classList.contains("filters-open")));
   });
+  els.app.addEventListener("click", (event) => {
+    if (!els.app.classList.contains("filters-open")) return;
+    if (event.target.closest("#filterBar") || event.target.closest("#filterButton")) return;
+    els.app.classList.remove("filters-open");
+    els.filterButton.setAttribute("aria-expanded", "false");
+  });
   els.prevButton.addEventListener("click", () => move(-1));
   els.nextButton.addEventListener("click", () => move(1));
   els.knownButton.addEventListener("click", toggleKnown);
@@ -357,6 +406,55 @@ function bindEvents() {
     const button = event.target.closest("[data-answer]");
     if (!button) return;
     pickAnswer(Number(button.dataset.answer));
+  });
+  els.app.addEventListener("pointerdown", (event) => {
+    if (window.innerWidth >= 720 || els.app.classList.contains("filters-open")) return;
+    if (event.pointerType === "mouse") return;
+    if (event.target.closest(".bp-top, .bp-nav, #filterBar")) return;
+    window.clearTimeout(swipeTimer);
+    els.app.classList.remove("swipe-active", "swipe-dragging", "swipe-release");
+    els.app.style.setProperty("--swipe-x", "0px");
+    swipeStart = { x: event.clientX, y: event.clientY, dragging: false };
+  });
+  els.app.addEventListener("pointermove", (event) => {
+    if (!swipeStart) return;
+    const dx = event.clientX - swipeStart.x;
+    const dy = event.clientY - swipeStart.y;
+    if (!swipeStart.dragging) {
+      if (Math.abs(dx) < 10) return;
+      if (Math.abs(dx) < Math.abs(dy) * 1.2) {
+        swipeStart = null;
+        return;
+      }
+      swipeStart.dragging = true;
+      els.app.classList.add("swipe-active", "swipe-dragging");
+    }
+    if (event.cancelable) event.preventDefault();
+    els.app.style.setProperty("--swipe-x", `${clampSwipeDistance(dx)}px`);
+  });
+  els.app.addEventListener("pointerup", (event) => {
+    if (!swipeStart) return;
+    const dx = event.clientX - swipeStart.x;
+    const dy = event.clientY - swipeStart.y;
+    const wasDragging = swipeStart.dragging;
+    swipeStart = null;
+    if (!wasDragging || Math.abs(dx) < 64 || Math.abs(dx) < Math.abs(dy) * 1.35) {
+      releaseSwipe();
+      return;
+    }
+    const step = dx < 0 ? 1 : -1;
+    const nextIndex = Math.max(0, Math.min(state.deck.length - 1, state.index + step));
+    if (nextIndex === state.index) {
+      releaseSwipe();
+      return;
+    }
+    els.app.classList.remove("swipe-active", "swipe-dragging", "swipe-release");
+    els.app.style.setProperty("--swipe-x", "0px");
+    move(step);
+  });
+  els.app.addEventListener("pointercancel", () => {
+    swipeStart = null;
+    releaseSwipe();
   });
   window.addEventListener("keydown", (event) => {
     if (["INPUT", "SELECT", "TEXTAREA"].includes(event.target.tagName)) return;
