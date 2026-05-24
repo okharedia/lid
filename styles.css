@@ -1375,7 +1375,7 @@ button {
   gap: 6px;
   margin-top: 6px;
   padding-top: 1px;
-  font-family: var(--bp-display);
+  font-family: var(--bp-mono);
   font-size: 12px;
   font-weight: 400;
   font-style: normal;
