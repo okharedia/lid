@@ -15,8 +15,6 @@ let questions = [];
 let questionById = new Map();
 let categories = [ALL_CATS];
 let messages = {};
-let clusters = [];
-let clusterById = new Map();
 
 const state = {
   mode: "learn",
@@ -69,10 +67,6 @@ const els = {
   questionImage: document.querySelector("#questionImage"),
   imageCaption: document.querySelector("#imageCaption"),
   questionChips: document.querySelector("#questionChips"),
-  clusterDrawer: document.querySelector("#clusterDrawer"),
-  clusterDrawerTitle: document.querySelector("#clusterDrawerTitle"),
-  clusterDrawerBody: document.querySelector("#clusterDrawerBody"),
-  clusterDrawerClose: document.querySelector("#clusterDrawerClose"),
   answers: document.querySelector("#answers"),
   hintText: document.querySelector("#hintText"),
   studyDock: document.querySelector("#studyDock"),
@@ -548,15 +542,6 @@ function render() {
 
 function renderQuestionChips(card) {
   const chips = [];
-  if (card.clusterTag && clusterById.has(card.clusterTag)) {
-    const cluster = clusterById.get(card.clusterTag);
-    const title = t(cluster.titleKey).split(" — ")[0];
-    chips.push(`
-      <button type="button" class="bp-chip cluster-chip" data-cluster="${escapeHtml(card.clusterTag)}">
-        ${icon("book")} <span>Topic: ${escapeHtml(title)}</span>
-      </button>
-    `);
-  }
   if (card.duplicateOfId) {
     const original = questionById.get(card.duplicateOfId);
     if (original) {
@@ -569,24 +554,6 @@ function renderQuestionChips(card) {
   }
   els.questionChips.innerHTML = chips.join("");
   els.questionChips.hidden = !chips.length;
-}
-
-function openClusterDrawer(clusterId) {
-  const cluster = clusterById.get(clusterId);
-  if (!cluster) return;
-  els.clusterDrawerTitle.textContent = t(cluster.titleKey);
-  const body = t(cluster.bodyKey);
-  els.clusterDrawerBody.innerHTML = body
-    .split("\n")
-    .map((line) => `<p>${escapeHtml(line)}</p>`)
-    .join("");
-  els.clusterDrawer.hidden = false;
-  els.app.classList.add("cluster-open");
-}
-
-function closeClusterDrawer() {
-  els.clusterDrawer.hidden = true;
-  els.app.classList.remove("cluster-open");
 }
 
 function renderNav(card, isLearn, isAnswered, total) {
@@ -838,15 +805,6 @@ function bindEvents() {
     if (!button) return;
     pickAnswer(Number(button.dataset.answer));
   });
-  els.questionChips.addEventListener("click", (event) => {
-    const chip = event.target.closest("[data-cluster]");
-    if (!chip) return;
-    openClusterDrawer(chip.dataset.cluster);
-  });
-  els.clusterDrawerClose.addEventListener("click", closeClusterDrawer);
-  els.clusterDrawer.addEventListener("click", (event) => {
-    if (event.target === els.clusterDrawer) closeClusterDrawer();
-  });
   els.resultView.addEventListener("click", (event) => {
     const action = event.target.closest("[data-action]")?.dataset.action;
     if (action === "restart-test") startTest(state.category);
@@ -901,11 +859,6 @@ function bindEvents() {
   });
   window.addEventListener("keydown", (event) => {
     if (["INPUT", "SELECT", "TEXTAREA"].includes(event.target.tagName)) return;
-    if (event.key === "Escape" && !els.clusterDrawer.hidden) {
-      event.preventDefault();
-      closeClusterDrawer();
-      return;
-    }
     if (event.key === "ArrowLeft") {
       event.preventDefault();
       move(-1);
@@ -951,8 +904,6 @@ async function init() {
   questions = database.questions;
   questionById = new Map(questions.map((question) => [question.id, question]));
   categories = [ALL_CATS, ...new Set(questions.map((question) => question.theme))];
-  clusters = database.clusters || [];
-  clusterById = new Map(clusters.map((cluster) => [cluster.id, cluster]));
   if (!categories.includes(state.category)) state.category = ALL_CATS;
 
   bindEvents();

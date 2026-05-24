@@ -36,14 +36,6 @@ _Avoid_: Test state, exam run
 The finished test summary showing score, pass status, and missed questions with the learner's answer and correct answer.
 _Avoid_: Score page, report
 
-**Cluster**:
-A study topic that groups related **Questions** under a shared cheat sheet (e.g. Wahlrecht, Grundrechte, NS-Zeit, Berlin). Surfaced on a **Question** as a topic chip that opens the cheat-sheet drawer.
-_Avoid_: Category, tag, section
-
-**Cheat Sheet**:
-The body of rules, facts, and mnemonics for a **Cluster**, shown in a drawer that overlays the current **Question**.
-_Avoid_: Glossary, study notes
-
 **Distractor Explanation**:
 The short "why wrong" or "why correct" line shown beneath an answer once the answer is revealed.
 _Avoid_: Hint, footnote
@@ -51,10 +43,6 @@ _Avoid_: Hint, footnote
 **Duplicate Question**:
 A **Question** whose wording is identical to an earlier **Question** in the catalog. Surfaced as a chip pointing to the earlier **Question**.
 _Avoid_: Repeat, alias
-
-**Glossary Context**:
-A one-sentence explanation attached to a high-traffic German term, revealed when the learner taps the keyword's info icon.
-_Avoid_: Tooltip, definition
 
 **Image Caption**:
 A short visual mnemonic shown beneath an image-based **Question** so the learner remembers the correct image even when the option order shifts.
@@ -82,11 +70,8 @@ _Avoid_: Warning, disclaimer
 - A **Test Result** shows missed **Questions** with the learner's answer and correct answer.
 - A **Test Result** is not kept as long-term learner history.
 - An unfinished **Test Session** can resume after refresh.
-- A **Question** belongs to at most one **Cluster**; many **Questions** can share the same **Cluster**.
-- The **Cluster** chip opens the **Cheat Sheet** drawer; the drawer overlays without ending the current **Question**.
 - A **Distractor Explanation** appears only after correctness is revealed for the **Question**.
 - A **Duplicate Question** carries a chip linking back to the canonical (lower-numbered) **Question**.
-- A **Glossary Context** is opt-in: only high-traffic terms have one, and the rest stay terse.
 - An **Image Caption** describes the correct image conceptually, not by position number.
 - An **Answer Variant Note** only appears on the **Test Result** review, not during the live **Question**.
 
