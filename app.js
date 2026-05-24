@@ -27,6 +27,7 @@ const state = {
   panelTab: "filters",
   testSession: null,
   result: null,
+  studyExpanded: true,
 };
 
 let slideTimer = 0;
@@ -71,6 +72,7 @@ const els = {
   answers: document.querySelector("#answers"),
   hintText: document.querySelector("#hintText"),
   studyDock: document.querySelector("#studyDock"),
+  studyHandle: document.querySelector("#studyHandle"),
   keywordList: document.querySelector("#keywordList"),
   lockedHint: document.querySelector("#lockedHint"),
   cardNav: document.querySelector("#cardNav"),
@@ -490,6 +492,10 @@ function render() {
   els.card.hidden = Boolean(state.result) || !card;
   els.emptyState.hidden = Boolean(state.result) || Boolean(card);
   els.studyDock.hidden = Boolean(state.result) || !reveal;
+  els.studyDock.classList.toggle("is-collapsed", !state.studyExpanded);
+  els.studyHandle.setAttribute("aria-expanded", String(state.studyExpanded));
+  els.studyHandle.setAttribute("aria-label", state.studyExpanded ? "Collapse study help" : "Expand study help");
+  els.studyHandle.title = state.studyExpanded ? "Collapse study help" : "Expand study help";
   els.lockedHint.hidden = Boolean(state.result) || reveal;
   els.prevButton.disabled = Boolean(state.result) || state.index === 0;
   els.progressFill.style.width = total ? `${((state.index + 1) / total) * 100}%` : state.result ? `${state.result.percent}%` : "0%";
@@ -536,8 +542,17 @@ function render() {
 
   renderQuestionChips(card);
 
-  els.answers.innerHTML = card.answers
-    .map((answer, index) => {
+  const renderedAnswers = card.answers.map((answer, index) => ({ answer, index }));
+  if (isLearn) {
+    renderedAnswers.sort((left, right) => {
+      if (left.index === card.correctIndex) return -1;
+      if (right.index === card.correctIndex) return 1;
+      return left.index - right.index;
+    });
+  }
+
+  els.answers.innerHTML = renderedAnswers
+    .map(({ answer, index }) => {
       const isCorrectAnswer = index === card.correctIndex;
       let className = "bp-answer";
       if (reveal) {
@@ -870,6 +885,10 @@ function bindEvents() {
     move(1);
   });
   els.middleButton.addEventListener("click", toggleKnown);
+  els.studyHandle.addEventListener("click", () => {
+    state.studyExpanded = !state.studyExpanded;
+    render();
+  });
   els.shuffleButton.addEventListener("click", () => {
     state.shuffleSeed = state.shuffleSeed ? 0 : Math.floor(Math.random() * 1e9) + 1;
     buildLearnDeck();

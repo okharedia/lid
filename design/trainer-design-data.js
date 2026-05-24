@@ -156,6 +156,7 @@ const els = {
   answers: document.querySelector("#answers"),
   lockedHint: document.querySelector("#lockedHint"),
   studyDock: document.querySelector("#studyDock"),
+  studyHandle: document.querySelector("#studyHandle"),
   hintText: document.querySelector("#hintText"),
   keywordList: document.querySelector("#keywordList"),
   prevButton: document.querySelector("#prevButton"),
@@ -225,8 +226,16 @@ function render() {
   els.prevButton.disabled = index === 0;
   els.nextButton.disabled = index === scenarios.length - 1;
 
-  els.answers.innerHTML = scenario.answers
-    .map(([de, en], i) => {
+  const renderedAnswers = scenario.answers
+    .map((answer, i) => ({ answer, i }))
+    .sort((left, right) => {
+      if (left.i === scenario.correct) return -1;
+      if (right.i === scenario.correct) return 1;
+      return left.i - right.i;
+    });
+
+  els.answers.innerHTML = renderedAnswers
+    .map(({ answer: [de, en], i }) => {
       let className = "bp-answer";
       if (reveal) {
         if (i === scenario.correct) className += " is-correct";
@@ -248,6 +257,9 @@ function render() {
 
   els.lockedHint.hidden = reveal;
   els.studyDock.hidden = !reveal;
+  els.studyDock.classList.remove("is-collapsed");
+  els.studyHandle?.setAttribute("aria-expanded", "true");
+  els.studyHandle?.setAttribute("aria-label", "Collapse study help");
   els.hintText.innerHTML = `${icon("sparkle-2", "hint-icon")} ${highlight(scenario.hint, scenario.keywords)}`;
   els.keywordList.innerHTML = scenario.keywords
     .map((keyword) => `
@@ -413,6 +425,13 @@ app.addEventListener("pointerup", (event) => {
 app.addEventListener("pointercancel", () => {
   swipeStart = null;
   releaseSwipe();
+});
+
+els.studyHandle?.addEventListener("click", () => {
+  const collapsed = els.studyDock.classList.toggle("is-collapsed");
+  els.studyHandle.setAttribute("aria-expanded", String(!collapsed));
+  els.studyHandle.setAttribute("aria-label", collapsed ? "Expand study help" : "Collapse study help");
+  fitLayout();
 });
 
 window.addEventListener("resize", fitLayout);

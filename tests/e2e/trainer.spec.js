@@ -66,3 +66,34 @@ test("marking known removes a card and survives reload", async ({ page }) => {
   await page.reload();
   await expect(page.locator("#knownCount")).toContainText("1");
 });
+
+test("study help starts expanded and handle toggles it", async ({ page }) => {
+  await openTrainer(page);
+
+  const studyDock = page.locator("#studyDock");
+  const handle = page.getByRole("button", { name: "Collapse study help" });
+
+  await expect(studyDock).toBeVisible();
+  await expect(handle).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator("#keywordList")).toBeVisible();
+
+  await handle.click();
+  await expect(studyDock).toHaveClass(/is-collapsed/);
+  await expect(page.getByRole("button", { name: "Expand study help" })).toHaveAttribute("aria-expanded", "false");
+
+  await page.getByRole("button", { name: "Expand study help" }).click();
+  await expect(studyDock).not.toHaveClass(/is-collapsed/);
+  await expect(page.getByRole("button", { name: "Collapse study help" })).toHaveAttribute("aria-expanded", "true");
+});
+
+test("learn mode renders the correct answer first without changing test answer indexes", async ({ page }) => {
+  await openTrainer(page);
+
+  await expect(page.locator("#answers [data-answer]").first()).toHaveAttribute("data-answer", "3");
+
+  await switchToTestMode(page);
+  const answerIndexes = await page.locator("#answers [data-answer]").evaluateAll((answers) =>
+    answers.map((answer) => answer.getAttribute("data-answer")),
+  );
+  expect(answerIndexes).toEqual(["0", "1", "2", "3"]);
+});

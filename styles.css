@@ -770,7 +770,7 @@ button {
   padding: 18px 18px 10px;
   gap: 14px;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
   touch-action: pan-y;
@@ -1103,29 +1103,81 @@ button {
   padding: 20px 0 10px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
   max-height: 34dvh;
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
   touch-action: pan-y;
+  transition: max-height var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized),
+    padding var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+    box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
 }
 
-.bp-study-dock::before {
+.bp-study-handle {
+  appearance: none;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 2;
+  width: 92px;
+  height: 22px;
+  border: 0;
+  border-radius: var(--md-sys-shape-corner-full);
+  background: transparent;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.bp-study-handle::before {
   content: "";
   position: absolute;
   top: 8px;
   left: 50%;
-  width: 36px;
+  width: 42px;
   height: 4px;
   border-radius: var(--md-sys-shape-corner-full);
   background: var(--md-sys-color-outline-variant);
   transform: translateX(-50%);
+  transition: width var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+    background var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+
+.bp-study-handle:hover::before {
+  width: 52px;
+  background: var(--md-sys-color-outline);
+}
+
+.bp-study-handle:focus-visible {
+  outline: 2px solid var(--bp-focus);
+  outline-offset: -2px;
+}
+
+.bp-study-dock.is-collapsed {
+  max-height: 104px;
+  overflow-y: hidden;
+  box-shadow: var(--md-elevation-0);
+}
+
+.bp-study-dock.is-collapsed .bp-hint {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.bp-study-dock.is-collapsed .bp-kw-list {
+  display: none;
 }
 
 .bp-study-dock::-webkit-scrollbar {
   display: none;
+}
+
+.bp-study-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .bp-study-dock .bp-hint {
@@ -1744,16 +1796,6 @@ button {
     gap: 12px;
   }
 
-  .bp-app.fit-tight .bp-q {
-    font-size: clamp(24px, 3vw, 30px);
-    line-height: 1.04;
-  }
-
-  .bp-app.fit-tight .bp-q-en {
-    font-size: 12px;
-    line-height: 1.25;
-  }
-
   .bp-app.fit-tight .bp-image {
     max-height: 132px;
     padding: 5px;
@@ -1767,16 +1809,6 @@ button {
     padding: 9px 10px;
   }
 
-  .bp-app.fit-tight .bp-answer .text {
-    font-size: 14px;
-    line-height: 1.16;
-  }
-
-  .bp-app.fit-tight .bp-answer .text .en {
-    font-size: 11px;
-    line-height: 1.14;
-  }
-
   .bp-app.fit-tight .bp-study-dock {
     padding-top: 17px;
     padding-bottom: 6px;
@@ -1784,21 +1816,8 @@ button {
     max-height: 30dvh;
   }
 
-  .bp-app.fit-tight .bp-hint {
-    font-size: 12.5px;
-    line-height: 1.25;
-  }
-
   .bp-app.fit-tight .bp-kw-list .kw-item {
     padding: 5px 8px 6px;
-  }
-
-  .bp-app.fit-tight .bp-kw-list .kw-item .de {
-    font-size: 12.5px;
-  }
-
-  .bp-app.fit-tight .bp-kw-list .kw-item .en {
-    font-size: 10.5px;
   }
 
   .bp-app.fit-tighter .bp-top {
@@ -1812,19 +1831,6 @@ button {
     gap: 8px;
   }
 
-  .bp-app.fit-tighter .bp-q-label {
-    font-size: 9.5px;
-  }
-
-  .bp-app.fit-tighter .bp-q {
-    font-size: clamp(20px, 2.55vw, 25px);
-  }
-
-  .bp-app.fit-tighter .bp-q-en {
-    font-size: 10.5px;
-    line-height: 1.18;
-  }
-
   .bp-app.fit-tighter .bp-image {
     max-height: 100px;
     padding: 4px;
@@ -1832,19 +1838,6 @@ button {
 
   .bp-app.fit-tighter .bp-answer {
     padding: 6px 8px;
-  }
-
-  .bp-app.fit-tighter .bp-answer .text {
-    font-size: 12.5px;
-  }
-
-  .bp-app.fit-tighter .bp-answer .text .en {
-    font-size: 9.8px;
-  }
-
-  .bp-app.fit-tighter .bp-hint {
-    font-size: 11.5px;
-    line-height: 1.16;
   }
 
   .bp-app.fit-tighter .bp-study-dock {
@@ -1856,6 +1849,17 @@ button {
 
   .bp-app.fit-tighter .bp-nav button {
     min-height: 40px;
+  }
+}
+
+.bp-app .bp-study-dock.is-collapsed {
+  max-height: 104px;
+  overflow-y: hidden;
+}
+
+@media (max-width: 719px) {
+  .bp-app .bp-study-dock.is-collapsed {
+    max-height: 96px;
   }
 }
 
@@ -1946,7 +1950,7 @@ button {
     flex: 1 1 auto;
     min-height: 0;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
     padding: 18px 18px 12px;
     gap: 14px;
   }
@@ -2027,16 +2031,6 @@ button {
     gap: 10px;
   }
 
-  .bp-app.fit-tight .bp-q {
-    font-size: clamp(20px, 5.8vw, 25px);
-    line-height: 1.04;
-  }
-
-  .bp-app.fit-tight .bp-q-en {
-    font-size: 12px;
-    line-height: 1.28;
-  }
-
   .bp-app.fit-tight .bp-answers {
     gap: 6px;
   }
@@ -2045,37 +2039,14 @@ button {
     padding: 8px 9px;
   }
 
-  .bp-app.fit-tight .bp-answer .text {
-    font-size: 14px;
-    line-height: 1.16;
-  }
-
-  .bp-app.fit-tight .bp-answer .text .en {
-    font-size: 11px;
-    line-height: 1.14;
-  }
-
   .bp-app.fit-tight .bp-study-dock {
     padding-top: 17px;
     padding-bottom: 6px;
     gap: 6px;
   }
 
-  .bp-app.fit-tight .bp-hint {
-    font-size: 12.5px;
-    line-height: 1.25;
-  }
-
   .bp-app.fit-tight .bp-kw-list .kw-item {
     padding: 5px 8px 6px;
-  }
-
-  .bp-app.fit-tight .bp-kw-list .kw-item .de {
-    font-size: 12.5px;
-  }
-
-  .bp-app.fit-tight .bp-kw-list .kw-item .en {
-    font-size: 10.5px;
   }
 
   .bp-app.fit-tighter .bp-top {
@@ -2089,19 +2060,6 @@ button {
     gap: 8px;
   }
 
-  .bp-app.fit-tighter .bp-q-label {
-    font-size: 9.5px;
-  }
-
-  .bp-app.fit-tighter .bp-q {
-    font-size: clamp(18px, 5.2vw, 23px);
-  }
-
-  .bp-app.fit-tighter .bp-q-en {
-    font-size: 11px;
-    line-height: 1.2;
-  }
-
   .bp-app.fit-tighter .bp-image {
     max-height: 92px;
     padding: 4px;
@@ -2109,19 +2067,6 @@ button {
 
   .bp-app.fit-tighter .bp-answer {
     padding: 6px 8px;
-  }
-
-  .bp-app.fit-tighter .bp-answer .text {
-    font-size: 13px;
-  }
-
-  .bp-app.fit-tighter .bp-answer .text .en {
-    font-size: 10px;
-  }
-
-  .bp-app.fit-tighter .bp-hint {
-    font-size: 11.5px;
-    line-height: 1.18;
   }
 
   .bp-app.fit-tighter .bp-study-dock {

@@ -101,8 +101,18 @@
       </div>
 
       <div id="studyDock" class="bp-study-dock" hidden>
-        <p id="hintText" class="bp-hint"></p>
-        <div id="keywordList" class="bp-kw-list"></div>
+        <button
+          id="studyHandle"
+          class="bp-study-handle"
+          type="button"
+          aria-label="Collapse study help"
+          aria-expanded="true"
+          aria-controls="studyContent"
+        ></button>
+        <div id="studyContent" class="bp-study-content">
+          <p id="hintText" class="bp-hint"></p>
+          <div id="keywordList" class="bp-kw-list"></div>
+        </div>
       </div>
 
       <nav class="bp-nav" aria-label="Card navigation">
