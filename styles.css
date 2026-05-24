@@ -580,11 +580,6 @@ button {
   letter-spacing: 0;
 }
 
-.bp-answer .text .en::before {
-  content: "→ ";
-  color: var(--bp-ink-faint);
-}
-
 .bp-answer .mark {
   font-family: var(--bp-mono);
   font-size: 14px;

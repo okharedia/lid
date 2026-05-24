@@ -24,7 +24,7 @@ const scenarios = [
     questionEn: "Which cities have the largest Jewish communities in Germany?",
     correct: 0,
     hint:
-      'Berlin state question. Simple idea: recognize the German keywords (Berlin = Berlin) and choose the answer meaning "Berlin und München".',
+      'Recognize the German keywords (Berlin = Berlin) and choose the answer meaning "Berlin und München".',
     keywords: [{ de: "Berlin", en: "Berlin" }],
     answers: [
       ["Berlin und München", "Berlin and Munich"],
@@ -41,7 +41,7 @@ const scenarios = [
     questionEn: "Elections in Germany are free. What does that mean?",
     correct: 2,
     hint:
-      'Elections. Simple idea: recognize the German keywords (Wahl = election/vote; Wahlen = elections; kein = no/not any; keine = no/not any) and choose the long answer.',
+      'Recognize the German keywords (Wahl = election/vote; Wahlen = elections; kein = no/not any; keine = no/not any) and choose the long answer.',
     keywords: [
       { de: "Wahl", en: "election/vote" },
       { de: "Wahlen", en: "elections" },
