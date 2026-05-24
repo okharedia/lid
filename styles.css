@@ -29,6 +29,7 @@
   --md-sys-color-success-container: #b6f1c9;
   --md-sys-color-on-success-container: #062114;
   --md-sys-color-success-outline: #65c98b;
+  --md-sys-color-success-state-layer: rgba(36, 107, 69, 0.12);
   --md-sys-color-warning: #7b5800;
   --md-sys-color-warning-container: #ffdea0;
   --md-sys-color-on-warning-container: #241900;
@@ -127,6 +128,7 @@
   --bp-rule-strong: var(--md-sys-color-outline);
   --bp-wrong: var(--md-sys-color-error);
   --bp-wrong-soft: var(--md-sys-color-error-container);
+  --bp-wrong-rule: var(--md-sys-color-error);
   --bp-mark: var(--md-sys-color-learning-highlight);
   --bp-mono: "Roboto Mono";
   --bp-display: "Roboto Flex";
@@ -937,10 +939,11 @@ button {
 }
 
 .bp-track {
-  height: 3px;
-  background: var(--md-sys-color-surface-container-high);
-  border-bottom: 1px solid var(--bp-rule);
+  height: 4px;
+  background: var(--md-sys-color-surface-container);
+  border-bottom: 0;
   position: relative;
+  overflow: hidden;
 }
 
 .bp-track .fill {
@@ -949,8 +952,9 @@ button {
   top: 0;
   bottom: 0;
   width: 0;
-  background: var(--bp-indigo);
-  transition: width var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard);
+  border-radius: 0 var(--md-sys-shape-corner-full) var(--md-sys-shape-corner-full) 0;
+  background: var(--md-sys-color-primary);
+  transition: width var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized-decelerate);
 }
 
 .bp-card {
@@ -1188,14 +1192,14 @@ button {
 .bp-answer {
   display: grid;
   grid-template-columns: 1fr auto;
-  column-gap: 12px;
+  column-gap: 14px;
   align-items: start;
   padding: var(--md-density-answer-padding-block) var(--md-density-answer-padding-inline-end)
     var(--md-density-answer-padding-block) var(--md-density-answer-padding-inline-start);
   background: var(--md-sys-color-surface-container-low);
   color: var(--bp-ink);
   border: 1px solid var(--md-sys-color-outline-variant);
-  border-radius: var(--md-sys-shape-corner-extra-large);
+  border-radius: var(--md-sys-shape-corner-large);
   text-align: left;
   width: 100%;
   cursor: pointer;
@@ -1208,7 +1212,7 @@ button {
 }
 
 .bp-answer:active:not(:disabled) {
-  transform: scale(0.992);
+  transform: scale(0.996);
   box-shadow: inset 0 0 0 999px color-mix(in srgb, var(--bp-ink) 12%, transparent);
 }
 
@@ -1219,7 +1223,7 @@ button {
 
 .bp-answer.is-correct:not(:disabled):hover,
 .bp-answer.is-correct:not(:disabled):active {
-  box-shadow: inset 0 0 0 999px color-mix(in srgb, var(--bp-green) 8%, transparent);
+  box-shadow: inset 0 0 0 999px var(--md-sys-color-success-state-layer);
 }
 
 .bp-answer.is-wrong:not(:disabled):hover,
@@ -1254,8 +1258,8 @@ button {
   font-size: 14px;
   font-weight: 700;
   color: transparent;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border: 2px solid var(--md-sys-color-outline-variant);
   border-radius: var(--md-sys-shape-corner-full);
   background: transparent;
@@ -1266,8 +1270,9 @@ button {
 
 .bp-answer.is-correct {
   background: var(--bp-green-soft);
-  color: var(--bp-ink);
+  color: var(--md-sys-color-on-success-container);
   border-color: var(--bp-green-rule);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--bp-green-rule) 45%, transparent);
 }
 
 .bp-answer.is-correct .kw {
@@ -1278,7 +1283,7 @@ button {
 }
 
 .bp-answer.is-correct .text .en {
-  color: var(--md-sys-color-success);
+  color: color-mix(in srgb, var(--md-sys-color-on-success-container) 78%, var(--md-sys-color-success));
 }
 
 .bp-answer.is-correct .mark {
@@ -1295,8 +1300,9 @@ button {
 
 .bp-answer.is-wrong {
   background: var(--bp-wrong-soft);
-  border-color: var(--md-sys-color-error);
-  color: var(--bp-wrong);
+  border-color: var(--bp-wrong-rule);
+  color: var(--md-sys-color-error);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--md-sys-color-error) 32%, transparent);
 }
 
 .bp-answer.is-wrong .kw {
@@ -1307,14 +1313,14 @@ button {
 }
 
 .bp-answer.is-wrong .text .en {
-  color: var(--bp-wrong);
+  color: var(--md-sys-color-error);
   opacity: 0.7;
 }
 
 .bp-answer.is-wrong .mark {
-  color: var(--bp-paper);
-  background: var(--bp-wrong);
-  border-color: var(--bp-wrong);
+  color: var(--md-sys-color-on-primary);
+  background: var(--md-sys-color-error);
+  border-color: var(--md-sys-color-error);
 }
 
 .bp-answer.is-wrong .mark .icon {
@@ -1971,12 +1977,13 @@ button {
     box-shadow: var(--md-elevation-1);
     display: grid;
     grid-template-columns: minmax(0, 720px);
-    grid-template-rows: auto 3px minmax(0, 1fr) auto auto;
+    grid-template-rows: auto 4px minmax(0, 1fr) auto auto;
   }
 
   .bp-app.filters-open {
+    width: min(100vw, 1112px);
     max-width: 1112px;
-    grid-template-columns: 88px 304px minmax(0, 720px);
+    grid-template-columns: 80px minmax(220px, 304px) minmax(0, 720px);
     gap: 0;
   }
 
@@ -2003,7 +2010,7 @@ button {
 
   .bp-app.filters-open .bp-pills-bar {
     display: grid;
-    grid-template-columns: 76px minmax(0, 1fr);
+    grid-template-columns: 68px minmax(0, 1fr);
   }
 
   .bp-pills-bar .pills {
@@ -2092,6 +2099,7 @@ button {
     white-space: normal;
     padding: 10px 16px;
     border: 0;
+    border-radius: var(--md-sys-shape-corner-large);
     text-align: left;
   }
 

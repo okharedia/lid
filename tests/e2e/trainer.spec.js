@@ -145,6 +145,21 @@ test("desktop review panel stays open after selecting a filter", async ({ page }
   await expect(filterButton).toHaveAttribute("aria-expanded", "false");
 });
 
+test("tablet review panel uses rail layout without modal overflow", async ({ page }) => {
+  await page.setViewportSize({ width: 720, height: 820 });
+  await openTrainer(page);
+
+  await page.locator("#filterButton").click();
+  const drawer = page.locator("#filterBar");
+
+  await expect(drawer).toHaveAttribute("aria-hidden", "false");
+  await expect(drawer).not.toHaveAttribute("role", "dialog");
+  await expect(drawer).not.toHaveAttribute("aria-modal", "true");
+
+  const hasOverflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
+  expect(hasOverflow).toBe(false);
+});
+
 test("learn mode renders the correct answer first without changing test answer indexes", async ({ page }) => {
   await openTrainer(page);
 

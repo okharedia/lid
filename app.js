@@ -707,7 +707,7 @@ function hasVerticalOverflow(element) {
 }
 
 function collapsedStudyHeight() {
-  return window.innerWidth < 720 ? 96 : 104;
+  return isMobileDrawer() ? 96 : 104;
 }
 
 function canToggleStudyDock() {
@@ -954,7 +954,7 @@ function bindEvents() {
     }
   });
   els.app.addEventListener("click", (event) => {
-    if (window.innerWidth >= 720) return;
+    if (!isMobileDrawer()) return;
     if (!els.app.classList.contains("filters-open")) return;
     if (event.target.closest("#filterBar") || event.target.closest("#filterButton")) return;
     closeReviewPanel();
@@ -1006,7 +1006,7 @@ function bindEvents() {
     if (action === "learn-mode") setMode("learn");
   });
   els.app.addEventListener("pointerdown", (event) => {
-    if (window.innerWidth >= 720 || els.app.classList.contains("filters-open") || state.result) return;
+    if (!isMobileDrawer() || els.app.classList.contains("filters-open") || state.result) return;
     if (event.pointerType === "mouse") return;
     if (event.target.closest(".bp-top, .bp-nav, #filterBar")) return;
     window.clearTimeout(swipeTimer);
