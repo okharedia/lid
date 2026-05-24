@@ -176,6 +176,10 @@ function highlight(text, keywords) {
   return escapeHtml(text).replace(re, '<span class="kw">$1</span>');
 }
 
+function highlightAnswer(text, keywords, isCorrect, reveal) {
+  return reveal && isCorrect ? highlight(text, keywords) : escapeHtml(text);
+}
+
 function render() {
   app.classList.remove("fit-tight", "fit-tighter", "filters-open");
   const scenario = scenarios[index];
@@ -225,7 +229,7 @@ function render() {
         <li>
           <button class="${className}" type="button" ${reveal ? "disabled" : ""}>
             <span class="text">
-              ${highlight(de, scenario.keywords)}
+              ${highlightAnswer(de, scenario.keywords, i === scenario.correct, reveal)}
               <span class="en">${escapeHtml(en)}</span>
             </span>
             <span class="mark">${reveal && i === scenario.correct ? "✓" : ""}</span>

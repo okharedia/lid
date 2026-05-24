@@ -50,6 +50,11 @@ function HighlightedText({ text, keywords }) {
 
 }
 
+function AnswerText({ text, keywords, isCorrect, reveal }) {
+  if (!reveal || !isCorrect) return <>{text}</>;
+  return <HighlightedText text={text} keywords={keywords} />;
+}
+
 function App() {
   const initial = loadState();
   const [mode, setMode] = useState(initial.mode || 'learn');
@@ -199,7 +204,7 @@ function App() {
                   onClick={() => pickAnswer(i)}>
                   
                     <span className="text">
-                      <HighlightedText text={opt} keywords={current.keywords} />
+                      <AnswerText text={opt} keywords={current.keywords} isCorrect={isCorrectAns} reveal={revealNow} />
                       {current.optionsEn?.[i] && <span className="en">{current.optionsEn[i]}</span>}
                     </span>
                     <span className="mark">

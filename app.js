@@ -116,6 +116,10 @@ function highlightedText(text, card) {
   });
 }
 
+function highlightedAnswerText(answer, card, isCorrectAnswer, reveal) {
+  return reveal && isCorrectAnswer ? highlightedText(answer, card) : escapeHtml(answer);
+}
+
 function t(key) {
   return key ? messages[key] || "" : "";
 }
@@ -245,7 +249,7 @@ function render() {
         <li>
           <button class="${className}" type="button" data-answer="${index}" ${isLearn || isAnswered ? "disabled" : ""}>
             <span class="text">
-              ${highlightedText(answer.text, card)}
+              ${highlightedAnswerText(answer.text, card, isCorrectAnswer, reveal)}
               ${answerTranslation ? `<span class="en">${escapeHtml(answerTranslation)}</span>` : ""}
             </span>
             <span class="mark">${mark}</span>
