@@ -472,12 +472,12 @@ button {
   color: var(--bp-ink-soft);
 }
 
-.panel-tabs button[aria-pressed="true"] {
+.panel-tabs button[aria-selected="true"] {
   background: transparent;
   color: var(--bp-ink);
 }
 
-.panel-tabs button[aria-pressed="true"]::after {
+.panel-tabs button[aria-selected="true"]::after {
   content: "";
   position: absolute;
   left: 0;

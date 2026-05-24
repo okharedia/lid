@@ -144,20 +144,20 @@
         </div>
       </header>
 
-      <section id="filterBar" class="bp-pills-bar" aria-label="Review panel">
+      <section id="filterBar" class="bp-pills-bar" aria-label="Review panel" tabindex="-1">
         <div class="panel-tabs" role="tablist" aria-label="Review panel">
-          <button id="filtersTab" type="button" aria-pressed="true">Filters</button>
-          <button id="knownTab" type="button" aria-pressed="false">Known</button>
-          <button id="testConfigTab" type="button" aria-pressed="false">Test</button>
+          <button id="filtersTab" type="button" role="tab" aria-selected="true" aria-controls="filtersPane">Filters</button>
+          <button id="knownTab" type="button" role="tab" aria-selected="false" aria-controls="knownPane" tabindex="-1">Known</button>
+          <button id="testConfigTab" type="button" role="tab" aria-selected="false" aria-controls="testConfigPane" tabindex="-1">Test</button>
         </div>
-        <div id="filtersPane" class="panel-pane">
+        <div id="filtersPane" class="panel-pane" role="tabpanel" aria-labelledby="filtersTab">
           <div id="categoryPills" class="pills"></div>
         </div>
-        <div id="knownPane" class="panel-pane" hidden>
+        <div id="knownPane" class="panel-pane" role="tabpanel" aria-labelledby="knownTab" hidden>
           <div id="knownSummary" class="known-summary"></div>
           <div id="knownList" class="known-list"></div>
         </div>
-        <div id="testConfigPane" class="panel-pane" hidden>
+        <div id="testConfigPane" class="panel-pane" role="tabpanel" aria-labelledby="testConfigTab" hidden>
           <div class="test-config">
             <label for="testSizeInput">Questions per test</label>
             <div class="test-size-control">
@@ -195,7 +195,7 @@
         <p id="questionTranslation" class="bp-q-en"></p>
         <img id="questionImage" class="bp-image" alt="Official question image" />
 
-        <ul id="answers" class="bp-answers"></ul>
+        <ul id="answers" class="bp-answers" role="radiogroup" aria-labelledby="questionText"></ul>
 
         <div id="lockedHint" class="bp-locked" hidden>— answer to reveal explanation &amp; keywords —</div>
       </section>

@@ -38,3 +38,6 @@ This pass keeps the static LiD trainer architecture and Tabler icons, but shifts
 - `styles.css` owns the live app tokens.
 - `design/tokens.css` mirrors the same Material 3-inspired roles for prototypes.
 - Keep Tabler icons for all icon changes.
+- Review panel tabs use the ARIA tabs pattern with roving keyboard navigation.
+- Mobile review drawer traps Tab focus while open and closes with Escape or outside click.
+- Answers are exposed as a radio group while preserving the existing button interaction model.

@@ -32,6 +32,7 @@ const state = {
 let slideTimer = 0;
 let swipeTimer = 0;
 let swipeStart = null;
+let drawerReturnFocus = null;
 
 const els = {
   learnMode: document.querySelector("#learnMode"),
@@ -50,6 +51,7 @@ const els = {
   testSizeMinus: document.querySelector("#testSizeMinus"),
   testSizePlus: document.querySelector("#testSizePlus"),
   testSizeMeta: document.querySelector("#testSizeMeta"),
+  filterBar: document.querySelector("#filterBar"),
   app: document.querySelector(".bp-app"),
   categoryPills: document.querySelector("#categoryPills"),
   progressFill: document.querySelector("#progressFill"),
@@ -347,15 +349,48 @@ function renderTestConfigPanel() {
 function renderPanel() {
   const isKnownTab = state.panelTab === "known";
   const isTestConfigTab = state.panelTab === "test";
-  els.filtersTab.setAttribute("aria-pressed", String(!isKnownTab && !isTestConfigTab));
-  els.knownTab.setAttribute("aria-pressed", String(isKnownTab));
-  els.testConfigTab.setAttribute("aria-pressed", String(isTestConfigTab));
+  const tabStates = [
+    [els.filtersTab, !isKnownTab && !isTestConfigTab],
+    [els.knownTab, isKnownTab],
+    [els.testConfigTab, isTestConfigTab],
+  ];
+  tabStates.forEach(([tab, selected]) => {
+    tab.setAttribute("aria-selected", String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+  });
   els.filtersPane.hidden = isKnownTab || isTestConfigTab;
   els.knownPane.hidden = !isKnownTab;
   els.testConfigPane.hidden = !isTestConfigTab;
   renderCategories();
   renderKnownPanel();
   renderTestConfigPanel();
+}
+
+function setPanelTab(tab) {
+  state.panelTab = tab;
+  render();
+  const activeTab = {
+    filters: els.filtersTab,
+    known: els.knownTab,
+    test: els.testConfigTab,
+  }[tab];
+  activeTab?.focus();
+}
+
+function movePanelTab(event) {
+  const tabs = [els.filtersTab, els.knownTab, els.testConfigTab];
+  const currentIndex = tabs.indexOf(document.activeElement);
+  if (currentIndex === -1) return;
+  let nextIndex = currentIndex;
+  if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % tabs.length;
+  else if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+  else if (event.key === "Home") nextIndex = 0;
+  else if (event.key === "End") nextIndex = tabs.length - 1;
+  else return;
+
+  event.preventDefault();
+  const nextTab = tabs[nextIndex];
+  setPanelTab(nextTab === els.knownTab ? "known" : nextTab === els.testConfigTab ? "test" : "filters");
 }
 
 function renderResult() {
@@ -441,6 +476,13 @@ function render() {
   els.testMode.setAttribute("aria-pressed", String(!isLearn));
   els.filterButtonLabel.textContent = state.panelTab === "known" ? "Known" : shortCategoryLabel(state.category);
   els.filterButton.setAttribute("aria-expanded", String(els.app.classList.contains("filters-open")));
+  if (els.app.classList.contains("filters-open") && isMobileDrawer()) {
+    els.filterBar.setAttribute("role", "dialog");
+    els.filterBar.setAttribute("aria-modal", "true");
+  } else {
+    els.filterBar.removeAttribute("role");
+    els.filterBar.removeAttribute("aria-modal");
+  }
   els.shuffleButton.hidden = !isLearn || Boolean(state.result);
   els.shuffleButton.setAttribute("aria-pressed", String(Boolean(state.shuffleSeed)));
   els.resultView.hidden = !state.result;
@@ -506,9 +548,10 @@ function render() {
       const mark = reveal && isCorrectAnswer ? icon("check") : reveal && selected === index ? icon("x") : "";
       const answerTranslation = t(answer.translationKey);
       const why = reveal ? t(answer.whyKey) : "";
+      const checked = reveal && (isLearn ? isCorrectAnswer : selected === index);
       return `
         <li>
-          <button class="${className}" type="button" data-answer="${index}" ${isLearn || isAnswered ? "disabled" : ""}>
+          <button class="${className}" type="button" role="radio" aria-checked="${checked}" data-answer="${index}" ${isLearn || isAnswered ? "disabled" : ""}>
             <span class="text">
               ${highlightedAnswerText(answer.text, card, isCorrectAnswer, reveal)}
               ${answerTranslation ? `<span class="en">${escapeHtml(answerTranslation)}</span>` : ""}
@@ -736,26 +779,49 @@ function changeCategory(category) {
   state.selected = null;
   state.result = null;
   if (state.mode === "test") state.testSession = newTestSession(category);
+  closeReviewPanel(false);
+  render();
+}
+
+function isMobileDrawer() {
+  return window.innerWidth < 720;
+}
+
+function focusableDrawerElements() {
+  return [...els.filterBar.querySelectorAll('button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+    .filter((element) => element.offsetParent !== null);
+}
+
+function openReviewPanel() {
+  drawerReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : els.filterButton;
+  els.app.classList.add("filters-open");
+  els.filterButton.setAttribute("aria-expanded", "true");
+  if (isMobileDrawer()) {
+    els.filterBar.setAttribute("role", "dialog");
+    els.filterBar.setAttribute("aria-modal", "true");
+    requestAnimationFrame(() => {
+      const selectedTab = els.filterBar.querySelector('[role="tab"][aria-selected="true"]');
+      (selectedTab || els.filterBar).focus();
+    });
+  }
+}
+
+function closeReviewPanel(restoreFocus = true) {
   els.app.classList.remove("filters-open");
   els.filterButton.setAttribute("aria-expanded", "false");
-  render();
+  els.filterBar.removeAttribute("role");
+  els.filterBar.removeAttribute("aria-modal");
+  if (restoreFocus && drawerReturnFocus instanceof HTMLElement) drawerReturnFocus.focus();
+  drawerReturnFocus = null;
 }
 
 function bindEvents() {
   els.learnMode.addEventListener("click", () => setMode("learn"));
   els.testMode.addEventListener("click", () => setMode("test"));
-  els.filtersTab.addEventListener("click", () => {
-    state.panelTab = "filters";
-    render();
-  });
-  els.knownTab.addEventListener("click", () => {
-    state.panelTab = "known";
-    render();
-  });
-  els.testConfigTab.addEventListener("click", () => {
-    state.panelTab = "test";
-    render();
-  });
+  els.filtersTab.addEventListener("click", () => setPanelTab("filters"));
+  els.knownTab.addEventListener("click", () => setPanelTab("known"));
+  els.testConfigTab.addEventListener("click", () => setPanelTab("test"));
+  [els.filtersTab, els.knownTab, els.testConfigTab].forEach((tab) => tab.addEventListener("keydown", movePanelTab));
   els.testSizeMinus.addEventListener("click", () => setTestSize(configuredTestSize() - 1));
   els.testSizePlus.addEventListener("click", () => setTestSize(configuredTestSize() + 1));
   els.testSizeInput.addEventListener("change", () => setTestSize(Number(els.testSizeInput.value)));
@@ -766,21 +832,34 @@ function bindEvents() {
     els.testSizeInput.blur();
   });
   els.filterButton.addEventListener("click", () => {
-    els.app.classList.toggle("filters-open");
-    els.filterButton.setAttribute("aria-expanded", String(els.app.classList.contains("filters-open")));
+    if (els.app.classList.contains("filters-open")) closeReviewPanel();
+    else openReviewPanel();
   });
   window.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape" || !els.app.classList.contains("filters-open")) return;
-    els.app.classList.remove("filters-open");
-    els.filterButton.setAttribute("aria-expanded", "false");
-    els.filterButton.focus();
+    if (!els.app.classList.contains("filters-open")) return;
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeReviewPanel();
+      return;
+    }
+    if (event.key !== "Tab" || !isMobileDrawer()) return;
+    const focusable = focusableDrawerElements();
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   });
   els.app.addEventListener("click", (event) => {
     if (window.innerWidth >= 720) return;
     if (!els.app.classList.contains("filters-open")) return;
     if (event.target.closest("#filterBar") || event.target.closest("#filterButton")) return;
-    els.app.classList.remove("filters-open");
-    els.filterButton.setAttribute("aria-expanded", "false");
+    closeReviewPanel();
   });
   els.prevButton.addEventListener("click", () => move(-1));
   els.nextButton.addEventListener("click", () => {
