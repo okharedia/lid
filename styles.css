@@ -1523,7 +1523,7 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 4px;
   min-height: 32px;
   line-height: 1;
   font-family: var(--bp-mono);
@@ -1534,8 +1534,8 @@ button {
 
 .bp-known .mastered-icon {
   color: var(--md-sys-color-on-surface-variant);
-  width: 22px;
-  height: 22px;
+  width: 16px;
+  height: 16px;
   display: block;
   fill: none;
   stroke: currentColor;
