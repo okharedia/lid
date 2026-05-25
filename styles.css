@@ -1418,7 +1418,7 @@ button {
 
 .bp-app.is-loading .bp-q,
 .bp-app.is-loading .bp-q-en,
-.bp-app.is-loading .bp-image,
+.bp-app.is-loading .bp-image-button,
 .bp-app.is-loading .bp-answers,
 .bp-app.is-loading .bp-q-chips,
 .bp-app.is-loading .bp-locked {
@@ -1730,16 +1730,61 @@ button {
   color: var(--bp-wrong);
 }
 
-.bp-image {
-  display: none;
+.bp-image-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  height: var(--md-density-image-max-height);
+  min-height: var(--md-density-image-max-height);
+  flex: 0 0 var(--md-density-image-max-height);
   min-width: 0;
-  max-height: var(--md-density-image-max-height);
-  object-fit: contain;
   padding: var(--md-density-image-padding);
   border: 1px solid transparent;
   border-radius: var(--md-sys-shape-corner-large);
+  appearance: none;
+  -webkit-appearance: none;
   background: var(--md-sys-color-surface-container);
+  cursor: zoom-in;
+  line-height: 0;
+  overflow: hidden;
+  transition: background var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+    border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+    box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+
+.bp-image-button:hover {
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 78%, var(--md-sys-color-primary-container));
+}
+
+.bp-image-button:focus-visible {
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 4px var(--md-sys-color-primary-state-layer);
+  outline: 0;
+}
+
+.bp-image {
+  display: none;
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.bp-image-zoom {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--md-sys-shape-corner-full);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-highest) 90%, transparent);
+  color: var(--md-sys-color-on-surface);
+  box-shadow: var(--md-elevation-1);
+  pointer-events: none;
 }
 
 .bp-image.visible {
@@ -2290,6 +2335,55 @@ button {
 
 .bp-snackbar button:hover {
   background: color-mix(in srgb, var(--md-sys-color-surface) 14%, transparent);
+}
+
+.bp-image-dialog {
+  width: min(1100px, calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 32px);
+  padding: 18px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-extra-large);
+  background: var(--md-sys-color-surface-container-low);
+  box-shadow: var(--md-elevation-3);
+}
+
+.bp-image-dialog::backdrop {
+  background: var(--md-sys-color-scrim);
+}
+
+.bp-image-dialog img {
+  display: block;
+  width: 100%;
+  max-height: calc(100dvh - 92px);
+  object-fit: contain;
+  border-radius: var(--md-sys-shape-corner-large);
+  background: var(--md-sys-color-surface);
+}
+
+.bp-image-dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: var(--md-sys-shape-corner-full);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-highest) 90%, transparent);
+  color: var(--md-sys-color-on-surface);
+  box-shadow: var(--md-elevation-1);
+  cursor: pointer;
+}
+
+.bp-image-dialog-close:hover {
+  background: var(--md-sys-color-surface-container-highest);
+}
+
+.bp-image-dialog-close:focus-visible {
+  outline: 0;
+  box-shadow: var(--md-elevation-1), 0 0 0 4px var(--md-sys-color-primary-state-layer);
 }
 
 .bp-result {

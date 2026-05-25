@@ -106,7 +106,11 @@ const els = {
   jumpClose: document.querySelector("#jumpClose"),
   questionText: document.querySelector("#questionText"),
   questionTranslation: document.querySelector("#questionTranslation"),
+  questionImageButton: document.querySelector("#questionImageButton"),
   questionImage: document.querySelector("#questionImage"),
+  imageDialog: document.querySelector("#imageDialog"),
+  imageDialogImage: document.querySelector("#imageDialogImage"),
+  imageDialogClose: document.querySelector("#imageDialogClose"),
   questionChips: document.querySelector("#questionChips"),
   answers: document.querySelector("#answers"),
   hintText: document.querySelector("#hintText"),
@@ -675,12 +679,15 @@ function render() {
   const questionTranslation = t(card.translationKey);
   els.questionTranslation.textContent = questionTranslation;
   els.questionTranslation.hidden = !showTranslations || !questionTranslation;
+  els.questionImageButton.hidden = !card.imageUrl;
   els.questionImage.classList.toggle("visible", Boolean(card.imageUrl));
   if (card.imageUrl) {
     els.questionImage.onload = fitLayout;
     els.questionImage.src = card.imageUrl;
+    els.imageDialogImage.src = card.imageUrl;
   } else {
     els.questionImage.removeAttribute("src");
+    els.imageDialogImage.removeAttribute("src");
   }
 
   renderQuestionChips(card);
@@ -1225,6 +1232,11 @@ function bindEvents() {
   });
   els.middleButton.addEventListener("click", toggleKnown);
   els.snackbarAction.addEventListener("click", undoKnownMark);
+  els.questionImageButton.addEventListener("click", openImageDialog);
+  els.imageDialogClose.addEventListener("click", closeImageDialog);
+  els.imageDialog.addEventListener("click", (event) => {
+    if (event.target === els.imageDialog) closeImageDialog();
+  });
   els.studyHandle.addEventListener("click", () => {
     if (els.studyHandle.hidden || els.studyHandle.disabled) return;
     state.studyExpanded = !state.studyExpanded;
@@ -1322,7 +1334,7 @@ function bindEvents() {
     releaseSwipe();
   });
   window.addEventListener("keydown", (event) => {
-    if (event.defaultPrevented || els.jumpDialog.open) return;
+    if (event.defaultPrevented || els.jumpDialog.open || els.imageDialog.open) return;
     if (["INPUT", "SELECT", "TEXTAREA"].includes(event.target.tagName)) return;
     if (event.key === "Home") {
       event.preventDefault();
@@ -1358,6 +1370,19 @@ function bindEvents() {
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
     if (state.theme === "system") applyTheme();
   });
+}
+
+function openImageDialog() {
+  if (!els.imageDialogImage.getAttribute("src")) return;
+  if (els.imageDialog.open) return;
+  els.imageDialog.showModal();
+  els.imageDialogClose.focus();
+}
+
+function closeImageDialog() {
+  if (!els.imageDialog.open) return;
+  els.imageDialog.close();
+  els.questionImageButton.focus();
 }
 
 async function init() {

@@ -37,6 +37,7 @@ This pass keeps the static LiD trainer architecture and Tabler icons, but shifts
 - Filters: Material-style filter chips with leading check on selected tonal fill.
 - Answers: rounded list-item/radio hybrids with outline controls and filled feedback controls.
 - Study dock: persistent bottom sheet with a handle, elevated container, and rounded keyword chips.
+- Question images: tonal image surfaces behave as explicit controls when a higher-resolution view is available, using a Tabler zoom affordance and an elevated Material-style dialog for the enlarged image.
 - Bottom nav: action bar with text `Prev`, tonal `Mark mastered`, and filled `Next`.
 - Snackbar: short-lived confirmation surface for reversible study actions, currently used for `Marked as mastered` with `Undo`.
 - Jump dialog: small Material-style modal for direct question navigation from the progress counter.

@@ -108,6 +108,26 @@ test("can take tests without translations", async ({ page }) => {
   await expect(page.locator("#answers .en")).toHaveCount(0);
 });
 
+test("question images advertise and open a larger view", async ({ page }) => {
+  await openTrainer(page);
+
+  await page.getByRole("button", { name: /Jump to question/ }).click();
+  await page.locator("#jumpInput").fill("130");
+  await page.getByRole("button", { name: "Go" }).click();
+
+  const imageButton = page.getByRole("button", { name: "Open larger question image" });
+  await expect(imageButton).toBeVisible();
+  await expect(imageButton.locator(".bp-image-zoom")).toBeVisible();
+
+  await imageButton.click();
+  const dialog = page.getByRole("dialog", { name: "Larger question image" });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator("img")).toHaveAttribute("src", /j01649_0040\.jpg/);
+
+  await page.getByRole("button", { name: "Close image" }).click();
+  await expect(dialog).toBeHidden();
+});
+
 test("test translation preference defaults off and persists changes", async ({ page }) => {
   await openTrainer(page);
 
