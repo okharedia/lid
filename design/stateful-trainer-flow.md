@@ -46,3 +46,8 @@
 - Lower scores use an encouraging result state.
 - Results show missed questions, the learner's answer, and the correct answer.
 - Completed results are not saved as long-term score history.
+
+## Internationalization
+
+- All visible app shell copy, ARIA labels, category labels, and dynamic result/status text are keyed in `data/i18n/en.json`.
+- Question, answer, study-help, glossary, and per-answer explanation translations continue to use the question-owned keys from the source-of-truth data.

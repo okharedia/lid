@@ -1,10 +1,31 @@
 const STORAGE_KEY = "lid-trainer-v7";
 const OLD_STORAGE_KEY = "lid-trainer-v6";
 const ALL_CATS = "Alle Kategorien";
+const DEFAULT_LOCALE = "en";
+const SUPPORTED_LOCALES = new Set(["en", "es", "fr"]);
 const DEFAULT_TEST_SIZE = 3;
 const PASS_SCORE = 90;
 const MOTION_MEDIUM_MS = 180;
 const MOTION_LONG_MS = 240;
+const THEME_LABEL_KEYS = {
+  system: "ui.theme.system",
+  light: "ui.theme.light",
+  dark: "ui.theme.dark",
+};
+const CATEGORY_KEYS = {
+  [ALL_CATS]: "category.all",
+  "Basic Law and rights": "category.basicLawAndRights",
+  "Religion and society": "category.religionAndSociety",
+  "Law, courts, police": "category.lawCourtsPolice",
+  Elections: "category.elections",
+  "German institutions": "category.germanInstitutions",
+  "General LiD recognition": "category.generalLidRecognition",
+  "Work and civic life": "category.workAndCivicLife",
+  "Family and equality": "category.familyAndEquality",
+  "Berlin state question": "category.berlinStateQuestion",
+  "Nazi period and responsibility": "category.naziPeriodAndResponsibility",
+  "German division and reunification": "category.germanDivisionAndReunification",
+};
 
 function configuredTestSize() {
   const urlValue = new URLSearchParams(window.location.search).get("testSize");
@@ -17,6 +38,7 @@ let questions = [];
 let questionById = new Map();
 let categories = [ALL_CATS];
 let messages = {};
+let locale = DEFAULT_LOCALE;
 
 const state = {
   mode: "learn",
@@ -45,6 +67,7 @@ let drawerReturnFocus = null;
 const els = {
   learnMode: document.querySelector("#learnMode"),
   testMode: document.querySelector("#testMode"),
+  languageSelect: document.querySelector("#languageSelect"),
   filterButton: document.querySelector("#filterButton"),
   filterButtonLabel: document.querySelector("#filterButtonLabel"),
   filtersTab: document.querySelector("#filtersTab"),
@@ -178,6 +201,65 @@ function t(key) {
   return key ? messages[key] || "" : "";
 }
 
+function ui(key, replacements = {}) {
+  const template = t(key) || key;
+  return template.replace(/\{(\w+)\}/g, (_, name) => {
+    const value = replacements[name];
+    return value === undefined || value === null ? "" : String(value);
+  });
+}
+
+function uiHtml(key, replacements = {}) {
+  const escaped = Object.fromEntries(
+    Object.entries(replacements).map(([name, value]) => [name, escapeHtml(value)]),
+  );
+  return ui(key, escaped);
+}
+
+function uiCount(singularKey, pluralKey, count, replacements = {}) {
+  return ui(count === 1 ? singularKey : pluralKey, { count, ...replacements });
+}
+
+function categoryLabel(category) {
+  return ui(CATEGORY_KEYS[category] || "category.unknown", { category });
+}
+
+function applyStaticTranslations() {
+  document.documentElement.lang = ui("ui.documentLang");
+  document.title = ui("ui.documentTitle");
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    element.textContent = ui(element.dataset.i18n);
+  });
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
+    element.setAttribute("aria-label", ui(element.dataset.i18nAriaLabel));
+  });
+  document.querySelectorAll("[data-i18n-alt]").forEach((element) => {
+    element.setAttribute("alt", ui(element.dataset.i18nAlt));
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach((element) => {
+    element.setAttribute("title", ui(element.dataset.i18nTitle));
+  });
+}
+
+function requestedLocale() {
+  const urlLocale = new URLSearchParams(window.location.search).get("lang");
+  const savedLocale = localStorage.getItem("lid-locale");
+  const selectedLocale = els.languageSelect?.value;
+  const nextLocale = urlLocale || savedLocale || selectedLocale || DEFAULT_LOCALE;
+  return SUPPORTED_LOCALES.has(nextLocale) ? nextLocale : DEFAULT_LOCALE;
+}
+
+async function loadMessages(nextLocale = DEFAULT_LOCALE) {
+  const response = await fetch(`./data/i18n/${nextLocale}.json`);
+  if (!response.ok && nextLocale !== DEFAULT_LOCALE) return loadMessages(DEFAULT_LOCALE);
+  if (!response.ok) return;
+  const translationCatalog = await response.json();
+  locale = translationCatalog.locale || nextLocale;
+  messages = translationCatalog.messages || {};
+  if (els.languageSelect) els.languageSelect.value = locale;
+  document.documentElement.dataset.locale = locale;
+}
+
 function keywordRefs(card) {
   return card.study?.keywordRefs || [];
 }
@@ -217,7 +299,7 @@ function pad(value, width = 2) {
 }
 
 function shortCategoryLabel(category) {
-  return category === ALL_CATS ? "All" : category;
+  return category === ALL_CATS ? ui("category.all.short") : categoryLabel(category);
 }
 
 function baseFilteredQuestions(category = state.category) {
@@ -338,14 +420,14 @@ function renderCategories() {
       const isAll = category === ALL_CATS;
       const total = baseFilteredQuestions(category).length;
       const available = availableQuestions(category).length;
-      const label = isAll ? "All" : category;
+      const label = isAll ? ui("category.all.short") : categoryLabel(category);
       const selected = category === state.category;
       return `
         <button class="cat-pill" type="button" data-category="${escapeHtml(category)}" aria-pressed="${selected}">
           <span class="cat-check" aria-hidden="true">${icon("check")}</span>
           <span class="cat-copy">
             <span class="de">${escapeHtml(label)}</span>
-            <span class="en">${available}/${total} available</span>
+            <span class="en">${uiHtml("ui.category.availableCount", { available, total })}</span>
           </span>
         </button>
       `;
@@ -356,24 +438,24 @@ function renderCategories() {
 function renderKnownPanel() {
   const knownQuestions = questions.filter((question) => state.known.has(question.id));
   els.knownSummary.innerHTML = `
-    <span>${knownQuestions.length} mastered</span>
-    <span>${questions.length - knownQuestions.length}/${questions.length} available</span>
+    <span>${uiHtml("ui.known.masteredCount", { count: knownQuestions.length })}</span>
+    <span>${uiHtml("ui.category.availableCount", { available: questions.length - knownQuestions.length, total: questions.length })}</span>
   `;
   els.knownList.innerHTML = knownQuestions.length
     ? knownQuestions
         .map((question) => `
           <article class="known-item">
             <div>
-              <span class="known-meta">FRAGE ${pad(question.localNumber || question.id, 3)} · ${escapeHtml(question.theme)}</span>
+              <span class="known-meta">${uiHtml("ui.question.label", { number: pad(question.localNumber || question.id, 3) })} · ${escapeHtml(categoryLabel(question.theme))}</span>
               <p>${escapeHtml(question.question)}</p>
             </div>
-            <button type="button" data-remove-known="${question.id}" aria-label="Remove mastered mark">
+            <button type="button" data-remove-known="${question.id}" aria-label="${uiHtml("ui.mastered.remove")}">
               ${icon("trash")}
             </button>
           </article>
         `)
         .join("")
-    : `<div class="known-empty">${icon("book")}<strong>No mastered cards yet</strong><span>Mark questions as mastered when they feel easy.</span></div>`;
+    : `<div class="known-empty">${icon("book")}<strong>${uiHtml("ui.known.emptyTitle")}</strong><span>${uiHtml("ui.known.emptyBody")}</span></div>`;
 }
 
 function renderTestConfigPanel() {
@@ -383,7 +465,11 @@ function renderTestConfigPanel() {
   els.testSizeInput.value = String(value);
   els.testSizeMinus.disabled = value <= 1;
   els.testSizePlus.disabled = value >= max;
-  els.testSizeMeta.textContent = `Test length: ${Math.min(value, max)} question${Math.min(value, max) === 1 ? "" : "s"}`;
+  els.testSizeMeta.textContent = uiCount(
+    "ui.test.lengthOne",
+    "ui.test.lengthOther",
+    Math.min(value, max),
+  );
   els.testTranslationsToggle.checked = state.testTranslations;
   els.themeButtons.forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.themeChoice === state.theme));
@@ -393,8 +479,8 @@ function renderTestConfigPanel() {
 function renderPanel() {
   const isKnownTab = state.panelTab === "known";
   const isTestConfigTab = state.panelTab === "test";
-  els.knownTab.setAttribute("aria-label", `Mastered questions, ${state.known.size} marked`);
-  els.testConfigTab.setAttribute("aria-label", `Config, theme ${state.theme}`);
+  els.knownTab.setAttribute("aria-label", ui("ui.aria.masteredQuestions", { count: state.known.size }));
+  els.testConfigTab.setAttribute("aria-label", ui("ui.aria.configTheme", { theme: ui(THEME_LABEL_KEYS[state.theme]) }));
   const tabStates = [
     [els.filtersTab, !isKnownTab && !isTestConfigTab],
     [els.knownTab, isKnownTab],
@@ -447,21 +533,21 @@ function renderResult() {
   els.resultView.innerHTML = `
     <div class="result-hero" aria-live="polite">
       <div class="result-icon">${icon(passed ? "confetti" : "trophy")}</div>
-      <p class="result-kicker">${passed ? "Passed" : "Keep practicing"}</p>
+      <p class="result-kicker">${uiHtml(passed ? "ui.result.passed" : "ui.result.keepPracticing")}</p>
       <h1>${percent}%</h1>
-      <div class="result-stats" aria-label="Test score">
-        <span><strong>${correct}</strong><small>Correct</small></span>
-        <span><strong>${total - correct}</strong><small>Missed</small></span>
-        <span><strong>${total}</strong><small>Total</small></span>
+      <div class="result-stats" aria-label="${uiHtml("ui.aria.testScore")}">
+        <span><strong>${correct}</strong><small>${uiHtml("ui.result.correct")}</small></span>
+        <span><strong>${total - correct}</strong><small>${uiHtml("ui.result.missed")}</small></span>
+        <span><strong>${total}</strong><small>${uiHtml("ui.result.total")}</small></span>
       </div>
       <p>${escapeHtml(shortCategoryLabel(state.category))}</p>
     </div>
     <div class="result-actions">
-      <button class="btn btn-secondary" type="button" data-action="restart-test">${icon("refresh")} Try again</button>
-      <button class="btn btn-tertiary" type="button" data-action="learn-mode">${icon("arrow-back-up")} Study mode</button>
+      <button class="btn btn-secondary" type="button" data-action="restart-test">${icon("refresh")} ${uiHtml("ui.action.tryAgain")}</button>
+      <button class="btn btn-tertiary" type="button" data-action="learn-mode">${icon("arrow-back-up")} ${uiHtml("ui.mode.study")}</button>
     </div>
     <section class="missed-review">
-      <h2>${missed.length ? "Review misses" : "Clean run"}</h2>
+      <h2>${uiHtml(missed.length ? "ui.result.reviewMisses" : "ui.result.cleanRun")}</h2>
       ${
         missed.length
           ? missed
@@ -471,15 +557,15 @@ function renderResult() {
                   : question.answers[selected];
                 const correctAnswerObject = question.answers[question.correctIndex];
                 const selectedAnswer = selectedAnswerObject === null
-                  ? "No answer"
-                  : selectedAnswerObject?.text || "No answer";
+                  ? ui("ui.result.noAnswer")
+                  : selectedAnswerObject?.text || ui("ui.result.noAnswer");
                 const correctAnswer = correctAnswerObject?.text || question.correctAnswer;
                 const questionTranslation = showTranslations ? t(question.translationKey) : "";
                 const selectedTranslation = showTranslations && selectedAnswerObject ? t(selectedAnswerObject.translationKey) : "";
                 const correctTranslation = showTranslations && correctAnswerObject ? t(correctAnswerObject.translationKey) : "";
                 return `
                   <article class="missed-item">
-                    <span>FRAGE ${pad(question.localNumber || question.id, 3)}</span>
+                    <span>${uiHtml("ui.question.label", { number: pad(question.localNumber || question.id, 3) })}</span>
                     <h3>${escapeHtml(question.question)}</h3>
                     ${questionTranslation ? `<p class="missed-q-en">${escapeHtml(questionTranslation)}</p>` : ""}
                     <div class="missed-answer wrong">
@@ -501,7 +587,7 @@ function renderResult() {
                 `;
               })
               .join("")
-          : `<p class="result-note">No wrong answers to review.</p>`
+          : `<p class="result-note">${uiHtml("ui.result.noWrongAnswers")}</p>`
       }
     </section>
   `;
@@ -526,8 +612,11 @@ function render() {
 
   els.learnMode.setAttribute("aria-pressed", String(isLearn));
   els.testMode.setAttribute("aria-pressed", String(!isLearn));
-  els.filterButtonLabel.textContent = state.panelTab === "known" ? "Mastered" : shortCategoryLabel(state.category);
-  els.filterButton.setAttribute("aria-label", `${els.app.classList.contains("filters-open") ? "Close" : "Open"} review panel`);
+  els.filterButtonLabel.textContent = state.panelTab === "known" ? ui("ui.tab.mastered") : shortCategoryLabel(state.category);
+  els.filterButton.setAttribute(
+    "aria-label",
+    ui(els.app.classList.contains("filters-open") ? "ui.aria.closeReviewPanel" : "ui.aria.openReviewPanel"),
+  );
   els.filterButton.setAttribute("aria-expanded", String(els.app.classList.contains("filters-open")));
   syncDrawerAccessibility();
   els.resultView.hidden = !state.result;
@@ -541,7 +630,12 @@ function render() {
   const progressValue = total ? Math.round(((state.index + 1) / total) * 100) : state.result ? state.result.percent : 0;
   els.progressFill.style.width = `${progressValue}%`;
   els.track.setAttribute("aria-valuenow", String(progressValue));
-  els.track.setAttribute("aria-valuetext", state.result ? `${progressValue}% test score` : `${state.index + 1} of ${total || 0} questions`);
+  els.track.setAttribute(
+    "aria-valuetext",
+    state.result
+      ? ui("ui.progress.testScore", { percent: progressValue })
+      : ui("ui.progress.questionCount", { current: state.index + 1, total: total || 0 }),
+  );
 
   if (state.result) {
     renderResult();
@@ -562,17 +656,17 @@ function render() {
   const correctChosen = isAnswered && selected === card.correctIndex;
   const wrongChosen = isAnswered && selected !== card.correctIndex;
 
-  els.questionTag.textContent = `${isLearn ? "FRAGE" : "TEST"} ${pad(card.localNumber || card.id, 3)}`;
-  els.categoryLabel.textContent = card.theme;
+  els.questionTag.textContent = ui(isLearn ? "ui.question.label" : "ui.test.label", { number: pad(card.localNumber || card.id, 3) });
+  els.categoryLabel.textContent = categoryLabel(card.theme);
   els.knownTag.hidden = !state.known.has(card.id);
   els.feedback.hidden = !(correctChosen || wrongChosen);
-  els.feedback.innerHTML = correctChosen ? `${icon("circle-check")} Richtig` : wrongChosen ? `${icon("x")} Falsch` : "";
+  els.feedback.innerHTML = correctChosen ? `${icon("circle-check")} ${uiHtml("ui.feedback.correct")}` : wrongChosen ? `${icon("x")} ${uiHtml("ui.feedback.wrong")}` : "";
   els.feedback.className = `bp-feedback ${correctChosen ? "correct" : wrongChosen ? "wrong" : ""}`;
   els.knownCount.hidden = Boolean(correctChosen || wrongChosen || !knownCount);
   els.knownCount.innerHTML = `${icon("star", "mastered-icon")} ${knownCount}`;
   els.progressText.innerHTML = `${pad(state.index + 1)}<span class="pct">/${pad(total)}</span>`;
   els.progressText.disabled = Boolean(state.result) || total <= 1;
-  els.progressText.setAttribute("aria-label", `Jump to question, currently ${state.index + 1} of ${total}`);
+  els.progressText.setAttribute("aria-label", ui("ui.aria.jumpToQuestionCurrent", { current: state.index + 1, total }));
   els.questionText.innerHTML = highlightedText(card.question, card);
   const questionTranslation = t(card.translationKey);
   els.questionTranslation.textContent = questionTranslation;
@@ -649,8 +743,8 @@ function renderQuestionChips(card) {
     const original = questionById.get(card.duplicateOfId);
     if (original) {
       chips.push(`
-        <span class="bp-chip duplicate-chip" title="Same as earlier question">
-          ${icon("repeat")} <span>Seen before: FRAGE ${pad(original.localNumber || original.id, 3)}</span>
+        <span class="bp-chip duplicate-chip" title="${uiHtml("ui.chip.sameAsEarlier")}">
+          ${icon("repeat")} <span>${uiHtml("ui.chip.seenBefore", { number: pad(original.localNumber || original.id, 3) })}</span>
         </span>
       `);
     }
@@ -662,28 +756,28 @@ function renderQuestionChips(card) {
 function renderNav(card, isLearn, isAnswered, total) {
   if (isLearn) {
     const isKnown = Boolean(card && state.known.has(card.id));
-    els.prevButton.innerHTML = `${icon("arrow-left", "arrow")} Prev`;
-    els.prevButton.setAttribute("aria-label", "Previous question");
+    els.prevButton.innerHTML = `${icon("arrow-left", "arrow")} ${uiHtml("ui.nav.prev")}`;
+    els.prevButton.setAttribute("aria-label", ui("ui.nav.previousQuestion"));
     els.middleButton.className = `known-btn ${isKnown ? "on" : ""}`;
     els.middleButton.disabled = !card;
-    els.middleButton.setAttribute("aria-label", isKnown ? "Remove mastered mark" : "Mark as mastered");
-    els.middleButton.innerHTML = isKnown ? `${icon("star", "mastered-icon")} Mastered` : `${icon("star")} Mark as mastered`;
+    els.middleButton.setAttribute("aria-label", ui(isKnown ? "ui.mastered.remove" : "ui.mastered.mark"));
+    els.middleButton.innerHTML = isKnown ? `${icon("star", "mastered-icon")} ${uiHtml("ui.tab.mastered")}` : `${icon("star")} ${uiHtml("ui.mastered.mark")}`;
     els.nextButton.disabled = !card || state.index >= total - 1;
-    els.nextButton.setAttribute("aria-label", "Next question");
-    els.nextButton.innerHTML = `Next ${icon("arrow-right", "arrow")}`;
+    els.nextButton.setAttribute("aria-label", ui("ui.nav.nextQuestion"));
+    els.nextButton.innerHTML = `${uiHtml("ui.nav.next")} ${icon("arrow-right", "arrow")}`;
     return;
   }
 
   const finalQuestion = state.index >= total - 1;
-  els.prevButton.innerHTML = `${icon("arrow-left", "arrow")} Prev`;
-  els.prevButton.setAttribute("aria-label", "Previous question");
+  els.prevButton.innerHTML = `${icon("arrow-left", "arrow")} ${uiHtml("ui.nav.prev")}`;
+  els.prevButton.setAttribute("aria-label", ui("ui.nav.previousQuestion"));
   els.middleButton.className = "known-btn";
   els.middleButton.disabled = false;
-  els.middleButton.setAttribute("aria-label", "Restart test");
-  els.middleButton.innerHTML = `${icon("refresh")} Restart`;
+  els.middleButton.setAttribute("aria-label", ui("ui.action.restartTest"));
+  els.middleButton.innerHTML = `${icon("refresh")} ${uiHtml("ui.action.restart")}`;
   els.nextButton.disabled = !card || !isAnswered;
-  els.nextButton.setAttribute("aria-label", finalQuestion ? "Finish test" : "Next question");
-  els.nextButton.innerHTML = finalQuestion ? `Finish ${icon("trophy")}` : `Next ${icon("arrow-right", "arrow")}`;
+  els.nextButton.setAttribute("aria-label", ui(finalQuestion ? "ui.action.finishTest" : "ui.nav.nextQuestion"));
+  els.nextButton.innerHTML = finalQuestion ? `${uiHtml("ui.action.finish")} ${icon("trophy")}` : `${uiHtml("ui.nav.next")} ${icon("arrow-right", "arrow")}`;
 }
 
 function animateMove(step) {
@@ -852,8 +946,9 @@ function syncStudyDockState() {
   els.studyHandle.hidden = !toggleable;
   els.studyHandle.disabled = !toggleable;
   els.studyHandle.setAttribute("aria-expanded", String(toggleable ? state.studyExpanded : true));
-  els.studyHandle.setAttribute("aria-label", state.studyExpanded ? "Collapse study help" : "Expand study help");
-  els.studyHandle.title = toggleable ? (state.studyExpanded ? "Collapse study help" : "Expand study help") : "";
+  const label = ui(state.studyExpanded ? "ui.study.collapse" : "ui.study.expand");
+  els.studyHandle.setAttribute("aria-label", label);
+  els.studyHandle.title = toggleable ? label : "";
 }
 
 function fitLayout() {
@@ -929,7 +1024,7 @@ function toggleKnown() {
     knownUndo = { id: card.id, index: state.index };
     state.known.add(card.id);
     state.index = Math.min(state.index, Math.max(0, availableQuestions().length - 1));
-    showSnackbar("Marked as mastered", "Undo");
+    showSnackbar(ui("ui.snackbar.markedMastered"), ui("ui.action.undo"));
   }
   buildLearnDeck(false);
   render();
@@ -973,7 +1068,7 @@ function finishTest() {
 function changeCategory(category) {
   if (state.category === category) return;
   if (state.mode === "test" && hasAnsweredTestQuestions()) {
-    const proceed = window.confirm("Changing filters will restart the current test.");
+    const proceed = window.confirm(ui("ui.confirm.changeFilterRestartsTest"));
     if (!proceed) return;
   }
   state.category = category;
@@ -1059,6 +1154,13 @@ function bindEvents() {
     els.testSizeInput.blur();
   });
   els.testTranslationsToggle.addEventListener("change", () => setTestTranslations(els.testTranslationsToggle.checked));
+  els.languageSelect?.addEventListener("change", async () => {
+    const nextLocale = SUPPORTED_LOCALES.has(els.languageSelect.value) ? els.languageSelect.value : DEFAULT_LOCALE;
+    localStorage.setItem("lid-locale", nextLocale);
+    await loadMessages(nextLocale);
+    applyStaticTranslations();
+    render();
+  });
   els.themeButtons.forEach((button) => {
     button.addEventListener("click", () => {
       state.theme = button.dataset.themeChoice;
@@ -1244,6 +1346,9 @@ function bindEvents() {
 }
 
 async function init() {
+  await loadMessages(requestedLocale());
+  applyStaticTranslations();
+
   const saved = loadSavedState();
   state.mode = saved.mode === "test" ? "test" : "learn";
   state.category = saved.category || ALL_CATS;
@@ -1258,13 +1363,8 @@ async function init() {
   applyTheme();
 
   const response = await fetch("./data/lid-berlin-source-of-truth.json");
-  if (!response.ok) throw new Error(`Could not load LiD database: ${response.status}`);
+  if (!response.ok) throw new Error(ui("ui.error.loadDatabase", { status: response.status }));
   const database = await response.json();
-  const translationResponse = await fetch("./data/i18n/en.json");
-  if (translationResponse.ok) {
-    const translationCatalog = await translationResponse.json();
-    messages = translationCatalog.messages || {};
-  }
   questions = database.questions;
   questionById = new Map(questions.map((question) => [question.id, question]));
   categories = [ALL_CATS, ...new Set(questions.map((question) => question.theme))];

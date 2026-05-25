@@ -17,6 +17,7 @@ const i18n = JSON.parse(
   fs.readFileSync(path.join(__dirname, "..", "data/i18n/en.json"), "utf8"),
 );
 const messages = i18n.messages;
+const indexHtml = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8");
 
 test("every whyKey labelled 'Correct'/'Wrong' matches its answer position", () => {
   const mismatches = [];
@@ -72,4 +73,38 @@ test("every duplicateOfId points to a real question", () => {
     }
   }
   assert.deepEqual(broken, [], `broken duplicateOfId links:\n  ${broken.join("\n  ")}`);
+});
+
+test("every static HTML i18n key resolves to a non-empty string", () => {
+  const missing = [];
+  const pattern = /\b(data-i18n(?:-aria-label|-alt|-title)?)="([^"]+)"/g;
+  for (const match of indexHtml.matchAll(pattern)) {
+    const [, attr, key] = match;
+    if (!(messages[key] || "").trim()) missing.push(`${attr}=${key}`);
+  }
+  assert.deepEqual(missing, [], `missing static i18n keys:\n  ${missing.join("\n  ")}`);
+});
+
+test("every rendered category has an i18n key", () => {
+  const categoryKeys = {
+    "Alle Kategorien": "category.all",
+    "Basic Law and rights": "category.basicLawAndRights",
+    "Religion and society": "category.religionAndSociety",
+    "Law, courts, police": "category.lawCourtsPolice",
+    Elections: "category.elections",
+    "German institutions": "category.germanInstitutions",
+    "General LiD recognition": "category.generalLidRecognition",
+    "Work and civic life": "category.workAndCivicLife",
+    "Family and equality": "category.familyAndEquality",
+    "Berlin state question": "category.berlinStateQuestion",
+    "Nazi period and responsibility": "category.naziPeriodAndResponsibility",
+    "German division and reunification": "category.germanDivisionAndReunification",
+  };
+  const missing = [];
+  for (const category of new Set(["Alle Kategorien", ...data.questions.map((question) => question.theme)])) {
+    const key = categoryKeys[category];
+    if (!key) missing.push(`${category} has no key mapping`);
+    else if (!(messages[key] || "").trim()) missing.push(`${category} maps to missing key ${key}`);
+  }
+  assert.deepEqual(missing, [], `missing category i18n keys:\n  ${missing.join("\n  ")}`);
 });

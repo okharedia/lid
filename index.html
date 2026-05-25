@@ -143,41 +143,41 @@
     <main class="bp-app is-loading" aria-live="polite">
       <header class="bp-top">
         <span class="brand">
-          <button id="filterButton" class="bp-filter-toggle" type="button" aria-label="Toggle filters" aria-expanded="false" aria-controls="filterBar">
+          <button id="filterButton" class="bp-filter-toggle" type="button" aria-label="Toggle filters" aria-expanded="false" aria-controls="filterBar" data-i18n-aria-label="ui.aria.toggleFilters">
             <svg class="icon" aria-hidden="true"><use href="#tabler-adjustments-horizontal"></use></svg>
-            <span id="filterButtonLabel" class="sr-only">Options</span>
+            <span id="filterButtonLabel" class="sr-only" data-i18n="ui.action.options">Options</span>
           </button>
           <span class="flag" aria-hidden="true"></span>
         </span>
         <div class="bp-top-actions">
-          <label class="bp-language" aria-label="Translation language">
+          <label class="bp-language" aria-label="Translation language" data-i18n-aria-label="ui.aria.translationLanguage">
             <svg class="icon" aria-hidden="true"><use href="#tabler-language"></use></svg>
-            <select id="languageSelect" aria-label="Translation language">
-              <option value="en" selected>EN</option>
-              <option value="es" disabled>ES</option>
-              <option value="fr" disabled>FR</option>
+            <select id="languageSelect" aria-label="Translation language" data-i18n-aria-label="ui.aria.translationLanguage">
+              <option value="en" selected data-i18n="ui.language.en">EN</option>
+              <option value="es" disabled data-i18n="ui.language.es">ES</option>
+              <option value="fr" disabled data-i18n="ui.language.fr">FR</option>
             </select>
           </label>
-          <span class="bp-mode" role="group" aria-label="Mode">
-            <button id="learnMode" type="button" aria-pressed="true">Learn</button>
-            <button id="testMode" type="button" aria-pressed="false">Test</button>
+          <span class="bp-mode" role="group" aria-label="Mode" data-i18n-aria-label="ui.aria.mode">
+            <button id="learnMode" type="button" aria-pressed="true" data-i18n="ui.mode.learn">Learn</button>
+            <button id="testMode" type="button" aria-pressed="false" data-i18n="ui.mode.test">Test</button>
           </span>
         </div>
       </header>
 
-      <section id="filterBar" class="bp-pills-bar" aria-label="Review panel" tabindex="-1">
-        <div class="panel-tabs" role="tablist" aria-label="Review panel">
+      <section id="filterBar" class="bp-pills-bar" aria-label="Review panel" tabindex="-1" data-i18n-aria-label="ui.aria.reviewPanel">
+        <div class="panel-tabs" role="tablist" aria-label="Review panel" data-i18n-aria-label="ui.aria.reviewPanel">
           <button id="filtersTab" type="button" role="tab" aria-selected="true" aria-controls="filtersPane">
             <svg class="icon tab-icon" aria-hidden="true"><use href="#tabler-adjustments-horizontal"></use></svg>
-            <span class="tab-label">Filters</span>
+            <span class="tab-label" data-i18n="ui.tab.filters">Filters</span>
           </button>
           <button id="knownTab" type="button" role="tab" aria-selected="false" aria-controls="knownPane" tabindex="-1">
             <svg class="icon tab-icon" aria-hidden="true"><use href="#tabler-star"></use></svg>
-            <span class="tab-label">Mastered</span>
+            <span class="tab-label" data-i18n="ui.tab.mastered">Mastered</span>
           </button>
           <button id="testConfigTab" type="button" role="tab" aria-selected="false" aria-controls="testConfigPane" tabindex="-1">
             <svg class="icon tab-icon" aria-hidden="true"><use href="#tabler-settings"></use></svg>
-            <span class="tab-label">Config</span>
+            <span class="tab-label" data-i18n="ui.tab.config">Config</span>
           </button>
         </div>
         <div id="filtersPane" class="panel-pane" role="tabpanel" aria-labelledby="filtersTab">
@@ -190,13 +190,13 @@
         <div id="testConfigPane" class="panel-pane" role="tabpanel" aria-labelledby="testConfigTab" hidden>
           <div class="test-config">
             <div class="config-section">
-              <label for="testSizeInput">Questions per test</label>
+              <label for="testSizeInput" data-i18n="ui.test.questionsPerTest">Questions per test</label>
               <div class="test-size-control">
-                <button id="testSizeMinus" type="button" aria-label="Decrease test count">
+                <button id="testSizeMinus" type="button" aria-label="Decrease test count" data-i18n-aria-label="ui.aria.decreaseTestCount">
                   <svg class="icon" aria-hidden="true"><use href="#tabler-minus"></use></svg>
                 </button>
-                <input id="testSizeInput" type="number" min="1" max="310" step="1" inputmode="numeric" aria-label="Questions per test" />
-                <button id="testSizePlus" type="button" aria-label="Increase test count">
+                <input id="testSizeInput" type="number" min="1" max="310" step="1" inputmode="numeric" aria-label="Questions per test" data-i18n-aria-label="ui.test.questionsPerTest" />
+                <button id="testSizePlus" type="button" aria-label="Increase test count" data-i18n-aria-label="ui.aria.increaseTestCount">
                   <svg class="icon" aria-hidden="true"><use href="#tabler-plus"></use></svg>
                 </button>
               </div>
@@ -204,8 +204,8 @@
             </div>
             <label class="settings-switch-row" for="testTranslationsToggle">
               <span class="settings-copy">
-                <span id="testTranslationsTitle" class="settings-title">Show translations in tests</span>
-                <span id="testTranslationsSupport" class="settings-support">Question and answer translations</span>
+                <span id="testTranslationsTitle" class="settings-title" data-i18n="ui.test.showTranslations">Show translations in tests</span>
+                <span id="testTranslationsSupport" class="settings-support" data-i18n="ui.test.translationSupport">Question and answer translations</span>
               </span>
               <span class="md-switch">
                 <input
@@ -223,19 +223,19 @@
               </span>
             </label>
             <div class="config-section">
-              <div class="config-label">Theme</div>
-              <div class="theme-control" role="group" aria-label="Theme preference">
+              <div class="config-label" data-i18n="ui.theme.label">Theme</div>
+              <div class="theme-control" role="group" aria-label="Theme preference" data-i18n-aria-label="ui.aria.themePreference">
                 <button id="themeSystem" type="button" data-theme-choice="system" aria-pressed="true">
                   <svg class="icon" aria-hidden="true"><use href="#tabler-device-desktop"></use></svg>
-                  System
+                  <span data-i18n="ui.theme.system">System</span>
                 </button>
                 <button id="themeLight" type="button" data-theme-choice="light" aria-pressed="false">
                   <svg class="icon" aria-hidden="true"><use href="#tabler-sun"></use></svg>
-                  Light
+                  <span data-i18n="ui.theme.light">Light</span>
                 </button>
                 <button id="themeDark" type="button" data-theme-choice="dark" aria-pressed="false">
                   <svg class="icon" aria-hidden="true"><use href="#tabler-moon"></use></svg>
-                  Dark
+                  <span data-i18n="ui.theme.dark">Dark</span>
                 </button>
               </div>
             </div>
@@ -243,19 +243,19 @@
         </div>
       </section>
 
-      <div class="bp-track" role="progressbar" aria-label="Question progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="bp-track" role="progressbar" aria-label="Question progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-i18n-aria-label="ui.aria.questionProgress">
         <div id="progressFill" class="fill"></div>
       </div>
 
       <section id="card" class="bp-card" aria-busy="true">
         <div class="bp-q-label">
-          <span id="questionTag" class="tag">FRAGE 001</span>
-          <span id="categoryLabel">Alle Kategorien</span>
-          <span id="knownTag" class="known-tag" hidden><svg class="icon" aria-hidden="true"><use href="#tabler-check"></use></svg> Mastered</span>
+          <span id="questionTag" class="tag"></span>
+          <span id="categoryLabel"></span>
+          <span id="knownTag" class="known-tag" hidden><svg class="icon" aria-hidden="true"><use href="#tabler-check"></use></svg> <span data-i18n="ui.tab.mastered">Mastered</span></span>
           <span class="grow"></span>
           <span id="feedback" class="bp-feedback" hidden></span>
           <span id="knownCount" class="bp-known" hidden><svg class="icon mastered-icon" aria-hidden="true"><use href="#tabler-star"></use></svg> 0</span>
-          <button id="progressText" class="progress" type="button" aria-label="Jump to question">01<span class="pct">/310</span></button>
+          <button id="progressText" class="progress" type="button" aria-label="Jump to question" data-i18n-aria-label="ui.aria.jumpToQuestion">01<span class="pct">/310</span></button>
         </div>
 
         <div id="questionChips" class="bp-q-chips"></div>
@@ -265,29 +265,30 @@
           <span></span>
           <span></span>
         </div>
-        <h1 id="questionText" class="bp-q">Loading...</h1>
+        <h1 id="questionText" class="bp-q" data-i18n="ui.loading">Loading...</h1>
         <p id="questionTranslation" class="bp-q-en"></p>
-        <img id="questionImage" class="bp-image" alt="Official question image" />
+        <img id="questionImage" class="bp-image" alt="Official question image" data-i18n-alt="ui.aria.officialQuestionImage" />
 
         <ul id="answers" class="bp-answers" role="radiogroup" aria-labelledby="questionText"></ul>
 
-        <div id="lockedHint" class="bp-locked" hidden>— answer to reveal explanation &amp; keywords —</div>
+        <div id="lockedHint" class="bp-locked" hidden data-i18n="ui.lockedHint">— answer to reveal explanation &amp; keywords —</div>
       </section>
 
       <div id="emptyState" class="bp-empty" hidden>
         <svg class="icon" aria-hidden="true"><use href="#tabler-book"></use></svg>
-        <div class="big">No cards here</div>
-        <div>Try another category or reset mastered cards</div>
+        <div class="big" data-i18n="ui.empty.title">No cards here</div>
+        <div data-i18n="ui.empty.body">Try another category or reset mastered cards</div>
       </div>
 
       <section id="resultView" class="bp-result" tabindex="-1" hidden></section>
 
-      <div id="studyDock" class="bp-study-dock" role="region" aria-label="Study help" hidden>
+      <div id="studyDock" class="bp-study-dock" role="region" aria-label="Study help" hidden data-i18n-aria-label="ui.study.help">
         <button
           id="studyHandle"
           class="bp-study-handle"
           type="button"
           aria-label="Collapse study help"
+          data-i18n-aria-label="ui.study.collapse"
           aria-expanded="true"
           aria-controls="studyContent"
         ></button>
@@ -302,33 +303,33 @@
         <button id="snackbarAction" type="button" hidden></button>
       </div>
 
-      <nav id="cardNav" class="bp-nav" aria-label="Card navigation">
-        <button id="prevButton" type="button" aria-label="Previous">
-          <svg class="icon arrow" aria-hidden="true"><use href="#tabler-arrow-left"></use></svg> Prev
+      <nav id="cardNav" class="bp-nav" aria-label="Card navigation" data-i18n-aria-label="ui.aria.cardNavigation">
+        <button id="prevButton" type="button" aria-label="Previous" data-i18n-aria-label="ui.nav.previousQuestion">
+          <svg class="icon arrow" aria-hidden="true"><use href="#tabler-arrow-left"></use></svg> <span data-i18n="ui.nav.prev">Prev</span>
         </button>
-        <button id="middleButton" class="known-btn" type="button"><svg class="icon" aria-hidden="true"><use href="#tabler-star"></use></svg> Mark as mastered</button>
+        <button id="middleButton" class="known-btn" type="button"><svg class="icon" aria-hidden="true"><use href="#tabler-star"></use></svg> <span data-i18n="ui.mastered.mark">Mark as mastered</span></button>
         <button id="nextButton" type="button">
-          Next <svg class="icon arrow" aria-hidden="true"><use href="#tabler-arrow-right"></use></svg>
+          <span data-i18n="ui.nav.next">Next</span> <svg class="icon arrow" aria-hidden="true"><use href="#tabler-arrow-right"></use></svg>
         </button>
       </nav>
 
       <dialog id="jumpDialog" class="bp-jump-dialog" aria-labelledby="jumpTitle">
         <form method="dialog" class="jump-card">
           <div class="jump-head">
-            <h2 id="jumpTitle">Jump to question</h2>
-            <button id="jumpClose" class="jump-close" type="button" aria-label="Close jump dialog">
+            <h2 id="jumpTitle" data-i18n="ui.jump.title">Jump to question</h2>
+            <button id="jumpClose" class="jump-close" type="button" aria-label="Close jump dialog" data-i18n-aria-label="ui.aria.closeJumpDialog">
               <svg class="icon" aria-hidden="true"><use href="#tabler-x"></use></svg>
             </button>
           </div>
-          <label for="jumpInput">Question number</label>
+          <label for="jumpInput" data-i18n="ui.jump.questionNumber">Question number</label>
           <div class="jump-input-row">
             <input id="jumpInput" type="number" min="1" step="1" inputmode="numeric" />
-            <button id="jumpGo" type="submit">Go</button>
+            <button id="jumpGo" type="submit" data-i18n="ui.action.go">Go</button>
           </div>
-          <div class="jump-shortcuts" aria-label="Quick jumps">
-            <button type="button" data-jump="first">First</button>
-            <button type="button" data-jump="middle">Middle</button>
-            <button type="button" data-jump="last">Last</button>
+          <div class="jump-shortcuts" aria-label="Quick jumps" data-i18n-aria-label="ui.aria.quickJumps">
+            <button type="button" data-jump="first" data-i18n="ui.jump.first">First</button>
+            <button type="button" data-jump="middle" data-i18n="ui.jump.middle">Middle</button>
+            <button type="button" data-jump="last" data-i18n="ui.jump.last">Last</button>
           </div>
         </form>
       </dialog>
