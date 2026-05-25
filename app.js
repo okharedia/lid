@@ -32,7 +32,7 @@ const state = {
   studyExpanded: true,
   theme: "system",
   themeExplicit: false,
-  testTranslations: true,
+  testTranslations: false,
 };
 
 let slideTimer = 0;
@@ -1254,7 +1254,7 @@ async function init() {
   state.testSession = saved.testSession || null;
   state.theme = ["system", "light", "dark"].includes(saved.theme) ? saved.theme : "system";
   state.themeExplicit = ["system", "light", "dark"].includes(saved.theme);
-  state.testTranslations = saved.testTranslations !== false;
+  state.testTranslations = saved.testTranslations === true;
   applyTheme();
 
   const response = await fetch("./data/lid-berlin-source-of-truth.json");

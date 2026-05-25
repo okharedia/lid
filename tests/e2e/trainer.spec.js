@@ -99,10 +99,6 @@ test("preserves learn and test progress when switching modes", async ({ page }) 
 test("can take tests without translations", async ({ page }) => {
   await openTrainer(page);
 
-  await page.locator("#filterButton").click();
-  await page.getByRole("tab", { name: /Config/ }).click();
-  await page.getByRole("switch", { name: /Show translations in tests/ }).click();
-  await page.keyboard.press("Escape");
   await switchToTestMode(page);
 
   await expect(page.locator("#questionTranslation")).toBeHidden();
@@ -110,6 +106,36 @@ test("can take tests without translations", async ({ page }) => {
 
   await answerCurrentQuestion(page);
   await expect(page.locator("#answers .en")).toHaveCount(0);
+});
+
+test("test translation preference defaults off and persists changes", async ({ page }) => {
+  await openTrainer(page);
+
+  await page.locator("#filterButton").click();
+  await page.getByRole("tab", { name: /Config/ }).click();
+  const translationSwitch = page.getByRole("switch", { name: /Show translations in tests/ });
+
+  await expect(translationSwitch).not.toBeChecked();
+  let savedState = await page.evaluate(() => JSON.parse(localStorage.getItem("lid-trainer-v7")));
+  expect(savedState.testTranslations).toBe(false);
+
+  await translationSwitch.click();
+  await expect(translationSwitch).toBeChecked();
+  savedState = await page.evaluate(() => JSON.parse(localStorage.getItem("lid-trainer-v7")));
+  expect(savedState.testTranslations).toBe(true);
+
+  await page.reload();
+  await page.locator("#filterButton").click();
+  await expect(translationSwitch).toBeChecked();
+
+  await translationSwitch.click();
+  await expect(translationSwitch).not.toBeChecked();
+  savedState = await page.evaluate(() => JSON.parse(localStorage.getItem("lid-trainer-v7")));
+  expect(savedState.testTranslations).toBe(false);
+
+  await page.reload();
+  await page.locator("#filterButton").click();
+  await expect(translationSwitch).not.toBeChecked();
 });
 
 test("marking mastered removes a card, can undo, and survives reload", async ({ page }) => {
