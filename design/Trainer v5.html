@@ -237,21 +237,32 @@
   /* ── q-label: tag + category + feedback all on one row ──────────────────────────── */
   .bp-q-label {
     display: flex; align-items: center; gap: 8px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    min-width: 0;
     font-family: var(--bp-mono); font-size: 11px;
     color: var(--bp-ink-soft);
     letter-spacing: 0.08em; text-transform: uppercase;
   }
+  .bp-q-label #categoryLabel {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .bp-q-label .tag {
+    flex: 0 0 auto;
     background: var(--bp-ink); color: var(--bp-paper);
     padding: 2px 6px; font-weight: 700;
   }
   .bp-q-label .known-tag {
+    flex: 0 0 auto;
     background: var(--bp-ink); color: var(--bp-paper);
     padding: 2px 6px; font-weight: 700;
   }
-  .bp-q-label .grow { flex: 1; }
+  .bp-q-label .grow { flex: 1 1 auto; min-width: 0; }
   .bp-feedback {
+    flex: 0 0 auto;
     font-family: var(--bp-mono);
     text-transform: uppercase; letter-spacing: 0.06em;
     font-weight: 700; font-size: 11px;

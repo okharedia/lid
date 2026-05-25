@@ -1444,7 +1444,8 @@ button {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  min-width: 0;
   font-family: var(--bp-mono);
   font-size: 11px;
   color: var(--bp-ink-soft);
@@ -1452,8 +1453,17 @@ button {
   text-transform: uppercase;
 }
 
+.bp-q-label #categoryLabel {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .bp-q-label .tag,
 .bp-q-label .known-tag {
+  flex: 0 0 auto;
   background: var(--md-sys-color-surface-container-high);
   color: var(--bp-ink-soft);
   padding: 5px 9px;
@@ -1475,10 +1485,12 @@ button {
 }
 
 .bp-q-label .grow {
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .bp-feedback {
+  flex: 0 0 auto;
   font-family: var(--bp-mono);
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -1507,6 +1519,7 @@ button {
 }
 
 .bp-known {
+  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1534,6 +1547,7 @@ button {
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
+  flex: 0 0 auto;
   display: inline-flex;
   justify-content: center;
   align-items: center;
