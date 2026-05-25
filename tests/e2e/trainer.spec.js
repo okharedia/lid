@@ -138,6 +138,38 @@ test("test translation preference defaults off and persists changes", async ({ p
   await expect(translationSwitch).not.toBeChecked();
 });
 
+test("can delay test feedback until results", async ({ page }) => {
+  await openTrainer(page);
+
+  await page.locator("#filterButton").click();
+  await page.getByRole("tab", { name: /Config/ }).click();
+  const feedbackSwitch = page.getByRole("switch", { name: /Show feedback while testing/ });
+
+  await expect(feedbackSwitch).toBeChecked();
+  await feedbackSwitch.click();
+  await expect(feedbackSwitch).not.toBeChecked();
+  await page.keyboard.press("Escape");
+
+  await switchToTestMode(page);
+  const answers = page.locator("#answers [data-answer]");
+  await expect(answers.first()).toBeEnabled();
+  await answers.first().click();
+
+  await expect(page.locator("#feedback")).toBeHidden();
+  await expect(page.locator("#answers .is-correct")).toHaveCount(0);
+  await expect(page.locator("#answers .is-wrong")).toHaveCount(0);
+  await expect(page.locator("#answers .is-selected")).toHaveCount(1);
+  await expect(page.getByRole("button", { name: /Next/ })).toBeEnabled();
+
+  let savedState = await page.evaluate(() => JSON.parse(localStorage.getItem("lid-trainer-v7")));
+  expect(savedState.testImmediateFeedback).toBe(false);
+
+  await page.reload();
+  await page.locator("#filterButton").click();
+  await page.getByRole("tab", { name: /Config/ }).click();
+  await expect(feedbackSwitch).not.toBeChecked();
+});
+
 test("marking mastered removes a card, can undo, and survives reload", async ({ page }) => {
   await openTrainer(page);
 

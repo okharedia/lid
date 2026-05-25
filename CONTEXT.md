@@ -25,7 +25,7 @@ The shared desktop aside or mobile side panel where learners inspect filters and
 _Avoid_: Settings page, profile page
 
 **Test**:
-A scored session drawn from available questions in the active filter, with correctness revealed after each answer.
+A scored session drawn from available questions in the active filter, with correctness revealed after each answer unless delayed feedback is configured.
 _Avoid_: Quiz mode, exam mode
 
 **Test Session**:
@@ -67,6 +67,7 @@ _Avoid_: Warning, disclaimer
 - A **Test Result** is not kept as long-term learner history.
 - An unfinished **Test Session** can resume after refresh.
 - A **Distractor Explanation** appears only after correctness is revealed for the **Question**.
+- Delayed test feedback keeps the selected answer neutral during the **Test Session** and shows scoring in the **Test Result**.
 - A **Duplicate Question** carries a chip linking back to the canonical (lower-numbered) **Question**.
 - An **Answer Variant Note** only appears on the **Test Result** review, not during the live **Question**.
 
@@ -85,7 +86,7 @@ _Avoid_: Warning, disclaimer
 > **Dev:** "Can a **Test** start when only 7 **Available Questions** remain?"
 > **Domain expert:** "Yes — the **Test** should use those 7 questions and make the shorter size clear."
 > **Dev:** "Should a **Test** hide correctness until the end?"
-> **Domain expert:** "No — reveal correctness after each answer, then summarize the score at the end."
+> **Domain expert:** "Default to immediate feedback, but allow delayed feedback from the Test config."
 > **Dev:** "Does restarting a **Test Session** remove known marks?"
 > **Domain expert:** "No — it only resets the sampled questions, answers, score, and position for the current **Test Session**."
 > **Dev:** "Can a **Test Session** continue after switching from Elections to Berlin?"
@@ -113,7 +114,7 @@ _Avoid_: Warning, disclaimer
 - State viewing could be a separate settings page or use the existing panel — resolved: the **Review Panel** holds filters and known-question management.
 - Test scope could mean all available questions or filtered available questions — resolved: a **Test** uses the active **Filter**.
 - Test size could require exactly 18 questions or use fewer when fewer are available — resolved: a **Test** uses up to 18 available questions.
-- Test feedback could be delayed until completion or shown immediately — resolved: a **Test** reveals correctness after each answer.
+- Test feedback could be delayed until completion or shown immediately — resolved: a **Test** defaults to immediate feedback and can delay it from config.
 - Correct test answers could automatically become known questions — resolved: **Known Question** is deliberate, not automatic.
 - Known-question changes could be allowed during tests — resolved: active **Test Sessions** do not change **Known Questions**.
 - Restarting could mean clearing all learner state or only the current attempt — resolved: restart resets only the **Test Session**.

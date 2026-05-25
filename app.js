@@ -55,6 +55,7 @@ const state = {
   theme: "system",
   themeExplicit: false,
   testTranslations: false,
+  testImmediateFeedback: true,
 };
 
 let slideTimer = 0;
@@ -83,6 +84,7 @@ const els = {
   testSizePlus: document.querySelector("#testSizePlus"),
   testSizeMeta: document.querySelector("#testSizeMeta"),
   testTranslationsToggle: document.querySelector("#testTranslationsToggle"),
+  testImmediateFeedbackToggle: document.querySelector("#testImmediateFeedbackToggle"),
   themeButtons: [...document.querySelectorAll("[data-theme-choice]")],
   filterBar: document.querySelector("#filterBar"),
   app: document.querySelector(".bp-app"),
@@ -145,6 +147,7 @@ function saveState() {
       panelTab: state.panelTab,
       testSession: state.testSession,
       testTranslations: state.testTranslations,
+      testImmediateFeedback: state.testImmediateFeedback,
     };
     if (state.themeExplicit) payload.theme = state.theme;
     localStorage.setItem(
@@ -471,6 +474,7 @@ function renderTestConfigPanel() {
     Math.min(value, max),
   );
   els.testTranslationsToggle.checked = state.testTranslations;
+  els.testImmediateFeedbackToggle.checked = state.testImmediateFeedback;
   els.themeButtons.forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.themeChoice === state.theme));
   });
@@ -606,7 +610,7 @@ function render() {
   const isLearn = state.mode === "learn";
   const testAnswer = currentTestAnswer();
   const isAnswered = isLearn ? state.selected !== null : testAnswer !== null;
-  const reveal = isLearn || isAnswered;
+  const reveal = isLearn || (isAnswered && state.testImmediateFeedback);
   const showTranslations = isLearn || state.testTranslations;
   const knownCount = state.known.size;
 
@@ -625,7 +629,7 @@ function render() {
   els.emptyState.hidden = Boolean(state.result) || Boolean(card);
   els.studyDock.hidden = Boolean(state.result) || !reveal;
   syncStudyDockState();
-  els.lockedHint.hidden = Boolean(state.result) || reveal;
+  els.lockedHint.hidden = Boolean(state.result) || reveal || isAnswered;
   els.prevButton.disabled = Boolean(state.result) || state.index === 0;
   const progressValue = total ? Math.round(((state.index + 1) / total) * 100) : state.result ? state.result.percent : 0;
   els.progressFill.style.width = `${progressValue}%`;
@@ -659,7 +663,7 @@ function render() {
   els.questionTag.textContent = ui(isLearn ? "ui.question.label" : "ui.test.label", { number: pad(card.localNumber || card.id, 3) });
   els.categoryLabel.textContent = categoryLabel(card.theme);
   els.knownTag.hidden = !state.known.has(card.id);
-  els.feedback.hidden = !(correctChosen || wrongChosen);
+  els.feedback.hidden = !reveal || !(correctChosen || wrongChosen);
   els.feedback.innerHTML = correctChosen ? `${icon("circle-check")} ${uiHtml("ui.feedback.correct")}` : wrongChosen ? `${icon("x")} ${uiHtml("ui.feedback.wrong")}` : "";
   els.feedback.className = `bp-feedback ${correctChosen ? "correct" : wrongChosen ? "wrong" : ""}`;
   els.knownCount.hidden = Boolean(correctChosen || wrongChosen || !knownCount);
@@ -698,11 +702,13 @@ function render() {
         if (isCorrectAnswer) className += " is-correct";
         else if (selected === index) className += " is-wrong";
         else className += " is-dim";
+      } else if (!isLearn && isAnswered && selected === index) {
+        className += " is-selected";
       }
       const mark = reveal && isCorrectAnswer ? icon("check") : reveal && selected === index ? icon("x") : "";
       const answerTranslation = showTranslations ? t(answer.translationKey) : "";
       const why = reveal ? t(answer.whyKey) : "";
-      const checked = reveal && (isLearn ? isCorrectAnswer : selected === index);
+      const checked = reveal ? (isLearn ? isCorrectAnswer : selected === index) : !isLearn && selected === index;
       return `
         <li>
           <button class="${className}" type="button" role="radio" aria-checked="${checked}" data-answer="${index}" ${isLearn || isAnswered ? "disabled" : ""}>
@@ -1056,8 +1062,16 @@ function setTestTranslations(showTranslations) {
   render();
 }
 
+function setTestImmediateFeedback(showFeedback) {
+  state.testImmediateFeedback = Boolean(showFeedback);
+  render();
+}
+
 function finishTest() {
-  state.result = { ...scoreFor(), showTranslations: state.testTranslations };
+  state.result = {
+    ...scoreFor(),
+    showTranslations: state.testTranslations,
+  };
   state.testSession = null;
   state.deck = [];
   state.index = 0;
@@ -1154,6 +1168,7 @@ function bindEvents() {
     els.testSizeInput.blur();
   });
   els.testTranslationsToggle.addEventListener("change", () => setTestTranslations(els.testTranslationsToggle.checked));
+  els.testImmediateFeedbackToggle.addEventListener("change", () => setTestImmediateFeedback(els.testImmediateFeedbackToggle.checked));
   els.languageSelect?.addEventListener("change", async () => {
     const nextLocale = SUPPORTED_LOCALES.has(els.languageSelect.value) ? els.languageSelect.value : DEFAULT_LOCALE;
     localStorage.setItem("lid-locale", nextLocale);
@@ -1360,6 +1375,7 @@ async function init() {
   state.theme = ["system", "light", "dark"].includes(saved.theme) ? saved.theme : "system";
   state.themeExplicit = ["system", "light", "dark"].includes(saved.theme);
   state.testTranslations = saved.testTranslations === true;
+  state.testImmediateFeedback = saved.testImmediateFeedback !== false;
   applyTheme();
 
   const response = await fetch("./data/lid-berlin-source-of-truth.json");

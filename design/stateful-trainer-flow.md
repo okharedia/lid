@@ -33,8 +33,9 @@
 - The temporary default test size is 3 for easier local testing.
 - Test size can be configured from the Test tab, overridden with `?testSize=18`, or set with `localStorage.setItem("lid-test-size", "18")`.
 - Test translations are off by default for German-only practice and can be turned on from the Test tab.
+- Test answer feedback is on by default and can be turned off from the Test tab to hold correctness until results.
 - If fewer questions are available than the configured size, the test uses the smaller set.
-- Answers reveal correctness immediately.
+- With immediate feedback on, answers reveal correctness immediately; with it off, the chosen answer uses a neutral selected state until the result.
 - Test progress persists until finished or restarted.
 - Switching between Learn and Test preserves each mode's current question.
 - Changing filters during an answered test prompts because it restarts the session.

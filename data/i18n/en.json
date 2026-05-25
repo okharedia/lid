@@ -2514,6 +2514,8 @@
     "ui.test.lengthOne": "Test length: {count} question",
     "ui.test.lengthOther": "Test length: {count} questions",
     "ui.test.questionsPerTest": "Questions per test",
+    "ui.test.showImmediateFeedback": "Show feedback while testing",
+    "ui.test.immediateFeedbackSupport": "Correct/wrong reveal after each answer",
     "ui.test.showTranslations": "Show translations in tests",
     "ui.test.translationSupport": "Question and answer translations",
     "ui.theme.dark": "Dark",

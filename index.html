@@ -222,6 +222,27 @@
                 </span>
               </span>
             </label>
+            <label class="settings-switch-row" for="testImmediateFeedbackToggle">
+              <span class="settings-copy">
+                <span id="testImmediateFeedbackTitle" class="settings-title" data-i18n="ui.test.showImmediateFeedback">Show feedback while testing</span>
+                <span id="testImmediateFeedbackSupport" class="settings-support" data-i18n="ui.test.immediateFeedbackSupport">Correct/wrong reveal after each answer</span>
+              </span>
+              <span class="md-switch">
+                <input
+                  id="testImmediateFeedbackToggle"
+                  type="checkbox"
+                  role="switch"
+                  aria-labelledby="testImmediateFeedbackTitle"
+                  aria-describedby="testImmediateFeedbackSupport"
+                  checked
+                />
+                <span class="md-switch-track" aria-hidden="true">
+                  <span class="md-switch-handle">
+                    <svg class="icon switch-icon" aria-hidden="true"><use href="#tabler-check"></use></svg>
+                  </span>
+                </span>
+              </span>
+            </label>
             <div class="config-section">
               <div class="config-label" data-i18n="ui.theme.label">Theme</div>
               <div class="theme-control" role="group" aria-label="Theme preference" data-i18n-aria-label="ui.aria.themePreference">
