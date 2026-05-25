@@ -8,6 +8,7 @@ const root = process.cwd();
 const sourcePath = args.source || "data/lid-berlin-source-of-truth.json";
 const currentPath = args.current || "data/i18n/en.json";
 const outputPath = args.output || "tmp/deepl-web-review/core-translations.json";
+const outputFile = path.join(root, outputPath);
 const start = Number(args.start || 0);
 const maxChars = Number(args["max-chars"] || 850);
 const maxItems = Number(args["max-items"] || 22);
@@ -17,10 +18,10 @@ const current = JSON.parse(fs.readFileSync(path.join(root, currentPath), "utf8")
 const allItems = extractQuestionAnswerItems(source, current);
 const items = allItems.slice(start);
 
-fs.mkdirSync(path.dirname(path.join(root, outputPath)), { recursive: true });
+fs.mkdirSync(path.dirname(outputFile), { recursive: true });
 
 const batches = makeBatches(items, maxChars, maxItems);
-const results = [];
+const results = loadResumeResults(outputFile, allItems, start);
 const failures = [];
 
 console.error(`items=${allItems.length} start=${start} remaining=${items.length} batches=${batches.length}`);
@@ -64,7 +65,7 @@ for (let batchIndex = 0; batchIndex < batches.length; batchIndex += 1) {
     for (let index = 0; index < batch.length; index += 1) {
       results.push({ ...batch[index], deepl: parsed[index] });
     }
-    console.error(`batch ${batchIndex + 1}/${batches.length} ok (${start + results.length}/${allItems.length})`);
+    console.error(`batch ${batchIndex + 1}/${batches.length} ok (${results.length}/${allItems.length})`);
   } catch (error) {
     const textareas = await page
       .locator("d-textarea")
@@ -73,7 +74,7 @@ for (let batchIndex = 0; batchIndex < batches.length; batchIndex += 1) {
     const body = await page.locator("body").innerText().catch(() => "");
     failures.push({
       batch: batchIndex + 1,
-      globalStart: start + results.length,
+      globalStart: results.length,
       reason: error.message,
       sourceLen: input.length,
       source: input,
@@ -98,11 +99,11 @@ const output = {
   generatedAt: new Date().toISOString(),
   total: allItems.length,
   start,
-  translated: start + results.length,
+  translated: results.length,
   failures,
   results,
 };
-fs.writeFileSync(path.join(root, outputPath), `${JSON.stringify(output, null, 2)}\n`);
+fs.writeFileSync(outputFile, `${JSON.stringify(output, null, 2)}\n`);
 console.log(JSON.stringify({ total: allItems.length, translated: output.translated, failures: failures.length, output: outputPath }, null, 2));
 
 function parseArgs(argv) {
@@ -134,6 +135,29 @@ function extractQuestionAnswerItems(data, messages) {
     }
   }
   return items;
+}
+
+function loadResumeResults(filePath, allItems, startIndex) {
+  if (startIndex === 0) return [];
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Cannot resume from --start ${startIndex}: ${outputPath} does not exist`);
+  }
+
+  const previous = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  const previousResults = Array.isArray(previous.results) ? previous.results : [];
+  if (previousResults.length < startIndex) {
+    throw new Error(
+      `Cannot resume from --start ${startIndex}: ${outputPath} only has ${previousResults.length} results`,
+    );
+  }
+
+  const resumed = previousResults.slice(0, startIndex);
+  for (let index = 0; index < resumed.length; index += 1) {
+    if (resumed[index].key !== allItems[index].key) {
+      throw new Error(`Cannot resume: result ${index} key mismatch in ${outputPath}`);
+    }
+  }
+  return resumed;
 }
 
 function makeBatches(list, batchMaxChars, batchMaxItems) {

@@ -56,6 +56,8 @@ If a run stops partway through, resume from the translated count:
 node .codex/skills/deepl-browser-translation/scripts/deepl-web-review.mjs --start 1222
 ```
 
+When resuming with `--start`, the script reads the existing output file and rewrites it with the previous and newly translated results combined.
+
 ## Review Heuristics
 
 Prioritize fixes where:
