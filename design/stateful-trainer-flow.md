@@ -7,6 +7,7 @@
 - Desktop uses the left review panel.
 - Mobile opens the same review panel from the top filter button.
 - The review panel has three tabs: Filters, Known, and Test.
+- Learn order is stable; shuffle is intentionally not part of the trainer.
 
 ## Button Variants
 
@@ -31,9 +32,11 @@
 - A test samples up to the configured test size from random available questions in the active filter.
 - The temporary default test size is 3 for easier local testing.
 - Test size can be configured from the Test tab, overridden with `?testSize=18`, or set with `localStorage.setItem("lid-test-size", "18")`.
+- Test translations can be turned off from the Test tab for German-only practice.
 - If fewer questions are available than the configured size, the test uses the smaller set.
 - Answers reveal correctness immediately.
 - Test progress persists until finished or restarted.
+- Switching between Learn and Test preserves each mode's current question.
 - Changing filters during an answered test prompts because it restarts the session.
 
 ## Results

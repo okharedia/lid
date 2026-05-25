@@ -103,7 +103,7 @@
   }
   .bp-mode button:focus-visible { outline: 2px solid var(--bp-ink); outline-offset: 2px; }
 
-  /* pills bar (filter + shuffle) */
+  /* pills bar (filters) */
   .bp-pills-bar {
     display: none; grid-template-columns: auto 1fr;
     align-items: center; gap: 8px;
@@ -203,10 +203,15 @@
   .bp-sub .iconbtn:hover { border-color: var(--bp-ink); background: var(--bp-paper-soft); }
   .bp-sub .iconbtn[aria-pressed="true"] { background: var(--bp-ink); color: var(--bp-paper); border-color: var(--bp-ink); }
   .bp-sub .iconbtn[aria-pressed="true"]:hover { background: #1f1f24; }
-  .bp-sub .progress { color: var(--bp-ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .bp-sub .progress {
+    min-height: 40px; min-width: 78px; padding: 0 12px;
+    display: inline-flex; align-items: baseline; justify-content: center;
+    border-radius: 999px; background: var(--bp-paper-soft);
+    color: var(--bp-ink); font-weight: 700; font-variant-numeric: tabular-nums;
+  }
   .bp-sub .pct { color: var(--bp-ink-faint); margin-left: 2px; }
   .bp-known { color: var(--bp-ink); font-weight: 700; }
-  .bp-known .check { color: var(--bp-ink); }
+  .bp-known .mastered-icon { color: var(--bp-ink-soft); }
 
   /* track */
   .bp-track {
@@ -472,10 +477,6 @@
     border-right: none;
     background: var(--bp-ink); color: var(--bp-paper);
   }
-  .bp-nav .shuffle-btn[aria-pressed="true"] {
-    background: var(--bp-ink); color: var(--bp-paper);
-  }
-  .bp-nav .shuffle-btn[aria-pressed="true"]:hover { background: #1f1f24; }
   .bp-nav button:disabled {
     color: var(--bp-ink-faint); cursor: default;
   }

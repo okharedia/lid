@@ -16,24 +16,6 @@ function saveState(patch) {
   } catch {}
 }
 
-function mulberry32(seed) {
-  return function () {
-    let t = seed += 0x6D2B79F5;
-    t = Math.imul(t ^ t >>> 15, t | 1);
-    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
-  };
-}
-function shuffled(arr, seed) {
-  const rnd = mulberry32(seed);
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(rnd() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
 function HighlightedText({ text, keywords }) {
   if (!keywords?.length) return <>{text}</>;
   const terms = keywords.map((k) => k.de).sort((a, b) => b.length - a.length);
@@ -59,7 +41,6 @@ function App() {
   const initial = loadState();
   const [mode, setMode] = useState(initial.mode || 'learn');
   const [category, setCategory] = useState(initial.category || ALL_CATS);
-  const [shuffleSeed, setShuffleSeed] = useState(initial.shuffleSeed || 0);
   const [known, setKnown] = useState(new Set(initial.known || []));
   const [index, setIndex] = useState(initial.index || 0);
   const [selected, setSelected] = useState(null);
@@ -68,9 +49,8 @@ function App() {
   const deck = useMemo(() => {
     let list = window.LID_QUESTIONS;
     if (category !== ALL_CATS) list = list.filter((q) => q.category === category);
-    if (shuffleSeed) list = shuffled(list, shuffleSeed);
     return list;
-  }, [category, shuffleSeed]);
+  }, [category]);
 
   useEffect(() => {
     if (index >= deck.length) setIndex(0);
@@ -78,11 +58,11 @@ function App() {
 
   useEffect(() => {
     setSelected(null);
-  }, [index, mode, category, shuffleSeed]);
+  }, [index, mode, category]);
 
   useEffect(() => {
-    saveState({ mode, category, shuffleSeed, known: Array.from(known), index });
-  }, [mode, category, shuffleSeed, known, index]);
+    saveState({ mode, category, known: Array.from(known), index });
+  }, [mode, category, known, index]);
 
   const current = deck[index] || null;
   const total = deck.length;
@@ -193,7 +173,7 @@ function App() {
             {correctChosen && <span className="bp-feedback correct">Richtig</span>}
             {wrongChosen && <span className="bp-feedback wrong">Falsch</span>}
             {!correctChosen && !wrongChosen && <>
-              {knownCount > 0 && <span className="bp-known"><span className="check">✓</span> {knownCount}</span>}
+              {knownCount > 0 && <span className="bp-known"><span className="mastered-icon">★</span> {knownCount}</span>}
               <span className="progress">
                 {String(total === 0 ? 0 : index + 1).padStart(2, '0')}<span className="pct">/{String(total).padStart(2, '0')}</span>
               </span>
@@ -279,19 +259,11 @@ function App() {
           <span className="arrow">←</span> Prev
         </button>
         <button
-          className="shuffle-btn"
-          aria-pressed={!!shuffleSeed}
-          onClick={() => setShuffleSeed(shuffleSeed ? 0 : Math.floor(Math.random() * 1e9) + 1)}
-          aria-label="Shuffle"
-          title="Shuffle deck">
-          ⇆
-        </button>
-        <button
           className={'known-btn' + (isKnown ? ' on' : '')}
           onClick={toggleKnown}
           disabled={!current}>
           
-          {isKnown ? '✓ Gewusst' : '★ Mark known'}
+          {isKnown ? '★ Gewusst' : '★ Mark known'}
         </button>
         <button onClick={goNext} disabled={!current || index >= total - 1}>
           Next <span className="arrow">→</span>

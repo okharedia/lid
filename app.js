@@ -21,9 +21,9 @@ let messages = {};
 const state = {
   mode: "learn",
   category: ALL_CATS,
-  shuffleSeed: 0,
   known: new Set(),
   index: 0,
+  learnIndex: 0,
   selected: null,
   deck: [],
   panelTab: "filters",
@@ -32,6 +32,7 @@ const state = {
   studyExpanded: true,
   theme: "system",
   themeExplicit: false,
+  testTranslations: true,
 };
 
 let slideTimer = 0;
@@ -58,6 +59,7 @@ const els = {
   testSizeMinus: document.querySelector("#testSizeMinus"),
   testSizePlus: document.querySelector("#testSizePlus"),
   testSizeMeta: document.querySelector("#testSizeMeta"),
+  testTranslationsToggle: document.querySelector("#testTranslationsToggle"),
   themeButtons: [...document.querySelectorAll("[data-theme-choice]")],
   filterBar: document.querySelector("#filterBar"),
   app: document.querySelector(".bp-app"),
@@ -90,7 +92,6 @@ const els = {
   lockedHint: document.querySelector("#lockedHint"),
   cardNav: document.querySelector("#cardNav"),
   prevButton: document.querySelector("#prevButton"),
-  shuffleButton: document.querySelector("#shuffleButton"),
   middleButton: document.querySelector("#middleButton"),
   nextButton: document.querySelector("#nextButton"),
   snackbar: document.querySelector("#snackbar"),
@@ -115,11 +116,12 @@ function saveState() {
     const payload = {
       mode: state.mode,
       category: state.category,
-      shuffleSeed: state.shuffleSeed,
       known: [...state.known],
       index: state.index,
+      learnIndex: state.learnIndex,
       panelTab: state.panelTab,
       testSession: state.testSession,
+      testTranslations: state.testTranslations,
     };
     if (state.themeExplicit) payload.theme = state.theme;
     localStorage.setItem(
@@ -237,16 +239,23 @@ function currentTestAnswer() {
   return state.testSession.answers[String(card.id)] ?? null;
 }
 
+function rememberCurrentProgress() {
+  if (state.mode === "learn") {
+    state.learnIndex = state.index;
+  } else if (state.testSession) {
+    state.testSession.index = state.index;
+  }
+}
+
 function hasAnsweredTestQuestions(session = state.testSession) {
   return Boolean(session && Object.keys(session.answers || {}).length);
 }
 
 function buildLearnDeck(resetIndex = true) {
-  let deck = availableQuestions();
-  if (state.shuffleSeed) deck = shuffled(deck, state.shuffleSeed);
-  state.deck = deck;
+  state.deck = availableQuestions();
   if (resetIndex) state.index = 0;
-  else if (state.index >= deck.length) state.index = Math.max(0, deck.length - 1);
+  else if (state.index >= state.deck.length) state.index = Math.max(0, state.deck.length - 1);
+  state.learnIndex = state.index;
   state.selected = null;
 }
 
@@ -375,6 +384,7 @@ function renderTestConfigPanel() {
   els.testSizeMinus.disabled = value <= 1;
   els.testSizePlus.disabled = value >= max;
   els.testSizeMeta.textContent = `Test length: ${Math.min(value, max)} question${Math.min(value, max) === 1 ? "" : "s"}`;
+  els.testTranslationsToggle.checked = state.testTranslations;
   els.themeButtons.forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.themeChoice === state.theme));
   });
@@ -431,7 +441,7 @@ function movePanelTab(event) {
 
 function renderResult() {
   if (!state.result) return;
-  const { correct, total, percent, missed } = state.result;
+  const { correct, total, percent, missed, showTranslations = true } = state.result;
   const passed = percent >= PASS_SCORE;
   els.resultView.classList.toggle("passed", passed);
   els.resultView.innerHTML = `
@@ -464,9 +474,9 @@ function renderResult() {
                   ? "No answer"
                   : selectedAnswerObject?.text || "No answer";
                 const correctAnswer = correctAnswerObject?.text || question.correctAnswer;
-                const questionTranslation = t(question.translationKey);
-                const selectedTranslation = selectedAnswerObject ? t(selectedAnswerObject.translationKey) : "";
-                const correctTranslation = correctAnswerObject ? t(correctAnswerObject.translationKey) : "";
+                const questionTranslation = showTranslations ? t(question.translationKey) : "";
+                const selectedTranslation = showTranslations && selectedAnswerObject ? t(selectedAnswerObject.translationKey) : "";
+                const correctTranslation = showTranslations && correctAnswerObject ? t(correctAnswerObject.translationKey) : "";
                 return `
                   <article class="missed-item">
                     <span>FRAGE ${pad(question.localNumber || question.id, 3)}</span>
@@ -486,7 +496,7 @@ function renderResult() {
                         ${correctTranslation ? `<span class="en">${escapeHtml(correctTranslation)}</span>` : ""}
                       </span>
                     </div>
-                    ${question.answerVariants ? `<p class="variant-note">${escapeHtml(t(question.answerVariants.noteKey))}</p>` : ""}
+                    ${showTranslations && question.answerVariants ? `<p class="variant-note">${escapeHtml(t(question.answerVariants.noteKey))}</p>` : ""}
                   </article>
                 `;
               })
@@ -511,6 +521,7 @@ function render() {
   const testAnswer = currentTestAnswer();
   const isAnswered = isLearn ? state.selected !== null : testAnswer !== null;
   const reveal = isLearn || isAnswered;
+  const showTranslations = isLearn || state.testTranslations;
   const knownCount = state.known.size;
 
   els.learnMode.setAttribute("aria-pressed", String(isLearn));
@@ -519,9 +530,6 @@ function render() {
   els.filterButton.setAttribute("aria-label", `${els.app.classList.contains("filters-open") ? "Close" : "Open"} review panel`);
   els.filterButton.setAttribute("aria-expanded", String(els.app.classList.contains("filters-open")));
   syncDrawerAccessibility();
-  els.shuffleButton.hidden = !isLearn || Boolean(state.result);
-  els.shuffleButton.setAttribute("aria-pressed", String(Boolean(state.shuffleSeed)));
-  els.shuffleButton.setAttribute("aria-label", state.shuffleSeed ? "Use original order" : "Shuffle study cards");
   els.resultView.hidden = !state.result;
   els.cardNav.hidden = Boolean(state.result);
   els.card.hidden = Boolean(state.result) || !card;
@@ -561,14 +569,14 @@ function render() {
   els.feedback.innerHTML = correctChosen ? `${icon("circle-check")} Richtig` : wrongChosen ? `${icon("x")} Falsch` : "";
   els.feedback.className = `bp-feedback ${correctChosen ? "correct" : wrongChosen ? "wrong" : ""}`;
   els.knownCount.hidden = Boolean(correctChosen || wrongChosen || !knownCount);
-  els.knownCount.innerHTML = `${icon("circle-check", "check")} ${knownCount}`;
+  els.knownCount.innerHTML = `${icon("star", "mastered-icon")} ${knownCount}`;
   els.progressText.innerHTML = `${pad(state.index + 1)}<span class="pct">/${pad(total)}</span>`;
   els.progressText.disabled = Boolean(state.result) || total <= 1;
   els.progressText.setAttribute("aria-label", `Jump to question, currently ${state.index + 1} of ${total}`);
   els.questionText.innerHTML = highlightedText(card.question, card);
   const questionTranslation = t(card.translationKey);
   els.questionTranslation.textContent = questionTranslation;
-  els.questionTranslation.hidden = !questionTranslation;
+  els.questionTranslation.hidden = !showTranslations || !questionTranslation;
   els.questionImage.classList.toggle("visible", Boolean(card.imageUrl));
   if (card.imageUrl) {
     els.questionImage.onload = fitLayout;
@@ -598,7 +606,7 @@ function render() {
         else className += " is-dim";
       }
       const mark = reveal && isCorrectAnswer ? icon("check") : reveal && selected === index ? icon("x") : "";
-      const answerTranslation = t(answer.translationKey);
+      const answerTranslation = showTranslations ? t(answer.translationKey) : "";
       const why = reveal ? t(answer.whyKey) : "";
       const checked = reveal && (isLearn ? isCorrectAnswer : selected === index);
       return `
@@ -659,7 +667,7 @@ function renderNav(card, isLearn, isAnswered, total) {
     els.middleButton.className = `known-btn ${isKnown ? "on" : ""}`;
     els.middleButton.disabled = !card;
     els.middleButton.setAttribute("aria-label", isKnown ? "Remove mastered mark" : "Mark as mastered");
-    els.middleButton.innerHTML = isKnown ? `${icon("circle-check")} Mastered` : `${icon("star")} Mark as mastered`;
+    els.middleButton.innerHTML = isKnown ? `${icon("star", "mastered-icon")} Mastered` : `${icon("star")} Mark as mastered`;
     els.nextButton.disabled = !card || state.index >= total - 1;
     els.nextButton.setAttribute("aria-label", "Next question");
     els.nextButton.innerHTML = `Next ${icon("arrow-right", "arrow")}`;
@@ -872,10 +880,12 @@ function fitLayout() {
 
 function setMode(mode) {
   if (mode === state.mode && !state.result) return;
+  rememberCurrentProgress();
   state.mode = mode;
   state.result = null;
   state.selected = null;
   if (mode === "learn") {
+    state.index = state.learnIndex || 0;
     buildLearnDeck(false);
   } else {
     ensureTestSession();
@@ -891,7 +901,7 @@ function move(step) {
   if (nextIndex === state.index) return;
   state.index = nextIndex;
   state.selected = null;
-  if (state.testSession) state.testSession.index = state.index;
+  rememberCurrentProgress();
   render();
   animateMove(step);
 }
@@ -946,8 +956,13 @@ function setTestSize(value) {
   render();
 }
 
+function setTestTranslations(showTranslations) {
+  state.testTranslations = Boolean(showTranslations);
+  render();
+}
+
 function finishTest() {
-  state.result = scoreFor();
+  state.result = { ...scoreFor(), showTranslations: state.testTranslations };
   state.testSession = null;
   state.deck = [];
   state.index = 0;
@@ -963,6 +978,7 @@ function changeCategory(category) {
   }
   state.category = category;
   state.index = 0;
+  state.learnIndex = 0;
   state.selected = null;
   state.result = null;
   if (state.mode === "test") state.testSession = newTestSession(category);
@@ -1042,6 +1058,7 @@ function bindEvents() {
     setTestSize(Number(els.testSizeInput.value));
     els.testSizeInput.blur();
   });
+  els.testTranslationsToggle.addEventListener("change", () => setTestTranslations(els.testTranslationsToggle.checked));
   els.themeButtons.forEach((button) => {
     button.addEventListener("click", () => {
       state.theme = button.dataset.themeChoice;
@@ -1102,11 +1119,6 @@ function bindEvents() {
     state.studyExpanded = false;
     render();
     els.studyHandle.focus();
-  });
-  els.shuffleButton.addEventListener("click", () => {
-    state.shuffleSeed = state.shuffleSeed ? 0 : Math.floor(Math.random() * 1e9) + 1;
-    buildLearnDeck();
-    render();
   });
   els.categoryPills.addEventListener("click", (event) => {
     const button = event.target.closest("[data-category]");
@@ -1235,13 +1247,14 @@ async function init() {
   const saved = loadSavedState();
   state.mode = saved.mode === "test" ? "test" : "learn";
   state.category = saved.category || ALL_CATS;
-  state.shuffleSeed = saved.shuffleSeed || 0;
   state.known = new Set(saved.known || []);
   state.index = saved.index || 0;
+  state.learnIndex = Number.isInteger(saved.learnIndex) ? saved.learnIndex : state.mode === "learn" ? state.index : 0;
   state.panelTab = ["known", "test"].includes(saved.panelTab) ? saved.panelTab : "filters";
   state.testSession = saved.testSession || null;
   state.theme = ["system", "light", "dark"].includes(saved.theme) ? saved.theme : "system";
   state.themeExplicit = ["system", "light", "dark"].includes(saved.theme);
+  state.testTranslations = saved.testTranslations !== false;
   applyTheme();
 
   const response = await fetch("./data/lid-berlin-source-of-truth.json");

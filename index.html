@@ -11,13 +11,6 @@
       <symbol id="tabler-filter" viewBox="0 0 24 24">
         <path d="M4 4h16l-6 7v5l-4 3v-8z"></path>
       </symbol>
-      <symbol id="tabler-arrows-shuffle" viewBox="0 0 24 24">
-        <path d="M18 4l3 3l-3 3"></path>
-        <path d="M18 20l3 -3l-3 -3"></path>
-        <path d="M3 7h3a5 5 0 0 1 5 5a5 5 0 0 0 5 5h5"></path>
-        <path d="M21 7h-5a4.98 4.98 0 0 0 -4 2"></path>
-        <path d="M3 17h3a4.98 4.98 0 0 0 4 -2"></path>
-      </symbol>
       <symbol id="tabler-arrow-left" viewBox="0 0 24 24">
         <path d="M5 12h14"></path>
         <path d="M5 12l6 6"></path>
@@ -93,7 +86,7 @@
         <path d="M4 18l1 1l3 -3"></path>
       </symbol>
       <symbol id="tabler-settings" viewBox="0 0 24 24">
-        <path d="M10.325 4.317a1.724 1.724 0 0 0 3.35 0a1.724 1.724 0 0 1 2.573 -1.066a1.724 1.724 0 0 0 2.438 2.438a1.724 1.724 0 0 1 1.066 2.573a1.724 1.724 0 0 0 0 3.35a1.724 1.724 0 0 1 -1.066 2.573a1.724 1.724 0 0 0 -2.438 2.438a1.724 1.724 0 0 1 -2.573 1.066a1.724 1.724 0 0 0 -3.35 0a1.724 1.724 0 0 1 -2.573 1.066a1.724 1.724 0 0 0 -2.438 -2.438a1.724 1.724 0 0 1 -1.066 -2.573a1.724 1.724 0 0 0 0 -3.35a1.724 1.724 0 0 1 1.066 -2.573a1.724 1.724 0 0 0 2.438 -2.438a1.724 1.724 0 0 1 2.573 -1.066"></path>
+        <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c.996 .608 2.296 .07 2.572 -1.065z"></path>
         <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
       </symbol>
       <symbol id="tabler-minus" viewBox="0 0 24 24">
@@ -165,9 +158,6 @@
               <option value="fr" disabled>FR</option>
             </select>
           </label>
-          <button id="shuffleButton" class="bp-shuffle-toggle" type="button" aria-pressed="false" aria-label="Shuffle" title="Shuffle deck">
-            <svg class="icon" aria-hidden="true"><use href="#tabler-arrows-shuffle"></use></svg>
-          </button>
           <span class="bp-mode" role="group" aria-label="Mode">
             <button id="learnMode" type="button" aria-pressed="true">Learn</button>
             <button id="testMode" type="button" aria-pressed="false">Test</button>
@@ -182,7 +172,7 @@
             <span class="tab-label">Filters</span>
           </button>
           <button id="knownTab" type="button" role="tab" aria-selected="false" aria-controls="knownPane" tabindex="-1">
-            <svg class="icon tab-icon" aria-hidden="true"><use href="#tabler-list-check"></use></svg>
+            <svg class="icon tab-icon" aria-hidden="true"><use href="#tabler-star"></use></svg>
             <span class="tab-label">Mastered</span>
           </button>
           <button id="testConfigTab" type="button" role="tab" aria-selected="false" aria-controls="testConfigPane" tabindex="-1">
@@ -212,6 +202,26 @@
               </div>
               <div id="testSizeMeta" class="test-size-meta"></div>
             </div>
+            <label class="settings-switch-row" for="testTranslationsToggle">
+              <span class="settings-copy">
+                <span id="testTranslationsTitle" class="settings-title">Show translations in tests</span>
+                <span id="testTranslationsSupport" class="settings-support">Question and answer translations</span>
+              </span>
+              <span class="md-switch">
+                <input
+                  id="testTranslationsToggle"
+                  type="checkbox"
+                  role="switch"
+                  aria-labelledby="testTranslationsTitle"
+                  aria-describedby="testTranslationsSupport"
+                />
+                <span class="md-switch-track" aria-hidden="true">
+                  <span class="md-switch-handle">
+                    <svg class="icon switch-icon" aria-hidden="true"><use href="#tabler-check"></use></svg>
+                  </span>
+                </span>
+              </span>
+            </label>
             <div class="config-section">
               <div class="config-label">Theme</div>
               <div class="theme-control" role="group" aria-label="Theme preference">
@@ -244,7 +254,7 @@
           <span id="knownTag" class="known-tag" hidden><svg class="icon" aria-hidden="true"><use href="#tabler-check"></use></svg> Mastered</span>
           <span class="grow"></span>
           <span id="feedback" class="bp-feedback" hidden></span>
-          <span id="knownCount" class="bp-known" hidden><svg class="icon check" aria-hidden="true"><use href="#tabler-check"></use></svg> 0</span>
+          <span id="knownCount" class="bp-known" hidden><svg class="icon mastered-icon" aria-hidden="true"><use href="#tabler-star"></use></svg> 0</span>
           <button id="progressText" class="progress" type="button" aria-label="Jump to question">01<span class="pct">/310</span></button>
         </div>
 

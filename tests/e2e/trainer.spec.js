@@ -78,6 +78,40 @@ test("persists test answers across reload", async ({ page }) => {
   await expect(page.getByRole("button", { name: /Next/ })).toBeEnabled();
 });
 
+test("preserves learn and test progress when switching modes", async ({ page }) => {
+  await openTrainer(page);
+
+  await page.getByRole("button", { name: "Next" }).click();
+  const learnQuestion = await page.locator("#questionText").innerText();
+
+  await switchToTestMode(page);
+  await answerCurrentQuestion(page);
+  await page.getByRole("button", { name: "Next" }).click();
+  const testQuestion = await page.locator("#questionText").innerText();
+
+  await page.getByLabel("Mode").getByRole("button", { name: "Learn" }).click();
+  await expect(page.locator("#questionText")).toHaveText(learnQuestion);
+
+  await switchToTestMode(page);
+  await expect(page.locator("#questionText")).toHaveText(testQuestion);
+});
+
+test("can take tests without translations", async ({ page }) => {
+  await openTrainer(page);
+
+  await page.locator("#filterButton").click();
+  await page.getByRole("tab", { name: /Config/ }).click();
+  await page.getByRole("switch", { name: /Show translations in tests/ }).click();
+  await page.keyboard.press("Escape");
+  await switchToTestMode(page);
+
+  await expect(page.locator("#questionTranslation")).toBeHidden();
+  await expect(page.locator("#answers .en")).toHaveCount(0);
+
+  await answerCurrentQuestion(page);
+  await expect(page.locator("#answers .en")).toHaveCount(0);
+});
+
 test("marking mastered removes a card, can undo, and survives reload", async ({ page }) => {
   await openTrainer(page);
 
@@ -100,18 +134,7 @@ test("marking mastered removes a card, can undo, and survives reload", async ({ 
 
   await page.reload();
   await expect(page.locator("#knownCount")).toContainText("1");
-});
-
-test("shuffle starts at the beginning of the shuffled deck", async ({ page }) => {
-  await openTrainer(page);
-
-  await page.getByRole("button", { name: "Next" }).click();
-  await expect(page.locator("#progressText")).toContainText("02");
-
-  await page.getByRole("button", { name: "Shuffle study cards" }).click();
-  await expect(page.locator("#progressText")).toContainText("01");
-  await expect(page.getByRole("button", { name: "Previous question" })).toBeDisabled();
-  await expect(page.getByRole("button", { name: "Next question" })).toBeEnabled();
+  await expect(page.locator("#knownCount use")).toHaveAttribute("href", "#tabler-star");
 });
 
 test("study help starts expanded and handle toggles it", async ({ page }) => {

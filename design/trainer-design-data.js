@@ -141,7 +141,6 @@ const els = {
   testMode: document.querySelector("#testMode"),
   filterButton: document.querySelector("#filterButton"),
   filterButtonLabel: document.querySelector("#filterButtonLabel"),
-  shuffleButton: document.querySelector("#shuffleButton"),
   categoryPills: document.querySelector("#categoryPills"),
   progressFill: document.querySelector("#progressFill"),
   questionTag: document.querySelector("#questionTag"),
