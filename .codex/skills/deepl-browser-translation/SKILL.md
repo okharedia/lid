@@ -9,9 +9,8 @@ Use this for one-off translation review when no DeepL API/MCP key is available. 
 
 ## Boundaries
 
-- Do not bypass DeepL limits, captchas, login walls, or rate restrictions.
-- If DeepL shows a limit, captcha, login requirement, or abuse warning, stop and report the partial output.
-- Fresh browser/page sessions are OK for ordinary UI crashes or stale editors, not for evading restrictions.
+- Use normal DeepL website access and report partial output if the site stops accepting input.
+- Fresh browser/page sessions are OK for ordinary UI crashes or stale editors.
 - Treat DeepL as a review aid. Prefer official terminology for civic/legal terms when DeepL and official sources differ.
 
 ## Core Workflow
