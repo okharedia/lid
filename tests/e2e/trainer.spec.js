@@ -191,6 +191,14 @@ test("can take tests without translations", async ({ page }) => {
   await expect(page.locator("#answers .en")).toHaveCount(0);
 });
 
+test("hides duplicate numeric answer translations", async ({ page }) => {
+  await page.goto("/q/304");
+
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 004");
+  await expect(page.locator("#answers .en")).toHaveCount(0);
+  await expect(page.locator("#answers")).toContainText("16");
+});
+
 test("question images advertise and open a larger view", async ({ page }) => {
   await openTrainer(page);
 

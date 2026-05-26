@@ -211,6 +211,16 @@ function t(key) {
   return key ? messages[key] || "" : "";
 }
 
+function isNumericText(value) {
+  return /^[+-]?(?:\d+|\d{1,3}(?:[.,\s]\d{3})+)(?:[.,]\d+)?%?$/.test(String(value).trim());
+}
+
+function visibleAnswerTranslation(answer) {
+  const translation = t(answer?.translationKey).trim();
+  const source = String(answer?.text || "").trim();
+  return source === translation && isNumericText(source) ? "" : translation;
+}
+
 function ui(key, replacements = {}) {
   const template = t(key) || key;
   return template.replace(/\{(\w+)\}/g, (_, name) => {
@@ -615,8 +625,8 @@ function renderResult() {
                   : selectedAnswerObject?.text || ui("ui.result.noAnswer");
                 const correctAnswer = correctAnswerObject?.text || question.correctAnswer;
                 const questionTranslation = showTranslations ? t(question.translationKey) : "";
-                const selectedTranslation = showTranslations && selectedAnswerObject ? t(selectedAnswerObject.translationKey) : "";
-                const correctTranslation = showTranslations && correctAnswerObject ? t(correctAnswerObject.translationKey) : "";
+                const selectedTranslation = showTranslations && selectedAnswerObject ? visibleAnswerTranslation(selectedAnswerObject) : "";
+                const correctTranslation = showTranslations && correctAnswerObject ? visibleAnswerTranslation(correctAnswerObject) : "";
                 return `
                   <article class="missed-item">
                     <span>${uiHtml("ui.question.label", { number: pad(question.localNumber || question.id, 3) })}</span>
@@ -779,7 +789,7 @@ function render() {
         className += " is-selected";
       }
       const mark = reveal && isCorrectAnswer ? icon("check") : reveal && selected === index ? icon("x") : "";
-      const answerTranslation = showTranslations ? t(answer.translationKey) : "";
+      const answerTranslation = showTranslations ? visibleAnswerTranslation(answer) : "";
       const why = reveal ? t(answer.whyKey) : "";
       const checked = reveal ? (isLearn ? isCorrectAnswer : selected === index) : !isLearn && selected === index;
       return `

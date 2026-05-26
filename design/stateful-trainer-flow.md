@@ -60,3 +60,4 @@
 
 - All visible app shell copy, ARIA labels, category labels, and dynamic result/status text are keyed in `data/i18n/en.json`.
 - Question, answer, study-help, glossary, and per-answer explanation translations continue to use the question-owned keys from the source-of-truth data.
+- Answer translations are suppressed when the answer and translation are the same numeric string, avoiding duplicate number rows while still allowing localized number forms in other languages.
