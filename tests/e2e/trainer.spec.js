@@ -586,6 +586,18 @@ test("glossary filters ranges and opens matching question cards", async ({ page 
   await expect(page.locator("#answers")).toContainText("Meinungsfreiheit");
 });
 
+test("glossary term hashes open the right item and range", async ({ page }) => {
+  await page.goto("/glossary#meinungsfreiheit");
+  await expect(page.locator("#meinungsfreiheit .gl-term-de")).toHaveText("Meinungsfreiheit");
+  await expect(page.getByRole("button", { name: "I-S" })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("#range-I-S")).toBeVisible();
+  await expect(page.locator("#range-A-D")).toBeHidden();
+
+  await page.evaluate(() => window.location.hash = "asyl");
+  await expect(page.locator("#asyl .gl-term-de")).toHaveText("Asyl");
+  await expect(page.getByRole("button", { name: "A-D" })).toHaveAttribute("aria-pressed", "true");
+});
+
 test("glossary works on mobile and dark mode", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.addInitScript(() => {

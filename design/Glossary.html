@@ -358,6 +358,11 @@
         gap: 28px;
         padding-bottom: 34px;
         border-bottom: 1px solid var(--gl-rule);
+        scroll-margin-top: 96px;
+      }
+
+      .term-entry:target .term-de {
+        color: var(--gl-primary);
       }
 
       .term-de {
@@ -830,10 +835,10 @@
       <div class="gl-page">
         <section class="hero">
           <h1>Glossary</h1>
-          <p>German exam words with short English meanings. Question links take you straight to where each word appears.</p>
+          <p>German exam words with short translated meanings. Question links take you straight to where each word appears.</p>
           <label class="search">
             <svg class="icon" aria-hidden="true"><use href="#tabler-search"></use></svg>
-            <input id="searchInput" type="search" placeholder="Search German or English" autocomplete="off" />
+            <input id="searchInput" type="search" placeholder="Search German or translation" autocomplete="off" />
             <button id="clearSearch" class="search-clear" type="button" aria-label="Clear search" hidden>
               <svg class="icon" aria-hidden="true"><use href="#tabler-x"></use></svg>
             </button>
@@ -1035,7 +1040,38 @@
         });
       }
 
+      function glossarySlug(term) {
+        return term
+          .toLocaleLowerCase("de-DE")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/ß/g, "ss")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+      }
+
+      function hashItem() {
+        const hash = decodeURIComponent(window.location.hash.replace(/^#/, ""));
+        if (!hash) return null;
+        return TERMS.find((item) => glossarySlug(item.term) === hash) || null;
+      }
+
+      function syncHashState() {
+        const item = hashItem();
+        if (!item) return;
+        activeRange = rangeFor(item.term);
+        search.value = "";
+        clearSearch.hidden = true;
+      }
+
+      function scrollToHash() {
+        const item = hashItem();
+        if (!item) return;
+        document.getElementById(glossarySlug(item.term))?.scrollIntoView({ block: "start", behavior: "smooth" });
+      }
+
       function render() {
+        syncHashState();
         rangeButtons.forEach((button) => {
           button.setAttribute("aria-pressed", String(button.dataset.range === activeRange));
         });
@@ -1054,7 +1090,10 @@
             </section>
           `;
         }).join("");
-        requestAnimationFrame(() => updateCarouselControls());
+        requestAnimationFrame(() => {
+          updateCarouselControls();
+          scrollToHash();
+        });
       }
 
       function updateCarouselControls(strip) {
@@ -1080,8 +1119,9 @@
       }
 
       function renderTerm(item) {
+        const slug = glossarySlug(item.term);
         return `
-          <article class="term-entry">
+          <article class="term-entry" id="${slug}" data-glossary-term="${slug}">
             <div>
               <h3 class="term-de">${item.term}</h3>
               <p class="term-en">${item.translation}</p>
@@ -1114,11 +1154,15 @@
         `;
       }
 
-      search.addEventListener("input", render);
+      search.addEventListener("input", () => {
+        if (window.location.hash) window.history.replaceState({}, "", "Glossary.html");
+        render();
+      });
       search.addEventListener("input", () => {
         clearSearch.hidden = !search.value;
       });
       clearSearch.addEventListener("click", () => {
+        if (window.location.hash) window.history.replaceState({}, "", "Glossary.html");
         search.value = "";
         clearSearch.hidden = true;
         search.focus();
@@ -1126,6 +1170,7 @@
       });
       rangeButtons.forEach((button) => {
         button.addEventListener("click", () => {
+          if (window.location.hash) window.history.replaceState({}, "", "Glossary.html");
           activeRange = button.dataset.range;
           search.value = "";
           clearSearch.hidden = true;
@@ -1162,6 +1207,7 @@
         updateCarouselControls(scroller.closest(".match-strip"));
       }, true);
       window.addEventListener("resize", () => updateCarouselControls());
+      window.addEventListener("hashchange", render);
 
       render();
     </script>

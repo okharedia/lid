@@ -2980,6 +2980,11 @@ button {
   gap: 28px;
   padding-bottom: 34px;
   border-bottom: 1px solid var(--bp-rule);
+  scroll-margin-top: 96px;
+}
+
+.gl-term-entry:target .gl-term-de {
+  color: var(--bp-indigo);
 }
 
 .gl-term-de {

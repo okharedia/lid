@@ -714,7 +714,38 @@ function filteredGlossaryTerms(range) {
   return glossary.terms.filter((item) => item.range === range && glossaryMatchesQuery(item, query));
 }
 
+function glossarySlug(term) {
+  return term
+    .toLocaleLowerCase("de-DE")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/ß/g, "ss")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function glossaryHashItem() {
+  const hash = decodeURIComponent(window.location.hash.replace(/^#/, ""));
+  if (!hash) return null;
+  return glossary.terms.find((item) => glossarySlug(item.term) === hash) || null;
+}
+
+function syncGlossaryHashState() {
+  const item = glossaryHashItem();
+  if (!item) return false;
+  state.glossaryRange = item.range;
+  state.glossaryQuery = "";
+  return true;
+}
+
+function scrollToGlossaryHash() {
+  const item = glossaryHashItem();
+  if (!item) return;
+  document.getElementById(glossarySlug(item.term))?.scrollIntoView({ block: "start", behavior: "smooth" });
+}
+
 function renderGlossary() {
+  syncGlossaryHashState();
   const query = state.glossaryQuery.trim();
   els.glossarySearch.value = state.glossaryQuery;
   els.glossaryClear.hidden = !state.glossaryQuery;
@@ -743,7 +774,10 @@ function renderGlossary() {
       `;
     })
     .join("") || `<p class="gl-empty">${uiHtml("ui.glossary.emptySearch")}</p>`;
-  requestAnimationFrame(() => updateGlossaryCarouselControls());
+  requestAnimationFrame(() => {
+    updateGlossaryCarouselControls();
+    scrollToGlossaryHash();
+  });
 }
 
 function updateGlossaryCarouselControls(strip) {
@@ -769,8 +803,9 @@ function updateGlossaryCarouselControls(strip) {
 }
 
 function renderGlossaryTerm(item) {
+  const slug = glossarySlug(item.term);
   return `
-    <article class="gl-term-entry">
+    <article class="gl-term-entry" id="${escapeHtml(slug)}" data-glossary-term="${escapeHtml(slug)}">
       <div>
         <h3 class="gl-term-de">${escapeHtml(item.term)}</h3>
         <p class="gl-term-en">${escapeHtml(item.translation)}</p>
@@ -1440,10 +1475,12 @@ function bindEvents() {
     render();
   });
   els.glossarySearch.addEventListener("input", () => {
+    if (window.location.hash) window.history.replaceState({}, "", "/glossary");
     state.glossaryQuery = els.glossarySearch.value;
     renderGlossary();
   });
   els.glossaryClear.addEventListener("click", () => {
+    if (window.location.hash) window.history.replaceState({}, "", "/glossary");
     state.glossaryQuery = "";
     els.glossarySearch.focus();
     renderGlossary();
@@ -1451,6 +1488,7 @@ function bindEvents() {
   els.glossaryRanges.addEventListener("click", (event) => {
     const button = event.target.closest("[data-glossary-range]");
     if (!button) return;
+    if (window.location.hash) window.history.replaceState({}, "", "/glossary");
     state.glossaryRange = button.dataset.glossaryRange;
     state.glossaryQuery = "";
     renderGlossary();
@@ -1726,6 +1764,11 @@ function bindEvents() {
     }
     if (!applyQuestionLinkFromUrl()) state.syncQuestionUrl = false;
     render();
+  });
+  window.addEventListener("hashchange", () => {
+    if (!isGlossaryPath()) return;
+    syncGlossaryHashState();
+    renderGlossary();
   });
 }
 
