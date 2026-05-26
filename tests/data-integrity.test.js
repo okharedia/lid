@@ -1,8 +1,3 @@
-// Catches the class of bug where a per-distractor explanation says
-// "Correct" on a non-correctIndex answer (or "Wrong" on the correct one).
-// Trusting a labelled explanation is worse than no explanation at all —
-// it trains false confidence.
-//
 // Run with: node --test tests/data-integrity.test.js
 
 const test = require("node:test");
@@ -13,6 +8,9 @@ const path = require("node:path");
 const data = JSON.parse(
   fs.readFileSync(path.join(__dirname, "..", "data/lid-berlin-source-of-truth.json"), "utf8"),
 );
+const metadata = JSON.parse(
+  fs.readFileSync(path.join(__dirname, "..", "data/lid-berlin-question-metadata.json"), "utf8"),
+);
 const glossary = JSON.parse(
   fs.readFileSync(path.join(__dirname, "..", "data/glossary.json"), "utf8"),
 );
@@ -22,61 +20,108 @@ const i18n = JSON.parse(
 const messages = i18n.messages;
 const indexHtml = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8");
 const glossaryDesignHtml = fs.readFileSync(path.join(__dirname, "..", "design/Glossary.html"), "utf8");
-
-test("every whyKey labelled 'Correct'/'Wrong' matches its answer position", () => {
-  const mismatches = [];
-  for (const question of data.questions) {
-    question.answers.forEach((answer, index) => {
-      if (!answer.whyKey) return;
-      const why = (messages[answer.whyKey] || "").trim();
-      const startsCorrect = /^Correct\b/i.test(why);
-      const startsWrong = /^Wrong\b/i.test(why);
-      const isCorrect = index === question.correctIndex;
-      if (isCorrect && startsWrong) {
-        mismatches.push(`Q${question.id} answer[${index}] is the correct answer but its 'why' starts with "Wrong"`);
-      }
-      if (!isCorrect && startsCorrect) {
-        mismatches.push(`Q${question.id} answer[${index}] is a distractor but its 'why' starts with "Correct"`);
-      }
-    });
-  }
-  assert.deepEqual(mismatches, [], `whyKey/correctIndex mismatches:\n  ${mismatches.join("\n  ")}`);
+const metadataById = new Map(metadata.questions.map((question) => [question.id, question]));
+const sourceQuestions = Array.isArray(data) ? data : data.questions;
+const questions = sourceQuestions.map((question) => {
+  const meta = metadataById.get(question.id) || {};
+  const answerMetaByIndex = new Map((meta.answers || []).map((answer) => [answer.index, answer]));
+  return {
+    ...question,
+    ...meta,
+    answers: question.answers.map((answer) => ({ ...answer, ...(answerMetaByIndex.get(answer.index) || {}) })),
+  };
 });
 
-test("every whyKey referenced from data resolves to a non-empty i18n string", () => {
-  const missing = [];
-  for (const question of data.questions) {
-    question.answers.forEach((answer, index) => {
-      if (!answer.whyKey) return;
-      const value = messages[answer.whyKey];
-      if (!value || !value.trim()) {
-        missing.push(`Q${question.id} answer[${index}] whyKey=${answer.whyKey} has no i18n value`);
-      }
-    });
-  }
-  assert.deepEqual(missing, [], `missing whyKey translations:\n  ${missing.join("\n  ")}`);
-});
+test("source-of-truth stays slim and avoids derived learner fields", () => {
+  const forbiddenQuestionFields = [
+    "localNumber",
+    "correctAnswer",
+    "questionDangerWords",
+    "study",
+    "translationKey",
+    "deck",
+    "theme",
+    "cluster",
+    "clusters",
+    "clusterTag",
+    "duplicateOfId",
+    "answerVariants",
+  ];
+  const forbiddenAnswerFields = ["isCorrect", "dangerWords", "translationKey", "whyKey"];
+  const problems = [];
 
-test("every clusterTag on a question points to a defined cluster", () => {
-  const clusterIds = new Set((data.clusters || []).map((c) => c.id));
-  const unknown = [];
-  for (const question of data.questions) {
-    if (question.clusterTag && !clusterIds.has(question.clusterTag)) {
-      unknown.push(`Q${question.id} has clusterTag="${question.clusterTag}" but no such cluster is defined`);
+  for (const question of sourceQuestions) {
+    for (const field of forbiddenQuestionFields) {
+      if (field in question) problems.push(`Q${question.id} source question still has ${field}`);
+    }
+    if (!Number.isInteger(question.correctAnswerIndex)) problems.push(`Q${question.id} missing correctAnswerIndex`);
+    for (const answer of question.answers) {
+      for (const field of forbiddenAnswerFields) {
+        if (field in answer) problems.push(`Q${question.id} answer[${answer.index}] source answer still has ${field}`);
+      }
     }
   }
-  assert.deepEqual(unknown, [], `unknown clusterTags:\n  ${unknown.join("\n  ")}`);
+
+  assert.deepEqual(problems, [], `source-of-truth shape problems:\n  ${problems.join("\n  ")}`);
 });
 
-test("every duplicateOfId points to a real question", () => {
-  const ids = new Set(data.questions.map((q) => q.id));
-  const broken = [];
-  for (const question of data.questions) {
-    if (question.duplicateOfId && !ids.has(question.duplicateOfId)) {
-      broken.push(`Q${question.id} duplicateOfId=${question.duplicateOfId} does not exist`);
+test("learner metadata uses glossary refs and notes instead of hint-memory keyword concepts", () => {
+  const problems = [];
+  const glossaryTerms = new Set((metadata.glossary || []).map((entry) => entry.term));
+  for (const key of Object.keys(messages)) {
+    if (/^questions\.\d+\.study\.(hint|memory)$/.test(key)) problems.push(`old study key remains: ${key}`);
+  }
+  for (const question of metadata.questions) {
+    if (!question.study?.noteKey || !question.study?.note) problems.push(`Q${question.id} missing German study note metadata`);
+    if ("keywordRefs" in question || "highlightTerms" in question || "dangerTerms" in question) {
+      problems.push(`Q${question.id} still uses old keyword/highlight/danger metadata`);
+    }
+    for (const term of question.glossaryRefs || []) {
+      if (typeof term !== "string") problems.push(`Q${question.id} glossary ref should be a string`);
+      else if (!glossaryTerms.has(term)) problems.push(`Q${question.id} glossary ref ${term} is missing from glossary registry`);
     }
   }
-  assert.deepEqual(broken, [], `broken duplicateOfId links:\n  ${broken.join("\n  ")}`);
+  assert.deepEqual(problems, [], `learner metadata problems:\n  ${problems.join("\n  ")}`);
+});
+
+test("cluster grouping is not part of the content model", () => {
+  const problems = [];
+  if ("clusters" in data) problems.push("source-of-truth still defines clusters");
+  if ("clusters" in metadata) problems.push("metadata still defines clusters");
+  for (const question of sourceQuestions) {
+    if ("cluster" in question || "clusterTag" in question) problems.push(`Q${question.id} source still has cluster data`);
+  }
+  for (const question of metadata.questions) {
+    if ("cluster" in question || "clusterTag" in question) problems.push(`Q${question.id} metadata still has cluster data`);
+  }
+  assert.deepEqual(problems, [], `cluster concept remains:\n  ${problems.join("\n  ")}`);
+});
+
+test("answer-level why explanations are not part of the learner model", () => {
+  const problems = [];
+  for (const question of metadata.questions) {
+    for (const answer of question.answers || []) {
+      if ("whyKey" in answer) problems.push(`Q${question.id} answer[${answer.index}] still has whyKey`);
+    }
+  }
+  for (const key of Object.keys(messages)) {
+    if (/^questions\.\d+\.answers\.\d+\.why$/.test(key)) problems.push(`old answer why translation remains: ${key}`);
+  }
+  assert.deepEqual(problems, [], `answer why concept remains:\n  ${problems.join("\n  ")}`);
+});
+
+test("duplicate and answer-variant concepts are not part of the content model", () => {
+  const problems = [];
+  for (const question of metadata.questions) {
+    if ("duplicateOfId" in question) problems.push(`Q${question.id} metadata still has duplicateOfId`);
+    if ("answerVariants" in question) problems.push(`Q${question.id} metadata still has answerVariants`);
+  }
+  for (const key of Object.keys(messages)) {
+    if (/^ui\.(answerVariantNote|chip\.(sameAsEarlier|seenBefore))$/.test(key)) {
+      problems.push(`old duplicate/variant i18n remains: ${key}`);
+    }
+  }
+  assert.deepEqual(problems, [], `duplicate/variant concept remains:\n  ${problems.join("\n  ")}`);
 });
 
 test("every static HTML i18n key resolves to a non-empty string", () => {
@@ -121,7 +166,7 @@ test("every rendered category has an i18n key", () => {
     "German division and reunification": "category.germanDivisionAndReunification",
   };
   const missing = [];
-  for (const category of new Set(["Alle Kategorien", ...data.questions.map((question) => question.theme)])) {
+  for (const category of new Set(["Alle Kategorien", ...metadata.questions.map((question) => question.theme)])) {
     const key = categoryKeys[category];
     if (!key) missing.push(`${category} has no key mapping`);
     else if (!(messages[key] || "").trim()) missing.push(`${category} maps to missing key ${key}`);
@@ -129,16 +174,16 @@ test("every rendered category has an i18n key", () => {
   assert.deepEqual(missing, [], `missing category i18n keys:\n  ${missing.join("\n  ")}`);
 });
 
-test("generated glossary is sourced from real question keyword refs", () => {
-  const keywordTerms = new Set(
-    data.questions.flatMap((question) => (question.study?.keywordRefs || []).map((keyword) => keyword.term)),
+test("generated glossary is sourced from real question glossary refs", () => {
+  const glossaryTerms = new Set(
+    metadata.questions.flatMap((question) => question.glossaryRefs || []),
   );
   const excludedTerms = new Set(glossary.source?.excludedTerms || []);
   const problems = [];
 
   for (const term of glossary.terms) {
     if (excludedTerms.has(term.term)) problems.push(`${term.term} should have been excluded from the learner glossary`);
-    if (!keywordTerms.has(term.term)) problems.push(`${term.term} is not referenced by question study keywords`);
+    if (!glossaryTerms.has(term.term)) problems.push(`${term.term} is not referenced by question glossary refs`);
     if (!glossary.ranges.includes(term.range)) problems.push(`${term.term} has invalid range ${term.range}`);
     if (!term.translation || !term.context || !term.matches?.length) {
       problems.push(`${term.term} is missing translation, context, or matches`);
@@ -150,7 +195,7 @@ test("generated glossary is sourced from real question keyword refs", () => {
       problems.push(`${term.term} repeats its translation in learner context: ${term.context}`);
     }
     for (const match of term.matches || []) {
-      if (!data.questions.some((question) => question.id === match.id)) {
+      if (!sourceQuestions.some((question) => question.id === match.id)) {
         problems.push(`${term.term} links to missing question ${match.id}`);
       }
     }

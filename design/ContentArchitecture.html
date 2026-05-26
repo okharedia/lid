@@ -1,0 +1,1202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>LiD Content Architecture</title>
+    <link rel="stylesheet" href="tokens.css" />
+    <style>
+      :root {
+        --page: var(--md-comp-app-canvas-color, #eef2f4);
+        --surface: var(--md-sys-color-surface, #fbfcfe);
+        --surface-low: var(--md-sys-color-surface-container-low, #f4f7f8);
+        --surface-high: var(--md-sys-color-surface-container-high, #e8eef0);
+        --ink: var(--md-sys-color-on-surface, #191c1e);
+        --muted: var(--md-sys-color-on-surface-variant, #4f5f68);
+        --primary: var(--md-sys-color-primary, #285d4d);
+        --primary-container: var(--md-sys-color-primary-container, #bcecd4);
+        --on-primary-container: var(--md-sys-color-on-primary-container, #063829);
+        --secondary-container: var(--md-sys-color-secondary-container, #d5e4eb);
+        --outline: var(--md-sys-color-outline, #7f8f96);
+        --outline-soft: var(--md-sys-color-outline-variant, #c8d2d6);
+        --radius: var(--md-sys-shape-corner-large, 24px);
+        --radius-sm: var(--md-sys-shape-corner-medium, 14px);
+        --font: var(--md-ref-typeface-plain, system-ui, sans-serif);
+        --mono: var(--md-ref-typeface-mono, ui-monospace, monospace);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--page);
+        color: var(--ink);
+        font-family: var(--font);
+        line-height: 1.45;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      .icon-sprite {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+      }
+
+      .icon {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .shell {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+        background: var(--surface);
+        min-height: 100dvh;
+        border-inline: 1px solid var(--outline-soft);
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 4;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px clamp(16px, 4vw, 36px);
+        border-bottom: 1px solid var(--outline-soft);
+        background: color-mix(in srgb, var(--surface) 94%, transparent);
+        backdrop-filter: blur(10px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+
+      .brand-mark,
+      .icon-button {
+        width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: var(--secondary-container);
+        color: var(--primary);
+        border: 1px solid transparent;
+      }
+
+      .brand h1 {
+        margin: 0;
+        font-size: clamp(18px, 3vw, 24px);
+        line-height: 1.05;
+        font-weight: 720;
+        letter-spacing: 0;
+      }
+
+      .brand p {
+        margin: 2px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      nav a {
+        min-height: 40px;
+        padding: 0 14px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 650;
+      }
+
+      nav a:hover,
+      nav a[aria-current="page"] {
+        background: var(--secondary-container);
+        color: var(--ink);
+      }
+
+      main {
+        padding: clamp(20px, 4vw, 42px);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+        gap: clamp(24px, 5vw, 52px);
+        align-items: end;
+        margin-bottom: 34px;
+      }
+
+      .hero h2 {
+        margin: 0;
+        font-size: clamp(42px, 8vw, 88px);
+        line-height: 0.95;
+        letter-spacing: 0;
+        font-weight: 760;
+      }
+
+      .hero p {
+        max-width: 62ch;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: clamp(16px, 2vw, 19px);
+      }
+
+      .hero-panel {
+        padding: 20px;
+        border-radius: var(--radius);
+        background: var(--surface-low);
+        border: 1px solid var(--outline-soft);
+      }
+
+      .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .metric {
+        min-height: 92px;
+        padding: 14px;
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        border: 1px solid var(--outline-soft);
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 28px;
+        line-height: 1;
+      }
+
+      .metric span {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .section {
+        padding: 30px 0;
+        border-top: 1px solid var(--outline-soft);
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .section h3 {
+        margin: 0;
+        font-size: clamp(28px, 4vw, 44px);
+        line-height: 1;
+      }
+
+      .section-head p {
+        max-width: 52ch;
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .pipeline {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .node {
+        min-height: 172px;
+        padding: 16px;
+        border: 1px solid var(--outline-soft);
+        border-radius: var(--radius-sm);
+        background: var(--surface-low);
+        cursor: pointer;
+        text-align: left;
+        position: relative;
+        transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+      }
+
+      .node:hover,
+      .node[aria-pressed="true"] {
+        transform: translateY(-2px);
+        border-color: var(--primary);
+        background: var(--primary-container);
+        color: var(--on-primary-container);
+      }
+
+      .node .icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .node b {
+        display: block;
+        margin-top: 16px;
+        font-size: 18px;
+      }
+
+      .node small {
+        display: block;
+        margin-top: 8px;
+        color: inherit;
+        opacity: 0.76;
+      }
+
+      .node::after {
+        content: "->";
+        position: absolute;
+        right: -14px;
+        top: 50%;
+        color: var(--outline);
+        font-family: var(--mono);
+        font-weight: 700;
+      }
+
+      .node:last-child::after {
+        content: "";
+      }
+
+      .detail-panel {
+        margin-top: 14px;
+        padding: 18px;
+        border-radius: var(--radius-sm);
+        background: var(--surface-low);
+        border: 1px solid var(--outline-soft);
+      }
+
+      .detail-panel h4 {
+        margin: 0 0 8px;
+        font-size: 20px;
+      }
+
+      .detail-panel p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .diagram-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+        gap: 18px;
+        align-items: start;
+      }
+
+      .entity-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .entity {
+        padding: 14px;
+        border: 1px solid var(--outline-soft);
+        border-radius: var(--radius-sm);
+        background: var(--surface-low);
+        cursor: pointer;
+        text-align: left;
+      }
+
+      .entity[aria-pressed="true"] {
+        border-color: var(--primary);
+        background: var(--primary-container);
+        color: var(--on-primary-container);
+      }
+
+      .entity b {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .entity code,
+      code {
+        font-family: var(--mono);
+        font-size: 0.92em;
+        color: var(--primary);
+      }
+
+      .schema-card {
+        min-height: 440px;
+        padding: 18px;
+        border-radius: var(--radius);
+        background: #111819;
+        color: #e8f4ef;
+        overflow: auto;
+      }
+
+      .schema-card pre {
+        margin: 0;
+        white-space: pre-wrap;
+        font-family: var(--mono);
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .schema-card mark {
+        background: #d6f2df;
+        color: #062d1f;
+        border-radius: 5px;
+        padding: 1px 4px;
+      }
+
+      .connection-map {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 46px minmax(0, 1fr) 46px minmax(0, 1fr);
+        gap: 10px;
+        align-items: stretch;
+        margin-bottom: 18px;
+      }
+
+      .map-box {
+        min-height: 150px;
+        padding: 16px;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--outline-soft);
+        background: var(--surface-low);
+      }
+
+      .map-box.is-source {
+        background: color-mix(in srgb, var(--secondary-container) 58%, var(--surface));
+      }
+
+      .map-box.is-selected {
+        border-color: var(--primary);
+        background: var(--primary-container);
+        color: var(--on-primary-container);
+      }
+
+      .map-box b {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .map-box p {
+        margin: 0;
+        color: inherit;
+      }
+
+      .connector {
+        display: grid;
+        place-items: center;
+        color: var(--primary);
+        font-family: var(--mono);
+        font-weight: 800;
+        font-size: 22px;
+      }
+
+      .example-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .example-card {
+        border-radius: var(--radius);
+        border: 1px solid var(--outline-soft);
+        overflow: hidden;
+        background: var(--surface-low);
+      }
+
+      .example-card h4 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--outline-soft);
+        background: var(--surface);
+      }
+
+      .example-card pre {
+        margin: 0;
+        padding: 16px;
+        overflow: auto;
+        white-space: pre-wrap;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        line-height: 1.55;
+      }
+
+      .json-key {
+        color: #8b4f00;
+      }
+
+      .json-string {
+        color: #165c43;
+      }
+
+      .json-bool,
+      .json-num {
+        color: #6b3fb5;
+      }
+
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+        padding: 0 10px;
+        border-radius: 999px;
+        background: var(--secondary-container);
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .rule-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .rule {
+        padding: 18px;
+        border-radius: var(--radius-sm);
+        background: var(--surface-low);
+        border: 1px solid var(--outline-soft);
+      }
+
+      .rule h4 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 8px;
+      }
+
+      .rule p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .glossary-flow {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 14px;
+      }
+
+      .flow-card,
+      .feedback-card {
+        padding: 18px;
+        border: 1px solid var(--outline-soft);
+        border-radius: var(--radius);
+        background: var(--surface-low);
+      }
+
+      .flow-card h4,
+      .feedback-card h4 {
+        margin: 0 0 12px;
+      }
+
+      .flow-steps {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .flow-steps li {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        gap: 10px;
+        align-items: start;
+      }
+
+      .step-num {
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: var(--primary);
+        color: white;
+        font-family: var(--mono);
+        font-weight: 700;
+      }
+
+      .field-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      label {
+        display: grid;
+        gap: 6px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 650;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--outline-soft);
+        border-radius: 12px;
+        background: var(--surface);
+        color: var(--ink);
+        padding: 11px 12px;
+        outline: 0;
+      }
+
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 18%, transparent);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .btn {
+        min-height: 42px;
+        border: 0;
+        border-radius: 999px;
+        padding: 0 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: pointer;
+        background: var(--primary);
+        color: white;
+        font-weight: 700;
+      }
+
+      .btn.secondary {
+        background: var(--secondary-container);
+        color: var(--ink);
+      }
+
+      .feedback-list {
+        display: grid;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .feedback-item {
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: var(--surface);
+        border: 1px solid var(--outline-soft);
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .export-box {
+        margin-top: 14px;
+      }
+
+      .export-box textarea {
+        min-height: 260px;
+        font-family: var(--mono);
+        font-size: 13px;
+      }
+
+      @media (max-width: 860px) {
+        header {
+          position: static;
+        }
+
+        nav a span {
+          display: none;
+        }
+
+        .hero,
+        .diagram-grid,
+        .connection-map,
+        .example-grid,
+        .glossary-flow {
+          grid-template-columns: 1fr;
+        }
+
+        .connector {
+          min-height: 28px;
+          transform: rotate(90deg);
+        }
+
+        .pipeline,
+        .rule-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .node::after {
+          content: "v";
+          right: 18px;
+          top: auto;
+          bottom: -16px;
+        }
+
+        .field-grid,
+        .metric-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg aria-hidden="true" class="icon-sprite">
+      <symbol id="tabler-database" viewBox="0 0 24 24">
+        <path d="M4 6c0 1.657 3.582 3 8 3s8 -1.343 8 -3s-3.582 -3 -8 -3s-8 1.343 -8 3" />
+        <path d="M4 6v6c0 1.657 3.582 3 8 3s8 -1.343 8 -3v-6" />
+        <path d="M4 12v6c0 1.657 3.582 3 8 3s8 -1.343 8 -3v-6" />
+      </symbol>
+      <symbol id="tabler-file-text" viewBox="0 0 24 24">
+        <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+        <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+        <path d="M9 9h1" />
+        <path d="M9 13h6" />
+        <path d="M9 17h6" />
+      </symbol>
+      <symbol id="tabler-language" viewBox="0 0 24 24">
+        <path d="M4 5h7" />
+        <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+        <path d="M5 9c0 2.144 2.252 3.908 6 4" />
+        <path d="M12 20l4 -9l4 9" />
+        <path d="M19.1 18h-6.2" />
+      </symbol>
+      <symbol id="tabler-book-2" viewBox="0 0 24 24">
+        <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
+        <path d="M19 16h-12a2 2 0 0 0 -2 2" />
+        <path d="M9 8h6" />
+      </symbol>
+      <symbol id="tabler-route" viewBox="0 0 24 24">
+        <path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+        <path d="M15 7a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+        <path d="M9 17h4a3 3 0 0 0 3 -3v-4" />
+      </symbol>
+      <symbol id="tabler-key" viewBox="0 0 24 24">
+        <path d="M16.555 3.843a6 6 0 0 1 3.602 3.602a6 6 0 0 1 -7.717 7.717l-2.44 2.438h-3v3h-3v-3l6.44 -6.438a6 6 0 0 1 6.115 -7.319z" />
+        <path d="M15 9h.01" />
+      </symbol>
+      <symbol id="tabler-check" viewBox="0 0 24 24">
+        <path d="M5 12l5 5l10 -10" />
+      </symbol>
+      <symbol id="tabler-alert-circle" viewBox="0 0 24 24">
+        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+        <path d="M12 8v4" />
+        <path d="M12 16h.01" />
+      </symbol>
+      <symbol id="tabler-copy" viewBox="0 0 24 24">
+        <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" />
+        <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" />
+      </symbol>
+      <symbol id="tabler-download" viewBox="0 0 24 24">
+        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+        <path d="M7 11l5 5l5 -5" />
+        <path d="M12 4v12" />
+      </symbol>
+      <symbol id="tabler-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14" />
+        <path d="M5 12h14" />
+      </symbol>
+      <symbol id="tabler-trash" viewBox="0 0 24 24">
+        <path d="M4 7h16" />
+        <path d="M10 11v6" />
+        <path d="M14 11v6" />
+        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+        <path d="M9 7v-3h6v3" />
+      </symbol>
+    </svg>
+
+    <div class="shell">
+      <header>
+        <div class="brand">
+          <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#tabler-database"></use></svg></span>
+          <div>
+            <h1>Content Architecture</h1>
+            <p>LiD trainer source data, metadata, translations, and glossary</p>
+          </div>
+        </div>
+        <nav aria-label="Page sections">
+          <a href="#pipeline"><svg class="icon" aria-hidden="true"><use href="#tabler-route"></use></svg><span>Flow</span></a>
+          <a href="#model"><svg class="icon" aria-hidden="true"><use href="#tabler-database"></use></svg><span>Model</span></a>
+          <a href="#examples"><svg class="icon" aria-hidden="true"><use href="#tabler-file-text"></use></svg><span>Examples</span></a>
+          <a href="#feedback"><svg class="icon" aria-hidden="true"><use href="#tabler-copy"></use></svg><span>Feedback</span></a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div>
+            <h2>How your content fits together</h2>
+            <p>
+              The app has one primary question source of truth, one selected-language translation catalog, and derived
+              learner surfaces such as glossary highlights and question notes. The useful distinction: official German question/answer text is
+              protected source content; translations, notes, and glossary explanations are learner-facing layers.
+            </p>
+          </div>
+          <aside class="hero-panel" aria-label="Content stats">
+            <div class="metric-grid">
+              <div class="metric"><strong>310</strong><span>questions: 300 general + 10 Berlin</span></div>
+              <div class="metric"><strong>1,240</strong><span>answers, four per question</span></div>
+              <div class="metric"><strong>448</strong><span>glossary refs in metadata</span></div>
+              <div class="metric"><strong>59</strong><span>derived learner glossary terms</span></div>
+            </div>
+          </aside>
+        </section>
+
+        <section id="pipeline" class="section">
+          <div class="section-head">
+            <h3>Content Flow</h3>
+            <p>Click a step to see what owns the data and what is derived from it.</p>
+          </div>
+          <div class="pipeline" role="group" aria-label="Content pipeline">
+            <button class="node" type="button" data-node="sources" aria-pressed="true">
+              <svg class="icon" aria-hidden="true"><use href="#tabler-file-text"></use></svg>
+              <b>Official Sources</b>
+              <small>BAMF PDF and official trainer extraction.</small>
+            </button>
+            <button class="node" type="button" data-node="truth" aria-pressed="false">
+              <svg class="icon" aria-hidden="true"><use href="#tabler-database"></use></svg>
+              <b>Source Of Truth</b>
+              <small><code>data/lid-berlin-source-of-truth.json</code></small>
+            </button>
+            <button class="node" type="button" data-node="i18n" aria-pressed="false">
+              <svg class="icon" aria-hidden="true"><use href="#tabler-language"></use></svg>
+              <b>Translations</b>
+              <small><code>data/i18n/{locale}.json</code></small>
+            </button>
+            <button class="node" type="button" data-node="glossary" aria-pressed="false">
+              <svg class="icon" aria-hidden="true"><use href="#tabler-book-2"></use></svg>
+              <b>Glossary</b>
+              <small>Generated learner index from glossary refs.</small>
+            </button>
+            <button class="node" type="button" data-node="app" aria-pressed="false">
+              <svg class="icon" aria-hidden="true"><use href="#tabler-route"></use></svg>
+              <b>Trainer UI</b>
+              <small>Learn, Test, Glossary, navigation, search.</small>
+            </button>
+          </div>
+          <div id="nodeDetail" class="detail-panel" aria-live="polite"></div>
+        </section>
+
+        <section id="model" class="section">
+          <div class="section-head">
+            <h3>Data Model</h3>
+            <p>Question IDs are the hub. Official answers, learner metadata, translations, study notes, and glossary matches all hang from IDs.</p>
+          </div>
+          <div class="diagram-grid">
+            <div class="entity-list" role="group" aria-label="Schema entities">
+              <button class="entity" type="button" data-entity="question" aria-pressed="true">
+                <b><svg class="icon" aria-hidden="true"><use href="#tabler-file-text"></use></svg> Question</b>
+                <p>Official German prompt, optional image reference, four German answers, and the correct answer index.</p>
+              </button>
+              <button class="entity" type="button" data-entity="answer" aria-pressed="false">
+                <b><svg class="icon" aria-hidden="true"><use href="#tabler-check"></use></svg> Answer</b>
+                <p>Four official German answer options. Correctness is derived from correctAnswerIndex.</p>
+              </button>
+              <button class="entity" type="button" data-entity="study" aria-pressed="false">
+                <b><svg class="icon" aria-hidden="true"><use href="#tabler-key"></use></svg> Study</b>
+                <p>German learner note plus glossary refs used for highlighting and glossary chips.</p>
+              </button>
+              <button class="entity" type="button" data-entity="translation" aria-pressed="false">
+                <b><svg class="icon" aria-hidden="true"><use href="#tabler-language"></use></svg> Translation Catalog</b>
+                <p>Locale-specific strings keyed by question, answer, study, category, and UI IDs.</p>
+              </button>
+              <button class="entity" type="button" data-entity="glossary" aria-pressed="false">
+                <b><svg class="icon" aria-hidden="true"><use href="#tabler-book-2"></use></svg> Derived Glossary Term</b>
+                <p>Term, translated label, learner context, A-D/E-H/I-S/T-Z range, and matching question/answer cards.</p>
+              </button>
+            </div>
+            <div class="schema-card">
+              <pre id="schemaPreview"></pre>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h3>Visual Connections</h3>
+            <p>Read this left to right: source content points to keys; keys resolve into learner-visible text.</p>
+          </div>
+          <div class="connection-map" aria-label="Question to translation relationship diagram">
+            <div class="map-box is-source">
+              <b><svg class="icon" aria-hidden="true"><use href="#tabler-file-text"></use></svg> Slim question source</b>
+              <p><code>question: "Bei welchen..."</code><br><code>correctAnswerIndex: 3</code></p>
+            </div>
+            <div class="connector" aria-hidden="true">-&gt;</div>
+            <div class="map-box">
+              <b><svg class="icon" aria-hidden="true"><use href="#tabler-language"></use></svg> i18n lookup</b>
+              <p><code>messages["questions.166.question"]</code></p>
+            </div>
+            <div class="connector" aria-hidden="true">-&gt;</div>
+            <div class="map-box is-selected">
+              <b><svg class="icon" aria-hidden="true"><use href="#tabler-route"></use></svg> UI</b>
+              <p>German prompt plus selected-language translation.</p>
+            </div>
+          </div>
+          <div class="connection-map" aria-label="Glossary relationship diagram">
+            <div class="map-box is-source">
+              <b><svg class="icon" aria-hidden="true"><use href="#tabler-key"></use></svg> Question metadata</b>
+              <p><code>glossaryRefs: ["DDR", "1989"]</code></p>
+            </div>
+            <div class="connector" aria-hidden="true">-&gt;</div>
+            <div class="map-box">
+              <b><svg class="icon" aria-hidden="true"><use href="#tabler-book-2"></use></svg> build-glossary</b>
+              <p>Finds every real question/answer where each term appears.</p>
+            </div>
+            <div class="connector" aria-hidden="true">-&gt;</div>
+            <div class="map-box is-selected">
+              <b><svg class="icon" aria-hidden="true"><use href="#tabler-book-2"></use></svg> Glossary term</b>
+              <p><code>term</code>, translated label, learner context, and match cards.</p>
+            </div>
+          </div>
+          <div class="legend">
+            <span class="pill">Source text lives in question JSON</span>
+            <span class="pill">Translations resolve by key</span>
+            <span class="pill">Glossary is generated from glossary refs</span>
+          </div>
+        </section>
+
+        <section id="examples" class="section">
+          <div class="section-head">
+            <h3>Real JSON Examples</h3>
+            <p>These are simplified but real examples from the current files, using question 166 and the Meinungsfreiheit glossary term.</p>
+          </div>
+          <div class="example-grid">
+            <article class="example-card">
+              <h4><svg class="icon" aria-hidden="true"><use href="#tabler-database"></use></svg> Slim question source</h4>
+              <pre><code>{
+  <span class="json-key">"id"</span>: <span class="json-num">166</span>,
+  <span class="json-key">"question"</span>: <span class="json-string">"Bei welchen Demonstrationen ..."</span>,
+  <span class="json-key">"correctAnswerIndex"</span>: <span class="json-num">3</span>,
+  <span class="json-key">"answers"</span>: [
+    {
+      <span class="json-key">"index"</span>: <span class="json-num">0</span>,
+      <span class="json-key">"text"</span>: <span class="json-string">"beim Arbeiteraufstand 1953 in der DDR"</span>
+    }
+  ]
+}</code></pre>
+            </article>
+            <article class="example-card">
+              <h4><svg class="icon" aria-hidden="true"><use href="#tabler-key"></use></svg> Question metadata</h4>
+              <pre><code>{
+  <span class="json-key">"id"</span>: <span class="json-num">166</span>,
+  <span class="json-key">"deck"</span>: <span class="json-string">"general"</span>,
+  <span class="json-key">"theme"</span>: <span class="json-string">"German division and reunification"</span>,
+  <span class="json-key">"translationKey"</span>: <span class="json-string">"questions.166.question"</span>,
+  <span class="json-key">"study"</span>: {
+    <span class="json-key">"note"</span>: <span class="json-string">"In dieser Frage geht es um ..."</span>,
+    <span class="json-key">"noteKey"</span>: <span class="json-string">"questions.166.study.note"</span>
+  },
+  <span class="json-key">"glossaryRefs"</span>: [
+    <span class="json-string">"1989"</span>,
+    <span class="json-string">"DDR"</span>
+  ]
+}</code></pre>
+            </article>
+            <article class="example-card">
+              <h4><svg class="icon" aria-hidden="true"><use href="#tabler-language"></use></svg> Translation catalog</h4>
+              <pre><code>{
+  <span class="json-key">"locale"</span>: <span class="json-string">"en"</span>,
+  <span class="json-key">"messages"</span>: {
+    <span class="json-key">"questions.166.question"</span>:
+      <span class="json-string">"At which demonstrations in Germany did people shout “We are the people”?"</span>,
+    <span class="json-key">"questions.166.answers.0"</span>:
+      <span class="json-string">"during the workers' uprising in the GDR in 1953"</span>,
+    <span class="json-key">"questions.166.study.note"</span>:
+      <span class="json-string">"This question is about the Monday demonstrations in the DDR in 1989."</span>
+  }
+}</code></pre>
+            </article>
+            <article class="example-card">
+              <h4><svg class="icon" aria-hidden="true"><use href="#tabler-book-2"></use></svg> Derived glossary item</h4>
+              <pre><code>{
+  <span class="json-key">"term"</span>: <span class="json-string">"Meinungsfreiheit"</span>,
+  <span class="json-key">"translation"</span>: <span class="json-string">"freedom of opinion"</span>,
+  <span class="json-key">"context"</span>: <span class="json-string">"It is a Basic Law right..."</span>,
+  <span class="json-key">"range"</span>: <span class="json-string">"I-S"</span>,
+  <span class="json-key">"matches"</span>: [
+    {
+      <span class="json-key">"id"</span>: <span class="json-num">1</span>,
+      <span class="json-key">"kind"</span>: <span class="json-string">"answer"</span>,
+      <span class="json-key">"text"</span>: <span class="json-string">"hier Meinungsfreiheit gilt."</span>,
+      <span class="json-key">"translation"</span>: <span class="json-string">"Freedom of expression applies here."</span>,
+      <span class="json-key">"isCorrect"</span>: <span class="json-bool">true</span>
+    }
+  ]
+}</code></pre>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h3>Rules Of Ownership</h3>
+            <p>These rules keep edits predictable and stop derived content from becoming accidental source content.</p>
+          </div>
+          <div class="rule-grid">
+            <article class="rule">
+              <h4><svg class="icon" aria-hidden="true"><use href="#tabler-database"></use></svg> German source text</h4>
+              <p>Questions and answers live in the source-of-truth JSON. Do not patch generated app state when source text is wrong.</p>
+            </article>
+            <article class="rule">
+              <h4><svg class="icon" aria-hidden="true"><use href="#tabler-language"></use></svg> Translation text</h4>
+              <p>Translations belong in the locale catalog. UI copy should avoid assuming one target language.</p>
+            </article>
+            <article class="rule">
+              <h4><svg class="icon" aria-hidden="true"><use href="#tabler-book-2"></use></svg> Glossary text</h4>
+              <p><code>data/glossary.json</code> is generated from question metadata glossary refs. Change extraction rules or context overrides, then rebuild.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h3>Glossary Derivation</h3>
+            <p>The glossary is a learner-facing index, not another canonical question bank.</p>
+          </div>
+          <div class="glossary-flow">
+            <article class="flow-card">
+              <h4>Generated by <code>scripts/build-glossary.js</code></h4>
+              <ol class="flow-steps">
+                <li><span class="step-num">1</span><span>Read every <code>questions[].glossaryRefs</code> term from metadata.</span></li>
+                <li><span class="step-num">2</span><span>Drop low-value stop terms such as <code>nicht</code>, <code>alle</code>, and <code>Berlin</code>.</span></li>
+                <li><span class="step-num">3</span><span>Find real question and answer text containing each term.</span></li>
+                <li><span class="step-num">4</span><span>Attach translated labels from the current glossary generation catalog.</span></li>
+                <li><span class="step-num">5</span><span>Write learner context and match cards into <code>data/glossary.json</code>.</span></li>
+              </ol>
+            </article>
+            <article class="flow-card">
+              <h4>Current important caveat</h4>
+              <p>
+                The generated glossary currently stores translated labels and learner context from <code>data/i18n/en.json</code>.
+                If the product supports multiple translation languages, the durable architecture should either store translation
+                keys in the glossary or generate locale-specific glossary files.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="feedback" class="section">
+          <div class="section-head">
+            <h3>Feedback Exporter</h3>
+            <p>Capture feedback here, then export a concise prompt for a future coding session.</p>
+          </div>
+          <div class="feedback-card">
+            <label>
+              Feedback
+              <textarea id="feedbackText" placeholder="Example: The glossary should not store English text directly; store translation keys and resolve selected locale at render time."></textarea>
+            </label>
+            <div class="actions">
+              <button id="addFeedback" class="btn" type="button"><svg class="icon" aria-hidden="true"><use href="#tabler-plus"></use></svg>Add feedback</button>
+              <button id="clearFeedback" class="btn secondary" type="button"><svg class="icon" aria-hidden="true"><use href="#tabler-trash"></use></svg>Clear</button>
+            </div>
+            <div id="feedbackList" class="feedback-list" aria-live="polite"></div>
+            <div class="export-box">
+              <label>
+                Exported prompt
+                <textarea id="promptOutput" readonly></textarea>
+              </label>
+              <div class="actions">
+                <button id="copyPrompt" class="btn" type="button"><svg class="icon" aria-hidden="true"><use href="#tabler-copy"></use></svg>Copy prompt</button>
+                <button id="downloadPrompt" class="btn secondary" type="button"><svg class="icon" aria-hidden="true"><use href="#tabler-download"></use></svg>Download .txt</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const nodeDetails = {
+        sources: {
+          title: "Official sources",
+          body: "The BAMF PDF supplies the 310-item Berlin deck. The official interactive trainer was used only to verify Berlin correct answer indexes; the app keeps the slim source-of-truth file, not raw extraction dumps."
+        },
+        truth: {
+          title: "Source-of-truth JSON",
+          body: "data/lid-berlin-source-of-truth.json is intentionally slim: a flat array of official German questions, official German answers, image references, and correctAnswerIndex."
+        },
+        i18n: {
+          title: "Translation catalog",
+          body: "data/i18n/en.json maps stable keys to translated text. Questions and answers store keys, not translated strings, so the UI can resolve the selected language."
+        },
+        glossary: {
+          title: "Derived glossary",
+          body: "data/glossary.json is generated. It reads glossaryRefs from metadata, excludes weak terms, finds question and answer matches, groups by range, and adds learner context."
+        },
+        app: {
+          title: "Rendered product",
+          body: "app.js joins the source question model, selected translations, saved learner state, and glossary data into Learn, Test, and Glossary routes."
+        }
+      };
+
+      const schemaSnippets = {
+        question: `// data/lid-berlin-source-of-truth.json
+Question 166 {
+  id: 166,
+  question: "Bei welchen Demonstrationen in Deutschland riefen die Menschen \"Wir sind das Volk\"?",
+  correctAnswerIndex: 3,
+  answers: Answer[]
+}`,
+        answer: `// one item inside questions[166].answers
+Answer {
+  index: 0,
+  text: "beim Arbeiteraufstand 1953 in der DDR"
+}`,
+        study: `// data/lid-berlin-question-metadata.json
+QuestionMetadata 166 {
+  id: 166,
+  deck: "general",
+  theme: "German division and reunification",
+  translationKey: "questions.166.question",
+  study: {
+    note: "In dieser Frage geht es um den Zusammenhang ...",
+    noteKey: "questions.166.study.note"
+  },
+  glossaryRefs: [
+    "1989",
+    "DDR"
+  ]
+}`,
+        translation: `// data/i18n/en.json
+TranslationCatalog {
+  locale: "en",
+  messages: {
+    "questions.166.question": "At which demonstrations in Germany did people shout “We are the people”?",
+    "questions.166.answers.0": "during the workers' uprising in the GDR in 1953",
+    "questions.166.study.note": "This question is about the Monday demonstrations in the DDR in 1989.",
+    "glossary.DDR": "East Germany"
+  }
+}`,
+        glossary: `// data/glossary.json
+GlossaryTerm {
+  term: "Meinungsfreiheit",
+  translation: "freedom of opinion",
+  context: "It is a Basic Law right: people may criticize the government...",
+  range: "I-S",
+  matches: [
+    {
+      id: 1,
+      kind: "answer",
+      text: "hier Meinungsfreiheit gilt.",
+      translation: "Freedom of expression applies here.",
+      isCorrect: true
+    }
+  ]
+}`
+      };
+
+      const nodeDetail = document.querySelector("#nodeDetail");
+      const schemaPreview = document.querySelector("#schemaPreview");
+      const feedbackText = document.querySelector("#feedbackText");
+      const feedbackList = document.querySelector("#feedbackList");
+      const promptOutput = document.querySelector("#promptOutput");
+      const feedbackItems = JSON.parse(localStorage.getItem("lid-content-feedback") || "[]");
+
+      function selectNode(key) {
+        document.querySelectorAll(".node").forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.node === key));
+        });
+        nodeDetail.innerHTML = `<h4>${nodeDetails[key].title}</h4><p>${nodeDetails[key].body}</p>`;
+      }
+
+      function selectEntity(key) {
+        document.querySelectorAll(".entity").forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.entity === key));
+        });
+        schemaPreview.textContent = schemaSnippets[key];
+      }
+
+      function renderFeedback() {
+        feedbackList.innerHTML = feedbackItems.map((item, index) => `
+          <div class="feedback-item">
+            <b>${index + 1}.</b> ${item.text}
+          </div>
+        `).join("");
+        const bullets = feedbackItems.length
+          ? feedbackItems.map((item, index) => `${index + 1}. ${item.text}`).join("\\n")
+          : "- Add feedback above before exporting.";
+        promptOutput.value = `You are working in the LiD trainer repo. Please address this content architecture feedback.\\n\\nContext:\\n- Source of truth: data/lid-berlin-source-of-truth.json\\n- Translations: data/i18n/{locale}.json\\n- Glossary generation: scripts/build-glossary.js -> data/glossary.json\\n- Keep design/ in sync with UI or interaction changes.\\n- Keep user-facing text translation-language agnostic.\\n\\nFeedback:\\n${bullets}\\n\\nExpected output:\\n- Implement the requested fixes.\\n- Update tests or add regression coverage where useful.\\n- Run the relevant validation commands and summarize results.`;
+        localStorage.setItem("lid-content-feedback", JSON.stringify(feedbackItems));
+      }
+
+      document.querySelectorAll(".node").forEach((button) => {
+        button.addEventListener("click", () => selectNode(button.dataset.node));
+      });
+      document.querySelectorAll(".entity").forEach((button) => {
+        button.addEventListener("click", () => selectEntity(button.dataset.entity));
+      });
+      document.querySelector("#addFeedback").addEventListener("click", () => {
+        const text = feedbackText.value.trim();
+        if (!text) return;
+        feedbackItems.push({ text });
+        feedbackText.value = "";
+        renderFeedback();
+      });
+      document.querySelector("#clearFeedback").addEventListener("click", () => {
+        feedbackItems.splice(0);
+        renderFeedback();
+      });
+      document.querySelector("#copyPrompt").addEventListener("click", async () => {
+        promptOutput.select();
+        await navigator.clipboard?.writeText(promptOutput.value).catch(() => document.execCommand("copy"));
+      });
+      document.querySelector("#downloadPrompt").addEventListener("click", () => {
+        const blob = new Blob([promptOutput.value], { type: "text/plain" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "lid-content-feedback-prompt.txt";
+        link.click();
+        URL.revokeObjectURL(link.href);
+      });
+
+      selectNode("sources");
+      selectEntity("question");
+      renderFeedback();
+    </script>
+  </body>
+</html>

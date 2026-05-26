@@ -1482,7 +1482,6 @@ button {
 .bp-app.is-loading .bp-q-en,
 .bp-app.is-loading .bp-image-button,
 .bp-app.is-loading .bp-answers,
-.bp-app.is-loading .bp-q-chips,
 .bp-app.is-loading .bp-locked {
   display: none;
 }
@@ -2052,8 +2051,7 @@ button {
   border-color: transparent;
 }
 
-.bp-answer.is-dim .text .en,
-.bp-answer.is-dim .text .why {
+.bp-answer.is-dim .text .en {
   color: var(--md-comp-answer-dim-supporting-color);
 }
 
@@ -2225,9 +2223,24 @@ button {
   border: 1px solid transparent;
   border-radius: var(--md-sys-shape-corner-full);
   background: var(--md-sys-color-surface-container-high);
+  color: var(--bp-ink);
+  cursor: pointer;
   white-space: nowrap;
   font-family: var(--bp-mono);
   line-height: 1.1;
+}
+
+.bp-kw-list button.kw-item {
+  appearance: none;
+}
+
+.bp-kw-list .kw-item:hover {
+  background: var(--md-sys-color-secondary-container);
+}
+
+.bp-kw-list .kw-item:focus-visible {
+  outline: 3px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
 }
 
 .bp-kw-list .kw-item .de {
@@ -2697,100 +2710,6 @@ button {
 
 .result-note {
   color: var(--bp-ink-soft);
-}
-
-.bp-q-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 2px 0 -2px;
-}
-
-.bp-q-chips:empty,
-.bp-q-chips[hidden] {
-  display: none;
-}
-
-.bp-chip {
-  appearance: none;
-  border: 1px solid var(--md-sys-color-outline);
-  background: transparent;
-  color: var(--bp-ink-soft);
-  border-radius: 999px;
-  padding: 4px 10px 4px 8px;
-  font-family: var(--bp-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  line-height: 1;
-  cursor: pointer;
-  transition: background var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
-    border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
-    color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
-}
-
-.bp-chip .icon {
-  width: 14px;
-  height: 14px;
-}
-
-.bp-chip.duplicate-chip {
-  cursor: default;
-  background: var(--bp-gold-soft);
-  border-color: transparent;
-  color: var(--md-sys-color-on-warning-container);
-}
-
-.bp-answer .text .why {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: start;
-  gap: 6px;
-  margin-top: 6px;
-  padding-top: 1px;
-  font-family: var(--bp-display);
-  font-size: var(--bp-type-learning-note-size);
-  font-weight: 400;
-  font-style: normal;
-  line-height: var(--bp-type-learning-note-line-height);
-  color: var(--bp-ink-soft);
-  letter-spacing: 0;
-}
-
-.bp-answer .text .why-icon {
-  width: 13px;
-  height: 13px;
-  margin-top: 1px;
-  color: var(--bp-ink-faint);
-  stroke-width: 2.25;
-}
-
-.bp-answer.is-correct .text .why {
-  color: var(--md-sys-color-success);
-  font-style: normal;
-}
-
-.bp-answer.is-correct .text .why-icon {
-  color: var(--bp-green);
-}
-
-.bp-answer.is-wrong .text .why {
-  color: var(--bp-wrong);
-  opacity: 0.85;
-}
-
-.missed-item .variant-note {
-  margin: 7px 0 0;
-  padding: 6px 9px;
-  background: var(--bp-gold-soft);
-  border: 1px solid transparent;
-  font-family: var(--bp-mono);
-  font-size: 11.5px;
-  line-height: 1.35;
-  color: var(--md-sys-color-on-warning-container);
 }
 
 .gl-page {
@@ -3491,6 +3410,13 @@ button {
     display: flex;
   }
 
+  .bp-app.is-glossary.filters-open {
+    width: min(100vw, 1120px);
+    max-width: 1120px;
+    display: flex;
+    grid-template-columns: none;
+  }
+
   .bp-app.filters-open {
     width: min(100vw, 1112px);
     max-width: 1112px;
@@ -3522,6 +3448,29 @@ button {
   .bp-app.filters-open .bp-pills-bar {
     display: grid;
     grid-template-columns: 76px minmax(0, 1fr);
+  }
+
+  .bp-app.is-glossary .bp-pills-bar {
+    display: grid;
+    position: fixed;
+    z-index: 40;
+    top: 88px;
+    left: max(12px, calc((100vw - 1120px) / 2 + 12px));
+    bottom: 12px;
+    width: min(360px, calc(100vw - 30px));
+    margin: 0;
+    transform: translateX(calc(-100% - 18px));
+    pointer-events: none;
+    box-shadow: var(--md-elevation-3);
+    transition: transform var(--md-sys-motion-duration-medium3) var(--md-sys-motion-easing-emphasized-decelerate),
+      box-shadow var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+  }
+
+  .bp-app.is-glossary.filters-open .bp-pills-bar {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    transform: translateX(0);
+    pointer-events: auto;
   }
 
   .bp-pills-bar .pills {

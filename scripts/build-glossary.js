@@ -3,6 +3,8 @@ const path = require("node:path");
 
 const root = path.join(__dirname, "..");
 const data = JSON.parse(fs.readFileSync(path.join(root, "data/lid-berlin-source-of-truth.json"), "utf8"));
+const sourceQuestions = Array.isArray(data) ? data : data.questions;
+const metadata = JSON.parse(fs.readFileSync(path.join(root, "data/lid-berlin-question-metadata.json"), "utf8"));
 const i18n = JSON.parse(fs.readFileSync(path.join(root, "data/i18n/en.json"), "utf8"));
 const messages = i18n.messages || {};
 const RANGES = ["A-D", "E-H", "I-S", "T-Z"];
@@ -52,7 +54,7 @@ const CONTEXT_OVERRIDES = {
   "Einheit": "Einheit means unity. In German civic history it usually points to German unity after division: 3 October 1990 and the political joining of East and West Germany.",
   "Fraktion": "Fraktion means parliamentary group. Members of parliament from the same party or allied parties work together as a group; Fraktionen matter for majorities, opposition, and Bundestag leadership.",
   "Gericht": "Gericht means court. Courts are part of the judiciary: they decide legal disputes, check state action, and protect the rule of law.",
-  "Gesetz": "Gesetz means law. It appears with the Basic Law, parliament, courts, rights, and social insurance; the important distinction is often whether the issue is about making laws, obeying laws, or protecting legal rights.",
+  "Gesetz": "Gesetz means law. The important distinction is often whether the issue is about making laws in parliament, obeying laws in a Rechtsstaat, or protecting legal rights through courts and the constitution.",
   "Gesetze": "Gesetze means laws. In a Rechtsstaat, residents and the state must follow the laws, and the Bundestag is central to making federal laws.",
   "Gewerkschaften": "Gewerkschaften means trade unions. They represent employees' interests in working life, especially around pay, working conditions, and collective bargaining.",
   "Grundgesetz": "Grundgesetz means Basic Law, Germany's constitution. It protects rights such as human dignity, freedom of opinion, religious freedom, equality, and limits on state power.",
@@ -82,7 +84,7 @@ const CONTEXT_OVERRIDES = {
   "Wahlen": "Wahlen means elections. Democratic elections must be free, equal, and secret; citizens choose representatives, and election helpers support the process.",
   "Wappen": "Wappen means coat of arms. Berlin's coat of arms is the bear, not the federal eagle or another state's symbol.",
   "Wiedervereinigung": "Wiedervereinigung means reunification. It refers to 1990 and 3 October, when East and West Germany became one country again.",
-  "Würde": "Würde means dignity. It appears in the Basic Law phrase Die Würde des Menschen ist unantastbar: human dignity is inviolable and comes before ordinary politics.",
+  "Würde": "Würde means dignity. In the Basic Law phrase Die Würde des Menschen ist unantastbar, human dignity is inviolable and comes before ordinary politics.",
 };
 
 function normalize(value = "") {
@@ -112,15 +114,15 @@ function sentenceFragment(value = "") {
 function learnerContext(term, translation, questions) {
   if (CONTEXT_OVERRIDES[term]) return CONTEXT_OVERRIDES[term];
 
-  const correctAnswers = [...new Set(questions.map((question) => question.correctAnswer).filter(Boolean))]
+  const correctAnswers = [...new Set(questions.map((question) => question.answers[question.correctAnswerIndex]?.text).filter(Boolean))]
     .slice(0, 2)
     .map(sentenceFragment);
   const themes = [...new Set(questions.map((question) => question.theme))].slice(0, 2);
   const themeText = themes.length ? themes.join(" and ") : "civic knowledge";
   const answerText = correctAnswers.length
-    ? ` Key answer patterns include "${correctAnswers.join('" and "')}."`
+    ? ` In this context, it is connected with "${correctAnswers.join('" and "')}."`
     : "";
-  return `In ${themeText.toLowerCase()}, this term is mainly used with these answer patterns.${answerText}`;
+  return `In ${themeText.toLowerCase()}, this term helps explain the civic idea being asked about.${answerText}`;
 }
 
 function removeRedundantOpening(context, term) {
@@ -132,10 +134,34 @@ function removeRedundantOpening(context, term) {
 }
 
 const referencedTerms = new Map();
+const metadataById = new Map((metadata.questions || []).map((question) => [question.id, question]));
+const glossaryKeyByTerm = new Map((metadata.glossary || []).map((entry) => [entry.term, entry.translationKey]));
+const questions = sourceQuestions.map((question) => {
+  const meta = metadataById.get(question.id) || {};
+  const answerMetaByIndex = new Map((meta.answers || []).map((answer) => [answer.index, answer]));
+  return {
+    ...question,
+    deck: meta.deck || (question.id > 300 ? "berlin" : "general"),
+    theme: meta.theme || "",
+    translationKey: meta.translationKey || `questions.${question.id}.question`,
+    glossaryRefs: (meta.glossaryRefs || []).map((term) => ({
+      term,
+      translationKey: glossaryKeyByTerm.get(term) || `glossary.${term}`,
+    })),
+    answers: question.answers.map((answer) => {
+      const answerMeta = answerMetaByIndex.get(answer.index) || {};
+      return {
+        ...answer,
+        isCorrect: answer.index === question.correctAnswerIndex,
+        translationKey: answerMeta.translationKey || `questions.${question.id}.answers.${answer.index}`,
+      };
+    }),
+  };
+});
 
-for (const question of data.questions) {
-  for (const keyword of question.study?.keywordRefs || []) {
-    if (!referencedTerms.has(keyword.term)) referencedTerms.set(keyword.term, keyword.translationKey);
+for (const question of questions) {
+  for (const ref of question.glossaryRefs || []) {
+    if (!referencedTerms.has(ref.term)) referencedTerms.set(ref.term, glossaryKeyByTerm.get(ref.term) || `glossary.${ref.term}`);
   }
 }
 
@@ -143,7 +169,7 @@ const terms = [...referencedTerms.entries()]
   .filter(([term]) => !STOP_TERMS.has(term))
   .map(([term, translationKey]) => {
     const translation = messages[translationKey] || term;
-    const matchingQuestions = data.questions.filter((question) => {
+    const matchingQuestions = questions.filter((question) => {
       const answerText = question.answers.map((answer) => answer.text).join(" ");
       return includesTerm(`${question.question} ${answerText}`, term);
     });
@@ -153,7 +179,6 @@ const terms = [...referencedTerms.entries()]
       if (includesTerm(question.question, term)) {
         items.push({
           id: question.id,
-          localNumber: question.localNumber,
           kind: "question",
           text: question.question,
           translation: messages[question.translationKey] || "",
@@ -163,7 +188,6 @@ const terms = [...referencedTerms.entries()]
         if (!includesTerm(answer.text, term)) return;
         items.push({
           id: question.id,
-          localNumber: question.localNumber,
           kind: "answer",
           text: answer.text,
           translation: messages[answer.translationKey] || "",
@@ -189,8 +213,9 @@ const output = {
   generatedAt: new Date().toISOString(),
   source: {
     questions: "data/lid-berlin-source-of-truth.json",
+    metadata: "data/lid-berlin-question-metadata.json",
     translations: "data/i18n/en.json",
-    basis: "questions[].study.keywordRefs matched against question and answer text",
+    basis: "question metadata glossaryRefs matched against question and answer text",
     excludedTerms: [...STOP_TERMS].sort((left, right) => left.localeCompare(right, "de-DE", { sensitivity: "base" })),
   },
   ranges: RANGES,

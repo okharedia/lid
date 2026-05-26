@@ -12,6 +12,22 @@ _Avoid_: Card
 The globally unique catalog number that identifies one **Question**.
 _Avoid_: Local number, display number, index
 
+**Question Source**:
+The protected official German content for a **Question**: its **Question ID**, prompt, answer choices, and correct answer position.
+_Avoid_: App database, metadata, generated question
+
+**Learner Metadata**:
+Editable learner-support content attached to a **Question ID**, such as translation keys, **Study Notes**, and glossary references.
+_Avoid_: Source of truth, official facts
+
+**Study Note**:
+A German learner-support note that explains the exact **Question** context and can be translated for the selected learner language.
+_Avoid_: Hint, memory aid, keyword tip
+
+**Glossary Term**:
+A meaningful German word or phrase highlighted in a **Question** and explained in the glossary.
+_Avoid_: Keyword, danger word
+
 **Known Question**:
 A question the learner has marked as mastered, excluding it from learning and tests until the mark is removed.
 _Avoid_: Completed card, saved question
@@ -52,22 +68,15 @@ _Avoid_: Test state, exam run
 The finished test summary showing score, pass status, and missed questions with the learner's answer and correct answer.
 _Avoid_: Score page, report
 
-**Distractor Explanation**:
-The short "why wrong" or "why correct" line shown beneath an answer once the answer is revealed.
-_Avoid_: Hint, footnote
-
-**Duplicate Question**:
-A **Question** whose wording is identical to an earlier **Question** in the catalog. Surfaced as a chip pointing to the earlier **Question**.
-_Avoid_: Repeat, alias
-
-**Answer Variant Note**:
-A note shown on the **Test Result** review when the same **Question** can appear with slightly different wording on the real exam.
-_Avoid_: Warning, disclaimer
-
 ## Relationships
 
 - A **Known Question** is always a **Question**.
 - A **Question** has exactly one **Question ID**.
+- A **Question Source** contains the official German text for a **Question**.
+- **Learner Metadata** references a **Question** by **Question ID**.
+- **Learner Metadata** must not redefine official German question or answer text.
+- A **Study Note** belongs to one **Question** and explains that question's context.
+- A **Glossary Term** can be highlighted inside a **Question** and linked to its glossary explanation.
 - A **Known Question** is excluded from both learning and tests.
 - A **Question Link** can open a **Known Question** even though known questions are excluded from normal learning flow.
 - Marking the current learning **Question** known removes it from learning immediately.
@@ -91,10 +100,7 @@ _Avoid_: Warning, disclaimer
 - A **Test Result** shows missed **Questions** with the learner's answer and correct answer.
 - A **Test Result** is not kept as long-term learner history.
 - An unfinished **Test Session** can resume after refresh.
-- A **Distractor Explanation** appears only after correctness is revealed for the **Question**.
 - Delayed test feedback keeps the selected answer neutral during the **Test Session** and shows scoring in the **Test Result**.
-- A **Duplicate Question** carries a chip linking back to the canonical (lower-numbered) **Question**.
-- An **Answer Variant Note** only appears on the **Test Result** review, not during the live **Question**.
 
 ## Example dialogue
 
@@ -157,6 +163,8 @@ _Avoid_: Warning, disclaimer
 - Invalid question links could redirect silently or fail visibly — resolved: a **Missing Question Link** shows a not-found state.
 - Opening a link during a **Test Session** could discard or preserve the session — resolved: **Question Links** preserve the current **Test Session**.
 - Question numbers could mean local/source numbering or global catalog identity — resolved: **Question Link** numbers use **Question ID**.
+- Source content and learner-support content could live together — resolved: **Question Source** contains official German facts; **Learner Metadata** contains notes, translation keys, and glossary references.
+- Hints, memory aids, keywords, and danger words overlapped — resolved: use **Study Note** for question context and **Glossary Term** for highlighted terms.
 - Learning navigation after a **Question Link** could leave the original URL or follow the current question — resolved: the URL follows the current learning **Question**.
 - Known questions could be hidden from links because they are excluded from learning — resolved: **Question Links** can still open **Known Questions**.
 - A **Question Link** could preserve the active **Filter** or change it — resolved: opening a **Question Link** resets the **Filter** to all questions.

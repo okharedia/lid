@@ -117,7 +117,6 @@ const els = {
   imageDialog: document.querySelector("#imageDialog"),
   imageDialogImage: document.querySelector("#imageDialogImage"),
   imageDialogClose: document.querySelector("#imageDialogClose"),
-  questionChips: document.querySelector("#questionChips"),
   answers: document.querySelector("#answers"),
   hintText: document.querySelector("#hintText"),
   studyDock: document.querySelector("#studyDock"),
@@ -292,19 +291,16 @@ async function loadMessages(nextLocale = DEFAULT_LOCALE) {
   document.documentElement.dataset.locale = locale;
 }
 
-function keywordRefs(card) {
-  return card.study?.keywordRefs || [];
+function correctAnswerIndex(question) {
+  return question?.correctAnswerIndex ?? question?.correctIndex ?? 0;
+}
+
+function glossaryRefs(card) {
+  return card.glossaryRefs || [];
 }
 
 function highlightTerms(card) {
-  return [
-    ...(card.study?.highlightTerms || []),
-    ...(card.questionDangerWords || []),
-  ].filter(Boolean);
-}
-
-function dangerTerms(card) {
-  return new Set(card.study?.dangerTerms || card.questionDangerWords || []);
+  return glossaryRefs(card).map((ref) => ref.term || ref).filter(Boolean);
 }
 
 function highlightedText(text, card) {
@@ -312,18 +308,15 @@ function highlightedText(text, card) {
   if (!terms.length) return escapeHtml(text);
 
   const sortedTerms = [...new Set(terms)].sort((a, b) => b.length - a.length);
-  const danger = dangerTerms(card);
   const expression = new RegExp(`(${sortedTerms.map(escapeRegExp).join("|")})`, "gi");
 
   return escapeHtml(text).replace(expression, (match) => {
-    const original = sortedTerms.find((term) => term.toLowerCase() === match.toLowerCase());
-    const className = danger.has(original) ? "kw danger" : "kw";
-    return `<span class="${className}">${match}</span>`;
+    return `<span class="kw">${match}</span>`;
   });
 }
 
-function highlightedAnswerText(answer, card, isCorrectAnswer, reveal) {
-  return reveal && isCorrectAnswer ? highlightedText(answer, card) : escapeHtml(answer);
+function highlightedAnswerText(answer, card) {
+  return highlightedText(answer, card);
 }
 
 function pad(value, width = 2) {
@@ -479,7 +472,7 @@ function scoreFor(session = state.testSession) {
     const question = questionById.get(Number(id));
     if (!question) return;
     const selected = session.answers[String(id)];
-    if (selected === question.correctIndex) {
+    if (selected === correctAnswerIndex(question)) {
       correct += 1;
       return;
     }
@@ -523,7 +516,7 @@ function renderKnownPanel() {
           <article class="known-item">
             <a class="known-link" href="${questionPath(question.id)}" data-question-link="${question.id}" aria-label="${uiHtml("ui.known.openQuestion", { number: pad(question.id, 3) })}">
               <span class="known-link-copy">
-                <span class="known-meta">${uiHtml("ui.question.label", { number: pad(question.localNumber || question.id, 3) })} · ${escapeHtml(categoryLabel(question.theme))}</span>
+                <span class="known-meta">${uiHtml("ui.question.label", { number: pad(question.id, 3) })} · ${escapeHtml(categoryLabel(question.theme))}</span>
                 <span class="known-question">${escapeHtml(question.question)}</span>
               </span>
               <span class="known-link-icon" aria-hidden="true">${icon("arrow-up-right")}</span>
@@ -635,17 +628,17 @@ function renderResult() {
                 const selectedAnswerObject = selected === null || selected === undefined
                   ? null
                   : question.answers[selected];
-                const correctAnswerObject = question.answers[question.correctIndex];
+                const correctAnswerObject = question.answers[correctAnswerIndex(question)];
                 const selectedAnswer = selectedAnswerObject === null
                   ? ui("ui.result.noAnswer")
                   : selectedAnswerObject?.text || ui("ui.result.noAnswer");
-                const correctAnswer = correctAnswerObject?.text || question.correctAnswer;
+                const correctAnswer = correctAnswerObject?.text || ui("ui.result.noAnswer");
                 const questionTranslation = showTranslations ? t(question.translationKey) : "";
                 const selectedTranslation = showTranslations && selectedAnswerObject ? visibleAnswerTranslation(selectedAnswerObject) : "";
                 const correctTranslation = showTranslations && correctAnswerObject ? visibleAnswerTranslation(correctAnswerObject) : "";
                 return `
                   <article class="missed-item">
-                    <span>${uiHtml("ui.question.label", { number: pad(question.localNumber || question.id, 3) })}</span>
+                    <span>${uiHtml("ui.question.label", { number: pad(question.id, 3) })}</span>
                     <h3>${escapeHtml(question.question)}</h3>
                     ${questionTranslation ? `<p class="missed-q-en">${escapeHtml(questionTranslation)}</p>` : ""}
                     <div class="missed-answer wrong">
@@ -662,7 +655,6 @@ function renderResult() {
                         ${correctTranslation ? `<span class="en">${escapeHtml(correctTranslation)}</span>` : ""}
                       </span>
                     </div>
-                    ${showTranslations && question.answerVariants ? `<p class="variant-note">${escapeHtml(t(question.answerVariants.noteKey))}</p>` : ""}
                   </article>
                 `;
               })
@@ -828,7 +820,7 @@ function renderGlossaryTerm(item) {
 
 function renderGlossaryMatch(match) {
   return `
-    <button class="gl-match-card" type="button" data-href="${questionPath(match.id)}" aria-label="${uiHtml("ui.glossary.openQuestion", { number: pad(match.localNumber || match.id, 3) })}">
+    <button class="gl-match-card" type="button" data-href="${questionPath(match.id)}" aria-label="${uiHtml("ui.glossary.openQuestion", { number: pad(match.id, 3) })}">
       <span class="gl-match-meta">
         <span class="gl-match-kind is-${escapeHtml(match.kind)}" aria-label="${escapeHtml(match.kind)}">
           ${icon(match.kind === "question" ? "help-circle" : "list-check")}
@@ -926,10 +918,10 @@ function render() {
   }
 
   const selected = isLearn ? state.selected : testAnswer;
-  const correctChosen = isAnswered && selected === card.correctIndex;
-  const wrongChosen = isAnswered && selected !== card.correctIndex;
+  const correctChosen = isAnswered && selected === correctAnswerIndex(card);
+  const wrongChosen = isAnswered && selected !== correctAnswerIndex(card);
 
-  els.questionTag.textContent = ui("ui.question.label", { number: pad(card.localNumber || card.id, 3) });
+  els.questionTag.textContent = ui("ui.question.label", { number: pad(card.id, 3) });
   els.categoryLabel.textContent = categoryLabel(card.theme);
   els.knownTag.hidden = !state.known.has(card.id);
   els.feedback.hidden = !reveal || !(correctChosen || wrongChosen);
@@ -959,20 +951,18 @@ function render() {
     els.imageDialogImage.removeAttribute("src");
   }
 
-  renderQuestionChips(card, isLearn);
-
   const renderedAnswers = card.answers.map((answer, index) => ({ answer, index }));
   if (isLearn) {
     renderedAnswers.sort((left, right) => {
-      if (left.index === card.correctIndex) return -1;
-      if (right.index === card.correctIndex) return 1;
+      if (left.index === correctAnswerIndex(card)) return -1;
+      if (right.index === correctAnswerIndex(card)) return 1;
       return left.index - right.index;
     });
   }
 
   els.answers.innerHTML = renderedAnswers
     .map(({ answer, index }) => {
-      const isCorrectAnswer = index === card.correctIndex;
+      const isCorrectAnswer = index === correctAnswerIndex(card);
       let className = "bp-answer";
       if (reveal) {
         if (isCorrectAnswer) className += " is-correct";
@@ -983,15 +973,13 @@ function render() {
       }
       const mark = reveal && isCorrectAnswer ? icon("check") : reveal && selected === index ? icon("x") : "";
       const answerTranslation = showTranslations ? visibleAnswerTranslation(answer) : "";
-      const why = reveal ? t(answer.whyKey) : "";
       const checked = reveal ? (isLearn ? isCorrectAnswer : selected === index) : !isLearn && selected === index;
       return `
         <li>
           <button class="${className}" type="button" role="radio" aria-checked="${checked}" data-answer="${index}" ${isLearn || isAnswered ? "disabled" : ""}>
             <span class="text">
-              ${highlightedAnswerText(answer.text, card, isCorrectAnswer, reveal)}
+              ${highlightedAnswerText(answer.text, card)}
               ${answerTranslation ? `<span class="en">${escapeHtml(answerTranslation)}</span>` : ""}
-              ${why ? `<span class="why">${icon("sparkle-2", "why-icon")}<span>${escapeHtml(why)}</span></span>` : ""}
             </span>
             <span class="mark">${mark}</span>
           </button>
@@ -1000,17 +988,22 @@ function render() {
     })
     .join("");
 
-  const hint = t(card.study?.hintKey) || t(card.study?.memoryKey);
-  const keywords = keywordRefs(card);
-  els.hintText.innerHTML = `${icon("sparkle-2", "hint-icon")} ${highlightedText(hint, card)}`;
-  els.keywordList.hidden = !keywords.length;
-  els.keywordList.innerHTML = keywords
-    .map((keyword) => `
-      <span class="kw-item">
-        <span class="de">${escapeHtml(keyword.term)}</span>
-        <span class="en">${escapeHtml(t(keyword.translationKey))}</span>
-      </span>
-    `)
+  const note = t(card.study?.noteKey) || card.study?.note || "";
+  const refs = glossaryRefs(card);
+  els.hintText.innerHTML = note ? `${icon("sparkle-2", "hint-icon")} ${highlightedText(note, card)}` : "";
+  els.hintText.hidden = !note;
+  els.keywordList.hidden = !refs.length;
+  els.keywordList.innerHTML = refs
+    .map((ref) => {
+      const term = ref.term || ref;
+      const translationKey = ref.translationKey || `glossary.${term}`;
+      return `
+      <button class="kw-item" type="button" data-glossary-chip="${escapeHtml(glossarySlug(term))}" aria-label="${uiHtml("ui.glossary.openTerm", { term })}">
+        <span class="de">${escapeHtml(term)}</span>
+        <span class="en">${escapeHtml(t(translationKey))}</span>
+      </button>
+    `;
+    })
     .join("");
 
   syncStudyDockState();
@@ -1018,22 +1011,6 @@ function render() {
   saveState();
   fitLayout();
   setTimeout(fitLayout, 250);
-}
-
-function renderQuestionChips(card, isLearn) {
-  const chips = [];
-  if (isLearn && card.duplicateOfId) {
-    const original = questionById.get(card.duplicateOfId);
-    if (original) {
-      chips.push(`
-        <span class="bp-chip duplicate-chip" title="${uiHtml("ui.chip.sameAsEarlier")}">
-          ${icon("repeat")} <span>${uiHtml("ui.chip.seenBefore", { number: pad(original.localNumber || original.id, 3) })}</span>
-        </span>
-      `);
-    }
-  }
-  els.questionChips.innerHTML = chips.join("");
-  els.questionChips.hidden = !chips.length;
 }
 
 function renderNav(card, isLearn, isAnswered, total) {
@@ -1609,6 +1586,13 @@ function bindEvents() {
     render();
     els.studyHandle.focus();
   });
+  els.keywordList.addEventListener("click", (event) => {
+    const chip = event.target.closest("[data-glossary-chip]");
+    if (!chip) return;
+    rememberCurrentProgress();
+    window.history.pushState({}, "", `/glossary#${encodeURIComponent(chip.dataset.glossaryChip)}`);
+    render();
+  });
   els.categoryPills.addEventListener("click", (event) => {
     const button = event.target.closest("[data-category]");
     if (!button) return;
@@ -1835,10 +1819,40 @@ async function init() {
   const response = await fetch("/data/lid-berlin-source-of-truth.json", { cache: "no-store" });
   if (!response.ok) throw new Error(ui("ui.error.loadDatabase", { status: response.status }));
   const database = await response.json();
+  const metadataResponse = await fetch("/data/lid-berlin-question-metadata.json", { cache: "no-store" });
+  if (!metadataResponse.ok) throw new Error(ui("ui.error.loadDatabase", { status: metadataResponse.status }));
+  const metadata = await metadataResponse.json();
+  const metadataById = new Map((metadata.questions || []).map((question) => [question.id, question]));
+  const glossaryKeyByTerm = new Map((metadata.glossary || []).map((entry) => [entry.term, entry.translationKey]));
   const glossaryResponse = await fetch("/data/glossary.json", { cache: "no-store" });
   if (!glossaryResponse.ok) throw new Error(ui("ui.error.loadDatabase", { status: glossaryResponse.status }));
   glossary = await glossaryResponse.json();
-  questions = database.questions;
+  const sourceQuestions = Array.isArray(database) ? database : database.questions;
+  questions = sourceQuestions.map((question) => {
+    const meta = metadataById.get(question.id) || {};
+    const answerMetaByIndex = new Map((meta.answers || []).map((answer) => [answer.index, answer]));
+    const answerIndex = correctAnswerIndex(question);
+    return {
+      ...question,
+      correctAnswerIndex: answerIndex,
+      deck: meta.deck || (question.id > 300 ? "berlin" : "general"),
+      theme: meta.theme || "",
+      translationKey: meta.translationKey || `questions.${question.id}.question`,
+      study: meta.study || {},
+      glossaryRefs: (meta.glossaryRefs || []).map((term) => ({
+        term,
+        translationKey: glossaryKeyByTerm.get(term) || `glossary.${term}`,
+      })),
+      answers: question.answers.map((answer) => {
+        const answerMeta = answerMetaByIndex.get(answer.index) || {};
+        return {
+          ...answer,
+          isCorrect: answer.index === answerIndex,
+          translationKey: answerMeta.translationKey || `questions.${question.id}.answers.${answer.index}`,
+        };
+      }),
+    };
+  });
   questionById = new Map(questions.map((question) => [question.id, question]));
   categories = [ALL_CATS, ...new Set(questions.map((question) => question.theme))];
   if (!categories.includes(state.category)) state.category = ALL_CATS;

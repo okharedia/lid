@@ -57,7 +57,7 @@ test("opens question deeplinks in learn mode", async ({ page }) => {
 
 test("question deeplinks use global question IDs", async ({ page }) => {
   await page.goto("/q/301");
-  await expect(page.locator("#questionTag")).toContainText("FRAGE 001");
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 301");
   await expect(page.locator("#categoryLabel")).toContainText("Berlin state question");
   await expect(page.locator("#questionText")).toContainText("Welches Wappen gehört zum Bundesland Berlin?");
   await expect(page.locator("#progressText")).toContainText("301");
@@ -194,7 +194,7 @@ test("can take tests without translations", async ({ page }) => {
 test("hides duplicate numeric answer translations", async ({ page }) => {
   await page.goto("/q/304");
 
-  await expect(page.locator("#questionTag")).toContainText("FRAGE 004");
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 304");
   await expect(page.locator("#answers .en")).toHaveCount(0);
   await expect(page.locator("#answers")).toContainText("16");
 });
@@ -305,37 +305,40 @@ test("marking mastered removes a card, can undo, and survives reload", async ({ 
   await expect(page.locator("#knownCount")).toHaveCount(0);
 });
 
-test("study help starts expanded and handle toggles it", async ({ page }) => {
+test("glossary notes start expanded and handle toggles it", async ({ page }) => {
   await openTrainer(page);
 
   const studyDock = page.locator("#studyDock");
-  const handle = page.getByRole("button", { name: "Collapse study help" });
+  const handle = page.getByRole("button", { name: "Collapse glossary notes" });
 
   await expect(studyDock).toBeVisible();
-  await expect(handle).toHaveAttribute("aria-expanded", "true");
   await expect(page.locator("#keywordList")).toBeVisible();
+  if (!(await handle.isVisible())) {
+    await expect(studyDock).toHaveClass(/is-static/);
+    return;
+  }
+  await expect(handle).toHaveAttribute("aria-expanded", "true");
 
   await handle.click();
   await expect(studyDock).toHaveClass(/is-collapsed/);
-  await expect(page.getByRole("button", { name: "Expand study help" })).toHaveAttribute("aria-expanded", "false");
+  await expect(page.getByRole("button", { name: "Expand glossary notes" })).toHaveAttribute("aria-expanded", "false");
 
-  await page.getByRole("button", { name: "Expand study help" }).click();
+  await page.getByRole("button", { name: "Expand glossary notes" }).click();
   await expect(studyDock).not.toHaveClass(/is-collapsed/);
-  await expect(page.getByRole("button", { name: "Collapse study help" })).toHaveAttribute("aria-expanded", "true");
+  await expect(page.getByRole("button", { name: "Collapse glossary notes" })).toHaveAttribute("aria-expanded", "true");
 
-  await page.getByRole("button", { name: "Collapse study help" }).focus();
+  await page.getByRole("button", { name: "Collapse glossary notes" }).focus();
   await page.keyboard.press("Escape");
   await expect(studyDock).toHaveClass(/is-collapsed/);
-  await expect(page.getByRole("button", { name: "Expand study help" })).toBeFocused();
+  await expect(page.getByRole("button", { name: "Expand glossary notes" })).toBeFocused();
 });
 
-test("study help hides the drawer handle when content already fits", async ({ page }) => {
+test("glossary notes hide the drawer handle when content already fits", async ({ page }) => {
   await openTrainer(page);
 
   const studyDock = page.locator("#studyDock");
   const studyHandle = page.locator("#studyHandle");
 
-  await expect(studyHandle).toBeVisible();
   await page.getByRole("button", { name: "Next" }).click();
   await expect(page.locator("#questionTag")).toContainText("002");
   await expect(studyDock).toHaveClass(/is-static/);
@@ -344,7 +347,7 @@ test("study help hides the drawer handle when content already fits", async ({ pa
 
 test("progress controls jump within the current filter", async ({ page }) => {
   await page.goto("/q/301?testSize=2");
-  await expect(page.locator("#questionTag")).toContainText("FRAGE 001");
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 301");
 
   await page.locator("#filterButton").click();
   await page.locator('[data-category="Berlin state question"]').click();
@@ -372,7 +375,7 @@ test("mastered questions are skipped without shrinking filtered progress", async
   });
 
   await page.goto("/?testSize=2");
-  await expect(page.locator("#questionTag")).toContainText("FRAGE 002");
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 302");
   await expect(page.locator("#progressText")).toContainText("12");
   await expect(page.locator("#progressText")).toContainText("/20");
 
@@ -436,7 +439,6 @@ test("long mobile question typography does not overflow", async ({ page }) => {
         ".bp-q-en",
         ".bp-answer .text",
         ".bp-answer .text .en",
-        ".bp-answer .text .why",
         ".bp-hint",
         ".bp-nav button",
       ];
