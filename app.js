@@ -46,6 +46,9 @@ const state = {
   known: new Set(),
   index: 0,
   learnIndex: 0,
+  linkedQuestionId: null,
+  missingQuestionId: null,
+  syncQuestionUrl: false,
   selected: null,
   deck: [],
   panelTab: "filters",
@@ -99,11 +102,11 @@ const els = {
   categoryLabel: document.querySelector("#categoryLabel"),
   knownTag: document.querySelector("#knownTag"),
   feedback: document.querySelector("#feedback"),
-  knownCount: document.querySelector("#knownCount"),
+  firstQuestionButton: document.querySelector("#firstQuestionButton"),
   progressText: document.querySelector("#progressText"),
+  lastQuestionButton: document.querySelector("#lastQuestionButton"),
   jumpDialog: document.querySelector("#jumpDialog"),
   jumpInput: document.querySelector("#jumpInput"),
-  jumpClose: document.querySelector("#jumpClose"),
   questionText: document.querySelector("#questionText"),
   questionTranslation: document.querySelector("#questionTranslation"),
   questionImageButton: document.querySelector("#questionImageButton"),
@@ -257,7 +260,7 @@ function requestedLocale() {
 }
 
 async function loadMessages(nextLocale = DEFAULT_LOCALE) {
-  const response = await fetch(`./data/i18n/${nextLocale}.json`);
+  const response = await fetch(`/data/i18n/${nextLocale}.json`);
   if (!response.ok && nextLocale !== DEFAULT_LOCALE) return loadMessages(DEFAULT_LOCALE);
   if (!response.ok) return;
   const translationCatalog = await response.json();
@@ -318,6 +321,27 @@ function availableQuestions(category = state.category) {
   return baseFilteredQuestions(category).filter((question) => !state.known.has(question.id));
 }
 
+function questionLinkIdFromPath(pathname = window.location.pathname) {
+  const match = pathname.match(/^\/q\/(\d+)\/?$/);
+  if (!match) return null;
+  const id = Number(match[1]);
+  return Number.isInteger(id) && id > 0 ? id : null;
+}
+
+function questionPath(id) {
+  return `/q/${id}`;
+}
+
+function updateQuestionUrl(id, mode = "replace") {
+  if (!id || window.location.pathname === questionPath(id)) return;
+  const nextUrl = `${questionPath(id)}${window.location.search}${window.location.hash}`;
+  window.history[mode === "push" ? "pushState" : "replaceState"]({}, "", nextUrl);
+}
+
+function indexForQuestionId(id, deck = state.deck) {
+  return deck.findIndex((question) => question.id === id);
+}
+
 function currentCard() {
   return state.deck[state.index] || null;
 }
@@ -341,11 +365,34 @@ function hasAnsweredTestQuestions(session = state.testSession) {
 }
 
 function buildLearnDeck(resetIndex = true) {
-  state.deck = availableQuestions();
+  state.deck = baseFilteredQuestions();
   if (resetIndex) state.index = 0;
   else if (state.index >= state.deck.length) state.index = Math.max(0, state.deck.length - 1);
   state.learnIndex = state.index;
   state.selected = null;
+}
+
+function nextLearnIndex(step, startIndex = state.index) {
+  if (!state.deck.length) return startIndex;
+  let index = startIndex;
+  while (true) {
+    const nextIndex = index + step;
+    if (nextIndex < 0 || nextIndex >= state.deck.length) return index;
+    index = nextIndex;
+    const question = state.deck[index];
+    if (question && !state.known.has(question.id)) return index;
+  }
+}
+
+function firstAvailableLearnIndex() {
+  return state.deck.findIndex((question) => !state.known.has(question.id));
+}
+
+function lastAvailableLearnIndex() {
+  for (let index = state.deck.length - 1; index >= 0; index -= 1) {
+    if (!state.known.has(state.deck[index].id)) return index;
+  }
+  return -1;
 }
 
 function hydrateTestDeck() {
@@ -426,7 +473,6 @@ function renderCategories() {
     .map((category) => {
       const isAll = category === ALL_CATS;
       const total = baseFilteredQuestions(category).length;
-      const available = availableQuestions(category).length;
       const label = isAll ? ui("category.all.short") : categoryLabel(category);
       const selected = category === state.category;
       return `
@@ -434,7 +480,7 @@ function renderCategories() {
           <span class="cat-check" aria-hidden="true">${icon("check")}</span>
           <span class="cat-copy">
             <span class="de">${escapeHtml(label)}</span>
-            <span class="en">${uiHtml("ui.category.availableCount", { available, total })}</span>
+            <span class="en">${uiCount("ui.category.questionCountOne", "ui.category.questionCountOther", total)}</span>
           </span>
         </button>
       `;
@@ -444,18 +490,18 @@ function renderCategories() {
 
 function renderKnownPanel() {
   const knownQuestions = questions.filter((question) => state.known.has(question.id));
-  els.knownSummary.innerHTML = `
-    <span>${uiHtml("ui.known.masteredCount", { count: knownQuestions.length })}</span>
-    <span>${uiHtml("ui.category.availableCount", { available: questions.length - knownQuestions.length, total: questions.length })}</span>
-  `;
+  els.knownSummary.innerHTML = "";
   els.knownList.innerHTML = knownQuestions.length
     ? knownQuestions
         .map((question) => `
           <article class="known-item">
-            <div>
-              <span class="known-meta">${uiHtml("ui.question.label", { number: pad(question.localNumber || question.id, 3) })} · ${escapeHtml(categoryLabel(question.theme))}</span>
-              <p>${escapeHtml(question.question)}</p>
-            </div>
+            <a class="known-link" href="${questionPath(question.id)}" data-question-link="${question.id}" aria-label="${uiHtml("ui.known.openQuestion", { number: pad(question.id, 3) })}">
+              <span class="known-link-copy">
+                <span class="known-meta">${uiHtml("ui.question.label", { number: pad(question.localNumber || question.id, 3) })} · ${escapeHtml(categoryLabel(question.theme))}</span>
+                <span class="known-question">${escapeHtml(question.question)}</span>
+              </span>
+              <span class="known-link-icon" aria-hidden="true">${icon("arrow-up-right")}</span>
+            </a>
             <button type="button" data-remove-known="${question.id}" aria-label="${uiHtml("ui.mastered.remove")}">
               ${icon("trash")}
             </button>
@@ -609,6 +655,23 @@ function render() {
   if (state.mode === "learn") buildLearnDeck(false);
   if (state.mode === "test" && !state.result) hydrateTestDeck();
 
+  if (state.missingQuestionId) {
+    els.resultView.hidden = true;
+    els.card.hidden = true;
+    els.cardNav.hidden = true;
+    els.studyDock.hidden = true;
+    els.emptyState.hidden = false;
+    els.emptyState.innerHTML = `
+      ${icon("alert-circle")}
+      <div class="big">${uiHtml("ui.question.notFoundTitle", { id: state.missingQuestionId })}</div>
+      <div>${uiHtml("ui.question.notFoundBody")}</div>
+      <button class="btn btn-secondary" type="button" data-action="learn-all">${icon("book")} ${uiHtml("ui.question.backToLearn")}</button>
+    `;
+    saveState();
+    fitLayout();
+    return;
+  }
+
   const card = currentCard();
   const total = state.deck.length;
   const isLearn = state.mode === "learn";
@@ -616,7 +679,6 @@ function render() {
   const isAnswered = isLearn ? state.selected !== null : testAnswer !== null;
   const reveal = isLearn || (isAnswered && state.testImmediateFeedback);
   const showTranslations = isLearn || state.testTranslations;
-  const knownCount = state.known.size;
 
   els.learnMode.setAttribute("aria-pressed", String(isLearn));
   els.testMode.setAttribute("aria-pressed", String(!isLearn));
@@ -664,17 +726,21 @@ function render() {
   const correctChosen = isAnswered && selected === card.correctIndex;
   const wrongChosen = isAnswered && selected !== card.correctIndex;
 
-  els.questionTag.textContent = ui(isLearn ? "ui.question.label" : "ui.test.label", { number: pad(card.localNumber || card.id, 3) });
+  els.questionTag.textContent = ui("ui.question.label", { number: pad(card.localNumber || card.id, 3) });
   els.categoryLabel.textContent = categoryLabel(card.theme);
   els.knownTag.hidden = !state.known.has(card.id);
   els.feedback.hidden = !reveal || !(correctChosen || wrongChosen);
   els.feedback.innerHTML = correctChosen ? `${icon("circle-check")} ${uiHtml("ui.feedback.correct")}` : wrongChosen ? `${icon("x")} ${uiHtml("ui.feedback.wrong")}` : "";
   els.feedback.className = `bp-feedback ${correctChosen ? "correct" : wrongChosen ? "wrong" : ""}`;
-  els.knownCount.hidden = Boolean(correctChosen || wrongChosen || !knownCount);
-  els.knownCount.innerHTML = `${icon("star", "mastered-icon")} ${knownCount}`;
+  const firstIndex = isLearn ? firstAvailableLearnIndex() : 0;
+  const lastIndex = isLearn ? lastAvailableLearnIndex() : total - 1;
+  els.firstQuestionButton.hidden = !isLearn;
+  els.firstQuestionButton.disabled = Boolean(state.result) || !total || firstIndex === -1 || state.index === firstIndex;
   els.progressText.innerHTML = `${pad(state.index + 1)}<span class="pct">/${pad(total)}</span>`;
   els.progressText.disabled = Boolean(state.result) || total <= 1;
   els.progressText.setAttribute("aria-label", ui("ui.aria.jumpToQuestionCurrent", { current: state.index + 1, total }));
+  els.lastQuestionButton.hidden = !isLearn;
+  els.lastQuestionButton.disabled = Boolean(state.result) || !total || lastIndex === -1 || state.index === lastIndex;
   els.questionText.innerHTML = highlightedText(card.question, card);
   const questionTranslation = t(card.translationKey);
   els.questionTranslation.textContent = questionTranslation;
@@ -690,7 +756,7 @@ function render() {
     els.imageDialogImage.removeAttribute("src");
   }
 
-  renderQuestionChips(card);
+  renderQuestionChips(card, isLearn);
 
   const renderedAnswers = card.answers.map((answer, index) => ({ answer, index }));
   if (isLearn) {
@@ -745,14 +811,15 @@ function render() {
     .join("");
 
   syncStudyDockState();
+  if (isLearn && state.syncQuestionUrl) updateQuestionUrl(card.id);
   saveState();
   fitLayout();
   setTimeout(fitLayout, 250);
 }
 
-function renderQuestionChips(card) {
+function renderQuestionChips(card, isLearn) {
   const chips = [];
-  if (card.duplicateOfId) {
+  if (isLearn && card.duplicateOfId) {
     const original = questionById.get(card.duplicateOfId);
     if (original) {
       chips.push(`
@@ -769,13 +836,16 @@ function renderQuestionChips(card) {
 function renderNav(card, isLearn, isAnswered, total) {
   if (isLearn) {
     const isKnown = Boolean(card && state.known.has(card.id));
+    const previousIndex = nextLearnIndex(-1);
+    const nextIndex = nextLearnIndex(1);
     els.prevButton.innerHTML = `${icon("arrow-left", "arrow")} ${uiHtml("ui.nav.prev")}`;
     els.prevButton.setAttribute("aria-label", ui("ui.nav.previousQuestion"));
+    els.prevButton.disabled = !card || previousIndex === state.index;
     els.middleButton.className = `known-btn ${isKnown ? "on" : ""}`;
     els.middleButton.disabled = !card;
     els.middleButton.setAttribute("aria-label", ui(isKnown ? "ui.mastered.remove" : "ui.mastered.mark"));
     els.middleButton.innerHTML = isKnown ? `${icon("star", "mastered-icon")} ${uiHtml("ui.tab.mastered")}` : `${icon("star")} ${uiHtml("ui.mastered.mark")}`;
-    els.nextButton.disabled = !card || state.index >= total - 1;
+    els.nextButton.disabled = !card || nextIndex === state.index;
     els.nextButton.setAttribute("aria-label", ui("ui.nav.nextQuestion"));
     els.nextButton.innerHTML = `${uiHtml("ui.nav.next")} ${icon("arrow-right", "arrow")}`;
     return;
@@ -861,18 +931,28 @@ function jumpToIndex(index) {
   if (nextIndex === state.index) return;
   const direction = nextIndex > state.index ? 1 : -1;
   state.index = nextIndex;
+  state.linkedQuestionId = null;
   state.selected = null;
   if (state.testSession) state.testSession.index = state.index;
   render();
   animateMove(direction);
 }
 
+function jumpToLearnEdge(edge) {
+  if (state.mode !== "learn") {
+    jumpToIndex(edge === "first" ? 0 : state.deck.length - 1);
+    return;
+  }
+  const target = edge === "first" ? firstAvailableLearnIndex() : lastAvailableLearnIndex();
+  if (target !== -1) jumpToIndex(target);
+}
+
 function openJumpDialog() {
   if (state.result || !state.deck.length) return;
-  els.jumpInput.max = String(state.deck.length);
-  els.jumpInput.value = String(state.index + 1);
-  if (typeof els.jumpDialog.showModal === "function") els.jumpDialog.showModal();
-  else els.jumpDialog.setAttribute("open", "");
+  els.jumpInput.max = String(questions.length);
+  els.jumpInput.value = String(currentCard()?.id || state.index + 1);
+  els.jumpDialog.hidden = false;
+  els.progressText.setAttribute("aria-expanded", "true");
   requestAnimationFrame(() => {
     els.jumpInput.focus();
     els.jumpInput.select();
@@ -880,14 +960,18 @@ function openJumpDialog() {
 }
 
 function closeJumpDialog() {
-  if (els.jumpDialog.open) els.jumpDialog.close();
+  if (els.jumpDialog.hidden) return;
+  els.jumpDialog.hidden = true;
+  els.progressText.setAttribute("aria-expanded", "false");
 }
 
 function submitJump() {
   const target = Number(els.jumpInput.value);
   if (!Number.isFinite(target)) return;
   closeJumpDialog();
-  jumpToIndex(target - 1);
+  const current = currentCard();
+  if (current && target === current.id) return;
+  openQuestionLink(target);
 }
 
 function clampSwipeDistance(dx) {
@@ -991,6 +1075,7 @@ function setMode(mode) {
   rememberCurrentProgress();
   state.mode = mode;
   state.result = null;
+  state.missingQuestionId = null;
   state.selected = null;
   if (mode === "learn") {
     state.index = state.learnIndex || 0;
@@ -1005,9 +1090,12 @@ function setMode(mode) {
 function move(step) {
   if (state.result || !state.deck.length) return;
   if (state.mode === "test" && step > 0 && currentTestAnswer() === null) return;
-  const nextIndex = Math.max(0, Math.min(state.deck.length - 1, state.index + step));
+  const nextIndex = state.mode === "learn"
+    ? nextLearnIndex(step)
+    : Math.max(0, Math.min(state.deck.length - 1, state.index + step));
   if (nextIndex === state.index) return;
   state.index = nextIndex;
+  state.linkedQuestionId = null;
   state.selected = null;
   rememberCurrentProgress();
   render();
@@ -1036,7 +1124,8 @@ function toggleKnown() {
   } else {
     knownUndo = { id: card.id, index: state.index };
     state.known.add(card.id);
-    state.index = Math.min(state.index, Math.max(0, availableQuestions().length - 1));
+    const nextIndex = nextLearnIndex(1);
+    state.index = nextIndex === state.index ? nextLearnIndex(-1) : nextIndex;
     showSnackbar(ui("ui.snackbar.markedMastered"), ui("ui.action.undo"));
   }
   buildLearnDeck(false);
@@ -1047,6 +1136,15 @@ function removeKnown(id) {
   state.known.delete(Number(id));
   hideSnackbar();
   if (state.mode === "learn") buildLearnDeck(false);
+  render();
+}
+
+function openQuestionLink(id) {
+  const questionId = Number(id);
+  if (!Number.isInteger(questionId) || questionId <= 0) return;
+  window.history.pushState({}, "", questionPath(questionId));
+  applyQuestionLinkFromUrl();
+  if (isMobileDrawer()) closeReviewPanel(false);
   render();
 }
 
@@ -1095,6 +1193,8 @@ function changeCategory(category) {
   state.category = category;
   state.index = 0;
   state.learnIndex = 0;
+  state.linkedQuestionId = null;
+  state.missingQuestionId = null;
   state.selected = null;
   state.result = null;
   if (state.mode === "test") state.testSession = newTestSession(category);
@@ -1103,7 +1203,7 @@ function changeCategory(category) {
 }
 
 function isMobileDrawer() {
-  return window.innerWidth < 600;
+  return window.innerWidth < 840;
 }
 
 function focusableDrawerElements() {
@@ -1256,35 +1356,55 @@ function bindEvents() {
   });
   els.knownList.addEventListener("click", (event) => {
     const button = event.target.closest("[data-remove-known]");
-    if (!button) return;
-    removeKnown(button.dataset.removeKnown);
+    if (button) {
+      removeKnown(button.dataset.removeKnown);
+      return;
+    }
+
+    const link = event.target.closest("[data-question-link]");
+    if (!link) return;
+    event.preventDefault();
+    openQuestionLink(link.dataset.questionLink);
   });
   els.answers.addEventListener("click", (event) => {
     const button = event.target.closest("[data-answer]");
     if (!button) return;
     pickAnswer(Number(button.dataset.answer));
   });
-  els.progressText.addEventListener("click", openJumpDialog);
-  els.jumpClose.addEventListener("click", closeJumpDialog);
-  els.jumpDialog.addEventListener("click", (event) => {
-    if (event.target === els.jumpDialog) closeJumpDialog();
+  els.firstQuestionButton.addEventListener("click", () => jumpToLearnEdge("first"));
+  els.lastQuestionButton.addEventListener("click", () => jumpToLearnEdge("last"));
+  els.progressText.addEventListener("click", () => {
+    if (els.jumpDialog.hidden) openJumpDialog();
+    else closeJumpDialog();
+  });
+  document.addEventListener("pointerdown", (event) => {
+    if (els.jumpDialog.hidden) return;
+    if (event.target.closest("#jumpDialog") || event.target.closest("#progressText")) return;
+    closeJumpDialog();
   });
   els.jumpDialog.addEventListener("submit", (event) => {
     event.preventDefault();
     submitJump();
   });
-  els.jumpDialog.addEventListener("click", (event) => {
-    const shortcut = event.target.closest("[data-jump]")?.dataset.jump;
-    if (!shortcut) return;
-    const last = state.deck.length - 1;
-    const target = shortcut === "first" ? 0 : shortcut === "middle" ? Math.floor(last / 2) : last;
-    closeJumpDialog();
-    jumpToIndex(target);
-  });
   els.resultView.addEventListener("click", (event) => {
     const action = event.target.closest("[data-action]")?.dataset.action;
     if (action === "restart-test") startTest(state.category);
     if (action === "learn-mode") setMode("learn");
+  });
+  els.emptyState.addEventListener("click", (event) => {
+    const action = event.target.closest("[data-action]")?.dataset.action;
+    if (action !== "learn-all") return;
+    state.mode = "learn";
+    state.category = ALL_CATS;
+    state.index = 0;
+    state.learnIndex = 0;
+    state.linkedQuestionId = null;
+    state.missingQuestionId = null;
+    state.syncQuestionUrl = true;
+    state.result = null;
+    buildLearnDeck(true);
+    updateQuestionUrl(currentCard()?.id || 1, "push");
+    render();
   });
   els.app.addEventListener("pointerdown", (event) => {
     if (!isMobileDrawer() || els.app.classList.contains("filters-open") || state.result) return;
@@ -1334,14 +1454,20 @@ function bindEvents() {
     releaseSwipe();
   });
   window.addEventListener("keydown", (event) => {
-    if (event.defaultPrevented || els.jumpDialog.open || els.imageDialog.open) return;
+    if (!els.jumpDialog.hidden && event.key === "Escape") {
+      event.preventDefault();
+      closeJumpDialog();
+      els.progressText.focus();
+      return;
+    }
+    if (event.defaultPrevented || !els.jumpDialog.hidden || els.imageDialog.open) return;
     if (["INPUT", "SELECT", "TEXTAREA"].includes(event.target.tagName)) return;
     if (event.key === "Home") {
       event.preventDefault();
-      jumpToIndex(0);
+      jumpToLearnEdge("first");
     } else if (event.key === "End") {
       event.preventDefault();
-      jumpToIndex(state.deck.length - 1);
+      jumpToLearnEdge("last");
     } else if (event.key === "ArrowLeft") {
       event.preventDefault();
       move(-1);
@@ -1370,6 +1496,10 @@ function bindEvents() {
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
     if (state.theme === "system") applyTheme();
   });
+  window.addEventListener("popstate", () => {
+    if (!applyQuestionLinkFromUrl()) state.syncQuestionUrl = false;
+    render();
+  });
 }
 
 function openImageDialog() {
@@ -1383,6 +1513,35 @@ function closeImageDialog() {
   if (!els.imageDialog.open) return;
   els.imageDialog.close();
   els.questionImageButton.focus();
+}
+
+function applyQuestionLinkFromUrl() {
+  const linkedId = questionLinkIdFromPath();
+  if (!linkedId) return false;
+
+  state.mode = "learn";
+  state.category = ALL_CATS;
+  state.result = null;
+  state.selected = null;
+  state.missingQuestionId = null;
+  state.syncQuestionUrl = true;
+
+  if (!questionById.has(linkedId)) {
+    state.linkedQuestionId = null;
+    state.missingQuestionId = linkedId;
+    state.syncQuestionUrl = false;
+    state.deck = [];
+    state.index = 0;
+    state.learnIndex = 0;
+    return true;
+  }
+
+  state.linkedQuestionId = linkedId;
+  buildLearnDeck(false);
+  const index = indexForQuestionId(linkedId);
+  state.index = index === -1 ? 0 : index;
+  state.learnIndex = state.index;
+  return true;
 }
 
 async function init() {
@@ -1403,7 +1562,7 @@ async function init() {
   state.testImmediateFeedback = saved.testImmediateFeedback !== false;
   applyTheme();
 
-  const response = await fetch("./data/lid-berlin-source-of-truth.json");
+  const response = await fetch("/data/lid-berlin-source-of-truth.json");
   if (!response.ok) throw new Error(ui("ui.error.loadDatabase", { status: response.status }));
   const database = await response.json();
   questions = database.questions;
@@ -1412,7 +1571,8 @@ async function init() {
   if (!categories.includes(state.category)) state.category = ALL_CATS;
 
   bindEvents();
-  if (state.mode === "test") ensureTestSession();
+  const hasQuestionLink = applyQuestionLinkFromUrl();
+  if (!hasQuestionLink && state.mode === "test") ensureTestSession();
   else buildLearnDeck(false);
   render();
   els.app.classList.remove("is-loading");

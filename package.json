@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "python3 -m http.server 4173",
+    "serve": "python3 server.py",
     "test": "npm run test:data && npm run test:e2e",
     "test:data": "node --test tests/data-integrity.test.js",
     "test:e2e": "playwright test"

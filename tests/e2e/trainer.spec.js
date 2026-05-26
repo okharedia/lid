@@ -25,7 +25,10 @@ test("takes a two-question test through result view", async ({ page }) => {
   await openTrainer(page);
 
   await switchToTestMode(page);
-  await expect(page.locator("#questionTag")).toContainText("TEST");
+  await expect(page.locator("#questionTag")).toContainText("FRAGE");
+  await expect(page.locator("#questionChips")).toBeHidden();
+  await expect(page.locator("#firstQuestionButton")).toBeHidden();
+  await expect(page.locator("#lastQuestionButton")).toBeHidden();
   await expect(page.getByRole("button", { name: /Next|Finish/ })).toBeDisabled();
 
   await answerCurrentQuestion(page);
@@ -40,6 +43,86 @@ test("takes a two-question test through result view", async ({ page }) => {
   await expect(page.locator(".result-stats")).toContainText("Correct");
   await expect(page.locator(".result-stats")).toContainText("Missed");
   await expect(page.getByRole("button", { name: /Try again/ })).toBeVisible();
+});
+
+test("opens question deeplinks in learn mode", async ({ page }) => {
+  await page.goto("/q/24?testSize=2");
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 024");
+  await expect(page.getByLabel("Mode").getByRole("button", { name: "Learn" })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("#filterButtonLabel")).toContainText("All");
+
+  await page.getByRole("button", { name: "Next" }).click();
+  await expect(page).toHaveURL(/\/q\/25\?testSize=2$/);
+});
+
+test("question deeplinks use global question IDs", async ({ page }) => {
+  await page.goto("/q/301");
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 001");
+  await expect(page.locator("#categoryLabel")).toContainText("Berlin state question");
+  await expect(page.locator("#questionText")).toContainText("Welches Wappen gehört zum Bundesland Berlin?");
+  await expect(page.locator("#progressText")).toContainText("301");
+  await expect(page.locator("#progressText")).toContainText("/310");
+});
+
+test("question deeplinks reset filters to all questions", async ({ page }) => {
+  await openTrainer(page);
+  await page.locator("#filterButton").click();
+  await page.getByRole("button", { name: /Elections/i }).click();
+  await expect(page.locator("#filterButtonLabel")).toContainText("Elections");
+
+  await page.goto("/q/24");
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 024");
+  await expect(page.locator("#filterButtonLabel")).toContainText("All");
+});
+
+test("question deeplinks show known questions", async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem("lid-trainer-v7", JSON.stringify({ known: [24] }));
+  });
+
+  await page.goto("/q/24");
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 024");
+  await expect(page.locator("#knownTag")).toBeVisible();
+});
+
+test("mastered questions link back to their deeplink", async ({ page }) => {
+  await openTrainer(page);
+  const firstQuestion = await page.locator("#questionText").innerText();
+
+  await page.getByRole("button", { name: /Mark as mastered/ }).click();
+  await page.locator("#filterButton").click();
+  await page.getByRole("tab", { name: /Mastered/ }).click();
+
+  const masteredLink = page.getByRole("link", { name: /Open question 001/ });
+  await expect(masteredLink).toHaveAttribute("href", /\/q\/1$/);
+  await masteredLink.click();
+
+  await expect(page).toHaveURL(/\/q\/1$/);
+  await expect(page.locator("#questionText")).toHaveText(firstQuestion);
+  await expect(page.locator("#knownTag")).toBeVisible();
+});
+
+test("question deeplinks preserve resumable test sessions", async ({ page }) => {
+  await openTrainer(page);
+
+  await switchToTestMode(page);
+  const testQuestion = await page.locator("#questionText").innerText();
+  await answerCurrentQuestion(page);
+
+  await page.goto("/q/24?testSize=2");
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 024");
+  await expect(page.getByLabel("Mode").getByRole("button", { name: "Learn" })).toHaveAttribute("aria-pressed", "true");
+
+  await switchToTestMode(page);
+  await expect(page.locator("#questionText")).toHaveText(testQuestion);
+  await expect(page.locator("#feedback")).toBeVisible();
+});
+
+test("missing question deeplinks show not found", async ({ page }) => {
+  await page.goto("/q/999");
+  await expect(page.locator("#emptyState")).toBeVisible();
+  await expect(page.locator("#emptyState")).toContainText("Question 999 not found");
+  await expect(page).toHaveURL(/\/q\/999$/);
 });
 
 test("theme preference defaults to system and persists explicit selection", async ({ page }) => {
@@ -211,8 +294,7 @@ test("marking mastered removes a card, can undo, and survives reload", async ({ 
   expect(savedState.known.length).toBe(1);
 
   await page.reload();
-  await expect(page.locator("#knownCount")).toContainText("1");
-  await expect(page.locator("#knownCount use")).toHaveAttribute("href", "#tabler-star");
+  await expect(page.locator("#knownCount")).toHaveCount(0);
 });
 
 test("study help starts expanded and handle toggles it", async ({ page }) => {
@@ -252,24 +334,62 @@ test("study help hides the drawer handle when content already fits", async ({ pa
   await expect(studyHandle).toBeHidden();
 });
 
-test("jump dialog navigates quickly through the deck", async ({ page }) => {
+test("progress controls jump within the current filter", async ({ page }) => {
+  await page.goto("/q/301?testSize=2");
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 001");
+
+  await page.locator("#filterButton").click();
+  await page.locator('[data-category="Berlin state question"]').click();
+  const filteredTotal = (await page.locator("#progressText .pct").innerText()).replace("/", "");
+  expect(filteredTotal).toBe("20");
+
+  await page.getByRole("button", { name: "Last question in current filter" }).click();
+  await expect(page.locator("#progressText")).toContainText(filteredTotal);
+  await expect(page).toHaveURL(/\/q\/310\?testSize=2$/);
+
+  await page.getByRole("button", { name: "First question in current filter" }).click();
+  await expect(page.locator("#progressText")).toContainText("01");
+  await expect(page).toHaveURL(/\/q\/55\?testSize=2$/);
+});
+
+test("mastered questions are skipped without shrinking filtered progress", async ({ page }) => {
+  await page.evaluate(() => {
+    localStorage.setItem("lid-trainer-v7", JSON.stringify({
+      mode: "learn",
+      category: "Berlin state question",
+      known: [301],
+      index: 11,
+      learnIndex: 11,
+    }));
+  });
+
+  await page.goto("/?testSize=2");
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 002");
+  await expect(page.locator("#progressText")).toContainText("12");
+  await expect(page.locator("#progressText")).toContainText("/20");
+
+  await page.getByRole("button", { name: "Previous question" }).click();
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 193");
+  await expect(page.locator("#progressText")).toContainText("10");
+  await expect(page.locator("#progressText")).toContainText("/20");
+});
+
+test("jump popover opens exact global question number and resets filter to all", async ({ page }) => {
   await openTrainer(page);
+
+  await page.locator("#filterButton").click();
+  await page.getByRole("button", { name: /Elections/i }).click();
+  await expect(page.locator("#filterButtonLabel")).toContainText("Elections");
 
   await page.getByRole("button", { name: /Jump to question/ }).click();
   await expect(page.getByRole("dialog", { name: "Jump to question" })).toBeVisible();
-  await page.getByRole("button", { name: "Last" }).click();
-  await expect(page.locator("#progressText")).toContainText("/310");
-  await expect(page.locator("#progressText")).toContainText("310");
-
-  await page.getByRole("button", { name: /Jump to question/ }).click();
-  await page.locator("#jumpInput").fill("1");
+  await expect(page.locator("#jumpDialog")).toHaveCSS("position", "absolute");
+  await page.locator("#jumpInput").fill("24");
   await page.getByRole("button", { name: "Go" }).click();
-  await expect(page.locator("#progressText")).toContainText("01");
 
-  await page.keyboard.press("End");
-  await expect(page.locator("#progressText")).toContainText("310");
-  await page.keyboard.press("Home");
-  await expect(page.locator("#progressText")).toContainText("01");
+  await expect(page).toHaveURL(/\/q\/24$/);
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 024");
+  await expect(page.locator("#filterButtonLabel")).toContainText("All");
 });
 
 test("mobile drawer behaves like a modal dialog", async ({ page }) => {
@@ -313,19 +433,24 @@ test("desktop review panel stays open after selecting a filter", async ({ page }
   await expect(filterButton).toHaveAttribute("aria-expanded", "false");
 });
 
-test("tablet review panel uses rail layout without modal overflow", async ({ page }) => {
+test("tablet review panel behaves as a dismissible overlay", async ({ page }) => {
   await page.setViewportSize({ width: 720, height: 820 });
   await openTrainer(page);
 
-  await page.locator("#filterButton").click();
+  const filterButton = page.locator("#filterButton");
+  await filterButton.click();
   const drawer = page.locator("#filterBar");
 
   await expect(drawer).toHaveAttribute("aria-hidden", "false");
-  await expect(drawer).not.toHaveAttribute("role", "dialog");
-  await expect(drawer).not.toHaveAttribute("aria-modal", "true");
+  await expect(drawer).toHaveAttribute("role", "dialog");
+  await expect(drawer).toHaveAttribute("aria-modal", "true");
 
   const hasOverflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
   expect(hasOverflow).toBe(false);
+
+  await page.keyboard.press("Escape");
+  await expect(drawer).toHaveAttribute("aria-hidden", "true");
+  await expect(filterButton).toHaveAttribute("aria-expanded", "false");
 });
 
 test("learn mode renders the correct answer first without changing test answer indexes", async ({ page }) => {

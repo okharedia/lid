@@ -8,6 +8,10 @@ This context describes the learning vocabulary for the LiD question trainer.
 An official LiD prompt with four answer choices and exactly one correct answer.
 _Avoid_: Card
 
+**Question ID**:
+The globally unique catalog number that identifies one **Question**.
+_Avoid_: Local number, display number, index
+
 **Known Question**:
 A question the learner has marked as mastered, excluding it from learning and tests until the mark is removed.
 _Avoid_: Completed card, saved question
@@ -16,8 +20,20 @@ _Avoid_: Completed card, saved question
 A question that is not currently marked known and can appear in learning or tests.
 _Avoid_: Active card, unresolved card
 
+**Question Position**:
+The current **Question**'s ordinal place inside the active **Filter**.
+_Avoid_: Available count, mastered-adjusted count
+
+**Question Link**:
+A direct `/q/{Question ID}` link that opens a specific **Question** in learning context.
+_Avoid_: Test deeplink, practice question
+
+**Missing Question Link**:
+A **Question Link** whose **Question ID** does not match any **Question**.
+_Avoid_: Empty deck, silent redirect
+
 **Filter**:
-A learner-selected question grouping that narrows learning and tests to available questions in that group.
+A learner-selected question grouping that narrows learning and tests to questions in that group.
 _Avoid_: Category-only view
 
 **Review Panel**:
@@ -51,12 +67,21 @@ _Avoid_: Warning, disclaimer
 ## Relationships
 
 - A **Known Question** is always a **Question**.
+- A **Question** has exactly one **Question ID**.
 - A **Known Question** is excluded from both learning and tests.
+- A **Question Link** can open a **Known Question** even though known questions are excluded from normal learning flow.
 - Marking the current learning **Question** known removes it from learning immediately.
 - **Known Questions** cannot be changed inside an active **Test Session**.
 - A correct answer in a **Test** does not automatically create a **Known Question**.
 - An **Available Question** is a **Question** that is not a **Known Question**.
-- A **Filter** shows available and total question counts for its group.
+- A **Question Link** targets one **Question** and does not create or enter a **Test Session**.
+- A **Question Link** opens learning context without ending the current **Test Session**.
+- A **Question Link** resets the active **Filter** to all questions.
+- Normal learning navigation updates the current **Question Link** target.
+- A **Missing Question Link** shows an explicit not-found state.
+- A **Question Position** counts mastered and unmastered **Questions** in the active **Filter**.
+- Normal learning navigation skips **Known Questions** while preserving **Question Position** numbering.
+- A **Filter** shows the total question count for its group.
 - The **Review Panel** contains **Filters** and **Known Questions**.
 - A **Test** contains up to 18 available questions from the active **Filter**.
 - Restarting a **Test Session** does not change **Known Questions** or the active **Filter**.
@@ -76,9 +101,27 @@ _Avoid_: Warning, disclaimer
 > **Dev:** "Should this **Question** appear in a test after the learner marks it known?"
 > **Domain expert:** "No — a **Known Question** should stay out of learning and tests until the learner removes that mark."
 > **Dev:** "Should the **Filter** count hide known questions?"
-> **Domain expert:** "Show both: how many **Available Questions** remain and how many total questions exist in the group."
+> **Domain expert:** "No — show the total question count for the group."
 > **Dev:** "If the learner filters to Elections and starts a **Test**, can Berlin state questions appear?"
 > **Domain expert:** "No — the **Test** should use only **Available Questions** inside the active **Filter**."
+> **Dev:** "Should a glossary link to question 24 use the local displayed number or the global **Question ID**?"
+> **Domain expert:** "Use the global **Question ID** — question 24 means the **Question** whose ID is 24."
+> **Dev:** "What should the canonical URL for question 24 be?"
+> **Domain expert:** "`/q/24`."
+> **Dev:** "What should happen for `/q/999` when no such **Question** exists?"
+> **Domain expert:** "Show a not-found state instead of silently redirecting."
+> **Dev:** "Should that link open question 24 inside a **Test Session**?"
+> **Domain expert:** "No — a **Question Link** opens that **Question** in learning context only."
+> **Dev:** "If a learner opens a **Question Link** during a **Test Session**, should the test be lost?"
+> **Domain expert:** "No — the link switches to learning context, and the **Test Session** can resume when the learner switches back."
+> **Dev:** "After opening a **Question Link**, should learning navigation keep the URL on the original question?"
+> **Domain expert:** "No — the URL should follow the current learning **Question**."
+> **Dev:** "If question 24 is a **Known Question**, should its **Question Link** still open?"
+> **Domain expert:** "Yes — the link should still show the **Question** with its mastered state visible."
+> **Dev:** "If a learner opens a **Question Link** while filtered to Elections, should that filter stay active?"
+> **Domain expert:** "No — opening a **Question Link** resets the **Filter** to all questions."
+> **Dev:** "If a mastered question is skipped, should the progress count shrink?"
+> **Domain expert:** "No — progress shows the **Question Position** inside the active **Filter**, while navigation skips mastered questions."
 > **Dev:** "Where should learners remove a **Known Question**?"
 > **Domain expert:** "In the **Review Panel**, alongside filters and saved learning state."
 > **Dev:** "After the learner marks the current learning **Question** known, should it stay visible?"
@@ -109,8 +152,17 @@ _Avoid_: Warning, disclaimer
 ## Flagged ambiguities
 
 - "known" was used as both a label and a study-state action — resolved: **Known Question** means mastered and excluded from future learning and tests.
+- Linking to a question could mean entering a **Test Session** or opening the **Question** directly — resolved: a **Question Link** opens learning context only.
+- The question route could be long or short — resolved: **Question Links** use `/q/{Question ID}`.
+- Invalid question links could redirect silently or fail visibly — resolved: a **Missing Question Link** shows a not-found state.
+- Opening a link during a **Test Session** could discard or preserve the session — resolved: **Question Links** preserve the current **Test Session**.
+- Question numbers could mean local/source numbering or global catalog identity — resolved: **Question Link** numbers use **Question ID**.
+- Learning navigation after a **Question Link** could leave the original URL or follow the current question — resolved: the URL follows the current learning **Question**.
+- Known questions could be hidden from links because they are excluded from learning — resolved: **Question Links** can still open **Known Questions**.
+- A **Question Link** could preserve the active **Filter** or change it — resolved: opening a **Question Link** resets the **Filter** to all questions.
+- Progress could count only available questions or all questions in the active **Filter** — resolved: **Question Position** counts all filtered questions, while navigation skips mastered questions.
 - Marking known could apply after navigation or immediately — resolved: marking the current learning **Question** known removes it immediately.
-- Filter counts could mean either total questions or remaining questions — resolved: a **Filter** shows available and total counts.
+- Filter counts could mean total questions or remaining questions — resolved: a **Filter** shows total question count.
 - State viewing could be a separate settings page or use the existing panel — resolved: the **Review Panel** holds filters and known-question management.
 - Test scope could mean all available questions or filtered available questions — resolved: a **Test** uses the active **Filter**.
 - Test size could require exactly 18 questions or use fewer when fewer are available — resolved: a **Test** uses up to 18 available questions.

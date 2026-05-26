@@ -106,10 +106,6 @@ function App() {
 
   const isKnown = current && known.has(current.id);
   const progressPct = total ? (index + 1) / total * 100 : 0;
-  const knownCount = useMemo(() =>
-  deck.reduce((n, q) => n + (known.has(q.id) ? 1 : 0), 0),
-  [deck, known]
-  );
   const correctChosen = isAnswered && selected === current?.correct;
   const wrongChosen = isAnswered && selected !== current?.correct;
 
@@ -123,16 +119,8 @@ function App() {
             aria-label="Toggle filters"
             aria-expanded={filtersOpen}
             onClick={() => setFiltersOpen((open) => !open)}>
-            <svg className="icon" aria-hidden="true" viewBox="0 0 24 24">
-              <path d="M4 6h7"></path>
-              <path d="M15 6h5"></path>
-              <path d="M12 4v4"></path>
-              <path d="M4 12h3"></path>
-              <path d="M11 12h9"></path>
-              <path d="M8 10v4"></path>
-              <path d="M4 18h9"></path>
-              <path d="M17 18h3"></path>
-              <path d="M14 16v4"></path>
+            <svg className="icon" aria-hidden="true">
+              <use href="#tabler-adjustments-horizontal"></use>
             </svg>
           </button>
           <span className="flag" aria-hidden="true"></span>
@@ -173,7 +161,6 @@ function App() {
             {correctChosen && <span className="bp-feedback correct">Richtig</span>}
             {wrongChosen && <span className="bp-feedback wrong">Falsch</span>}
             {!correctChosen && !wrongChosen && <>
-              {knownCount > 0 && <span className="bp-known"><span className="mastered-icon">★</span> {knownCount}</span>}
               <span className="progress">
                 {String(total === 0 ? 0 : index + 1).padStart(2, '0')}<span className="pct">/{String(total).padStart(2, '0')}</span>
               </span>
@@ -207,10 +194,8 @@ function App() {
                       {current.optionsEn?.[i] && <span className="en">{current.optionsEn[i]}</span>}
                       {revealNow && (
                         <span className="why">
-                          <svg className="icon why-icon" aria-hidden="true" viewBox="0 0 24 24">
-                            <path d="M5 12h14"></path>
-                            <path d="M13 18l6 -6"></path>
-                            <path d="M13 6l6 6"></path>
+                          <svg className="icon why-icon" aria-hidden="true">
+                            <use href="#tabler-arrow-right"></use>
                           </svg>
                           <span>{isCorrectAns ? 'Correct because this names the right civic right.' : 'This explains why the choice does not answer the question.'}</span>
                         </span>

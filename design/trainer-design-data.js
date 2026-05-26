@@ -147,7 +147,6 @@ const els = {
   categoryLabel: document.querySelector("#categoryLabel"),
   knownTag: document.querySelector("#knownTag"),
   feedback: document.querySelector("#feedback"),
-  knownCount: document.querySelector("#knownCount"),
   progressText: document.querySelector("#progressText"),
   questionText: document.querySelector("#questionText"),
   questionTranslation: document.querySelector("#questionTranslation"),
@@ -225,7 +224,6 @@ function render() {
 
   els.feedback.hidden = true;
   els.knownTag.hidden = true;
-  els.knownCount.hidden = true;
   els.prevButton.disabled = index === 0;
   els.nextButton.disabled = index === scenarios.length - 1;
 

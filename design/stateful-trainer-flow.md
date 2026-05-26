@@ -3,9 +3,11 @@
 ## Surfaces
 
 - Default mode is Learn.
+- Question links use `/q/{Question ID}` and open the target question in Learn.
+- Missing question links show a not-found state with a path back to Learn.
 - The top navigation includes a language picker; English is active, Spanish and French are visible but disabled placeholders.
 - Desktop uses the left review panel.
-- Mobile opens the same review panel from the top filter button.
+- Mobile and tablet widths open the same review panel as a dismissible overlay from the top filter button.
 - The review panel has three tabs: Filters, Known, and Test.
 - Learn order is stable; shuffle is intentionally not part of the trainer.
 
@@ -17,14 +19,18 @@
 
 ## Filters
 
-- Filters show available and total counts: `available/total`.
+- Filters show total question counts only.
 - Known questions are excluded from learning and tests.
 - Starting a test uses the active filter only.
+- The progress counter shows the current question's position in the active filter's total question set, including mastered questions.
+- The progress counter and first/last controls use borderless filled surfaces; in Test, the counter collapses to a single right-aligned pill.
+- The progress counter opens a compact anchored popover with a numeric field and icon submit button; jumping to a different number opens that question link and resets the filter to all.
+- Answer rows use borderless filled surfaces, with correctness communicated by state fill, text color, and the trailing mark. Revealed non-selected wrong answers use dedicated dim-answer tokens so the fill stays visible without dropping text below readable contrast.
 
 ## Known Questions
 
 - Marking a question known in Learn removes it from the learning deck immediately.
-- Known questions can be reviewed and removed from the Known tab.
+- Known questions can be reviewed, opened through their question link, and removed from the Known tab.
 - Known state persists in localStorage.
 
 ## Test Session
@@ -36,7 +42,9 @@
 - Test answer feedback is on by default and can be turned off from the Test tab to hold correctness until results.
 - If fewer questions are available than the configured size, the test uses the smaller set.
 - With immediate feedback on, answers reveal correctness immediately; with it off, the chosen answer uses a neutral selected state until the result.
+- Test questions use the same FRAGE badge as Learn; duplicate/seen-before chips and first/last progress controls are hidden to keep the test header quiet.
 - Test progress persists until finished or restarted.
+- Opening a question link switches to Learn without clearing the resumable test session.
 - Switching between Learn and Test preserves each mode's current question.
 - Changing filters during an answered test prompts because it restarts the session.
 
