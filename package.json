@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build:glossary": "node scripts/build-glossary.js",
+    "generate:content-suggestions": "node scripts/generate-content-suggestions.mjs",
     "serve": "vite --host 127.0.0.1 --port 4173 --strictPort",
     "test": "npm run test:data && npm run test:e2e",
     "test:data": "node --test tests/data-integrity.test.js",
@@ -18,5 +19,11 @@
     "cheerio": "^1.2.0",
     "playwright": "^1.60.0",
     "vite": "^8.0.14"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^3.0.65",
+    "ai": "^6.0.191",
+    "dotenv": "^17.4.2",
+    "zod": "^4.4.3"
   }
 }
