@@ -13,7 +13,7 @@ async function answerCurrentQuestion(page) {
 }
 
 async function switchToTestMode(page) {
-  await page.getByLabel("Mode").getByRole("button", { name: "Test" }).click();
+  await page.getByLabel("Primary navigation").getByRole("button", { name: "Test" }).click();
 }
 
 test.beforeEach(async ({ page }) => {
@@ -48,7 +48,7 @@ test("takes a two-question test through result view", async ({ page }) => {
 test("opens question deeplinks in learn mode", async ({ page }) => {
   await page.goto("/q/24?testSize=2");
   await expect(page.locator("#questionTag")).toContainText("FRAGE 024");
-  await expect(page.getByLabel("Mode").getByRole("button", { name: "Learn" })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByLabel("Primary navigation").getByRole("button", { name: "Learn" })).toHaveAttribute("aria-current", "page");
   await expect(page.locator("#filterButtonLabel")).toContainText("All");
 
   await page.getByRole("button", { name: "Next" }).click();
@@ -111,7 +111,7 @@ test("question deeplinks preserve resumable test sessions", async ({ page }) => 
 
   await page.goto("/q/24?testSize=2");
   await expect(page.locator("#questionTag")).toContainText("FRAGE 024");
-  await expect(page.getByLabel("Mode").getByRole("button", { name: "Learn" })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByLabel("Primary navigation").getByRole("button", { name: "Learn" })).toHaveAttribute("aria-current", "page");
 
   await switchToTestMode(page);
   await expect(page.locator("#questionText")).toHaveText(testQuestion);
@@ -172,7 +172,7 @@ test("preserves learn and test progress when switching modes", async ({ page }) 
   await page.getByRole("button", { name: "Next" }).click();
   const testQuestion = await page.locator("#questionText").innerText();
 
-  await page.getByLabel("Mode").getByRole("button", { name: "Learn" }).click();
+  await page.getByLabel("Primary navigation").getByRole("button", { name: "Learn" }).click();
   await expect(page.locator("#questionText")).toHaveText(learnQuestion);
 
   await switchToTestMode(page);
@@ -529,4 +529,73 @@ test("learn mode renders the correct answer first without changing test answer i
     answers.map((answer) => answer.getAttribute("data-answer")),
   );
   expect(answerIndexes).toEqual(["0", "1", "2", "3"]);
+});
+
+test("glossary filters ranges and opens matching question cards", async ({ page }) => {
+  await page.goto("/glossary");
+  await expect(page.getByRole("heading", { name: "Glossary" })).toBeVisible();
+  await expect(page.locator("#glossaryNav")).toHaveAttribute("aria-current", "page");
+  await expect(page.getByRole("button", { name: "Learn" })).toHaveAttribute("aria-current", "false");
+
+  await page.locator("#glossarySearch").fill("Bundestag");
+  await expect(page.locator(".gl-term-de", { hasText: "Bundestag" })).toBeVisible();
+  await expect(page.locator(".gl-term-de", { hasText: "Demokratie" })).toHaveCount(0);
+  await expect(page.locator(".gl-match-grid").first()).toHaveCSS("display", "flex");
+  const hasCarouselControls = await page.evaluate(() => matchMedia("(hover: hover) and (pointer: fine)").matches);
+  if (hasCarouselControls) {
+    await page.waitForFunction(() =>
+      [...document.querySelectorAll(".gl-match-strip")].some((strip) => strip.classList.contains("has-overflow")),
+    );
+    const carouselState = await page.evaluate(() => {
+      const strip = [...document.querySelectorAll(".gl-match-strip")].find((item) => item.classList.contains("has-overflow"));
+      return {
+        previousHidden: strip?.querySelector('[data-glossary-scroll="-1"]')?.hidden,
+        nextHidden: strip?.querySelector('[data-glossary-scroll="1"]')?.hidden,
+      };
+    });
+    expect(carouselState).toEqual({ previousHidden: true, nextHidden: false });
+  } else {
+    await expect(page.locator(".gl-carousel-control.is-next").first()).toBeHidden();
+  }
+
+  await page.locator("#glossarySearch").fill("Asyl");
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll(".gl-match-strip")].every((strip) => {
+      const scroller = strip.querySelector(".gl-match-grid");
+      if (!scroller) return true;
+      const hasOverflow = scroller.scrollWidth - scroller.clientWidth > 8;
+      return hasOverflow || (
+        strip.querySelector('[data-glossary-scroll="-1"]')?.hidden
+        && strip.querySelector('[data-glossary-scroll="1"]')?.hidden
+      );
+    }),
+  );
+
+  await page.getByRole("button", { name: "Clear search" }).click();
+  await page.getByRole("button", { name: "E-H" }).click();
+  await expect(page.getByRole("button", { name: "E-H" })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("#range-E-H")).toBeVisible();
+  await expect(page.locator("#range-A-D")).toBeHidden();
+
+  await page.locator("#glossarySearch").fill("Meinungsfreiheit");
+  const card = page.locator(".gl-match-card").first();
+  const href = await card.getAttribute("data-href");
+  await card.evaluate((element) => element.scrollIntoView({ block: "center", inline: "center" }));
+  await card.click({ force: true });
+  await expect(page).toHaveURL(new RegExp(`${href}$`));
+  await expect(page.locator("#answers")).toContainText("Meinungsfreiheit");
+});
+
+test("glossary works on mobile and dark mode", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.addInitScript(() => {
+    localStorage.setItem("lid-trainer-v7", JSON.stringify({ theme: "dark" }));
+  });
+
+  await page.goto("/glossary");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(page.locator(".gl-range-rail")).toBeVisible();
+  await expect(page.locator(".gl-range-rail")).toHaveCSS("flex-direction", "row");
+  await page.locator("#glossarySearch").fill("Asyl");
+  await expect(page.locator(".gl-term-de", { hasText: "Asyl" })).toBeVisible();
 });

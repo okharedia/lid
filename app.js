@@ -39,6 +39,7 @@ let questionById = new Map();
 let categories = [ALL_CATS];
 let messages = {};
 let locale = DEFAULT_LOCALE;
+let glossary = { ranges: ["A-D", "E-H", "I-S", "T-Z"], terms: [] };
 
 const state = {
   mode: "learn",
@@ -59,6 +60,8 @@ const state = {
   themeExplicit: false,
   testTranslations: false,
   testImmediateFeedback: true,
+  glossaryRange: "A-D",
+  glossaryQuery: "",
 };
 
 let slideTimer = 0;
@@ -129,6 +132,12 @@ const els = {
   snackbar: document.querySelector("#snackbar"),
   snackbarText: document.querySelector("#snackbarText"),
   snackbarAction: document.querySelector("#snackbarAction"),
+  glossaryNav: document.querySelector("#glossaryNav"),
+  glossaryPage: document.querySelector("#glossaryPage"),
+  glossarySearch: document.querySelector("#glossarySearch"),
+  glossaryClear: document.querySelector("#glossaryClear"),
+  glossaryGroups: document.querySelector("#glossaryGroups"),
+  glossaryRanges: document.querySelector("#glossaryRanges"),
 };
 
 let snackbarTimer = 0;
@@ -259,6 +268,9 @@ function applyStaticTranslations() {
   document.querySelectorAll("[data-i18n-title]").forEach((element) => {
     element.setAttribute("title", ui(element.dataset.i18nTitle));
   });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+    element.setAttribute("placeholder", ui(element.dataset.i18nPlaceholder));
+  });
 }
 
 function requestedLocale() {
@@ -270,7 +282,7 @@ function requestedLocale() {
 }
 
 async function loadMessages(nextLocale = DEFAULT_LOCALE) {
-  const response = await fetch(`/data/i18n/${nextLocale}.json`);
+  const response = await fetch(`/data/i18n/${nextLocale}.json`, { cache: "no-store" });
   if (!response.ok && nextLocale !== DEFAULT_LOCALE) return loadMessages(DEFAULT_LOCALE);
   if (!response.ok) return;
   const translationCatalog = await response.json();
@@ -340,6 +352,10 @@ function questionLinkIdFromPath(pathname = window.location.pathname) {
 
 function questionPath(id) {
   return `/q/${id}`;
+}
+
+function isGlossaryPath(pathname = window.location.pathname) {
+  return pathname === "/glossary" || pathname === "/glossary/";
 }
 
 function updateQuestionUrl(id, mode = "replace") {
@@ -657,7 +673,148 @@ function renderResult() {
   `;
 }
 
+function renderChrome(glossaryActive = isGlossaryPath()) {
+  els.app.classList.toggle("is-glossary", glossaryActive);
+  els.glossaryPage.hidden = !glossaryActive;
+  els.glossaryNav.setAttribute("aria-current", glossaryActive ? "page" : "false");
+  els.learnMode.setAttribute("aria-current", !glossaryActive && state.mode === "learn" ? "page" : "false");
+  els.testMode.setAttribute("aria-current", !glossaryActive && state.mode === "test" ? "page" : "false");
+  els.filterButton.hidden = false;
+
+  if (!glossaryActive) {
+    document.title = ui("ui.documentTitle");
+    els.filterBar.hidden = false;
+    return;
+  }
+
+  closeReviewPanel(false);
+  els.filterBar.hidden = false;
+  els.track.hidden = true;
+  els.card.hidden = true;
+  els.resultView.hidden = true;
+  els.emptyState.hidden = true;
+  els.studyDock.hidden = true;
+  els.cardNav.hidden = true;
+  document.title = ui("ui.glossary.documentTitle");
+}
+
+function glossaryMatchesQuery(item, query) {
+  if (!query) return true;
+  const haystack = [
+    item.term,
+    item.translation,
+    item.context,
+    ...item.matches.flatMap((match) => [match.text, match.translation]),
+  ].join(" ");
+  return haystack.toLocaleLowerCase("de-DE").includes(query);
+}
+
+function filteredGlossaryTerms(range) {
+  const query = state.glossaryQuery.trim().toLocaleLowerCase("de-DE");
+  return glossary.terms.filter((item) => item.range === range && glossaryMatchesQuery(item, query));
+}
+
+function renderGlossary() {
+  const query = state.glossaryQuery.trim();
+  els.glossarySearch.value = state.glossaryQuery;
+  els.glossaryClear.hidden = !state.glossaryQuery;
+
+  els.glossaryRanges.innerHTML = glossary.ranges
+    .map((range) => `
+      <button type="button" data-glossary-range="${escapeHtml(range)}" aria-pressed="${range === state.glossaryRange}">
+        ${escapeHtml(range)}
+      </button>
+    `)
+    .join("");
+
+  els.glossaryGroups.innerHTML = glossary.ranges
+    .map((range) => {
+      const terms = filteredGlossaryTerms(range);
+      if (!terms.length && query) return "";
+      return `
+        <section class="gl-group" id="range-${escapeHtml(range)}" ${range !== state.glossaryRange && !query ? "hidden" : ""}>
+          <h2 class="gl-group-title">${escapeHtml(range)}</h2>
+          ${
+            terms.length
+              ? `<div class="gl-term-list">${terms.map(renderGlossaryTerm).join("")}</div>`
+              : `<p class="gl-empty">${uiHtml("ui.glossary.emptyRange")}</p>`
+          }
+        </section>
+      `;
+    })
+    .join("") || `<p class="gl-empty">${uiHtml("ui.glossary.emptySearch")}</p>`;
+  requestAnimationFrame(() => updateGlossaryCarouselControls());
+}
+
+function updateGlossaryCarouselControls(strip) {
+  const strips = strip ? [strip] : [...els.glossaryGroups.querySelectorAll(".gl-match-strip")];
+  strips.forEach((matchStrip) => {
+    const scroller = matchStrip.querySelector(".gl-match-grid");
+    const previous = matchStrip.querySelector('[data-glossary-scroll="-1"]');
+    const next = matchStrip.querySelector('[data-glossary-scroll="1"]');
+    if (!scroller || !previous || !next) return;
+
+    const tolerance = 8;
+    const maxScroll = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+    const hasOverflow = maxScroll > tolerance;
+    const atStart = scroller.scrollLeft <= tolerance;
+    const atEnd = scroller.scrollLeft >= maxScroll - tolerance;
+
+    matchStrip.classList.toggle("has-overflow", hasOverflow);
+    matchStrip.classList.toggle("is-start", !hasOverflow || atStart);
+    matchStrip.classList.toggle("is-end", !hasOverflow || atEnd);
+    previous.hidden = !hasOverflow || atStart;
+    next.hidden = !hasOverflow || atEnd;
+  });
+}
+
+function renderGlossaryTerm(item) {
+  return `
+    <article class="gl-term-entry">
+      <div>
+        <h3 class="gl-term-de">${escapeHtml(item.term)}</h3>
+        <p class="gl-term-en">${escapeHtml(item.translation)}</p>
+        <p class="gl-term-context">${escapeHtml(item.context)}</p>
+      </div>
+      <div class="gl-match-strip">
+        <button class="gl-carousel-control is-prev" type="button" data-glossary-scroll="-1" aria-label="${uiHtml("ui.glossary.scrollLeft")}">
+          ${icon("arrow-left")}
+        </button>
+        <div class="gl-match-grid">
+          ${item.matches.slice(0, 8).map(renderGlossaryMatch).join("")}
+        </div>
+        <button class="gl-carousel-control is-next" type="button" data-glossary-scroll="1" aria-label="${uiHtml("ui.glossary.scrollRight")}">
+          ${icon("arrow-right")}
+        </button>
+      </div>
+    </article>
+  `;
+}
+
+function renderGlossaryMatch(match) {
+  return `
+    <button class="gl-match-card" type="button" data-href="${questionPath(match.id)}" aria-label="${uiHtml("ui.glossary.openQuestion", { number: pad(match.localNumber || match.id, 3) })}">
+      <span class="gl-match-meta">
+        <span class="gl-match-kind is-${escapeHtml(match.kind)}" aria-label="${escapeHtml(match.kind)}">
+          ${icon(match.kind === "question" ? "help-circle" : "list-check")}
+        </span>
+        <span class="gl-match-away" aria-hidden="true">${icon("arrow-up-right")}</span>
+      </span>
+      <span class="gl-match-text">${escapeHtml(match.text)}</span>
+    </button>
+  `;
+}
+
 function render() {
+  const glossaryActive = isGlossaryPath();
+  renderChrome(glossaryActive);
+  if (glossaryActive) {
+    renderGlossary();
+    saveState();
+    return;
+  }
+
+  els.track.hidden = false;
   els.app.classList.remove("fit-tight", "fit-tighter");
   renderPanel();
 
@@ -690,8 +847,9 @@ function render() {
   const reveal = isLearn || (isAnswered && state.testImmediateFeedback);
   const showTranslations = isLearn || state.testTranslations;
 
-  els.learnMode.setAttribute("aria-pressed", String(isLearn));
-  els.testMode.setAttribute("aria-pressed", String(!isLearn));
+  els.learnMode.setAttribute("aria-current", isLearn ? "page" : "false");
+  els.testMode.setAttribute("aria-current", !isLearn ? "page" : "false");
+  els.glossaryNav.setAttribute("aria-current", "false");
   els.filterButtonLabel.textContent = state.panelTab === "known" ? ui("ui.tab.mastered") : shortCategoryLabel(state.category);
   els.filterButton.setAttribute(
     "aria-label",
@@ -1081,7 +1239,11 @@ function fitLayout() {
 }
 
 function setMode(mode) {
-  if (mode === state.mode && !state.result) return;
+  if (isGlossaryPath()) window.history.pushState({}, "", "/");
+  if (mode === state.mode && !state.result) {
+    render();
+    return;
+  }
   rememberCurrentProgress();
   state.mode = mode;
   state.result = null;
@@ -1271,6 +1433,56 @@ function closeReviewPanel(restoreFocus = true) {
 function bindEvents() {
   els.learnMode.addEventListener("click", () => setMode("learn"));
   els.testMode.addEventListener("click", () => setMode("test"));
+  els.glossaryNav.addEventListener("click", (event) => {
+    event.preventDefault();
+    rememberCurrentProgress();
+    window.history.pushState({}, "", "/glossary");
+    render();
+  });
+  els.glossarySearch.addEventListener("input", () => {
+    state.glossaryQuery = els.glossarySearch.value;
+    renderGlossary();
+  });
+  els.glossaryClear.addEventListener("click", () => {
+    state.glossaryQuery = "";
+    els.glossarySearch.focus();
+    renderGlossary();
+  });
+  els.glossaryRanges.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-glossary-range]");
+    if (!button) return;
+    state.glossaryRange = button.dataset.glossaryRange;
+    state.glossaryQuery = "";
+    renderGlossary();
+    els.glossaryGroups.scrollIntoView({ block: "start", behavior: "smooth" });
+  });
+  els.glossaryGroups.addEventListener("click", (event) => {
+    const control = event.target.closest("[data-glossary-scroll]");
+    if (control) {
+      event.preventDefault();
+      const scroller = control.closest(".gl-match-strip")?.querySelector(".gl-match-grid");
+      if (!scroller) return;
+      const direction = Number(control.dataset.glossaryScroll || 1);
+      scroller.scrollBy({
+        left: direction * Math.max(280, scroller.clientWidth * 0.82),
+        behavior: "smooth",
+      });
+      requestAnimationFrame(() => updateGlossaryCarouselControls(control.closest(".gl-match-strip")));
+      return;
+    }
+
+    const card = event.target.closest("[data-href]");
+    if (!card) return;
+    event.preventDefault();
+    window.history.pushState({}, "", card.dataset.href);
+    applyQuestionLinkFromUrl();
+    render();
+  });
+  els.glossaryGroups.addEventListener("scroll", (event) => {
+    const scroller = event.target.closest?.(".gl-match-grid");
+    if (!scroller) return;
+    updateGlossaryCarouselControls(scroller.closest(".gl-match-strip"));
+  }, true);
   els.filtersTab.addEventListener("click", () => setPanelTab("filters"));
   els.knownTab.addEventListener("click", () => setPanelTab("known"));
   els.testConfigTab.addEventListener("click", () => setPanelTab("test"));
@@ -1502,11 +1714,16 @@ function bindEvents() {
   window.addEventListener("resize", () => {
     syncStudyDockState();
     fitLayout();
+    if (isGlossaryPath()) updateGlossaryCarouselControls();
   });
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
     if (state.theme === "system") applyTheme();
   });
   window.addEventListener("popstate", () => {
+    if (isGlossaryPath()) {
+      render();
+      return;
+    }
     if (!applyQuestionLinkFromUrl()) state.syncQuestionUrl = false;
     render();
   });
@@ -1572,9 +1789,12 @@ async function init() {
   state.testImmediateFeedback = saved.testImmediateFeedback !== false;
   applyTheme();
 
-  const response = await fetch("/data/lid-berlin-source-of-truth.json");
+  const response = await fetch("/data/lid-berlin-source-of-truth.json", { cache: "no-store" });
   if (!response.ok) throw new Error(ui("ui.error.loadDatabase", { status: response.status }));
   const database = await response.json();
+  const glossaryResponse = await fetch("/data/glossary.json", { cache: "no-store" });
+  if (!glossaryResponse.ok) throw new Error(ui("ui.error.loadDatabase", { status: glossaryResponse.status }));
+  glossary = await glossaryResponse.json();
   questions = database.questions;
   questionById = new Map(questions.map((question) => [question.id, question]));
   categories = [ALL_CATS, ...new Set(questions.map((question) => question.theme))];

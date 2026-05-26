@@ -91,17 +91,12 @@
       .gl-actions {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
         min-width: 0;
       }
 
-      .flag {
-        width: 21px;
-        height: 15px;
-        display: inline-block;
-        border: 1px solid var(--lid-flag-outline);
-        border-radius: 3px;
-        background: linear-gradient(to bottom, var(--lid-flag-black) 33%, var(--lid-flag-red) 33% 66%, var(--lid-flag-gold) 66%);
+      .gl-actions {
+        margin-left: auto;
       }
 
       .icon-button {
@@ -121,21 +116,9 @@
         background: color-mix(in srgb, var(--gl-ink) 8%, var(--gl-surface-high));
       }
 
-      .theme-toggle .theme-sun {
-        display: none;
-      }
-
-      :root[data-theme="dark"] .theme-toggle .theme-moon {
-        display: none;
-      }
-
-      :root[data-theme="dark"] .theme-toggle .theme-sun {
-        display: block;
-      }
-
       .gl-language {
-        height: 40px;
-        min-width: 72px;
+        height: 48px;
+        min-width: 68px;
         border-radius: var(--md-sys-shape-corner-full);
         background: var(--gl-surface);
         display: inline-flex;
@@ -149,37 +132,27 @@
       }
 
       .mode {
-        height: 40px;
         display: inline-flex;
         align-items: center;
-        padding: 2px;
-        border: 1px solid var(--gl-rule-strong);
-        border-radius: var(--md-sys-shape-corner-full);
-        background: var(--gl-paper);
+        gap: 8px;
       }
 
       .mode a {
-        min-width: 72px;
-        height: 34px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
+        width: 48px;
+        height: 48px;
+        display: inline-grid;
+        place-items: center;
+        border: 1px solid transparent;
         border-radius: var(--md-sys-shape-corner-full);
-        font-size: 12px;
-        font-weight: 800;
+        background: var(--gl-surface);
       }
 
       .mode a .icon {
-        width: 17px;
-        height: 17px;
+        width: 20px;
+        height: 20px;
       }
 
-      .mode a[aria-current="page"] {
-        background: var(--md-sys-color-secondary-container);
-        color: var(--md-sys-color-on-secondary-container);
-      }
-
+      .mode a[aria-current="page"],
       .glossary-action[aria-current="page"] {
         background: var(--md-sys-color-secondary-container);
         color: var(--md-sys-color-on-secondary-container);
@@ -287,6 +260,13 @@
         grid-template-columns: minmax(0, 1fr) 132px;
         gap: clamp(36px, 7vw, 96px);
         align-items: start;
+      }
+
+      #groups,
+      .group,
+      .term-list,
+      .term-entry {
+        min-width: 0;
       }
 
       .range-rail {
@@ -403,17 +383,34 @@
         line-height: 1.45;
       }
 
+      .match-strip {
+        position: relative;
+        min-width: 0;
+        max-width: 100%;
+        overflow: hidden;
+      }
+
       .match-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        display: flex;
         gap: 12px;
-        padding-top: 0;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 0 2px 14px;
+        scroll-snap-type: x mandatory;
+        scrollbar-color: color-mix(in srgb, var(--gl-ink-soft) 32%, transparent) transparent;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .carousel-control {
+        display: none;
       }
 
       .match-card {
         appearance: none;
-        width: 100%;
+        flex: 0 0 clamp(280px, 44vw, 390px);
         min-height: 320px;
+        scroll-margin-top: 132px;
         padding: 24px;
         border: 0;
         border-radius: var(--md-sys-shape-corner-large);
@@ -424,6 +421,7 @@
         justify-content: flex-start;
         gap: 18px;
         cursor: pointer;
+        scroll-snap-align: start;
         text-align: left;
         text-decoration: none;
       }
@@ -432,9 +430,78 @@
         background: color-mix(in srgb, var(--gl-primary) 7%, var(--gl-surface-high));
       }
 
-      .match-card:focus-visible {
+      .match-card:focus-visible,
+      .carousel-control:focus-visible {
         outline: 2px solid var(--gl-primary);
         outline-offset: 3px;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .match-strip::before,
+        .match-strip::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: 14px;
+          z-index: 1;
+          width: 24px;
+          pointer-events: none;
+        }
+
+        .match-strip::before {
+          left: 0;
+          background: linear-gradient(to right, color-mix(in srgb, var(--gl-paper) 42%, transparent) 0%, transparent 100%);
+        }
+
+        .match-strip::after {
+          right: 0;
+          background: linear-gradient(to left, color-mix(in srgb, var(--gl-paper) 42%, transparent) 0%, transparent 100%);
+        }
+
+        .match-strip.is-start::before,
+        .match-strip.is-end::after {
+          display: none;
+        }
+
+        .carousel-control {
+          position: absolute;
+          top: calc(50% - 7px);
+          z-index: 2;
+          width: 48px;
+          height: 48px;
+          border: 0;
+          border-radius: var(--md-sys-shape-corner-full);
+          background: var(--md-sys-color-secondary-container);
+          color: var(--md-sys-color-on-secondary-container);
+          box-shadow: 0 1px 3px color-mix(in srgb, var(--gl-ink) 14%, transparent);
+          display: grid;
+          place-items: center;
+          cursor: pointer;
+          transform: translateY(-50%);
+          transition: background var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+            box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+        }
+
+        .carousel-control:hover {
+          background: color-mix(in srgb, var(--md-sys-color-on-secondary-container) 8%, var(--md-sys-color-secondary-container));
+        }
+
+        .carousel-control:active {
+          background: color-mix(in srgb, var(--md-sys-color-on-secondary-container) 12%, var(--md-sys-color-secondary-container));
+          box-shadow: var(--md-elevation-1);
+        }
+
+        .carousel-control.is-prev {
+          left: 10px;
+        }
+
+        .carousel-control.is-next {
+          right: 10px;
+        }
+      }
+
+      .carousel-control[hidden] {
+        display: none;
       }
 
       .match-meta {
@@ -509,12 +576,18 @@
           padding: 10px 16px;
         }
 
-        .gl-language {
-          display: none;
+        .gl-top {
+          gap: 8px;
         }
 
+        .gl-actions,
         .mode {
-          display: none;
+          gap: 6px;
+        }
+
+        .gl-language {
+          min-width: 58px;
+          padding: 0 8px;
         }
 
         .gl-page {
@@ -623,12 +696,15 @@
         }
 
         .match-grid {
-          grid-template-columns: 1fr;
-          padding-top: 2px;
+          width: calc(100% + 16px);
+          margin-right: -16px;
+          padding: 2px 16px 12px 0;
         }
 
         .match-card {
+          flex-basis: min(82vw, 330px);
           min-height: 276px;
+          scroll-margin-top: 132px;
           padding: 20px;
           border-radius: var(--md-sys-shape-corner-medium);
         }
@@ -643,10 +719,26 @@
   </head>
   <body>
     <svg aria-hidden="true" class="icon-sprite">
+      <symbol id="tabler-adjustments-horizontal" viewBox="0 0 24 24">
+        <path d="M12 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+        <path d="M4 6l8 0" />
+        <path d="M16 6l4 0" />
+        <path d="M6 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+        <path d="M4 12l2 0" />
+        <path d="M10 12l10 0" />
+        <path d="M15 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+        <path d="M4 18l11 0" />
+        <path d="M19 18l1 0" />
+      </symbol>
       <symbol id="tabler-arrow-left" viewBox="0 0 24 24">
         <path d="M5 12l14 0" />
         <path d="M5 12l6 6" />
         <path d="M5 12l6 -6" />
+      </symbol>
+      <symbol id="tabler-arrow-right" viewBox="0 0 24 24">
+        <path d="M5 12l14 0" />
+        <path d="M13 18l6 -6" />
+        <path d="M13 6l6 6" />
       </symbol>
       <symbol id="tabler-arrow-up-right" viewBox="0 0 24 24">
         <path d="M17 7l-10 10" />
@@ -672,6 +764,13 @@
         <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
         <path d="M19 16h-12a2 2 0 0 0 -2 2" />
         <path d="M9 8h6" />
+      </symbol>
+      <symbol id="tabler-book" viewBox="0 0 24 24">
+        <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <path d="M3 6l0 13" />
+        <path d="M12 6l0 13" />
+        <path d="M21 6l0 13" />
       </symbol>
       <symbol id="tabler-help-circle" viewBox="0 0 24 24">
         <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
@@ -705,23 +804,22 @@
     <main class="gl-app">
       <header class="gl-top">
         <div class="gl-brand">
-          <a class="icon-button" href="../index.html" aria-label="Back to trainer">
-            <svg class="icon" aria-hidden="true"><use href="#tabler-arrow-left"></use></svg>
-          </a>
-          <span class="flag" aria-hidden="true"></span>
+          <button class="icon-button" type="button" aria-label="Toggle sidebar">
+            <svg class="icon" aria-hidden="true"><use href="#tabler-adjustments-horizontal"></use></svg>
+          </button>
         </div>
         <div class="gl-actions">
           <span class="gl-language">
             <svg class="icon" aria-hidden="true"><use href="#tabler-language"></use></svg>
             EN
           </span>
-          <button id="themeToggle" class="icon-button theme-toggle" type="button" aria-label="Switch to dark mode">
-            <svg class="icon theme-moon" aria-hidden="true"><use href="#tabler-moon"></use></svg>
-            <svg class="icon theme-sun" aria-hidden="true"><use href="#tabler-sun"></use></svg>
-          </button>
-          <nav class="mode" aria-label="Mode">
-            <a href="../index.html">Learn</a>
-            <a href="../index.html">Test</a>
+          <nav class="mode" aria-label="Primary navigation">
+            <a href="../index.html" aria-label="Learn">
+              <svg class="icon" aria-hidden="true"><use href="#tabler-book"></use></svg>
+            </a>
+            <a href="../index.html" aria-label="Test">
+              <svg class="icon" aria-hidden="true"><use href="#tabler-list-check"></use></svg>
+            </a>
           </nav>
           <a class="icon-button glossary-action" href="Glossary.html" aria-current="page" aria-label="Glossary">
             <svg class="icon" aria-hidden="true"><use href="#tabler-book-2"></use></svg>
@@ -915,7 +1013,7 @@
 
       function applyTheme(theme) {
         document.documentElement.dataset.theme = theme;
-        themeToggle.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+        themeToggle?.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
       }
 
       applyTheme(preferredTheme());
@@ -956,6 +1054,29 @@
             </section>
           `;
         }).join("");
+        requestAnimationFrame(() => updateCarouselControls());
+      }
+
+      function updateCarouselControls(strip) {
+        const strips = strip ? [strip] : [...groups.querySelectorAll(".match-strip")];
+        strips.forEach((matchStrip) => {
+          const scroller = matchStrip.querySelector(".match-grid");
+          const previous = matchStrip.querySelector('[data-scroll="-1"]');
+          const next = matchStrip.querySelector('[data-scroll="1"]');
+          if (!scroller || !previous || !next) return;
+
+          const tolerance = 8;
+          const maxScroll = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+          const hasOverflow = maxScroll > tolerance;
+          const atStart = scroller.scrollLeft <= tolerance;
+          const atEnd = scroller.scrollLeft >= maxScroll - tolerance;
+
+          matchStrip.classList.toggle("has-overflow", hasOverflow);
+          matchStrip.classList.toggle("is-start", !hasOverflow || atStart);
+          matchStrip.classList.toggle("is-end", !hasOverflow || atEnd);
+          previous.hidden = !hasOverflow || atStart;
+          next.hidden = !hasOverflow || atEnd;
+        });
       }
 
       function renderTerm(item) {
@@ -966,20 +1087,28 @@
               <p class="term-en">${item.translation}</p>
               <p class="term-context">${item.context}</p>
             </div>
-            <div class="match-grid">
-              ${item.matches.slice(0, 8).map((match) => `
-                <button class="match-card" type="button" data-href="/q/${match.id}">
-                  <span class="match-meta">
-                    <span class="match-kind is-${match.kind}" aria-label="${match.kind}">
-                      <svg class="icon" aria-hidden="true"><use href="#tabler-${match.kind === "question" ? "help-circle" : "list-check"}"></use></svg>
+            <div class="match-strip">
+              <button class="carousel-control is-prev" type="button" data-scroll="-1" aria-label="Scroll examples left">
+                <svg class="icon" aria-hidden="true"><use href="#tabler-arrow-left"></use></svg>
+              </button>
+              <div class="match-grid">
+                ${item.matches.slice(0, 8).map((match) => `
+                  <button class="match-card" type="button" data-href="/q/${match.id}">
+                    <span class="match-meta">
+                      <span class="match-kind is-${match.kind}" aria-label="${match.kind}">
+                        <svg class="icon" aria-hidden="true"><use href="#tabler-${match.kind === "question" ? "help-circle" : "list-check"}"></use></svg>
+                      </span>
+                      <span class="match-away" aria-hidden="true">
+                        <svg class="icon"><use href="#tabler-arrow-up-right"></use></svg>
+                      </span>
                     </span>
-                    <span class="match-away" aria-hidden="true">
-                      <svg class="icon"><use href="#tabler-arrow-up-right"></use></svg>
-                    </span>
-                  </span>
-                  <p class="match-text">${match.text}</p>
-                </button>
-              `).join("")}
+                    <p class="match-text">${match.text}</p>
+                  </button>
+                `).join("")}
+              </div>
+              <button class="carousel-control is-next" type="button" data-scroll="1" aria-label="Scroll examples right">
+                <svg class="icon" aria-hidden="true"><use href="#tabler-arrow-right"></use></svg>
+              </button>
             </div>
           </article>
         `;
@@ -1004,16 +1133,35 @@
           document.querySelector("#groups").scrollIntoView({ block: "start", behavior: "smooth" });
         });
       });
-      themeToggle.addEventListener("click", () => {
+      themeToggle?.addEventListener("click", () => {
         const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
         localStorage.setItem("lid-glossary-theme", nextTheme);
         applyTheme(nextTheme);
       });
 
       groups.addEventListener("click", (event) => {
+        const control = event.target.closest("[data-scroll]");
+        if (control) {
+          const scroller = control.closest(".match-strip")?.querySelector(".match-grid");
+          if (!scroller) return;
+          const direction = Number(control.dataset.scroll || 1);
+          scroller.scrollBy({
+            left: direction * Math.max(280, scroller.clientWidth * 0.82),
+            behavior: "smooth",
+          });
+          requestAnimationFrame(() => updateCarouselControls(control.closest(".match-strip")));
+          return;
+        }
+
         const card = event.target.closest("[data-href]");
         if (card) window.location.href = card.dataset.href;
       });
+      groups.addEventListener("scroll", (event) => {
+        const scroller = event.target.closest?.(".match-grid");
+        if (!scroller) return;
+        updateCarouselControls(scroller.closest(".match-strip"));
+      }, true);
+      window.addEventListener("resize", () => updateCarouselControls());
 
       render();
     </script>

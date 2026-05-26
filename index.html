@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>LiD // Trainer</title>
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/styles.css?v=icon-nav" />
   </head>
   <body>
     <svg aria-hidden="true" class="icon-sprite">
@@ -49,6 +49,11 @@
         <path d="M12 6l0 13" />
         <path d="M21 6l0 13" />
       </symbol>
+      <symbol id="tabler-book-2" viewBox="0 0 24 24">
+        <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
+        <path d="M19 16h-12a2 2 0 0 0 -2 2" />
+        <path d="M9 8h6" />
+      </symbol>
       <symbol id="tabler-check" viewBox="0 0 24 24">
         <path d="M5 12l5 5l10 -10" />
       </symbol>
@@ -84,6 +89,11 @@
       </symbol>
       <symbol id="tabler-filter" viewBox="0 0 24 24">
         <path d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227" />
+      </symbol>
+      <symbol id="tabler-help-circle" viewBox="0 0 24 24">
+        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+        <path d="M12 17l0 .01" />
+        <path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4" />
       </symbol>
       <symbol id="tabler-language" viewBox="0 0 24 24">
         <path d="M9 6.371c0 4.418 -2.239 6.629 -5 6.629" />
@@ -123,6 +133,10 @@
         <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065" />
         <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
       </symbol>
+      <symbol id="tabler-search" viewBox="0 0 24 24">
+        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+        <path d="M21 21l-6 -6" />
+      </symbol>
       <symbol id="tabler-sparkle-2" viewBox="0 0 24 24">
         <path d="M12 3c.375 0 .711 .231 .846 .581l1.65 4.29a2.85 2.85 0 0 0 1.632 1.633l4.291 1.65a.906 .906 0 0 1 0 1.692l-4.29 1.65a2.84 2.84 0 0 0 -1.633 1.632l-1.65 4.291a.906 .906 0 0 1 -1.692 0l-1.65 -4.29a2.84 2.84 0 0 0 -1.632 -1.633l-4.291 -1.65a.906 .906 0 0 1 0 -1.692l4.29 -1.65a2.84 2.84 0 0 0 1.633 -1.632l1.65 -4.291a.91 .91 0 0 1 .846 -.581" />
       </symbol>
@@ -161,13 +175,10 @@
     </svg>
     <main class="bp-app is-loading" aria-live="polite">
       <header class="bp-top">
-        <span class="brand">
-          <button id="filterButton" class="bp-filter-toggle" type="button" aria-label="Toggle filters" aria-expanded="false" aria-controls="filterBar" data-i18n-aria-label="ui.aria.toggleFilters">
-            <svg class="icon" aria-hidden="true"><use href="#tabler-adjustments-horizontal"></use></svg>
-            <span id="filterButtonLabel" class="sr-only" data-i18n="ui.action.options">Options</span>
-          </button>
-          <span class="flag" aria-hidden="true"></span>
-        </span>
+        <button id="filterButton" class="bp-filter-toggle" type="button" aria-label="Toggle filters" aria-expanded="false" aria-controls="filterBar" data-i18n-aria-label="ui.aria.toggleFilters">
+          <svg class="icon" aria-hidden="true"><use href="#tabler-adjustments-horizontal"></use></svg>
+          <span id="filterButtonLabel" class="sr-only" data-i18n="ui.action.options">Options</span>
+        </button>
         <div class="bp-top-actions">
           <label class="bp-language" aria-label="Translation language" data-i18n-aria-label="ui.aria.translationLanguage">
             <svg class="icon" aria-hidden="true"><use href="#tabler-language"></use></svg>
@@ -177,10 +188,20 @@
               <option value="fr" disabled data-i18n="ui.language.fr">FR</option>
             </select>
           </label>
-          <span class="bp-mode" role="group" aria-label="Mode" data-i18n-aria-label="ui.aria.mode">
-            <button id="learnMode" type="button" aria-pressed="true" data-i18n="ui.mode.learn">Learn</button>
-            <button id="testMode" type="button" aria-pressed="false" data-i18n="ui.mode.test">Test</button>
-          </span>
+          <nav class="bp-primary-nav" aria-label="Primary navigation" data-i18n-aria-label="ui.aria.primaryNavigation">
+            <button id="learnMode" class="bp-icon-button" type="button" aria-current="page">
+              <svg class="icon" aria-hidden="true"><use href="#tabler-book"></use></svg>
+              <span class="sr-only" data-i18n="ui.mode.learn">Learn</span>
+            </button>
+            <button id="testMode" class="bp-icon-button" type="button" aria-current="false">
+              <svg class="icon" aria-hidden="true"><use href="#tabler-list-check"></use></svg>
+              <span class="sr-only" data-i18n="ui.mode.test">Test</span>
+            </button>
+            <a id="glossaryNav" class="bp-icon-button bp-glossary-nav" href="/glossary" aria-current="false">
+              <svg class="icon" aria-hidden="true"><use href="#tabler-book-2"></use></svg>
+              <span class="sr-only" data-i18n="ui.glossary.title">Glossary</span>
+            </a>
+          </nav>
         </div>
       </header>
 
@@ -377,8 +398,26 @@
         </button>
         <img id="imageDialogImage" alt="Official question image" data-i18n-alt="ui.aria.officialQuestionImage" />
       </dialog>
+
+      <section id="glossaryPage" class="gl-page" hidden>
+        <section class="gl-hero">
+          <h1 data-i18n="ui.glossary.title">Glossary</h1>
+          <p data-i18n="ui.glossary.intro">German civic and history terms with short English meanings, explained in the situations where they matter.</p>
+          <label class="gl-search">
+            <svg class="icon" aria-hidden="true"><use href="#tabler-search"></use></svg>
+            <input id="glossarySearch" type="search" autocomplete="off" placeholder="Search German or English" data-i18n-placeholder="ui.glossary.searchPlaceholder" />
+            <button id="glossaryClear" class="gl-search-clear" type="button" aria-label="Clear search" data-i18n-aria-label="ui.action.clearSearch" hidden>
+              <svg class="icon" aria-hidden="true"><use href="#tabler-x"></use></svg>
+            </button>
+          </label>
+        </section>
+        <div class="gl-content">
+          <div id="glossaryGroups"></div>
+          <nav id="glossaryRanges" class="gl-range-rail" aria-label="Glossary ranges" data-i18n-aria-label="ui.glossary.ranges"></nav>
+        </div>
+      </section>
     </main>
 
-    <script src="/app.js?v=numeric-translation-filter"></script>
+    <script src="/app.js?v=glossary-carousel-state"></script>
   </body>
 </html>

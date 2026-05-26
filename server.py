@@ -13,7 +13,7 @@ class FallbackHandler(SimpleHTTPRequestHandler):
             return str(translated)
 
         clean_path = path.split("?", 1)[0].split("#", 1)[0]
-        if clean_path.startswith("/q/"):
+        if clean_path.startswith("/q/") or clean_path == "/glossary":
             return str(ROOT / "index.html")
 
         return str(translated)

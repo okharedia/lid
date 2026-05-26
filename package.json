@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build:glossary": "node scripts/build-glossary.js",
     "serve": "python3 server.py",
     "test": "npm run test:data && npm run test:e2e",
     "test:data": "node --test tests/data-integrity.test.js",

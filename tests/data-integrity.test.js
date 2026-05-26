@@ -13,11 +13,15 @@ const path = require("node:path");
 const data = JSON.parse(
   fs.readFileSync(path.join(__dirname, "..", "data/lid-berlin-source-of-truth.json"), "utf8"),
 );
+const glossary = JSON.parse(
+  fs.readFileSync(path.join(__dirname, "..", "data/glossary.json"), "utf8"),
+);
 const i18n = JSON.parse(
   fs.readFileSync(path.join(__dirname, "..", "data/i18n/en.json"), "utf8"),
 );
 const messages = i18n.messages;
 const indexHtml = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8");
+const glossaryDesignHtml = fs.readFileSync(path.join(__dirname, "..", "design/Glossary.html"), "utf8");
 
 test("every whyKey labelled 'Correct'/'Wrong' matches its answer position", () => {
   const mismatches = [];
@@ -77,12 +81,28 @@ test("every duplicateOfId points to a real question", () => {
 
 test("every static HTML i18n key resolves to a non-empty string", () => {
   const missing = [];
-  const pattern = /\b(data-i18n(?:-aria-label|-alt|-title)?)="([^"]+)"/g;
+  const pattern = /\b(data-i18n(?:-aria-label|-alt|-title|-placeholder)?)="([^"]+)"/g;
   for (const match of indexHtml.matchAll(pattern)) {
     const [, attr, key] = match;
     if (!(messages[key] || "").trim()) missing.push(`${attr}=${key}`);
   }
   assert.deepEqual(missing, [], `missing static i18n keys:\n  ${missing.join("\n  ")}`);
+});
+
+test("all inline SVG icon symbols and references use Tabler icons", () => {
+  const problems = [];
+  for (const [file, html] of [
+    ["index.html", indexHtml],
+    ["design/Glossary.html", glossaryDesignHtml],
+  ]) {
+    for (const match of html.matchAll(/<symbol\s+id="([^"]+)"/g)) {
+      if (!match[1].startsWith("tabler-")) problems.push(`${file} defines non-Tabler symbol ${match[1]}`);
+    }
+    for (const match of html.matchAll(/<use\s+href="([^"]+)"/g)) {
+      if (!match[1].startsWith("#tabler-")) problems.push(`${file} references non-Tabler icon ${match[1]}`);
+    }
+  }
+  assert.deepEqual(problems, [], `non-Tabler icon usage:\n  ${problems.join("\n  ")}`);
 });
 
 test("every rendered category has an i18n key", () => {
@@ -107,4 +127,34 @@ test("every rendered category has an i18n key", () => {
     else if (!(messages[key] || "").trim()) missing.push(`${category} maps to missing key ${key}`);
   }
   assert.deepEqual(missing, [], `missing category i18n keys:\n  ${missing.join("\n  ")}`);
+});
+
+test("generated glossary is sourced from real question keyword refs", () => {
+  const keywordTerms = new Set(
+    data.questions.flatMap((question) => (question.study?.keywordRefs || []).map((keyword) => keyword.term)),
+  );
+  const excludedTerms = new Set(glossary.source?.excludedTerms || []);
+  const problems = [];
+
+  for (const term of glossary.terms) {
+    if (excludedTerms.has(term.term)) problems.push(`${term.term} should have been excluded from the learner glossary`);
+    if (!keywordTerms.has(term.term)) problems.push(`${term.term} is not referenced by question study keywords`);
+    if (!glossary.ranges.includes(term.range)) problems.push(`${term.term} has invalid range ${term.range}`);
+    if (!term.translation || !term.context || !term.matches?.length) {
+      problems.push(`${term.term} is missing translation, context, or matches`);
+    }
+    if (/\b(cards?|linked|questions?|exam|tested|practice items?)\b|used to test|appears in .* questions|quick anchor/i.test(term.context)) {
+      problems.push(`${term.term} has placeholder learner context: ${term.context}`);
+    }
+    if (new RegExp(`^${term.term.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&")}\\s+means\\b`, "i").test(term.context)) {
+      problems.push(`${term.term} repeats its translation in learner context: ${term.context}`);
+    }
+    for (const match of term.matches || []) {
+      if (!data.questions.some((question) => question.id === match.id)) {
+        problems.push(`${term.term} links to missing question ${match.id}`);
+      }
+    }
+  }
+
+  assert.deepEqual(problems, [], `glossary data problems:\n  ${problems.join("\n  ")}`);
 });
