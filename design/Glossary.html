@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>LiD // Glossary Design</title>
+    <link rel="stylesheet" href="tokens.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400..900&family=Roboto+Mono:wght@400;500;700&display=swap");
+
+      :root {
+        --gl-ink: var(--md-sys-color-on-surface);
+        --gl-ink-soft: var(--md-sys-color-on-surface-variant);
+        --gl-ink-faint: color-mix(in srgb, var(--md-sys-color-on-surface-variant) 58%, var(--md-sys-color-surface));
+        --gl-primary: var(--md-sys-color-primary);
+        --gl-paper: var(--md-sys-color-surface);
+        --gl-canvas: var(--md-comp-app-canvas-color);
+        --gl-surface: var(--md-sys-color-surface-container-low);
+        --gl-surface-high: var(--md-sys-color-surface-container-high);
+        --gl-rule: var(--md-sys-color-outline-variant);
+        --gl-rule-strong: var(--md-sys-color-outline);
+        --gl-font: var(--md-ref-typeface-plain);
+        --gl-mono: var(--md-ref-typeface-mono);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--gl-canvas);
+        color: var(--gl-ink);
+        font-family: var(--gl-font);
+      }
+
+      body {
+        font-size: 16px;
+        line-height: 1.45;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .icon-sprite {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+      }
+
+      .icon {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .gl-app {
+        width: min(100vw, 1120px);
+        min-height: 100dvh;
+        margin: 0 auto;
+        background: var(--gl-paper);
+        border-inline: 1px solid var(--gl-rule);
+      }
+
+      .gl-top {
+        min-height: 72px;
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        background: var(--md-comp-top-app-bar-container-color);
+        border-bottom: 1px solid var(--gl-rule);
+      }
+
+      .gl-brand,
+      .gl-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+      }
+
+      .flag {
+        width: 21px;
+        height: 15px;
+        display: inline-block;
+        border: 1px solid var(--lid-flag-outline);
+        border-radius: 3px;
+        background: linear-gradient(to bottom, var(--lid-flag-black) 33%, var(--lid-flag-red) 33% 66%, var(--lid-flag-gold) 66%);
+      }
+
+      .icon-button {
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        border: 1px solid transparent;
+        border-radius: var(--md-sys-shape-corner-full);
+        display: inline-grid;
+        place-items: center;
+        background: var(--gl-surface);
+        color: var(--gl-ink);
+        cursor: pointer;
+      }
+
+      .icon-button:hover {
+        background: color-mix(in srgb, var(--gl-ink) 8%, var(--gl-surface-high));
+      }
+
+      .theme-toggle .theme-sun {
+        display: none;
+      }
+
+      :root[data-theme="dark"] .theme-toggle .theme-moon {
+        display: none;
+      }
+
+      :root[data-theme="dark"] .theme-toggle .theme-sun {
+        display: block;
+      }
+
+      .gl-language {
+        height: 40px;
+        min-width: 72px;
+        border-radius: var(--md-sys-shape-corner-full);
+        background: var(--gl-surface);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 0 12px;
+        font-family: var(--gl-mono);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .mode {
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        padding: 2px;
+        border: 1px solid var(--gl-rule-strong);
+        border-radius: var(--md-sys-shape-corner-full);
+        background: var(--gl-paper);
+      }
+
+      .mode a {
+        min-width: 72px;
+        height: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        border-radius: var(--md-sys-shape-corner-full);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .mode a .icon {
+        width: 17px;
+        height: 17px;
+      }
+
+      .mode a[aria-current="page"] {
+        background: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
+      }
+
+      .glossary-action[aria-current="page"] {
+        background: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
+        border-color: color-mix(in srgb, var(--gl-rule-strong) 42%, transparent);
+      }
+
+      .glossary-action .icon {
+        width: 18px;
+        height: 18px;
+      }
+
+      .gl-page {
+        position: relative;
+        padding: 42px clamp(24px, 7vw, 88px) 72px;
+      }
+
+      .hero {
+        max-width: 680px;
+        margin-bottom: 28px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(42px, 7vw, 72px);
+        line-height: 1;
+        font-weight: 760;
+        letter-spacing: 0;
+      }
+
+      .hero p {
+        margin: 24px 0 0;
+        max-width: 58ch;
+        color: var(--gl-ink-soft);
+        font-size: clamp(18px, 2vw, 23px);
+        line-height: 1.45;
+      }
+
+      .search {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: min(100%, 520px);
+        min-height: 56px;
+        margin-top: 28px;
+        padding: 0 8px 0 18px;
+        border-radius: var(--md-sys-shape-corner-full);
+        background: var(--md-sys-color-surface-container-low);
+        transition:
+          background var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+          box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+      }
+
+      .search .icon {
+        flex: 0 0 auto;
+        color: var(--gl-ink-soft);
+      }
+
+      .search:focus-within {
+        background: var(--gl-paper);
+        box-shadow: 0 0 0 2px var(--gl-primary), 0 0 0 6px var(--md-sys-color-primary-state-layer);
+      }
+
+      .search input {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 100%;
+        min-width: 0;
+        min-height: 46px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--gl-ink);
+        outline: 0;
+        font-size: 16px;
+      }
+
+      .search input::-webkit-search-cancel-button {
+        display: none;
+      }
+
+      .search-clear {
+        flex: 0 0 auto;
+        width: 40px;
+        height: 40px;
+        border: 0;
+        border-radius: var(--md-sys-shape-corner-full);
+        display: grid;
+        place-items: center;
+        background: transparent;
+        color: var(--gl-ink-soft);
+        cursor: pointer;
+      }
+
+      .search-clear:hover {
+        background: var(--md-state-layer-on-surface-hover);
+      }
+
+      .search-clear[hidden] {
+        display: none;
+      }
+
+      .gl-content {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 132px;
+        gap: clamp(36px, 7vw, 96px);
+        align-items: start;
+      }
+
+      .range-rail {
+        position: sticky;
+        top: 112px;
+        --active-index: 0;
+        justify-self: end;
+        align-self: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 120px;
+        height: min(42vh, 280px);
+        max-height: calc(100vh - 144px);
+        min-height: 224px;
+        padding: 8px 0 8px 22px;
+        border-left: 3px solid var(--gl-rule);
+      }
+
+      .range-rail::before {
+        content: "";
+        position: absolute;
+        left: -3px;
+        top: calc(8px + ((100% - 16px - 44px) / 3 * var(--active-index)));
+        width: 3px;
+        height: 44px;
+        border-radius: var(--md-sys-shape-corner-full);
+        background: var(--gl-primary);
+        transition: top var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized);
+      }
+
+      .range-rail button {
+        width: fit-content;
+        min-height: 34px;
+        padding: 0 4px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: var(--gl-ink);
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1;
+        text-align: left;
+      }
+
+      .range-rail button[aria-pressed="true"] {
+        color: var(--gl-primary);
+      }
+
+      .range-rail:has(button[data-range="E-H"][aria-pressed="true"]) {
+        --active-index: 1;
+      }
+
+      .range-rail:has(button[data-range="I-S"][aria-pressed="true"]) {
+        --active-index: 2;
+      }
+
+      .range-rail:has(button[data-range="T-Z"][aria-pressed="true"]) {
+        --active-index: 3;
+      }
+
+      .group {
+        scroll-margin-top: 32px;
+        margin-bottom: 76px;
+      }
+
+      .group[hidden] {
+        display: none;
+      }
+
+      .group-title {
+        margin: 0 0 24px;
+        font-size: clamp(40px, 6vw, 60px);
+        line-height: 1;
+        font-weight: 430;
+        letter-spacing: 0;
+      }
+
+      .term-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 42px;
+      }
+
+      .term-entry {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        padding-bottom: 34px;
+        border-bottom: 1px solid var(--gl-rule);
+      }
+
+      .term-de {
+        margin: 0;
+        font-size: clamp(32px, 4.8vw, 58px);
+        line-height: 0.98;
+        font-weight: 560;
+        letter-spacing: 0;
+      }
+
+      .term-en {
+        margin: 10px 0 0;
+        color: var(--gl-ink-soft);
+        font-size: 20px;
+        line-height: 1.3;
+      }
+
+      .term-context {
+        max-width: 58ch;
+        margin: 12px 0 0;
+        color: var(--gl-ink-soft);
+        font-size: 16px;
+        line-height: 1.45;
+      }
+
+      .match-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        padding-top: 0;
+      }
+
+      .match-card {
+        appearance: none;
+        width: 100%;
+        min-height: 320px;
+        padding: 24px;
+        border: 0;
+        border-radius: var(--md-sys-shape-corner-large);
+        background: var(--md-sys-color-surface-container-low);
+        color: var(--gl-ink);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 18px;
+        cursor: pointer;
+        text-align: left;
+        text-decoration: none;
+      }
+
+      .match-card:hover {
+        background: color-mix(in srgb, var(--gl-primary) 7%, var(--gl-surface-high));
+      }
+
+      .match-card:focus-visible {
+        outline: 2px solid var(--gl-primary);
+        outline-offset: 3px;
+      }
+
+      .match-meta {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+        color: var(--gl-ink-soft);
+        font-family: var(--gl-mono);
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .match-kind {
+        display: inline-flex;
+        align-items: center;
+        color: var(--gl-ink-faint);
+      }
+
+      .match-kind.is-answer {
+        color: var(--md-sys-color-success);
+      }
+
+      .match-kind .icon {
+        width: 22px;
+        height: 22px;
+      }
+
+      .match-away {
+        margin-left: auto;
+        color: var(--gl-ink-faint);
+      }
+
+      .match-away .icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      .match-text {
+        display: -webkit-box;
+        margin: 0;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 6;
+        color: var(--gl-ink);
+        font-size: 30px;
+        line-height: 1.16;
+        text-decoration: none;
+      }
+
+      .match-card:hover .match-text {
+        color: var(--gl-ink);
+      }
+
+      .empty {
+        color: var(--gl-ink-soft);
+        font-size: 18px;
+      }
+
+      @media (max-width: 760px) {
+        body {
+          background: var(--gl-paper);
+        }
+
+        .gl-app {
+          width: 100%;
+          border-inline: 0;
+        }
+
+        .gl-top {
+          padding: 10px 16px;
+        }
+
+        .gl-language {
+          display: none;
+        }
+
+        .mode {
+          display: none;
+        }
+
+        .gl-page {
+          padding: 30px 16px 48px;
+        }
+
+        .hero {
+          margin-bottom: 30px;
+        }
+
+        h1 {
+          font-size: clamp(42px, 15vw, 60px);
+        }
+
+        .hero p {
+          margin-top: 16px;
+          font-size: 16px;
+        }
+
+        .search {
+          margin-top: 20px;
+        }
+
+        .gl-content {
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        .range-rail {
+          position: sticky;
+          top: 0;
+          z-index: 2;
+          order: -1;
+          justify-self: auto;
+          align-self: stretch;
+          width: calc(100% + 32px);
+          height: auto;
+          min-height: 0;
+          max-height: none;
+          margin-inline: -16px;
+          padding: 10px 16px;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: flex-start;
+          overflow-x: auto;
+          gap: 8px;
+          border-left: 0;
+          border-block: 1px solid var(--gl-rule);
+          background: color-mix(in srgb, var(--gl-paper) 94%, transparent);
+          backdrop-filter: blur(10px);
+        }
+
+        .range-rail::before {
+          display: none;
+        }
+
+        .range-rail button {
+          flex: 0 0 auto;
+          min-width: 64px;
+          min-height: 38px;
+          padding: 0 16px;
+          border: 1px solid var(--gl-rule-strong);
+          border-radius: var(--md-sys-shape-corner-full);
+          background: var(--gl-paper);
+          font-family: var(--gl-mono);
+          font-size: 12px;
+          font-weight: 700;
+        }
+
+        .range-rail button[aria-pressed="true"] {
+          border-color: transparent;
+          background: var(--md-sys-color-secondary-container);
+          color: var(--md-sys-color-on-secondary-container);
+        }
+
+        .group {
+          margin-bottom: 48px;
+        }
+
+        .group-title {
+          margin-bottom: 20px;
+          font-size: 42px;
+        }
+
+        .term-list {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+
+        .term-entry {
+          gap: 18px;
+          padding-bottom: 28px;
+        }
+
+        .term-de {
+          font-size: 36px;
+        }
+
+        .term-en {
+          font-size: 17px;
+        }
+
+        .term-context {
+          font-size: 14.5px;
+        }
+
+        .match-grid {
+          grid-template-columns: 1fr;
+          padding-top: 2px;
+        }
+
+        .match-card {
+          min-height: 276px;
+          padding: 20px;
+          border-radius: var(--md-sys-shape-corner-medium);
+        }
+
+        .match-text {
+          -webkit-line-clamp: 5;
+          font-size: 24px;
+          line-height: 1.18;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg aria-hidden="true" class="icon-sprite">
+      <symbol id="tabler-arrow-left" viewBox="0 0 24 24">
+        <path d="M5 12l14 0" />
+        <path d="M5 12l6 6" />
+        <path d="M5 12l6 -6" />
+      </symbol>
+      <symbol id="tabler-arrow-up-right" viewBox="0 0 24 24">
+        <path d="M17 7l-10 10" />
+        <path d="M8 7l9 0l0 9" />
+      </symbol>
+      <symbol id="tabler-language" viewBox="0 0 24 24">
+        <path d="M9 6.371c0 4.418 -2.239 6.629 -5 6.629" />
+        <path d="M4 6.371h7" />
+        <path d="M5 9c0 2.144 2.252 3.908 6 4" />
+        <path d="M12 20l4 -9l4 9" />
+        <path d="M19.1 18h-6.2" />
+        <path d="M6.694 3l.793 .582" />
+      </symbol>
+      <symbol id="tabler-search" viewBox="0 0 24 24">
+        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+        <path d="M21 21l-6 -6" />
+      </symbol>
+      <symbol id="tabler-x" viewBox="0 0 24 24">
+        <path d="M18 6l-12 12" />
+        <path d="M6 6l12 12" />
+      </symbol>
+      <symbol id="tabler-book-2" viewBox="0 0 24 24">
+        <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
+        <path d="M19 16h-12a2 2 0 0 0 -2 2" />
+        <path d="M9 8h6" />
+      </symbol>
+      <symbol id="tabler-help-circle" viewBox="0 0 24 24">
+        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+        <path d="M12 17l0 .01" />
+        <path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4" />
+      </symbol>
+      <symbol id="tabler-list-check" viewBox="0 0 24 24">
+        <path d="M3.5 5.5l1.5 1.5l2.5 -2.5" />
+        <path d="M3.5 11.5l1.5 1.5l2.5 -2.5" />
+        <path d="M3.5 17.5l1.5 1.5l2.5 -2.5" />
+        <path d="M11 6l9 0" />
+        <path d="M11 12l9 0" />
+        <path d="M11 18l9 0" />
+      </symbol>
+      <symbol id="tabler-moon" viewBox="0 0 24 24">
+        <path d="M12 3c.132 0 .263 .003 .393 .01a7.5 7.5 0 0 0 7.92 10.58a9 9 0 1 1 -8.313 -10.59z" />
+      </symbol>
+      <symbol id="tabler-sun" viewBox="0 0 24 24">
+        <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+        <path d="M3 12h1" />
+        <path d="M20 12h1" />
+        <path d="M12 3v1" />
+        <path d="M12 20v1" />
+        <path d="M5.6 5.6l.7 .7" />
+        <path d="M17.7 17.7l.7 .7" />
+        <path d="M18.4 5.6l-.7 .7" />
+        <path d="M6.3 17.7l-.7 .7" />
+      </symbol>
+    </svg>
+
+    <main class="gl-app">
+      <header class="gl-top">
+        <div class="gl-brand">
+          <a class="icon-button" href="../index.html" aria-label="Back to trainer">
+            <svg class="icon" aria-hidden="true"><use href="#tabler-arrow-left"></use></svg>
+          </a>
+          <span class="flag" aria-hidden="true"></span>
+        </div>
+        <div class="gl-actions">
+          <span class="gl-language">
+            <svg class="icon" aria-hidden="true"><use href="#tabler-language"></use></svg>
+            EN
+          </span>
+          <button id="themeToggle" class="icon-button theme-toggle" type="button" aria-label="Switch to dark mode">
+            <svg class="icon theme-moon" aria-hidden="true"><use href="#tabler-moon"></use></svg>
+            <svg class="icon theme-sun" aria-hidden="true"><use href="#tabler-sun"></use></svg>
+          </button>
+          <nav class="mode" aria-label="Mode">
+            <a href="../index.html">Learn</a>
+            <a href="../index.html">Test</a>
+          </nav>
+          <a class="icon-button glossary-action" href="Glossary.html" aria-current="page" aria-label="Glossary">
+            <svg class="icon" aria-hidden="true"><use href="#tabler-book-2"></use></svg>
+          </a>
+        </div>
+      </header>
+
+      <div class="gl-page">
+        <section class="hero">
+          <h1>Glossary</h1>
+          <p>German exam words with short English meanings. Question links take you straight to where each word appears.</p>
+          <label class="search">
+            <svg class="icon" aria-hidden="true"><use href="#tabler-search"></use></svg>
+            <input id="searchInput" type="search" placeholder="Search German or English" autocomplete="off" />
+            <button id="clearSearch" class="search-clear" type="button" aria-label="Clear search" hidden>
+              <svg class="icon" aria-hidden="true"><use href="#tabler-x"></use></svg>
+            </button>
+          </label>
+        </section>
+
+        <div class="gl-content">
+          <div id="groups"></div>
+          <nav class="range-rail" aria-label="Glossary ranges">
+            <button type="button" data-range="A-D" aria-pressed="true">A-D</button>
+            <button type="button" data-range="E-H" aria-pressed="false">E-H</button>
+            <button type="button" data-range="I-S" aria-pressed="false">I-S</button>
+            <button type="button" data-range="T-Z" aria-pressed="false">T-Z</button>
+          </nav>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const TERMS = [
+        {
+          term: "Asyl",
+          translation: "asylum",
+          context: "A protected right for people from other countries who need safety from persecution.",
+          matches: [
+            { id: 9, kind: "question", text: "Welches Grundrecht gilt in Deutschland nur fuer Auslaenderinnen/Auslaender? Das Grundrecht auf ..." },
+            { id: 9, kind: "answer", text: "Asyl" },
+          ],
+        },
+        {
+          term: "Bundesrat",
+          translation: "Federal Council",
+          context: "The chamber where Germany's federal states take part in national lawmaking.",
+          matches: [
+            { id: 55, kind: "question", text: "Was ist kein Bundesland der Bundesrepublik Deutschland?" },
+            { id: 57, kind: "answer", text: "der Bundesrat" },
+            { id: 58, kind: "question", text: "Wer waehlt in Deutschland den Bundeskanzler / die Bundeskanzlerin?" },
+            { id: 59, kind: "answer", text: "Vertreterinnen und Vertreter der Bundeslaender wirken im Bundesrat mit." },
+          ],
+        },
+        {
+          term: "Bundestag",
+          translation: "federal parliament",
+          context: "The elected national parliament. Many questions connect it with voting, laws, and government.",
+          matches: [
+            { id: 12, kind: "question", text: "Eine Partei im Deutschen Bundestag will die Pressefreiheit abschaffen. Ist das moeglich?" },
+            { id: 28, kind: "answer", text: "die Abgeordneten des Bundestages" },
+            { id: 55, kind: "question", text: "Welche Aussage beschreibt den Deutschen Bundestag?" },
+            { id: 57, kind: "answer", text: "Der Bundestag beschliesst die Gesetze." },
+            { id: 60, kind: "question", text: "Wer bestimmt in Deutschland die Ministerinnen und Minister der Bundesregierung?" },
+            { id: 107, kind: "question", text: "Fuer wie viele Jahre wird der Bundestag in Deutschland gewaehlt?" },
+          ],
+        },
+        {
+          term: "Demokratie",
+          translation: "democracy",
+          context: "The people choose representatives and can take part in political decisions.",
+          matches: [
+            { id: 38, kind: "question", text: "Deutschland ist ein demokratischer und sozialer Bundesstaat. Was bedeutet Demokratie?" },
+            { id: 39, kind: "answer", text: "Das Volk waehlt die Volksvertretung." },
+            { id: 40, kind: "question", text: "Welche Staatsform hat Deutschland?" },
+            { id: 41, kind: "answer", text: "eine Demokratie" },
+          ],
+        },
+        {
+          term: "Ehrenamt",
+          translation: "volunteering",
+          context: "Unpaid civic work, such as helping at elections or supporting the community.",
+          matches: [
+            { id: 106, kind: "question", text: "In Deutschland helfen ehrenamtliche Wahlhelferinnen und Wahlhelfer bei den Wahlen. Was ist ihre Aufgabe?" },
+            { id: 264, kind: "answer", text: "ein Ehrenamt uebernehmen" },
+          ],
+        },
+        {
+          term: "Gleichberechtigung",
+          translation: "equal rights",
+          context: "People have the same rights before the law, especially men and women.",
+          matches: [
+            { id: 31, kind: "question", text: "Was bedeutet Gleichberechtigung in Deutschland?" },
+            { id: 198, kind: "answer", text: "Maenner und Frauen sind gleichberechtigt." },
+          ],
+        },
+        {
+          term: "Grundgesetz",
+          translation: "Basic Law / constitution",
+          context: "Germany's constitution. It protects fundamental rights and sets the rules for the state.",
+          matches: [
+            { id: 6, kind: "question", text: "Wie heisst die deutsche Verfassung?" },
+            { id: 8, kind: "question", text: "Was steht nicht im Grundgesetz von Deutschland?" },
+            { id: 10, kind: "answer", text: "die Geldstrafe" },
+            { id: 11, kind: "answer", text: "Grundgesetz" },
+            { id: 15, kind: "question", text: "Was ist mit dem deutschen Grundgesetz vereinbar?" },
+            { id: 43, kind: "answer", text: "Die Wuerde des Menschen ist unantastbar." },
+          ],
+        },
+        {
+          term: "Holocaust",
+          translation: "Holocaust",
+          context: "The Nazi murder of European Jews. In the exam it appears in history and responsibility questions.",
+          matches: [
+            { id: 164, kind: "question", text: "Wofuer steht der Begriff Holocaust?" },
+            { id: 165, kind: "answer", text: "die Ermordung von Juden durch die Nationalsozialisten" },
+          ],
+        },
+        {
+          term: "Meinungsfreiheit",
+          translation: "freedom of opinion",
+          context: "A fundamental right: people may openly express political opinions and criticize the government.",
+          matches: [
+            { id: 1, kind: "question", text: "In Deutschland duerfen Menschen offen etwas gegen die Regierung sagen, weil ..." },
+            { id: 4, kind: "answer", text: "Meinungsfreiheit" },
+            { id: 14, kind: "question", text: "Welches Recht gehoert zu den Grundrechten in Deutschland?" },
+          ],
+        },
+        {
+          term: "nicht",
+          translation: "not",
+          context: "A danger word. It reverses the task, so look for the exception or the wrong statement.",
+          matches: [
+            { id: 8, kind: "question", text: "Was steht nicht im Grundgesetz von Deutschland?" },
+            { id: 12, kind: "answer", text: "Nein, denn die Pressefreiheit ist ein Grundrecht. Sie kann nicht abgeschafft werden." },
+            { id: 100, kind: "question", text: "Was gehoert nicht zur gesetzlichen Sozialversicherung?" },
+          ],
+        },
+        {
+          term: "Opposition",
+          translation: "opposition",
+          context: "The parties or members of parliament that are not part of the government.",
+          matches: [
+            { id: 13, kind: "question", text: "Im Parlament steht der Begriff Opposition fuer ..." },
+            { id: 13, kind: "answer", text: "alle Abgeordneten, die nicht zu den Regierungsparteien gehoeren" },
+          ],
+        },
+        {
+          term: "Rechtsstaat",
+          translation: "rule of law",
+          context: "Everyone, including the state, must follow the law. Courts protect those rules.",
+          matches: [
+            { id: 3, kind: "question", text: "Deutschland ist ein Rechtsstaat. Was ist damit gemeint?" },
+            { id: 51, kind: "answer", text: "Alle Einwohnerinnen und Einwohner und der Staat muessen sich an die Gesetze halten." },
+          ],
+        },
+        {
+          term: "Wahl",
+          translation: "election / vote",
+          context: "The act of choosing representatives. Exam questions often test who may vote and how elections work.",
+          matches: [
+            { id: 5, kind: "question", text: "Wahlen in Deutschland sind frei. Was bedeutet das?" },
+            { id: 105, kind: "answer", text: "Sie zaehlen die Stimmen nach dem Ende der Wahl." },
+            { id: 108, kind: "question", text: "In einer Bundestagswahl darf waehlen, wer ..." },
+          ],
+        },
+        {
+          term: "Wiedervereinigung",
+          translation: "reunification",
+          context: "East and West Germany became one country again in 1990.",
+          matches: [
+            { id: 176, kind: "question", text: "Wann war die deutsche Wiedervereinigung?" },
+            { id: 179, kind: "answer", text: "am 3. Oktober 1990" },
+          ],
+        },
+      ];
+
+      const RANGES = ["A-D", "E-H", "I-S", "T-Z"];
+      const groups = document.querySelector("#groups");
+      const search = document.querySelector("#searchInput");
+      const clearSearch = document.querySelector("#clearSearch");
+      const rangeButtons = [...document.querySelectorAll("[data-range]")];
+      const themeToggle = document.querySelector("#themeToggle");
+      let activeRange = "A-D";
+
+      function preferredTheme() {
+        const saved = localStorage.getItem("lid-glossary-theme");
+        if (saved === "light" || saved === "dark") return saved;
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+
+      function applyTheme(theme) {
+        document.documentElement.dataset.theme = theme;
+        themeToggle.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+      }
+
+      applyTheme(preferredTheme());
+
+      function rangeFor(term) {
+        const first = term[0].toUpperCase();
+        if ("ABCD".includes(first)) return "A-D";
+        if ("EFGH".includes(first)) return "E-H";
+        if ("IJKLMNOPQRS".includes(first)) return "I-S";
+        return "T-Z";
+      }
+
+      function filteredTerms(range) {
+        const query = search.value.trim().toLowerCase();
+        return TERMS.filter((item) => {
+          const matchesRange = rangeFor(item.term) === range;
+          const matchesQuery = !query || `${item.term} ${item.translation}`.toLowerCase().includes(query);
+          return matchesRange && matchesQuery;
+        });
+      }
+
+      function render() {
+        rangeButtons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.range === activeRange));
+        });
+
+        groups.innerHTML = RANGES.map((range) => {
+          const terms = filteredTerms(range);
+          if (!terms.length && search.value.trim()) return "";
+          return `
+            <section class="group" id="range-${range}" ${range !== activeRange && !search.value.trim() ? "hidden" : ""}>
+              <h2 class="group-title">${range}</h2>
+              ${
+                terms.length
+                  ? `<div class="term-list">${terms.map(renderTerm).join("")}</div>`
+                  : `<p class="empty">No terms in this range.</p>`
+              }
+            </section>
+          `;
+        }).join("");
+      }
+
+      function renderTerm(item) {
+        return `
+          <article class="term-entry">
+            <div>
+              <h3 class="term-de">${item.term}</h3>
+              <p class="term-en">${item.translation}</p>
+              <p class="term-context">${item.context}</p>
+            </div>
+            <div class="match-grid">
+              ${item.matches.slice(0, 8).map((match) => `
+                <button class="match-card" type="button" data-href="/q/${match.id}">
+                  <span class="match-meta">
+                    <span class="match-kind is-${match.kind}" aria-label="${match.kind}">
+                      <svg class="icon" aria-hidden="true"><use href="#tabler-${match.kind === "question" ? "help-circle" : "list-check"}"></use></svg>
+                    </span>
+                    <span class="match-away" aria-hidden="true">
+                      <svg class="icon"><use href="#tabler-arrow-up-right"></use></svg>
+                    </span>
+                  </span>
+                  <p class="match-text">${match.text}</p>
+                </button>
+              `).join("")}
+            </div>
+          </article>
+        `;
+      }
+
+      search.addEventListener("input", render);
+      search.addEventListener("input", () => {
+        clearSearch.hidden = !search.value;
+      });
+      clearSearch.addEventListener("click", () => {
+        search.value = "";
+        clearSearch.hidden = true;
+        search.focus();
+        render();
+      });
+      rangeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          activeRange = button.dataset.range;
+          search.value = "";
+          clearSearch.hidden = true;
+          render();
+          document.querySelector("#groups").scrollIntoView({ block: "start", behavior: "smooth" });
+        });
+      });
+      themeToggle.addEventListener("click", () => {
+        const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        localStorage.setItem("lid-glossary-theme", nextTheme);
+        applyTheme(nextTheme);
+      });
+
+      groups.addEventListener("click", (event) => {
+        const card = event.target.closest("[data-href]");
+        if (card) window.location.href = card.dataset.href;
+      });
+
+      render();
+    </script>
+  </body>
+</html>

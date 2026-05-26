@@ -6,6 +6,8 @@
  */
 
 :root {
+  color-scheme: light;
+
   /* ── Reference tokens: source palette and typefaces ──────── */
   --md-ref-palette-primary40: #285d4d;
   --md-ref-palette-primary80: #9bd2bc;
@@ -14,6 +16,7 @@
   --md-ref-palette-secondary90: #dce6eb;
   --md-ref-palette-tertiary40: #3f5f7f;
   --md-ref-palette-tertiary90: #c9ddfb;
+  --md-ref-palette-neutral0: #000000;
   --md-ref-palette-neutral6: #0c0f10;
   --md-ref-palette-neutral10: #111416;
   --md-ref-palette-neutral12: #191c1e;
@@ -38,6 +41,7 @@
   --md-sys-color-primary-container: var(--md-ref-palette-primary90);
   --md-sys-color-on-primary-container: #0b2119;
   --md-sys-color-secondary: var(--md-ref-palette-secondary40);
+  --md-sys-color-on-secondary: #ffffff;
   --md-sys-color-secondary-container: var(--md-ref-palette-secondary90);
   --md-sys-color-on-secondary-container: #111d23;
   --md-sys-color-tertiary: var(--md-ref-palette-tertiary40);
@@ -47,6 +51,7 @@
   --md-sys-color-error-container: #ffdad6;
   --md-sys-color-surface-bright: var(--md-ref-palette-neutral98);
   --md-sys-color-surface: var(--md-ref-palette-neutral98);
+  --md-sys-color-surface-dim: var(--md-ref-palette-neutral87);
   --md-sys-color-surface-container-lowest: var(--md-ref-palette-neutral100);
   --md-sys-color-surface-container-low: var(--md-ref-palette-neutral96);
   --md-sys-color-surface-container: var(--md-ref-palette-neutral94);
@@ -61,6 +66,7 @@
   --md-sys-color-success-container: #b6f1c9;
   --md-sys-color-on-success-container: #062114;
   --md-sys-color-success-outline: #65c98b;
+  --md-sys-color-success-state-layer: rgba(36, 107, 69, 0.12);
   --md-sys-color-warning: #7b5800;
   --md-sys-color-warning-container: #ffdea0;
   --md-sys-color-on-warning-container: #241900;
@@ -88,6 +94,7 @@
   --lid-flag-outline: rgba(0,0,0,0.12);
   --md-state-hover-opacity: 0.08;
   --md-state-focus-opacity: 0.12;
+  --md-state-pressed-opacity: 0.12;
   --md-sys-shape-corner-extra-small: 4px;
   --md-sys-shape-corner-small: 8px;
   --md-sys-shape-corner-medium: 12px;
@@ -157,6 +164,9 @@
   --md-comp-review-rail-container-color: var(--md-sys-color-surface-container);
   --md-comp-card-container-color: var(--md-sys-color-surface);
   --md-comp-answer-container-color: var(--md-sys-color-surface-container-low);
+  --md-comp-answer-dim-container-color: color-mix(in srgb, var(--md-sys-color-surface-container-high) 36%, var(--md-sys-color-surface));
+  --md-comp-answer-dim-label-color: color-mix(in srgb, var(--md-sys-color-on-surface) 42%, var(--md-sys-color-surface));
+  --md-comp-answer-dim-supporting-color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) 50%, var(--md-sys-color-surface));
   --md-comp-study-sheet-container-color: var(--md-sys-color-surface-container-low);
   --md-comp-bottom-app-bar-container-color: var(--md-sys-color-surface-container-low);
   --md-comp-dialog-container-color: var(--md-sys-color-surface-container-high);
@@ -225,6 +235,67 @@
 
   /* ── Breakpoint ──────────────────────────────────────────── */
   --ok-bp-mobile:    975px;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --md-sys-color-primary: #9bd2bc;
+  --md-sys-color-primary-hover: #b7e9d3;
+  --md-sys-color-on-primary: #00382a;
+  --md-sys-color-primary-container: #0f4f3d;
+  --md-sys-color-on-primary-container: #b8f0d7;
+  --md-sys-color-secondary: #c0c8cc;
+  --md-sys-color-on-secondary: #253138;
+  --md-sys-color-secondary-container: #38474f;
+  --md-sys-color-on-secondary-container: #dce6eb;
+  --md-sys-color-tertiary: #abc7e8;
+  --md-sys-color-tertiary-container: #284766;
+  --md-sys-color-on-tertiary-container: #d4e4ff;
+  --md-sys-color-error: #ffb4ab;
+  --md-sys-color-error-container: #93000a;
+  --md-sys-color-surface-bright: #2a3033;
+  --md-sys-color-surface: #111416;
+  --md-sys-color-surface-dim: #0c0f10;
+  --md-sys-color-surface-container-lowest: #0c0f10;
+  --md-sys-color-surface-container-low: #191c1e;
+  --md-sys-color-surface-container: #1f2426;
+  --md-sys-color-surface-container-high: #2a3033;
+  --md-sys-color-surface-container-highest: #353c40;
+  --md-sys-color-on-surface: #e1e3e5;
+  --md-sys-color-on-surface-variant: #c2c8cc;
+  --md-sys-color-on-surface-disabled: color-mix(in srgb, var(--md-sys-color-on-surface) 48%, var(--md-sys-color-surface));
+  --md-sys-color-outline: #8c969c;
+  --md-sys-color-outline-variant: #3f484d;
+  --md-sys-color-success: #9cd8ad;
+  --md-sys-color-success-container: #174f2d;
+  --md-sys-color-on-success-container: #c5f2ce;
+  --md-sys-color-success-outline: #65c98b;
+  --md-sys-color-success-state-layer: rgba(156, 216, 173, 0.14);
+  --md-sys-color-warning: #f0c46f;
+  --md-sys-color-warning-container: #5d4300;
+  --md-sys-color-on-warning-container: #ffdea0;
+  --md-sys-color-inverse-surface: #e1e3e5;
+  --md-sys-color-inverse-on-surface: #2e3133;
+  --md-sys-color-inverse-primary: #285d4d;
+  --md-sys-color-learning-highlight: rgba(188, 158, 48, 0.36);
+  --md-sys-color-learning-highlight-soft: rgba(188, 158, 48, 0.22);
+  --md-sys-color-on-surface-state-layer: rgba(225, 227, 229, 0.08);
+  --md-sys-color-primary-state-layer: rgba(155, 210, 188, 0.14);
+  --md-sys-color-secondary-state-layer: rgba(192, 200, 204, 0.12);
+  --md-sys-color-error-state-layer: rgba(255, 180, 171, 0.14);
+  --md-state-layer-on-surface-hover: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent);
+  --md-state-layer-on-surface-pressed: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  --md-state-layer-primary-hover: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
+  --md-state-layer-primary-pressed: color-mix(in srgb, var(--md-sys-color-primary) 14%, transparent);
+  --md-state-layer-secondary-hover: color-mix(in srgb, var(--md-sys-color-secondary) 10%, transparent);
+  --md-state-layer-secondary-pressed: color-mix(in srgb, var(--md-sys-color-secondary) 14%, transparent);
+  --md-state-layer-error-hover: color-mix(in srgb, var(--md-sys-color-error) 10%, transparent);
+  --md-state-layer-error-pressed: color-mix(in srgb, var(--md-sys-color-error) 14%, transparent);
+  --md-sys-color-scrim: rgba(0, 0, 0, 0.42);
+  --md-comp-answer-dim-container-color: color-mix(in srgb, var(--md-sys-color-surface-container-high) 76%, var(--md-sys-color-surface));
+  --md-comp-answer-dim-label-color: color-mix(in srgb, var(--md-sys-color-on-surface) 74%, var(--md-sys-color-surface));
+  --md-comp-answer-dim-supporting-color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) 82%, var(--md-sys-color-surface));
+  --lid-flag-outline: rgba(255, 255, 255, 0.2);
 }
 
 @media (prefers-contrast: more) {
