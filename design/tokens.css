@@ -2,7 +2,7 @@
 
 /* LiD Material 3-inspired Design System
  * Tokens mirror the implementation direction in styles.css.
- * Type remains restricted to Roboto Flex and Roboto Mono.
+ * Type uses Roboto Flex and Roboto Mono with system fallbacks.
  */
 
 :root {
@@ -27,9 +27,9 @@
   --md-ref-palette-neutral96: #fafcff;
   --md-ref-palette-neutral98: #ffffff;
   --md-ref-palette-neutral100: #ffffff;
-  --md-ref-typeface-brand: "Roboto Flex";
-  --md-ref-typeface-plain: "Roboto Flex";
-  --md-ref-typeface-mono: "Roboto Mono";
+  --md-ref-typeface-brand: "Roboto Flex", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --md-ref-typeface-plain: "Roboto Flex", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --md-ref-typeface-mono: "Roboto Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
   /* ── Material 3-inspired color roles ─────────────────────── */
   --md-sys-color-primary: var(--md-ref-palette-primary40);
@@ -133,6 +133,21 @@
   --md-sys-typescale-label-medium-line-height: 16px;
   --md-sys-typescale-label-small-size: 11px;
   --md-sys-typescale-label-small-line-height: 16px;
+  --md-type-label-medium: var(--md-sys-typescale-label-medium-size);
+  --md-type-label-small: var(--md-sys-typescale-label-small-size);
+  --md-type-body-large: var(--md-sys-typescale-body-large-size);
+  --bp-type-answer-size: var(--md-type-body-large);
+  --bp-type-answer-line-height: 1.32;
+  --bp-type-answer-translation-compact-size: 13.5px;
+  --bp-type-learning-note-size: 13px;
+  --bp-type-learning-note-line-height: 1.35;
+  --bp-type-nav-label-size: 13px;
+  --bp-type-nav-label-compact-size: var(--md-type-label-medium);
+  --bp-type-filter-count-family: var(--md-ref-typeface-mono);
+  --bp-type-filter-count-condensed-size: 9.5px;
+  --bp-type-filter-count-size: var(--md-type-label-small);
+  --bp-type-filter-count-line-height: 1.15;
+  --bp-type-filter-count-transform: uppercase;
 
   /* ── Component tokens: trainer-specific MD3 surfaces ─────── */
   --md-comp-app-container-color: var(--md-sys-color-surface);

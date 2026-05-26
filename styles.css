@@ -23,9 +23,9 @@
   --md-ref-palette-neutral96: #fafcff;
   --md-ref-palette-neutral98: #ffffff;
   --md-ref-palette-neutral100: #ffffff;
-  --md-ref-typeface-brand: "Roboto Flex";
-  --md-ref-typeface-plain: "Roboto Flex";
-  --md-ref-typeface-mono: "Roboto Mono";
+  --md-ref-typeface-brand: "Roboto Flex", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --md-ref-typeface-plain: "Roboto Flex", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --md-ref-typeface-mono: "Roboto Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --md-sys-color-primary: var(--md-ref-palette-primary40);
   --md-sys-color-primary-hover: #174738;
   --md-sys-color-on-primary: #ffffff;
@@ -189,6 +189,18 @@
   --md-type-body-large: var(--md-sys-typescale-body-large-size);
   --md-type-title-medium: var(--md-sys-typescale-title-medium-size);
   --md-type-headline-small: var(--md-sys-typescale-headline-small-size);
+  --bp-type-answer-size: var(--md-type-body-large);
+  --bp-type-answer-line-height: 1.32;
+  --bp-type-answer-translation-compact-size: 13.5px;
+  --bp-type-learning-note-size: 13px;
+  --bp-type-learning-note-line-height: 1.35;
+  --bp-type-nav-label-size: 13px;
+  --bp-type-nav-label-compact-size: var(--md-type-label-medium);
+  --bp-type-filter-count-family: var(--bp-mono);
+  --bp-type-filter-count-condensed-size: 9.5px;
+  --bp-type-filter-count-size: var(--md-type-label-small);
+  --bp-type-filter-count-line-height: 1.15;
+  --bp-type-filter-count-transform: uppercase;
   --md-density-card-padding-top: 18px;
   --md-density-card-padding-bottom: 10px;
   --md-density-card-gap: 14px;
@@ -396,6 +408,7 @@ body {
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  font-optical-sizing: auto;
   overscroll-behavior-x: none;
   overscroll-behavior-y: auto;
 }
@@ -967,8 +980,8 @@ button {
 }
 
 .cat-pill .en {
-  font-family: var(--bp-mono);
-  font-size: 9.5px;
+  font-family: var(--bp-type-filter-count-family);
+  font-size: var(--bp-type-filter-count-condensed-size);
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.01em;
@@ -1943,9 +1956,9 @@ button {
 }
 
 .bp-answer .text {
-  font-size: var(--md-type-body-large);
+  font-size: var(--bp-type-answer-size);
   font-weight: 560;
-  line-height: 1.32;
+  line-height: var(--bp-type-answer-line-height);
   letter-spacing: 0;
 }
 
@@ -2262,7 +2275,7 @@ button {
   min-height: var(--md-density-touch-target-nav);
   padding: 0 16px;
   font-family: var(--bp-display);
-  font-size: var(--md-type-label-medium);
+  font-size: var(--bp-type-nav-label-size);
   font-weight: 700;
   text-transform: none;
   letter-spacing: 0;
@@ -2747,11 +2760,11 @@ button {
   gap: 6px;
   margin-top: 6px;
   padding-top: 1px;
-  font-family: var(--bp-mono);
-  font-size: 12px;
+  font-family: var(--bp-display);
+  font-size: var(--bp-type-learning-note-size);
   font-weight: 400;
   font-style: normal;
-  line-height: 1.3;
+  line-height: var(--bp-type-learning-note-line-height);
   color: var(--bp-ink-soft);
   letter-spacing: 0;
 }
@@ -3186,14 +3199,14 @@ button {
   }
 
   .bp-answer .text {
-    font-size: 15.5px;
-    line-height: 1.3;
+    font-size: var(--bp-type-answer-size);
+    line-height: var(--bp-type-answer-line-height);
   }
 
   .bp-nav button {
     min-height: 46px;
     padding: 0 12px;
-    font-size: 12px;
+    font-size: var(--bp-type-nav-label-compact-size);
   }
 
   .bp-empty,
@@ -3473,8 +3486,9 @@ button {
   }
 
   .cat-pill .en {
-    font-size: 9.5px;
-    text-transform: uppercase;
+    font-size: var(--bp-type-filter-count-size);
+    line-height: var(--bp-type-filter-count-line-height);
+    text-transform: var(--bp-type-filter-count-transform);
   }
 
   .known-list {
@@ -3542,12 +3556,12 @@ button {
   }
 
   .bp-answer .text {
-    font-size: 15px;
-    line-height: 1.22;
+    font-size: var(--bp-type-answer-size);
+    line-height: var(--bp-type-answer-line-height);
   }
 
   .bp-answer .text .en {
-    font-size: 12.5px;
+    font-size: var(--bp-type-answer-translation-compact-size);
     margin-top: 2px;
   }
 
@@ -3571,7 +3585,7 @@ button {
 
   .bp-nav button {
     padding: 0 10px;
-    font-size: 10.5px;
+    font-size: var(--bp-type-nav-label-compact-size);
   }
 
   .bp-app.fit-tight .bp-card {

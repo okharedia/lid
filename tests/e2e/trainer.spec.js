@@ -414,6 +414,42 @@ test("mobile drawer behaves like a modal dialog", async ({ page }) => {
   await expect(filterButton).toBeFocused();
 });
 
+test("long mobile question typography does not overflow", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  for (const questionId of [235, 268]) {
+    await page.goto(`/q/${questionId}`);
+    await expect(page.locator("#questionText")).not.toHaveText("Loading...");
+    await expect(page.locator("#answers [data-answer]").first()).toBeVisible();
+
+    const overflowingText = await page.evaluate(() => {
+      const selectors = [
+        ".bp-q",
+        ".bp-q-en",
+        ".bp-answer .text",
+        ".bp-answer .text .en",
+        ".bp-answer .text .why",
+        ".bp-hint",
+        ".bp-nav button",
+      ];
+
+      return selectors.flatMap((selector) =>
+        [...document.querySelectorAll(selector)]
+          .filter((element) => element.checkVisibility())
+          .map((element) => ({
+            selector,
+            text: element.textContent.trim().replace(/\s+/g, " ").slice(0, 80),
+            clipsX: element.scrollWidth > element.clientWidth + 1,
+            clipsY: element.scrollHeight > element.clientHeight + 1,
+          }))
+          .filter(({ clipsX, clipsY }) => clipsX || clipsY),
+      );
+    });
+
+    expect(overflowingText, `Question ${questionId} has clipped typography`).toEqual([]);
+  }
+});
+
 test("desktop review panel stays open after selecting a filter", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 860 });
   await openTrainer(page);

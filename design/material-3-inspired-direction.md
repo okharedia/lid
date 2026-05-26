@@ -47,6 +47,7 @@ This pass keeps the static LiD trainer architecture and Tabler icons, but shifts
 
 - `styles.css` owns the live app tokens.
 - `design/tokens.css` mirrors the same Material 3-inspired roles for prototypes.
+- Type tokens include system fallback stacks, optical sizing, and trainer-specific roles for answer text, learning notes, filter counts, and bottom navigation so mobile prose avoids sub-12px labels.
 - Keep Tabler icons for all icon changes.
 - Review panel tabs use the ARIA tabs pattern with roving keyboard navigation.
 - Mobile review drawer traps Tab focus while open and closes with Escape or outside click.
