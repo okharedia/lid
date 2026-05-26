@@ -1004,7 +1004,7 @@
               <ol class="flow-steps">
                 <li><span class="step-num">1</span><span>Read every <code>questions[].glossaryRefs</code> term from metadata.</span></li>
                 <li><span class="step-num">2</span><span>Drop low-value stop terms such as <code>nicht</code>, <code>alle</code>, and <code>Berlin</code>.</span></li>
-                <li><span class="step-num">3</span><span>Find real question and answer text containing each term.</span></li>
+                <li><span class="step-num">3</span><span>Find real question text and correct answer text containing each term.</span></li>
                 <li><span class="step-num">4</span><span>Attach translated labels from the current glossary generation catalog.</span></li>
                 <li><span class="step-num">5</span><span>Write learner context and match cards into <code>data/glossary.json</code>.</span></li>
               </ol>
@@ -1066,7 +1066,7 @@
         },
         glossary: {
           title: "Derived glossary",
-          body: "data/glossary.json is generated. It reads glossaryRefs from metadata, excludes weak terms, finds question and answer matches, groups by range, and adds learner context."
+          body: "data/glossary.json is generated. It reads glossaryRefs from metadata, excludes weak terms, finds question and correct-answer matches, groups by range, and adds learner context."
         },
         app: {
           title: "Rendered product",

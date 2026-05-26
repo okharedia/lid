@@ -195,8 +195,17 @@ test("generated glossary is sourced from real question glossary refs", () => {
       problems.push(`${term.term} repeats its translation in learner context: ${term.context}`);
     }
     for (const match of term.matches || []) {
-      if (!sourceQuestions.some((question) => question.id === match.id)) {
+      const sourceQuestion = sourceQuestions.find((question) => question.id === match.id);
+      if (!sourceQuestion) {
         problems.push(`${term.term} links to missing question ${match.id}`);
+        continue;
+      }
+      const correctAnswer = sourceQuestion.answers.find((answer) => answer.index === sourceQuestion.correctAnswerIndex);
+      if (match.kind === "answer" && match.text !== correctAnswer?.text) {
+        problems.push(`${term.term} links to non-correct answer for question ${match.id}`);
+      }
+      if (match.kind !== "question" && match.kind !== "answer") {
+        problems.push(`${term.term} has invalid match kind ${match.kind}`);
       }
     }
   }

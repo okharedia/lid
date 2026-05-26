@@ -170,7 +170,7 @@ const terms = [...referencedTerms.entries()]
   .map(([term, translationKey]) => {
     const translation = messages[translationKey] || term;
     const matchingQuestions = questions.filter((question) => {
-      const answerText = question.answers.map((answer) => answer.text).join(" ");
+      const answerText = question.answers[question.correctAnswerIndex]?.text || "";
       return includesTerm(`${question.question} ${answerText}`, term);
     });
 
@@ -184,16 +184,16 @@ const terms = [...referencedTerms.entries()]
           translation: messages[question.translationKey] || "",
         });
       }
-      question.answers.forEach((answer) => {
-        if (!includesTerm(answer.text, term)) return;
+      const answer = question.answers[question.correctAnswerIndex];
+      if (answer && includesTerm(answer.text, term)) {
         items.push({
           id: question.id,
           kind: "answer",
           text: answer.text,
           translation: messages[answer.translationKey] || "",
-          isCorrect: answer.isCorrect,
+          isCorrect: true,
         });
-      });
+      }
       return items;
     });
 
@@ -215,7 +215,7 @@ const output = {
     questions: "data/lid-berlin-source-of-truth.json",
     metadata: "data/lid-berlin-question-metadata.json",
     translations: "data/i18n/en.json",
-    basis: "question metadata glossaryRefs matched against question and answer text",
+    basis: "question metadata glossaryRefs matched against question text and correct answers",
     excludedTerms: [...STOP_TERMS].sort((left, right) => left.localeCompare(right, "de-DE", { sensitivity: "base" })),
   },
   ranges: RANGES,

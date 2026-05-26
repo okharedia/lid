@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-26T15:48:56.218Z",
+  "generatedAt": "2026-05-26T19:20:13.659Z",
   "source": {
     "questions": "data/lid-berlin-source-of-truth.json",
     "metadata": "data/lid-berlin-question-metadata.json",
     "translations": "data/i18n/en.json",
-    "basis": "question metadata glossaryRefs matched against question and answer text",
+    "basis": "question metadata glossaryRefs matched against question text and correct answers",
     "excludedTerms": [
       "alle",
       "Berlin",
@@ -44,13 +44,6 @@
           "isCorrect": true
         },
         {
-          "id": 154,
-          "kind": "answer",
-          "text": "1933",
-          "translation": "1933",
-          "isCorrect": false
-        },
-        {
           "id": 155,
           "kind": "answer",
           "text": "1933 bis 1945",
@@ -69,27 +62,6 @@
           "kind": "question",
           "text": "Die Nationalsozialisten mit Adolf Hitler errichteten 1933 in Deutschland …",
           "translation": "The National Socialists with Adolf Hitler built in Germany in 1933..."
-        },
-        {
-          "id": 189,
-          "kind": "answer",
-          "text": "1933",
-          "translation": "1933",
-          "isCorrect": false
-        },
-        {
-          "id": 217,
-          "kind": "answer",
-          "text": "1933 bis 1945",
-          "translation": "1933 to 1945",
-          "isCorrect": false
-        },
-        {
-          "id": 219,
-          "kind": "answer",
-          "text": "1933",
-          "translation": "1933",
-          "isCorrect": false
         }
       ]
     },
@@ -105,13 +77,6 @@
           "text": "1933 bis 1945",
           "translation": "1933 to 1945",
           "isCorrect": true
-        },
-        {
-          "id": 152,
-          "kind": "answer",
-          "text": "1945 bis 1989",
-          "translation": "1945 to 1989",
-          "isCorrect": false
         },
         {
           "id": 153,
@@ -140,38 +105,10 @@
           "translation": "Which war lasted from 1939 to 1945?"
         },
         {
-          "id": 163,
-          "kind": "answer",
-          "text": "1945",
-          "translation": "1945",
-          "isCorrect": false
-        },
-        {
-          "id": 169,
-          "kind": "answer",
-          "text": "1945",
-          "translation": "1945",
-          "isCorrect": false
-        },
-        {
           "id": 176,
           "kind": "question",
           "text": "Wie waren die Besatzungszonen Deutschlands nach 1945 verteilt?",
           "translation": "How were Germany's occupation zones distributed after 1945?"
-        },
-        {
-          "id": 217,
-          "kind": "answer",
-          "text": "1933 bis 1945",
-          "translation": "1933 to 1945",
-          "isCorrect": false
-        },
-        {
-          "id": 217,
-          "kind": "answer",
-          "text": "1945 bis 1961",
-          "translation": "1945 to 1961",
-          "isCorrect": false
         }
       ]
     },
@@ -181,13 +118,6 @@
       "context": "1961 is the year the Berlin Wall was built. It marks the hardening of Germany's division: East Germany sealed off West Berlin, and the Wall became the symbol of the DDR border regime until 1989.",
       "range": "T-Z",
       "matches": [
-        {
-          "id": 154,
-          "kind": "answer",
-          "text": "1961",
-          "translation": "1961",
-          "isCorrect": false
-        },
         {
           "id": 188,
           "kind": "answer",
@@ -207,13 +137,6 @@
           "kind": "question",
           "text": "Von 1961 bis 1989 war Berlin …",
           "translation": "From 1961 to 1989 Berlin was..."
-        },
-        {
-          "id": 217,
-          "kind": "answer",
-          "text": "1945 bis 1961",
-          "translation": "1945 to 1961",
-          "isCorrect": false
         }
       ]
     },
@@ -223,13 +146,6 @@
       "context": "1989 is the year the Berlin Wall fell. Peaceful protest and political change in the DDR opened the path from division toward German unity in 1990.",
       "range": "T-Z",
       "matches": [
-        {
-          "id": 152,
-          "kind": "answer",
-          "text": "1945 bis 1989",
-          "translation": "1945 to 1989",
-          "isCorrect": false
-        },
         {
           "id": 166,
           "kind": "answer",
@@ -264,13 +180,6 @@
       "context": "1990 is the year of German reunification. After the fall of the Wall, East and West Germany became one democratic federal republic again.",
       "range": "T-Z",
       "matches": [
-        {
-          "id": 189,
-          "kind": "answer",
-          "text": "1990",
-          "translation": "1990",
-          "isCorrect": false
-        },
         {
           "id": 217,
           "kind": "answer",
@@ -320,13 +229,6 @@
       "range": "E-H",
       "matches": [
         {
-          "id": 13,
-          "kind": "answer",
-          "text": "alle Parteien, die bei der letzten Wahl die 5%-Hürde erreichen konnten.",
-          "translation": "all parties that were able to reach the 5% threshold in the last election.",
-          "isCorrect": false
-        },
-        {
           "id": 121,
           "kind": "answer",
           "text": "5%-Hürde.",
@@ -375,25 +277,11 @@
           "isCorrect": true
         },
         {
-          "id": 102,
-          "kind": "answer",
-          "text": "Bundesadler",
-          "translation": "Federal eagle",
-          "isCorrect": false
-        },
-        {
           "id": 216,
           "kind": "answer",
           "text": "der Bundesadler",
           "translation": "the federal eagle",
           "isCorrect": true
-        },
-        {
-          "id": 216,
-          "kind": "answer",
-          "text": "der Reichsadler",
-          "translation": "the imperial eagle",
-          "isCorrect": false
         }
       ]
     },
@@ -440,20 +328,6 @@
       "range": "A-D",
       "matches": [
         {
-          "id": 69,
-          "kind": "answer",
-          "text": "Bezirksämter",
-          "translation": "District offices",
-          "isCorrect": false
-        },
-        {
-          "id": 212,
-          "kind": "answer",
-          "text": "Bundesbezirk Deutschland",
-          "translation": "Federal District of Germany",
-          "isCorrect": false
-        },
-        {
           "id": 302,
           "kind": "question",
           "text": "Welches ist ein Bezirk von Berlin?",
@@ -474,27 +348,6 @@
       "range": "A-D",
       "matches": [
         {
-          "id": 55,
-          "kind": "answer",
-          "text": "das Bundeskanzleramt in Berlin",
-          "translation": "the Federal Chancellery in Berlin",
-          "isCorrect": false
-        },
-        {
-          "id": 57,
-          "kind": "answer",
-          "text": "eine ehemalige Bundeskanzlerin/ein ehemaliger Bundeskanzler",
-          "translation": "a former Federal Chancellor",
-          "isCorrect": false
-        },
-        {
-          "id": 65,
-          "kind": "answer",
-          "text": "die Bundeskanzlerin/den Bundeskanzler zu wählen.",
-          "translation": "to elect the Federal Chancellor.",
-          "isCorrect": false
-        },
-        {
           "id": 70,
           "kind": "question",
           "text": "Der deutsche Bundespräsident Gustav Heinemann gibt Helmut Schmidt 1974 die Ernennungsurkunde zum deutschen Bundeskanzler. Was gehört zu den Aufgaben der deutschen Bundespräsidentin/des deutschen Bundespräsidenten? © Bundesregierung/Engelbert Reineke",
@@ -505,13 +358,6 @@
           "kind": "question",
           "text": "Wo hält sich die deutsche Bundeskanzlerin/der deutsche Bundeskanzler am häufigsten auf? Am häufigsten ist sie/er …",
           "translation": "Where does the German Chancellor stay most often? Most often she/he is…"
-        },
-        {
-          "id": 71,
-          "kind": "answer",
-          "text": "in Bonn, weil sich dort das Bundeskanzleramt und der Bundestag befinden.",
-          "translation": "in Bonn because the Federal Chancellery and the Bundestag are located there.",
-          "isCorrect": false
         },
         {
           "id": 71,
@@ -546,34 +392,6 @@
           "translation": "Who will elect the German Chancellor?"
         },
         {
-          "id": 87,
-          "kind": "answer",
-          "text": "die Bundeskanzlerin/der Bundeskanzler",
-          "translation": "the Federal Chancellor",
-          "isCorrect": false
-        },
-        {
-          "id": 124,
-          "kind": "answer",
-          "text": "der Bundeskanzlerin/des Bundeskanzlers.",
-          "translation": "the Federal Chancellor.",
-          "isCorrect": false
-        },
-        {
-          "id": 129,
-          "kind": "answer",
-          "text": "die Bundeskanzlerin/der Bundeskanzler.",
-          "translation": "the Federal Chancellor.",
-          "isCorrect": false
-        },
-        {
-          "id": 153,
-          "kind": "answer",
-          "text": "Wahl von Konrad Adenauer zum Bundeskanzler",
-          "translation": "Election of Konrad Adenauer as Federal Chancellor",
-          "isCorrect": false
-        },
-        {
           "id": 165,
           "kind": "question",
           "text": "Wie hieß der erste Bundeskanzler der Bundesrepublik Deutschland?",
@@ -599,20 +417,6 @@
       "context": "Bundeskanzlerin is the female form of Federal Chancellor. The office is the head of the federal government: elected by the Bundestag, appointed by the Federal President, and responsible for leading the cabinet's political direction.",
       "range": "A-D",
       "matches": [
-        {
-          "id": 57,
-          "kind": "answer",
-          "text": "eine ehemalige Bundeskanzlerin/ein ehemaliger Bundeskanzler",
-          "translation": "a former Federal Chancellor",
-          "isCorrect": false
-        },
-        {
-          "id": 65,
-          "kind": "answer",
-          "text": "die Bundeskanzlerin/den Bundeskanzler zu wählen.",
-          "translation": "to elect the Federal Chancellor.",
-          "isCorrect": false
-        },
         {
           "id": 71,
           "kind": "question",
@@ -643,27 +447,6 @@
           "kind": "question",
           "text": "Wer wählt die deutsche Bundeskanzlerin/den deutschen Bundeskanzler?",
           "translation": "Who will elect the German Chancellor?"
-        },
-        {
-          "id": 87,
-          "kind": "answer",
-          "text": "die Bundeskanzlerin/der Bundeskanzler",
-          "translation": "the Federal Chancellor",
-          "isCorrect": false
-        },
-        {
-          "id": 124,
-          "kind": "answer",
-          "text": "der Bundeskanzlerin/des Bundeskanzlers.",
-          "translation": "the Federal Chancellor.",
-          "isCorrect": false
-        },
-        {
-          "id": 129,
-          "kind": "answer",
-          "text": "die Bundeskanzlerin/der Bundeskanzler.",
-          "translation": "the Federal Chancellor.",
-          "isCorrect": false
         }
       ]
     },
@@ -673,13 +456,6 @@
       "context": "Germany is a federation of states; state governments are represented in the Bundesrat, and some areas, especially schools and education, are mainly state responsibilities.",
       "range": "A-D",
       "matches": [
-        {
-          "id": 23,
-          "kind": "answer",
-          "text": "ehrenamtlich für ein Bundesland tätig.",
-          "translation": "Volunteer for a federal state.",
-          "isCorrect": false
-        },
         {
           "id": 24,
           "kind": "question",
@@ -712,13 +488,6 @@
           "isCorrect": true
         },
         {
-          "id": 57,
-          "kind": "answer",
-          "text": "die Ministerpräsidentin/der Ministerpräsident des größten Bundeslandes",
-          "translation": "the Prime Minister of the largest federal state",
-          "isCorrect": false
-        },
-        {
           "id": 62,
           "kind": "question",
           "text": "Wenn das Parlament eines deutschen Bundeslandes gewählt wird, nennt man das …",
@@ -729,13 +498,6 @@
           "kind": "question",
           "text": "Was ist in Deutschland vor allem eine Aufgabe der Bundesländer?",
           "translation": "What is the main task of the federal states in Germany?"
-        },
-        {
-          "id": 68,
-          "kind": "answer",
-          "text": "weil es in den Bundesländern verschiedene Schulen gibt",
-          "translation": "because there are different schools in the federal states",
-          "isCorrect": false
         },
         {
           "id": 85,
@@ -757,31 +519,10 @@
           "translation": "In Germany, a change of government in a federal state can have an impact on federal politics. Governing will..."
         },
         {
-          "id": 91,
-          "kind": "answer",
-          "text": "leichter, wenn es sich um ein reiches Bundesland handelt.",
-          "translation": "easier if it is a rich federal state.",
-          "isCorrect": false
-        },
-        {
-          "id": 129,
-          "kind": "answer",
-          "text": "die Ministerpräsidentin/der Ministerpräsident eines Bundeslandes.",
-          "translation": "the Prime Minister of a federal state.",
-          "isCorrect": false
-        },
-        {
           "id": 192,
           "kind": "question",
           "text": "Welches heutige deutsche Bundesland gehörte früher zum Gebiet der DDR?",
           "translation": "Which current German federal state was once part of the GDR?"
-        },
-        {
-          "id": 194,
-          "kind": "answer",
-          "text": "Bundesländer.",
-          "translation": "Federal states.",
-          "isCorrect": false
         },
         {
           "id": 195,
@@ -821,37 +562,16 @@
           "isCorrect": true
         },
         {
-          "id": 204,
-          "kind": "answer",
-          "text": "Die westlichen Bundesländer sind der DDR beigetreten.",
-          "translation": "The western federal states joined the GDR.",
-          "isCorrect": false
-        },
-        {
           "id": 205,
           "kind": "question",
           "text": "Mit dem Beitritt der DDR zur Bundesrepublik Deutschland gehören die neuen Bundesländer nun auch …",
           "translation": "With the accession of the GDR to the Federal Republic of Germany, the new federal states now also belong..."
         },
         {
-          "id": 212,
-          "kind": "answer",
-          "text": "Bundesländer Deutschland",
-          "translation": "Federal states of Germany",
-          "isCorrect": false
-        },
-        {
           "id": 218,
           "kind": "question",
           "text": "Wie viele Bundesländer kamen bei der Wiedervereinigung 1990 zur Bundesrepublik Deutschland hinzu?",
           "translation": "How many federal states were added to the Federal Republic of Germany when it was reunified in 1990?"
-        },
-        {
-          "id": 242,
-          "kind": "answer",
-          "text": "die Bundesländer",
-          "translation": "the federal states",
-          "isCorrect": false
         },
         {
           "id": 301,
@@ -887,13 +607,6 @@
           "isCorrect": true
         },
         {
-          "id": 48,
-          "kind": "answer",
-          "text": "die Bundespräsidentin/der Bundespräsident",
-          "translation": "the Federal President",
-          "isCorrect": false
-        },
-        {
           "id": 58,
           "kind": "answer",
           "text": "die Bundespräsidentin/der Bundespräsident",
@@ -905,20 +618,6 @@
           "kind": "question",
           "text": "Der deutsche Bundespräsident Gustav Heinemann gibt Helmut Schmidt 1974 die Ernennungsurkunde zum deutschen Bundeskanzler. Was gehört zu den Aufgaben der deutschen Bundespräsidentin/des deutschen Bundespräsidenten? © Bundesregierung/Engelbert Reineke",
           "translation": "The German Federal President Gustav Heinemann gives Helmut Schmidt the certificate of appointment as German Chancellor in 1974. What are the tasks of the German Federal President? © Federal Government/Engelbert Reineke"
-        },
-        {
-          "id": 71,
-          "kind": "answer",
-          "text": "auf Schloss Bellevue, dem Amtssitz der Bundespräsidentin/des Bundespräsidenten, um Staatsgäste zu empfangen.",
-          "translation": "at Bellevue Palace, the official residence of the Federal President, to receive state guests.",
-          "isCorrect": false
-        },
-        {
-          "id": 82,
-          "kind": "answer",
-          "text": "die Bundespräsidentin/der Bundespräsident",
-          "translation": "the Federal President",
-          "isCorrect": false
         },
         {
           "id": 84,
@@ -938,34 +637,6 @@
           "text": "die Bundespräsidentin/der Bundespräsident",
           "translation": "the Federal President",
           "isCorrect": true
-        },
-        {
-          "id": 98,
-          "kind": "answer",
-          "text": "muss die Bundespräsidentin/der Bundespräsident zuvor ihr/sein Einverständnis geben.",
-          "translation": "The Federal President must give his/her consent beforehand.",
-          "isCorrect": false
-        },
-        {
-          "id": 124,
-          "kind": "answer",
-          "text": "der Bundespräsidentin/des Bundespräsidenten.",
-          "translation": "the Federal President.",
-          "isCorrect": false
-        },
-        {
-          "id": 126,
-          "kind": "answer",
-          "text": "eine Wahlerlaubnis von der Bundespräsidentin/von dem Bundespräsidenten",
-          "translation": "a voting permit from the Federal President",
-          "isCorrect": false
-        },
-        {
-          "id": 129,
-          "kind": "answer",
-          "text": "die Bundespräsidentin/der Bundespräsident.",
-          "translation": "the Federal President.",
-          "isCorrect": false
         }
       ]
     },
@@ -983,13 +654,6 @@
           "isCorrect": true
         },
         {
-          "id": 48,
-          "kind": "answer",
-          "text": "die Bundespräsidentin/der Bundespräsident",
-          "translation": "the Federal President",
-          "isCorrect": false
-        },
-        {
           "id": 58,
           "kind": "answer",
           "text": "die Bundespräsidentin/der Bundespräsident",
@@ -1001,20 +665,6 @@
           "kind": "question",
           "text": "Der deutsche Bundespräsident Gustav Heinemann gibt Helmut Schmidt 1974 die Ernennungsurkunde zum deutschen Bundeskanzler. Was gehört zu den Aufgaben der deutschen Bundespräsidentin/des deutschen Bundespräsidenten? © Bundesregierung/Engelbert Reineke",
           "translation": "The German Federal President Gustav Heinemann gives Helmut Schmidt the certificate of appointment as German Chancellor in 1974. What are the tasks of the German Federal President? © Federal Government/Engelbert Reineke"
-        },
-        {
-          "id": 71,
-          "kind": "answer",
-          "text": "auf Schloss Bellevue, dem Amtssitz der Bundespräsidentin/des Bundespräsidenten, um Staatsgäste zu empfangen.",
-          "translation": "at Bellevue Palace, the official residence of the Federal President, to receive state guests.",
-          "isCorrect": false
-        },
-        {
-          "id": 82,
-          "kind": "answer",
-          "text": "die Bundespräsidentin/der Bundespräsident",
-          "translation": "the Federal President",
-          "isCorrect": false
         },
         {
           "id": 84,
@@ -1034,34 +684,6 @@
           "text": "die Bundespräsidentin/der Bundespräsident",
           "translation": "the Federal President",
           "isCorrect": true
-        },
-        {
-          "id": 98,
-          "kind": "answer",
-          "text": "muss die Bundespräsidentin/der Bundespräsident zuvor ihr/sein Einverständnis geben.",
-          "translation": "The Federal President must give his/her consent beforehand.",
-          "isCorrect": false
-        },
-        {
-          "id": 124,
-          "kind": "answer",
-          "text": "der Bundespräsidentin/des Bundespräsidenten.",
-          "translation": "the Federal President.",
-          "isCorrect": false
-        },
-        {
-          "id": 126,
-          "kind": "answer",
-          "text": "eine Wahlerlaubnis von der Bundespräsidentin/von dem Bundespräsidenten",
-          "translation": "a voting permit from the Federal President",
-          "isCorrect": false
-        },
-        {
-          "id": 129,
-          "kind": "answer",
-          "text": "die Bundespräsidentin/der Bundespräsident.",
-          "translation": "the Federal President.",
-          "isCorrect": false
         }
       ]
     },
@@ -1072,79 +694,16 @@
       "range": "A-D",
       "matches": [
         {
-          "id": 12,
-          "kind": "answer",
-          "text": "Nein, denn nur der Bundesrat kann die Pressefreiheit abschaffen.",
-          "translation": "No, because only the Federal Council can abolish freedom of the press.",
-          "isCorrect": false
-        },
-        {
-          "id": 48,
-          "kind": "answer",
-          "text": "der Bundesrat",
-          "translation": "the Federal Council",
-          "isCorrect": false
-        },
-        {
-          "id": 55,
-          "kind": "answer",
-          "text": "das Bundesratsgebäude in Berlin",
-          "translation": "the Federal Council building in Berlin",
-          "isCorrect": false
-        },
-        {
-          "id": 58,
-          "kind": "answer",
-          "text": "die Bundesratspräsidentin/der Bundesratspräsident",
-          "translation": "the President of the Federal Council",
-          "isCorrect": false
-        },
-        {
           "id": 60,
           "kind": "question",
           "text": "In Deutschland gehören der Bundestag und der Bundesrat zur …",
           "translation": "In Germany, the Bundestag and the Bundesrat belong to..."
         },
         {
-          "id": 81,
-          "kind": "answer",
-          "text": "der Bundesrat",
-          "translation": "the Federal Council",
-          "isCorrect": false
-        },
-        {
-          "id": 82,
-          "kind": "answer",
-          "text": "die Bundesratspräsidentin/der Bundesratspräsident",
-          "translation": "the President of the Federal Council",
-          "isCorrect": false
-        },
-        {
           "id": 85,
           "kind": "question",
           "text": "Wer bildet den deutschen Bundesrat?",
           "translation": "Who forms the German Federal Council?"
-        },
-        {
-          "id": 86,
-          "kind": "answer",
-          "text": "der Bundesrat",
-          "translation": "the Federal Council",
-          "isCorrect": false
-        },
-        {
-          "id": 87,
-          "kind": "answer",
-          "text": "die Bundesratspräsidentin/der Bundesratspräsident",
-          "translation": "the President of the Federal Council",
-          "isCorrect": false
-        },
-        {
-          "id": 88,
-          "kind": "answer",
-          "text": "bestimmt, wer im Bundesrat sitzt.",
-          "translation": "determines who sits in the Federal Council.",
-          "isCorrect": false
         },
         {
           "id": 90,
@@ -1156,23 +715,9 @@
         {
           "id": 91,
           "kind": "answer",
-          "text": "leichter, wenn dadurch neue Parteien in den Bundesrat kommen.",
-          "translation": "easier if new parties come into the Federal Council.",
-          "isCorrect": false
-        },
-        {
-          "id": 91,
-          "kind": "answer",
           "text": "schwieriger, wenn dadurch die Mehrheit im Bundesrat verändert wird.",
           "translation": "more difficult if this changes the majority in the Federal Council.",
           "isCorrect": true
-        },
-        {
-          "id": 123,
-          "kind": "answer",
-          "text": "Anwesenheitskontrolle im Bundesrat für Abstimmungen",
-          "translation": "Attendance control in the Federal Council for voting",
-          "isCorrect": false
         }
       ]
     },
@@ -1183,24 +728,10 @@
       "range": "A-D",
       "matches": [
         {
-          "id": 16,
-          "kind": "answer",
-          "text": "bei Meinungsäußerungen über die Bundesregierung",
-          "translation": "when expressing opinions about the federal government",
-          "isCorrect": false
-        },
-        {
           "id": 58,
           "kind": "question",
           "text": "Wer ernennt in Deutschland die Ministerinnen/die Minister der Bundesregierung?",
           "translation": "Who appoints the federal government ministers in Germany?"
-        },
-        {
-          "id": 65,
-          "kind": "answer",
-          "text": "die Bundesregierung zu kontrollieren.",
-          "translation": "to control the federal government.",
-          "isCorrect": false
         },
         {
           "id": 70,
@@ -1209,52 +740,10 @@
           "translation": "The German Federal President Gustav Heinemann gives Helmut Schmidt the certificate of appointment as German Chancellor in 1974. What are the tasks of the German Federal President? © Federal Government/Engelbert Reineke"
         },
         {
-          "id": 71,
-          "kind": "answer",
-          "text": "auf Schloss Meseberg, dem Gästehaus der Bundesregierung, um Staatsgäste zu empfangen.",
-          "translation": "at Meseberg Castle, the federal government's guest house, to receive state guests.",
-          "isCorrect": false
-        },
-        {
-          "id": 83,
-          "kind": "answer",
-          "text": "die Bundesregierung",
-          "translation": "the federal government",
-          "isCorrect": false
-        },
-        {
-          "id": 85,
-          "kind": "answer",
-          "text": "die Ministerinnen und Minister der Bundesregierung",
-          "translation": "the ministers of the federal government",
-          "isCorrect": false
-        },
-        {
-          "id": 90,
-          "kind": "answer",
-          "text": "die Bundesregierung.",
-          "translation": "the federal government.",
-          "isCorrect": false
-        },
-        {
-          "id": 132,
-          "kind": "answer",
-          "text": "Sie arbeiten in der Bundesregierung.",
-          "translation": "You work in the federal government.",
-          "isCorrect": false
-        },
-        {
           "id": 181,
           "kind": "question",
           "text": "Was wollte Willy Brandt mit seinem Kniefall 1970 im ehemaligen jüdischen Ghetto in Warschau ausdrücken? © Bundesregierung/Engelbert Reineke",
           "translation": "What did Willy Brandt want to express by kneeling in the former Jewish ghetto in Warsaw in 1970? © Federal Government/Engelbert Reineke"
-        },
-        {
-          "id": 184,
-          "kind": "answer",
-          "text": "ein Vorschlag der Bundesregierung",
-          "translation": "a proposal from the federal government",
-          "isCorrect": false
         },
         {
           "id": 235,
@@ -1277,38 +766,10 @@
           "translation": "A party in the German Bundestag wants to abolish press freedom. Is this possible?"
         },
         {
-          "id": 12,
-          "kind": "answer",
-          "text": "Ja, wenn mehr als die Hälfte der Abgeordneten im Bundestag dafür sind.",
-          "translation": "Yes, if more than half of the members of the Bundestag are in favor of it.",
-          "isCorrect": false
-        },
-        {
-          "id": 12,
-          "kind": "answer",
-          "text": "Ja, aber dazu müssen zwei Drittel der Abgeordneten im Bundestag dafür sein.",
-          "translation": "Yes, but two thirds of the members of the Bundestag must be in favor of it.",
-          "isCorrect": false
-        },
-        {
           "id": 28,
           "kind": "question",
           "text": "Wer wählt in Deutschland die Abgeordneten zum Bundestag?",
           "translation": "Who elects the members of the Bundestag in Germany?"
-        },
-        {
-          "id": 44,
-          "kind": "answer",
-          "text": "Bundestagsabgeordnete",
-          "translation": "Members of the Bundestag",
-          "isCorrect": false
-        },
-        {
-          "id": 52,
-          "kind": "answer",
-          "text": "Bundestag aus.",
-          "translation": "Bundestag.",
-          "isCorrect": false
         },
         {
           "id": 55,
@@ -1330,37 +791,16 @@
           "translation": "Who is most often elected President of the German Bundestag?"
         },
         {
-          "id": 58,
-          "kind": "answer",
-          "text": "die Bundestagspräsidentin/der Bundestagspräsident",
-          "translation": "the President of the Bundestag",
-          "isCorrect": false
-        },
-        {
           "id": 60,
           "kind": "question",
           "text": "In Deutschland gehören der Bundestag und der Bundesrat zur …",
           "translation": "In Germany, the Bundestag and the Bundesrat belong to..."
         },
         {
-          "id": 62,
-          "kind": "answer",
-          "text": "Bundestagswahl",
-          "translation": "Federal election",
-          "isCorrect": false
-        },
-        {
           "id": 65,
           "kind": "question",
           "text": "Es gehört nicht zu den Aufgaben des Deutschen Bundestages, …",
           "translation": "It is not one of the tasks of the German Bundestag..."
-        },
-        {
-          "id": 71,
-          "kind": "answer",
-          "text": "in Bonn, weil sich dort das Bundeskanzleramt und der Bundestag befinden.",
-          "translation": "in Bonn because the Federal Chancellery and the Bundestag are located there.",
-          "isCorrect": false
         },
         {
           "id": 71,
@@ -1390,13 +830,6 @@
           "isCorrect": true
         },
         {
-          "id": 82,
-          "kind": "answer",
-          "text": "die Bundestagspräsidentin/der Bundestagspräsident",
-          "translation": "the President of the Bundestag",
-          "isCorrect": false
-        },
-        {
           "id": 83,
           "kind": "answer",
           "text": "der Bundestag",
@@ -1404,38 +837,10 @@
           "isCorrect": true
         },
         {
-          "id": 85,
-          "kind": "answer",
-          "text": "die Abgeordneten des Bundestages",
-          "translation": "the members of the Bundestag",
-          "isCorrect": false
-        },
-        {
-          "id": 87,
-          "kind": "answer",
-          "text": "die Bundestagspräsidentin/der Bundestagspräsident",
-          "translation": "the President of the Bundestag",
-          "isCorrect": false
-        },
-        {
           "id": 88,
           "kind": "question",
           "text": "Die parlamentarische Opposition im Deutschen Bundestag …",
           "translation": "The parliamentary opposition in the German Bundestag..."
-        },
-        {
-          "id": 90,
-          "kind": "answer",
-          "text": "den Bundestag.",
-          "translation": "the Bundestag.",
-          "isCorrect": false
-        },
-        {
-          "id": 91,
-          "kind": "answer",
-          "text": "schwieriger, wenn sich dadurch die Mehrheit im Bundestag ändert.",
-          "translation": "more difficult if this changes the majority in the Bundestag.",
-          "isCorrect": false
         },
         {
           "id": 93,
@@ -1454,20 +859,6 @@
           "kind": "question",
           "text": "Wenn Abgeordnete im Deutschen Bundestag ihre Fraktion wechseln, …",
           "translation": "When members of the German Bundestag change their parliamentary group..."
-        },
-        {
-          "id": 103,
-          "kind": "answer",
-          "text": "der Bundestagsfraktionen von CDU und CSU",
-          "translation": "of the CDU and CSU parliamentary groups",
-          "isCorrect": false
-        },
-        {
-          "id": 103,
-          "kind": "answer",
-          "text": "der Bundestagsfraktionen von CDU und SPD",
-          "translation": "of the CDU and SPD parliamentary groups in the Bundestag",
-          "isCorrect": false
         },
         {
           "id": 107,
@@ -1512,20 +903,6 @@
           "translation": "A party wants to get into the German Bundestag. But it must have a minimum share of votes. That means..."
         },
         {
-          "id": 123,
-          "kind": "answer",
-          "text": "Abstimmungsregelung im Bundestag für kleine Parteien",
-          "translation": "Voting regulations in the Bundestag for small parties",
-          "isCorrect": false
-        },
-        {
-          "id": 123,
-          "kind": "answer",
-          "text": "Anwesenheitskontrolle im Bundestag für Abstimmungen",
-          "translation": "Attendance control in the Bundestag for voting",
-          "isCorrect": false
-        },
-        {
           "id": 124,
           "kind": "question",
           "text": "Die Bundestagswahl in Deutschland ist die Wahl …",
@@ -1565,46 +942,11 @@
       "range": "A-D",
       "matches": [
         {
-          "id": 74,
-          "kind": "answer",
-          "text": "Bundesversammlung",
-          "translation": "Federal Assembly",
-          "isCorrect": false
-        },
-        {
-          "id": 81,
-          "kind": "answer",
-          "text": "die Bundesversammlung",
-          "translation": "the Federal Assembly",
-          "isCorrect": false
-        },
-        {
-          "id": 83,
-          "kind": "answer",
-          "text": "die Bundesversammlung",
-          "translation": "the Federal Assembly",
-          "isCorrect": false
-        },
-        {
           "id": 86,
           "kind": "answer",
           "text": "die Bundesversammlung",
           "translation": "the Federal Assembly",
           "isCorrect": true
-        },
-        {
-          "id": 90,
-          "kind": "answer",
-          "text": "die Bundesversammlung.",
-          "translation": "the Federal Assembly.",
-          "isCorrect": false
-        },
-        {
-          "id": 126,
-          "kind": "answer",
-          "text": "eine Benachrichtigung von der Bundesversammlung",
-          "translation": "a notification from the Federal Assembly",
-          "isCorrect": false
         }
       ]
     },
@@ -1619,20 +961,6 @@
           "kind": "question",
           "text": "In Deutschland ist eine Bürgermeisterin/ein Bürgermeister …",
           "translation": "In Germany there is a mayor..."
-        },
-        {
-          "id": 193,
-          "kind": "answer",
-          "text": "ohne Bürgermeister.",
-          "translation": "without a mayor.",
-          "isCorrect": false
-        },
-        {
-          "id": 309,
-          "kind": "answer",
-          "text": "Oberbürgermeisterin/Oberbürgermeister",
-          "translation": "Mayor/Lord Mayor",
-          "isCorrect": false
         },
         {
           "id": 309,
@@ -1655,13 +983,6 @@
           "text": "die DDR",
           "translation": "the GDR",
           "isCorrect": true
-        },
-        {
-          "id": 166,
-          "kind": "answer",
-          "text": "beim Arbeiteraufstand 1953 in der DDR",
-          "translation": "during the workers' uprising in the GDR in 1953",
-          "isCorrect": false
         },
         {
           "id": 166,
@@ -1774,27 +1095,6 @@
           "translation": "How did the Federal Republic of Germany and the GDR become one state?"
         },
         {
-          "id": 204,
-          "kind": "answer",
-          "text": "Die Bundesrepublik hat die DDR besetzt.",
-          "translation": "The Federal Republic has occupied the GDR.",
-          "isCorrect": false
-        },
-        {
-          "id": 204,
-          "kind": "answer",
-          "text": "Die westlichen Bundesländer sind der DDR beigetreten.",
-          "translation": "The western federal states joined the GDR.",
-          "isCorrect": false
-        },
-        {
-          "id": 204,
-          "kind": "answer",
-          "text": "Die DDR hat die Bundesrepublik Deutschland besetzt.",
-          "translation": "The GDR occupied the Federal Republic of Germany.",
-          "isCorrect": false
-        },
-        {
           "id": 205,
           "kind": "question",
           "text": "Mit dem Beitritt der DDR zur Bundesrepublik Deutschland gehören die neuen Bundesländer nun auch …",
@@ -1852,13 +1152,6 @@
           "translation": "What is not a feature of our democracy?"
         },
         {
-          "id": 34,
-          "kind": "answer",
-          "text": "eine Demokratie",
-          "translation": "a democracy",
-          "isCorrect": false
-        },
-        {
           "id": 41,
           "kind": "question",
           "text": "Warum gibt es in einer Demokratie mehr als eine Partei?",
@@ -1871,32 +1164,11 @@
           "translation": "In a democracy, one function of regular elections is..."
         },
         {
-          "id": 158,
-          "kind": "answer",
-          "text": "Demokratie.",
-          "translation": "Democracy.",
-          "isCorrect": false
-        },
-        {
-          "id": 161,
-          "kind": "answer",
-          "text": "der Entwicklung der Demokratie",
-          "translation": "the development of democracy",
-          "isCorrect": false
-        },
-        {
           "id": 196,
           "kind": "answer",
           "text": "von einer Diktatur zur Demokratie.",
           "translation": "from a dictatorship to democracy.",
           "isCorrect": true
-        },
-        {
-          "id": 196,
-          "kind": "answer",
-          "text": "von einer Monarchie zur Sozialdemokratie.",
-          "translation": "from a monarchy to social democracy.",
-          "isCorrect": false
         }
       ]
     },
@@ -1906,13 +1178,6 @@
       "context": "Election helpers are a practical example: citizens support elections by helping at polling stations and counting votes.",
       "range": "E-H",
       "matches": [
-        {
-          "id": 23,
-          "kind": "answer",
-          "text": "ehrenamtlich für ein Bundesland tätig.",
-          "translation": "Volunteer for a federal state.",
-          "isCorrect": false
-        },
         {
           "id": 106,
           "kind": "question",
@@ -1947,20 +1212,6 @@
       "range": "E-H",
       "matches": [
         {
-          "id": 31,
-          "kind": "answer",
-          "text": "Einheit.",
-          "translation": "Unity.",
-          "isCorrect": false
-        },
-        {
-          "id": 33,
-          "kind": "answer",
-          "text": "bilden Staat und Religionsgemeinschaften eine Einheit.",
-          "translation": "The state and religious communities form a unity.",
-          "isCorrect": false
-        },
-        {
           "id": 194,
           "kind": "answer",
           "text": "Einheit.",
@@ -1972,20 +1223,6 @@
           "kind": "question",
           "text": "Wer wird als \"Kanzler der Deutschen Einheit\" bezeichnet?",
           "translation": "Who is called the “Chancellor of German Unity”?"
-        },
-        {
-          "id": 224,
-          "kind": "answer",
-          "text": "Einheitliche Union",
-          "translation": "Unitary Union",
-          "isCorrect": false
-        },
-        {
-          "id": 235,
-          "kind": "answer",
-          "text": "einheitliche Feiertage in den Ländern der EU",
-          "translation": "uniform public holidays in the EU countries",
-          "isCorrect": false
         }
       ]
     },
@@ -1995,20 +1232,6 @@
       "context": "Members of parliament from the same party or allied parties work together as a group; Fraktionen matter for majorities, opposition, and Bundestag leadership.",
       "range": "E-H",
       "matches": [
-        {
-          "id": 13,
-          "kind": "answer",
-          "text": "die Fraktion mit den meisten Abgeordneten.",
-          "translation": "the group with the most MPs.",
-          "isCorrect": false
-        },
-        {
-          "id": 31,
-          "kind": "answer",
-          "text": "Fraktion.",
-          "translation": "parliamentary group.",
-          "isCorrect": false
-        },
         {
           "id": 57,
           "kind": "answer",
@@ -2034,20 +1257,6 @@
           "kind": "question",
           "text": "Wenn Abgeordnete im Deutschen Bundestag ihre Fraktion wechseln, …",
           "translation": "When members of the German Bundestag change their parliamentary group..."
-        },
-        {
-          "id": 103,
-          "kind": "answer",
-          "text": "der Bundestagsfraktionen von CDU und CSU",
-          "translation": "of the CDU and CSU parliamentary groups",
-          "isCorrect": false
-        },
-        {
-          "id": 103,
-          "kind": "answer",
-          "text": "der Bundestagsfraktionen von CDU und SPD",
-          "translation": "of the CDU and SPD parliamentary groups in the Bundestag",
-          "isCorrect": false
         }
       ]
     },
@@ -2058,60 +1267,11 @@
       "range": "E-H",
       "matches": [
         {
-          "id": 3,
-          "kind": "answer",
-          "text": "Die Gerichte machen die Gesetze.",
-          "translation": "The courts make the laws.",
-          "isCorrect": false
-        },
-        {
-          "id": 42,
-          "kind": "answer",
-          "text": "die Gerichte",
-          "translation": "the courts",
-          "isCorrect": false
-        },
-        {
-          "id": 52,
-          "kind": "answer",
-          "text": "Bundesverfassungsgericht aus.",
-          "translation": "Federal Constitutional Court.",
-          "isCorrect": false
-        },
-        {
-          "id": 55,
-          "kind": "answer",
-          "text": "das Bundesverfassungsgericht in Karlsruhe",
-          "translation": "the Federal Constitutional Court in Karlsruhe",
-          "isCorrect": false
-        },
-        {
-          "id": 58,
-          "kind": "answer",
-          "text": "die Präsidentin/der Präsident des Bundesverfassungsgerichtes",
-          "translation": "the President of the Federal Constitutional Court",
-          "isCorrect": false
-        },
-        {
-          "id": 61,
-          "kind": "answer",
-          "text": "Das Bundesverfassungsgericht steht über der Verfassung.",
-          "translation": "The Federal Constitutional Court stands above the constitution.",
-          "isCorrect": false
-        },
-        {
           "id": 63,
           "kind": "answer",
           "text": "die Gerichte",
           "translation": "the courts",
           "isCorrect": true
-        },
-        {
-          "id": 74,
-          "kind": "answer",
-          "text": "Bundesgerichtshof",
-          "translation": "Federal Court of Justice",
-          "isCorrect": false
         },
         {
           "id": 80,
@@ -2122,37 +1282,9 @@
         {
           "id": 80,
           "kind": "answer",
-          "text": "Oberlandesgericht",
-          "translation": "Higher Regional Court",
-          "isCorrect": false
-        },
-        {
-          "id": 80,
-          "kind": "answer",
-          "text": "Amtsgericht",
-          "translation": "District Court",
-          "isCorrect": false
-        },
-        {
-          "id": 80,
-          "kind": "answer",
           "text": "Bundesverfassungsgericht",
           "translation": "Federal Constitutional Court",
           "isCorrect": true
-        },
-        {
-          "id": 80,
-          "kind": "answer",
-          "text": "Verwaltungsgericht",
-          "translation": "Administrative Court",
-          "isCorrect": false
-        },
-        {
-          "id": 86,
-          "kind": "answer",
-          "text": "das Bundesverfassungsgericht",
-          "translation": "the Federal Constitutional Court",
-          "isCorrect": false
         },
         {
           "id": 136,
@@ -2169,30 +1301,9 @@
         {
           "id": 137,
           "kind": "answer",
-          "text": "das Familiengericht",
-          "translation": "the family court",
-          "isCorrect": false
-        },
-        {
-          "id": 137,
-          "kind": "answer",
-          "text": "das Strafgericht",
-          "translation": "the criminal court",
-          "isCorrect": false
-        },
-        {
-          "id": 137,
-          "kind": "answer",
           "text": "das Arbeitsgericht",
           "translation": "the labor court",
           "isCorrect": true
-        },
-        {
-          "id": 137,
-          "kind": "answer",
-          "text": "das Amtsgericht",
-          "translation": "the district court",
-          "isCorrect": false
         },
         {
           "id": 139,
@@ -2209,23 +1320,9 @@
         {
           "id": 142,
           "kind": "answer",
-          "text": "vertritt Bürgerinnen und Bürger vor einem Gericht.",
-          "translation": "represents citizens before a court.",
-          "isCorrect": false
-        },
-        {
-          "id": 142,
-          "kind": "answer",
           "text": "arbeitet an einem Gericht und spricht Urteile.",
           "translation": "works in a court and makes judgments.",
           "isCorrect": true
-        },
-        {
-          "id": 142,
-          "kind": "answer",
-          "text": "betreut Jugendliche vor Gericht.",
-          "translation": "supervises young people in court.",
-          "isCorrect": false
         },
         {
           "id": 146,
@@ -2255,48 +1352,6 @@
           "isCorrect": true
         },
         {
-          "id": 3,
-          "kind": "answer",
-          "text": "Der Staat muss sich nicht an die Gesetze halten.",
-          "translation": "The state does not have to follow the laws.",
-          "isCorrect": false
-        },
-        {
-          "id": 3,
-          "kind": "answer",
-          "text": "Nur Deutsche müssen die Gesetze befolgen.",
-          "translation": "Only Germans have to obey the laws.",
-          "isCorrect": false
-        },
-        {
-          "id": 3,
-          "kind": "answer",
-          "text": "Die Gerichte machen die Gesetze.",
-          "translation": "The courts make the laws.",
-          "isCorrect": false
-        },
-        {
-          "id": 6,
-          "kind": "answer",
-          "text": "Volksgesetz",
-          "translation": "People's Law",
-          "isCorrect": false
-        },
-        {
-          "id": 6,
-          "kind": "answer",
-          "text": "Bundesgesetz",
-          "translation": "Federal law",
-          "isCorrect": false
-        },
-        {
-          "id": 6,
-          "kind": "answer",
-          "text": "Deutsches Gesetz",
-          "translation": "German law",
-          "isCorrect": false
-        },
-        {
           "id": 6,
           "kind": "answer",
           "text": "Grundgesetz",
@@ -2310,13 +1365,6 @@
           "translation": "What is not in the Basic Law of Germany?"
         },
         {
-          "id": 8,
-          "kind": "answer",
-          "text": "Alle sind vor dem Gesetz gleich.",
-          "translation": "Everyone is equal before the law.",
-          "isCorrect": false
-        },
-        {
           "id": 10,
           "kind": "question",
           "text": "Was ist mit dem deutschen Grundgesetz vereinbar?",
@@ -2328,13 +1376,6 @@
           "text": "Grundgesetz",
           "translation": "Basic Law",
           "isCorrect": true
-        },
-        {
-          "id": 11,
-          "kind": "answer",
-          "text": "Gesetzbuch",
-          "translation": "Code of Laws",
-          "isCorrect": false
         },
         {
           "id": 15,
@@ -2355,20 +1396,6 @@
           "translation": "Which fundamental right is guaranteed in Article 1 of the Basic Law of the Federal Republic of Germany?"
         },
         {
-          "id": 20,
-          "kind": "answer",
-          "text": "gesetzestreu.",
-          "translation": "law-abiding.",
-          "isCorrect": false
-        },
-        {
-          "id": 32,
-          "kind": "answer",
-          "text": "Gesetzgebung",
-          "translation": "Legislation",
-          "isCorrect": false
-        },
-        {
           "id": 42,
           "kind": "question",
           "text": "Wer beschließt in Deutschland ein neues Gesetz?",
@@ -2377,23 +1404,9 @@
         {
           "id": 53,
           "kind": "answer",
-          "text": "Die Bürgerinnen und Bürger entscheiden über Gesetze.",
-          "translation": "Citizens decide on laws.",
-          "isCorrect": false
-        },
-        {
-          "id": 53,
-          "kind": "answer",
           "text": "Der Staat muss die Gesetze einhalten.",
           "translation": "The state must comply with the laws.",
           "isCorrect": true
-        },
-        {
-          "id": 65,
-          "kind": "answer",
-          "text": "Gesetze zu entwerfen.",
-          "translation": "to draft laws.",
-          "isCorrect": false
         },
         {
           "id": 68,
@@ -2409,20 +1422,6 @@
           "translation": "Which court in Germany is responsible for interpreting the Basic Law?"
         },
         {
-          "id": 84,
-          "kind": "answer",
-          "text": "entwirft die Gesetze.",
-          "translation": "drafts the laws.",
-          "isCorrect": false
-        },
-        {
-          "id": 84,
-          "kind": "answer",
-          "text": "überwacht die Einhaltung der Gesetze.",
-          "translation": "monitors compliance with the law.",
-          "isCorrect": false
-        },
-        {
           "id": 90,
           "kind": "question",
           "text": "Die deutschen Bundesländer wirken an der Gesetzgebung des Bundes mit durch …",
@@ -2435,52 +1434,10 @@
           "translation": "What is not part of statutory social insurance?"
         },
         {
-          "id": 100,
-          "kind": "answer",
-          "text": "die gesetzliche Rentenversicherung",
-          "translation": "the statutory pension insurance",
-          "isCorrect": false
-        },
-        {
-          "id": 125,
-          "kind": "answer",
-          "text": "im Land bestehende Gesetze beizubehalten.",
-          "translation": "maintain existing laws in the country.",
-          "isCorrect": false
-        },
-        {
           "id": 127,
           "kind": "question",
           "text": "Warum gibt es die 5%-Hürde im Wahlgesetz der Bundesrepublik Deutschland? Es gibt sie, weil …",
           "translation": "Why is there a 5% threshold in the electoral law of the Federal Republic of Germany? They exist because..."
-        },
-        {
-          "id": 142,
-          "kind": "answer",
-          "text": "ändert Gesetze.",
-          "translation": "changes laws.",
-          "isCorrect": false
-        },
-        {
-          "id": 144,
-          "kind": "answer",
-          "text": "gesetzgebenden Gewalt.",
-          "translation": "legislative power.",
-          "isCorrect": false
-        },
-        {
-          "id": 147,
-          "kind": "answer",
-          "text": "Gesetze erlassen",
-          "translation": "enact laws",
-          "isCorrect": false
-        },
-        {
-          "id": 148,
-          "kind": "answer",
-          "text": "die Gesetze zu beschließen",
-          "translation": "to decide the laws",
-          "isCorrect": false
         },
         {
           "id": 148,
@@ -2490,24 +1447,10 @@
           "isCorrect": true
         },
         {
-          "id": 220,
-          "kind": "answer",
-          "text": "an die Verabschiedung des Grundgesetzes",
-          "translation": "to the adoption of the Basic Law",
-          "isCorrect": false
-        },
-        {
           "id": 247,
           "kind": "question",
           "text": "Eine Frau ist schwanger. Sie ist kurz vor und nach der Geburt ihres Kindes vom Gesetz besonders beschützt. Wie heißt dieser Schutz?",
           "translation": "A woman is pregnant. She is particularly protected by the law shortly before and after the birth of her child. What is this protection called?"
-        },
-        {
-          "id": 262,
-          "kind": "answer",
-          "text": "Es ist für alle Gesetz, benachteiligten Gruppen jährlich Geld zu spenden.",
-          "translation": "It is the law for everyone to donate money annually to disadvantaged groups.",
-          "isCorrect": false
         },
         {
           "id": 263,
@@ -2520,13 +1463,6 @@
           "kind": "question",
           "text": "Wann beginnt die gesetzliche Nachtruhe in Deutschland?",
           "translation": "When does the statutory night rest period begin in Germany?"
-        },
-        {
-          "id": 288,
-          "kind": "answer",
-          "text": "aus dem Grundgesetz der Bundesrepublik Deutschland",
-          "translation": "from the Basic Law of the Federal Republic of Germany",
-          "isCorrect": false
         }
       ]
     },
@@ -2544,27 +1480,6 @@
           "isCorrect": true
         },
         {
-          "id": 3,
-          "kind": "answer",
-          "text": "Der Staat muss sich nicht an die Gesetze halten.",
-          "translation": "The state does not have to follow the laws.",
-          "isCorrect": false
-        },
-        {
-          "id": 3,
-          "kind": "answer",
-          "text": "Nur Deutsche müssen die Gesetze befolgen.",
-          "translation": "Only Germans have to obey the laws.",
-          "isCorrect": false
-        },
-        {
-          "id": 3,
-          "kind": "answer",
-          "text": "Die Gerichte machen die Gesetze.",
-          "translation": "The courts make the laws.",
-          "isCorrect": false
-        },
-        {
           "id": 17,
           "kind": "question",
           "text": "Die deutschen Gesetze verbieten …",
@@ -2577,32 +1492,11 @@
           "translation": "Which fundamental right is guaranteed in Article 1 of the Basic Law of the Federal Republic of Germany?"
         },
         {
-          "id": 20,
-          "kind": "answer",
-          "text": "gesetzestreu.",
-          "translation": "law-abiding.",
-          "isCorrect": false
-        },
-        {
-          "id": 53,
-          "kind": "answer",
-          "text": "Die Bürgerinnen und Bürger entscheiden über Gesetze.",
-          "translation": "Citizens decide on laws.",
-          "isCorrect": false
-        },
-        {
           "id": 53,
           "kind": "answer",
           "text": "Der Staat muss die Gesetze einhalten.",
           "translation": "The state must comply with the laws.",
           "isCorrect": true
-        },
-        {
-          "id": 65,
-          "kind": "answer",
-          "text": "Gesetze zu entwerfen.",
-          "translation": "to draft laws.",
-          "isCorrect": false
         },
         {
           "id": 80,
@@ -2611,60 +1505,11 @@
           "translation": "Which court in Germany is responsible for interpreting the Basic Law?"
         },
         {
-          "id": 84,
-          "kind": "answer",
-          "text": "entwirft die Gesetze.",
-          "translation": "drafts the laws.",
-          "isCorrect": false
-        },
-        {
-          "id": 84,
-          "kind": "answer",
-          "text": "überwacht die Einhaltung der Gesetze.",
-          "translation": "monitors compliance with the law.",
-          "isCorrect": false
-        },
-        {
-          "id": 125,
-          "kind": "answer",
-          "text": "im Land bestehende Gesetze beizubehalten.",
-          "translation": "maintain existing laws in the country.",
-          "isCorrect": false
-        },
-        {
-          "id": 142,
-          "kind": "answer",
-          "text": "ändert Gesetze.",
-          "translation": "changes laws.",
-          "isCorrect": false
-        },
-        {
-          "id": 147,
-          "kind": "answer",
-          "text": "Gesetze erlassen",
-          "translation": "enact laws",
-          "isCorrect": false
-        },
-        {
-          "id": 148,
-          "kind": "answer",
-          "text": "die Gesetze zu beschließen",
-          "translation": "to decide the laws",
-          "isCorrect": false
-        },
-        {
           "id": 148,
           "kind": "answer",
           "text": "die Einhaltung von Gesetzen zu überwachen",
           "translation": "to monitor compliance with laws",
           "isCorrect": true
-        },
-        {
-          "id": 220,
-          "kind": "answer",
-          "text": "an die Verabschiedung des Grundgesetzes",
-          "translation": "to the adoption of the Basic Law",
-          "isCorrect": false
         },
         {
           "id": 263,
@@ -2750,20 +1595,6 @@
           "kind": "question",
           "text": "Welches Gericht in Deutschland ist zuständig für die Auslegung des Grundgesetzes?",
           "translation": "Which court in Germany is responsible for interpreting the Basic Law?"
-        },
-        {
-          "id": 220,
-          "kind": "answer",
-          "text": "an die Verabschiedung des Grundgesetzes",
-          "translation": "to the adoption of the Basic Law",
-          "isCorrect": false
-        },
-        {
-          "id": 288,
-          "kind": "answer",
-          "text": "aus dem Grundgesetz der Bundesrepublik Deutschland",
-          "translation": "from the Basic Law of the Federal Republic of Germany",
-          "isCorrect": false
         }
       ]
     },
@@ -2778,13 +1609,6 @@
           "kind": "question",
           "text": "Wie kann jemand, der den Holocaust leugnet, bestraft werden?",
           "translation": "How can someone who denies the Holocaust be punished?"
-        },
-        {
-          "id": 96,
-          "kind": "answer",
-          "text": "gar nicht, Holocaustleugnung ist erlaubt",
-          "translation": "Not at all, Holocaust denial is allowed",
-          "isCorrect": false
         },
         {
           "id": 149,
@@ -2807,13 +1631,6 @@
           "text": "Koalition.",
           "translation": "Coalition.",
           "isCorrect": true
-        },
-        {
-          "id": 93,
-          "kind": "answer",
-          "text": "größer ist das Risiko, eine Koalition bilden zu müssen.",
-          "translation": "The risk of having to form a coalition is greater.",
-          "isCorrect": false
         },
         {
           "id": 103,
@@ -2878,13 +1695,6 @@
           "translation": "Who built the wall in Berlin?"
         },
         {
-          "id": 153,
-          "kind": "answer",
-          "text": "Beginn des Berliner Mauerbaus",
-          "translation": "Beginning of the construction of the Berlin Wall",
-          "isCorrect": false
-        },
-        {
           "id": 188,
           "kind": "question",
           "text": "In welchem Jahr wurde die Mauer in Berlin gebaut?",
@@ -2932,13 +1742,6 @@
           "isCorrect": true
         },
         {
-          "id": 9,
-          "kind": "answer",
-          "text": "Meinungsfreiheit",
-          "translation": "Freedom of expression",
-          "isCorrect": false
-        },
-        {
           "id": 14,
           "kind": "question",
           "text": "Meinungsfreiheit in Deutschland heißt, dass ich …",
@@ -2949,48 +1752,6 @@
           "kind": "question",
           "text": "Wann ist die Meinungsfreiheit in Deutschland eingeschränkt?",
           "translation": "When is freedom of expression restricted in Germany?"
-        },
-        {
-          "id": 17,
-          "kind": "answer",
-          "text": "Meinungsfreiheit der Einwohnerinnen und Einwohner.",
-          "translation": "Freedom of expression for residents.",
-          "isCorrect": false
-        },
-        {
-          "id": 18,
-          "kind": "answer",
-          "text": "Meinungsfreiheit",
-          "translation": "Freedom of expression",
-          "isCorrect": false
-        },
-        {
-          "id": 30,
-          "kind": "answer",
-          "text": "Meinungsfreiheit",
-          "translation": "Freedom of expression",
-          "isCorrect": false
-        },
-        {
-          "id": 161,
-          "kind": "answer",
-          "text": "der Meinungsfreiheit",
-          "translation": "of freedom of expression",
-          "isCorrect": false
-        },
-        {
-          "id": 274,
-          "kind": "answer",
-          "text": "die Meinungsfreiheit",
-          "translation": "the freedom of expression",
-          "isCorrect": false
-        },
-        {
-          "id": 281,
-          "kind": "answer",
-          "text": "Meinungsfreiheit",
-          "translation": "Freedom of expression",
-          "isCorrect": false
         }
       ]
     },
@@ -3001,25 +1762,11 @@
       "range": "I-S",
       "matches": [
         {
-          "id": 9,
-          "kind": "answer",
-          "text": "Menschenwürde",
-          "translation": "human dignity",
-          "isCorrect": false
-        },
-        {
           "id": 18,
           "kind": "answer",
           "text": "die Unantastbarkeit der Menschenwürde",
           "translation": "the inviolability of human dignity",
           "isCorrect": true
-        },
-        {
-          "id": 170,
-          "kind": "answer",
-          "text": "den Schutz der Menschenwürde",
-          "translation": "the protection of human dignity",
-          "isCorrect": false
         }
       ]
     },
@@ -3090,13 +1837,6 @@
         {
           "id": 164,
           "kind": "answer",
-          "text": "Die Nationalsozialisten verlieren eine Wahl und lösen den Reichstag auf.",
-          "translation": "The National Socialists lose an election and dissolve the Reichstag.",
-          "isCorrect": false
-        },
-        {
-          "id": 164,
-          "kind": "answer",
           "text": "Jüdische Geschäfte und Synagogen werden durch Nationalsozialisten und ihre Anhänger zerstört.",
           "translation": "Jewish shops and synagogues are destroyed by Nazis and their supporters.",
           "isCorrect": true
@@ -3120,13 +1860,6 @@
           "kind": "question",
           "text": "Die parlamentarische Opposition im Deutschen Bundestag …",
           "translation": "The parliamentary opposition in the German Bundestag..."
-        },
-        {
-          "id": 89,
-          "kind": "answer",
-          "text": "Opposition",
-          "translation": "opposition",
-          "isCorrect": false
         }
       ]
     },
@@ -3145,20 +1878,6 @@
         {
           "id": 13,
           "kind": "answer",
-          "text": "die regierenden Parteien.",
-          "translation": "the ruling parties.",
-          "isCorrect": false
-        },
-        {
-          "id": 13,
-          "kind": "answer",
-          "text": "alle Parteien, die bei der letzten Wahl die 5%-Hürde erreichen konnten.",
-          "translation": "all parties that were able to reach the 5% threshold in the last election.",
-          "isCorrect": false
-        },
-        {
-          "id": 13,
-          "kind": "answer",
           "text": "alle Abgeordneten, die nicht zu der Regierungspartei/den Regierungsparteien gehören.",
           "translation": "all MPs who do not belong to the governing party(s).",
           "isCorrect": true
@@ -3168,13 +1887,6 @@
           "kind": "question",
           "text": "Eine Partei in Deutschland verfolgt das Ziel, eine Diktatur zu errichten. Sie ist dann …",
           "translation": "A party in Germany aims to establish a dictatorship. She is then…"
-        },
-        {
-          "id": 30,
-          "kind": "answer",
-          "text": "verschiedene Parteien",
-          "translation": "different parties",
-          "isCorrect": false
         },
         {
           "id": 31,
@@ -3195,67 +1907,11 @@
           "translation": "When can a party be banned in Germany?"
         },
         {
-          "id": 53,
-          "kind": "answer",
-          "text": "Es gibt nur rechte Parteien.",
-          "translation": "There are only right-wing parties.",
-          "isCorrect": false
-        },
-        {
-          "id": 70,
-          "kind": "answer",
-          "text": "Sie/Er kontrolliert die Regierungspartei.",
-          "translation": "She/He controls the ruling party.",
-          "isCorrect": false
-        },
-        {
-          "id": 78,
-          "kind": "answer",
-          "text": "Sozialistische Partei Deutschlands",
-          "translation": "Socialist Party of Germany",
-          "isCorrect": false
-        },
-        {
-          "id": 78,
-          "kind": "answer",
-          "text": "Sozialpolitische Partei Deutschlands",
-          "translation": "Social political party of Germany",
-          "isCorrect": false
-        },
-        {
           "id": 78,
           "kind": "answer",
           "text": "Sozialdemokratische Partei Deutschlands",
           "translation": "Social Democratic Party of Germany",
           "isCorrect": true
-        },
-        {
-          "id": 78,
-          "kind": "answer",
-          "text": "Sozialgerechte Partei Deutschlands",
-          "translation": "Socially Just Party of Germany",
-          "isCorrect": false
-        },
-        {
-          "id": 79,
-          "kind": "answer",
-          "text": "Friedliche Demonstrative Partei",
-          "translation": "Peaceful Demonstrative Party",
-          "isCorrect": false
-        },
-        {
-          "id": 79,
-          "kind": "answer",
-          "text": "Freie Deutschland Partei",
-          "translation": "Free Germany Party",
-          "isCorrect": false
-        },
-        {
-          "id": 79,
-          "kind": "answer",
-          "text": "Führende Demokratische Partei",
-          "translation": "Leading Democratic Party",
-          "isCorrect": false
         },
         {
           "id": 79,
@@ -3265,37 +1921,16 @@
           "isCorrect": true
         },
         {
-          "id": 85,
-          "kind": "answer",
-          "text": "die Parteimitglieder",
-          "translation": "the party members",
-          "isCorrect": false
-        },
-        {
           "id": 89,
           "kind": "question",
           "text": "Wie nennt man in Deutschland die Vereinigung von Abgeordneten einer Partei im Parlament?",
           "translation": "What do you call the association of members of a party in parliament in Germany?"
         },
         {
-          "id": 91,
-          "kind": "answer",
-          "text": "leichter, wenn dadurch neue Parteien in den Bundesrat kommen.",
-          "translation": "easier if new parties come into the Federal Council.",
-          "isCorrect": false
-        },
-        {
           "id": 93,
           "kind": "question",
           "text": "Je mehr \"Zweitstimmen\" eine Partei bei einer Bundestagswahl bekommt, desto …",
           "translation": "The more “second votes” a party gets in a federal election, the..."
-        },
-        {
-          "id": 93,
-          "kind": "answer",
-          "text": "mehr Direktkandidaten der Partei ziehen ins Parlament ein.",
-          "translation": "more of the party's direct candidates enter parliament.",
-          "isCorrect": false
         },
         {
           "id": 93,
@@ -3323,27 +1958,6 @@
           "translation": "A party wants to get into the German Bundestag. But it must have a minimum share of votes. That means..."
         },
         {
-          "id": 123,
-          "kind": "answer",
-          "text": "Abstimmungsregelung im Bundestag für kleine Parteien",
-          "translation": "Voting regulations in the Bundestag for small parties",
-          "isCorrect": false
-        },
-        {
-          "id": 127,
-          "kind": "answer",
-          "text": "die Programme von vielen kleinen Parteien viele Gemeinsamkeiten haben.",
-          "translation": "The programs of many small parties have a lot in common.",
-          "isCorrect": false
-        },
-        {
-          "id": 127,
-          "kind": "answer",
-          "text": "die Bürgerinnen und Bürger bei vielen kleinen Parteien die Orientierung verlieren können.",
-          "translation": "Citizens can lose orientation with many small parties.",
-          "isCorrect": false
-        },
-        {
           "id": 127,
           "kind": "answer",
           "text": "viele kleine Parteien die Regierungsbildung erschweren.",
@@ -3351,60 +1965,11 @@
           "isCorrect": true
         },
         {
-          "id": 127,
-          "kind": "answer",
-          "text": "die kleinen Parteien nicht so viel Geld haben, um die Politikerinnen und Politiker zu bezahlen.",
-          "translation": "the small parties don't have that much money to pay the politicians.",
-          "isCorrect": false
-        },
-        {
-          "id": 131,
-          "kind": "answer",
-          "text": "die/der Vorsitzende einer Partei.",
-          "translation": "the leader of a party.",
-          "isCorrect": false
-        },
-        {
-          "id": 164,
-          "kind": "answer",
-          "text": "Hitler wird Reichspräsident und lässt alle Parteien verbieten.",
-          "translation": "Hitler becomes Reich President and has all parties banned.",
-          "isCorrect": false
-        },
-        {
           "id": 170,
           "kind": "answer",
           "text": "das Verbot von Parteien",
           "translation": "the ban on parties",
           "isCorrect": true
-        },
-        {
-          "id": 199,
-          "kind": "answer",
-          "text": "eine regierende Partei.",
-          "translation": "a ruling party.",
-          "isCorrect": false
-        },
-        {
-          "id": 210,
-          "kind": "answer",
-          "text": "der 1. SED-Parteitag",
-          "translation": "the 1st SED party conference",
-          "isCorrect": false
-        },
-        {
-          "id": 250,
-          "kind": "answer",
-          "text": "Mitglied einer Partei ist.",
-          "translation": "is a member of a party.",
-          "isCorrect": false
-        },
-        {
-          "id": 256,
-          "kind": "answer",
-          "text": "eine Genehmigung einer Partei",
-          "translation": "an approval from a party",
-          "isCorrect": false
         }
       ]
     },
@@ -3417,30 +1982,9 @@
         {
           "id": 13,
           "kind": "answer",
-          "text": "die regierenden Parteien.",
-          "translation": "the ruling parties.",
-          "isCorrect": false
-        },
-        {
-          "id": 13,
-          "kind": "answer",
-          "text": "alle Parteien, die bei der letzten Wahl die 5%-Hürde erreichen konnten.",
-          "translation": "all parties that were able to reach the 5% threshold in the last election.",
-          "isCorrect": false
-        },
-        {
-          "id": 13,
-          "kind": "answer",
           "text": "alle Abgeordneten, die nicht zu der Regierungspartei/den Regierungsparteien gehören.",
           "translation": "all MPs who do not belong to the governing party(s).",
           "isCorrect": true
-        },
-        {
-          "id": 30,
-          "kind": "answer",
-          "text": "verschiedene Parteien",
-          "translation": "different parties",
-          "isCorrect": false
         },
         {
           "id": 31,
@@ -3449,45 +1993,10 @@
           "translation": "In Germany, the collaboration of parties to form a government is called..."
         },
         {
-          "id": 53,
-          "kind": "answer",
-          "text": "Es gibt nur rechte Parteien.",
-          "translation": "There are only right-wing parties.",
-          "isCorrect": false
-        },
-        {
-          "id": 91,
-          "kind": "answer",
-          "text": "leichter, wenn dadurch neue Parteien in den Bundesrat kommen.",
-          "translation": "easier if new parties come into the Federal Council.",
-          "isCorrect": false
-        },
-        {
           "id": 117,
           "kind": "question",
           "text": "Wie viel Prozent der Zweitstimmen müssen Parteien mindestens bekommen, um in den Deutschen Bundestag gewählt zu werden?",
           "translation": "What percentage of the second votes must parties receive at least in order to be elected to the German Bundestag?"
-        },
-        {
-          "id": 123,
-          "kind": "answer",
-          "text": "Abstimmungsregelung im Bundestag für kleine Parteien",
-          "translation": "Voting regulations in the Bundestag for small parties",
-          "isCorrect": false
-        },
-        {
-          "id": 127,
-          "kind": "answer",
-          "text": "die Programme von vielen kleinen Parteien viele Gemeinsamkeiten haben.",
-          "translation": "The programs of many small parties have a lot in common.",
-          "isCorrect": false
-        },
-        {
-          "id": 127,
-          "kind": "answer",
-          "text": "die Bürgerinnen und Bürger bei vielen kleinen Parteien die Orientierung verlieren können.",
-          "translation": "Citizens can lose orientation with many small parties.",
-          "isCorrect": false
         },
         {
           "id": 127,
@@ -3495,20 +2004,6 @@
           "text": "viele kleine Parteien die Regierungsbildung erschweren.",
           "translation": "Many small parties make it difficult to form a government.",
           "isCorrect": true
-        },
-        {
-          "id": 127,
-          "kind": "answer",
-          "text": "die kleinen Parteien nicht so viel Geld haben, um die Politikerinnen und Politiker zu bezahlen.",
-          "translation": "the small parties don't have that much money to pay the politicians.",
-          "isCorrect": false
-        },
-        {
-          "id": 164,
-          "kind": "answer",
-          "text": "Hitler wird Reichspräsident und lässt alle Parteien verbieten.",
-          "translation": "Hitler becomes Reich President and has all parties banned.",
-          "isCorrect": false
         },
         {
           "id": 170,
@@ -3526,13 +2021,6 @@
       "range": "I-S",
       "matches": [
         {
-          "id": 42,
-          "kind": "answer",
-          "text": "die Polizei",
-          "translation": "the police",
-          "isCorrect": false
-        },
-        {
           "id": 51,
           "kind": "answer",
           "text": "Menschen von einer Privatpolizei ohne Grund verhaftet werden.",
@@ -3540,45 +2028,10 @@
           "isCorrect": true
         },
         {
-          "id": 63,
-          "kind": "answer",
-          "text": "die Polizei",
-          "translation": "the police",
-          "isCorrect": false
-        },
-        {
-          "id": 77,
-          "kind": "answer",
-          "text": "die deutsche Polizei",
-          "translation": "the German police",
-          "isCorrect": false
-        },
-        {
-          "id": 138,
-          "kind": "answer",
-          "text": "die Arbeitgeberin/den Arbeitgeber bei der Polizei anzeigen",
-          "translation": "report the employer to the police",
-          "isCorrect": false
-        },
-        {
           "id": 148,
           "kind": "question",
           "text": "Was ist eine Aufgabe der Polizei in Deutschland?",
           "translation": "What is the task of the police in Germany?"
-        },
-        {
-          "id": 256,
-          "kind": "answer",
-          "text": "eine Erlaubnis der Polizei",
-          "translation": "a permit from the police",
-          "isCorrect": false
-        },
-        {
-          "id": 267,
-          "kind": "answer",
-          "text": "Sie können zur Polizei gehen und die Tochter anzeigen.",
-          "translation": "You can go to the police and report the daughter.",
-          "isCorrect": false
         }
       ]
     },
@@ -3600,20 +2053,6 @@
           "text": "Nein, denn die Pressefreiheit ist ein Grundrecht. Sie kann nicht abgeschafft werden.",
           "translation": "No, because freedom of the press is a fundamental right. It cannot be abolished.",
           "isCorrect": true
-        },
-        {
-          "id": 12,
-          "kind": "answer",
-          "text": "Nein, denn nur der Bundesrat kann die Pressefreiheit abschaffen.",
-          "translation": "No, because only the Federal Council can abolish freedom of the press.",
-          "isCorrect": false
-        },
-        {
-          "id": 170,
-          "kind": "answer",
-          "text": "Pressefreiheit",
-          "translation": "Freedom of the press",
-          "isCorrect": false
         }
       ]
     },
@@ -3628,20 +2067,6 @@
           "kind": "question",
           "text": "Deutschland ist ein Rechtsstaat. Was ist damit gemeint?",
           "translation": "Germany is a constitutional state. What does that mean?"
-        },
-        {
-          "id": 20,
-          "kind": "answer",
-          "text": "rechtsstaatlich orientiert.",
-          "translation": "oriented towards the rule of law.",
-          "isCorrect": false
-        },
-        {
-          "id": 34,
-          "kind": "answer",
-          "text": "ein Rechtsstaat",
-          "translation": "a constitutional state",
-          "isCorrect": false
         },
         {
           "id": 51,
@@ -3664,20 +2089,6 @@
       "range": "I-S",
       "matches": [
         {
-          "id": 13,
-          "kind": "answer",
-          "text": "die regierenden Parteien.",
-          "translation": "the ruling parties.",
-          "isCorrect": false
-        },
-        {
-          "id": 199,
-          "kind": "answer",
-          "text": "eine regierende Partei.",
-          "translation": "a ruling party.",
-          "isCorrect": false
-        },
-        {
           "id": 309,
           "kind": "answer",
           "text": "Regierende Bürgermeisterin/Regierender Bürgermeister",
@@ -3698,13 +2109,6 @@
           "text": "entscheidet mit Richterinnen/Richtern über Schuld und Strafe.",
           "translation": "decides with judges about guilt and punishment.",
           "isCorrect": true
-        },
-        {
-          "id": 141,
-          "kind": "answer",
-          "text": "eine Richterin/ein Richter",
-          "translation": "a judge",
-          "isCorrect": false
         },
         {
           "id": 142,
@@ -3752,20 +2156,6 @@
       "range": "I-S",
       "matches": [
         {
-          "id": 37,
-          "kind": "answer",
-          "text": "Senatorin/Senator",
-          "translation": "Senator",
-          "isCorrect": false
-        },
-        {
-          "id": 309,
-          "kind": "answer",
-          "text": "Präsidentin/Präsident des Senates",
-          "translation": "President of the Senate",
-          "isCorrect": false
-        },
-        {
           "id": 310,
           "kind": "question",
           "text": "Welche Senatorin/welchen Senator hat Berlin nicht?",
@@ -3774,30 +2164,9 @@
         {
           "id": 310,
           "kind": "answer",
-          "text": "Finanzsenatorin/Finanzsenator",
-          "translation": "Finance Senator",
-          "isCorrect": false
-        },
-        {
-          "id": 310,
-          "kind": "answer",
-          "text": "Innensenatorin/Innensenator",
-          "translation": "Interior Senator",
-          "isCorrect": false
-        },
-        {
-          "id": 310,
-          "kind": "answer",
           "text": "Senatorin/Senator für Außenbeziehungen",
           "translation": "Senator for Foreign Relations",
           "isCorrect": true
-        },
-        {
-          "id": 310,
-          "kind": "answer",
-          "text": "Justizsenatorin/Justizsenator",
-          "translation": "Senator for Justice",
-          "isCorrect": false
         }
       ]
     },
@@ -3886,20 +2255,6 @@
           "translation": "What is the constitution of the Federal Republic of Germany called?"
         },
         {
-          "id": 11,
-          "kind": "answer",
-          "text": "Bundesverfassung",
-          "translation": "Federal Constitution",
-          "isCorrect": false
-        },
-        {
-          "id": 11,
-          "kind": "answer",
-          "text": "Verfassungsvertrag",
-          "translation": "Constitutional Treaty",
-          "isCorrect": false
-        },
-        {
           "id": 20,
           "kind": "answer",
           "text": "verfassungswidrig.",
@@ -3920,53 +2275,11 @@
           "translation": "Which body is not one of Germany's constitutional bodies?"
         },
         {
-          "id": 52,
-          "kind": "answer",
-          "text": "Bundesverfassungsgericht aus.",
-          "translation": "Federal Constitutional Court.",
-          "isCorrect": false
-        },
-        {
-          "id": 55,
-          "kind": "answer",
-          "text": "das Bundesverfassungsgericht in Karlsruhe",
-          "translation": "the Federal Constitutional Court in Karlsruhe",
-          "isCorrect": false
-        },
-        {
-          "id": 58,
-          "kind": "answer",
-          "text": "die Präsidentin/der Präsident des Bundesverfassungsgerichtes",
-          "translation": "the President of the Federal Constitutional Court",
-          "isCorrect": false
-        },
-        {
-          "id": 61,
-          "kind": "answer",
-          "text": "Das Bundesverfassungsgericht steht über der Verfassung.",
-          "translation": "The Federal Constitutional Court stands above the constitution.",
-          "isCorrect": false
-        },
-        {
           "id": 80,
           "kind": "answer",
           "text": "Bundesverfassungsgericht",
           "translation": "Federal Constitutional Court",
           "isCorrect": true
-        },
-        {
-          "id": 86,
-          "kind": "answer",
-          "text": "das Bundesverfassungsgericht",
-          "translation": "the Federal Constitutional Court",
-          "isCorrect": false
-        },
-        {
-          "id": 232,
-          "kind": "answer",
-          "text": "die europäische Verfassung",
-          "translation": "the European constitution",
-          "isCorrect": false
         }
       ]
     },
@@ -3977,13 +2290,6 @@
       "range": "T-Z",
       "matches": [
         {
-          "id": 1,
-          "kind": "answer",
-          "text": "die Menschen das Wahlrecht haben.",
-          "translation": "people have the right to vote.",
-          "isCorrect": false
-        },
-        {
           "id": 5,
           "kind": "question",
           "text": "Wahlen in Deutschland sind frei. Was bedeutet das?",
@@ -3992,44 +2298,9 @@
         {
           "id": 5,
           "kind": "answer",
-          "text": "Man darf Geld annehmen, wenn man dafür eine bestimmte Kandidatin/einen bestimmten Kandidaten wählt.",
-          "translation": "You can accept money if you vote for a specific candidate.",
-          "isCorrect": false
-        },
-        {
-          "id": 5,
-          "kind": "answer",
-          "text": "Nur Personen, die noch nie im Gefängnis waren, dürfen wählen.",
-          "translation": "Only people who have never been in prison are allowed to vote.",
-          "isCorrect": false
-        },
-        {
-          "id": 5,
-          "kind": "answer",
           "text": "Die Wählerin/der Wähler darf bei der Wahl weder beeinflusst noch zu einer bestimmten Stimmabgabe gezwungen werden und keine Nachteile durch die Wahl haben.",
           "translation": "The voter may neither be influenced nor forced to cast a specific vote during the election and may not suffer any disadvantages as a result of the election.",
           "isCorrect": true
-        },
-        {
-          "id": 5,
-          "kind": "answer",
-          "text": "Alle wahlberechtigten Personen müssen wählen.",
-          "translation": "All eligible voters must vote.",
-          "isCorrect": false
-        },
-        {
-          "id": 13,
-          "kind": "answer",
-          "text": "alle Parteien, die bei der letzten Wahl die 5%-Hürde erreichen konnten.",
-          "translation": "all parties that were able to reach the 5% threshold in the last election.",
-          "isCorrect": false
-        },
-        {
-          "id": 15,
-          "kind": "answer",
-          "text": "freie Berufswahl",
-          "translation": "free career choice",
-          "isCorrect": false
         },
         {
           "id": 28,
@@ -4043,20 +2314,6 @@
           "text": "das wahlberechtigte Volk",
           "translation": "the people entitled to vote",
           "isCorrect": true
-        },
-        {
-          "id": 30,
-          "kind": "answer",
-          "text": "regelmäßige Wahlen",
-          "translation": "regular elections",
-          "isCorrect": false
-        },
-        {
-          "id": 43,
-          "kind": "answer",
-          "text": "wenn ihr Wahlkampf zu teuer ist",
-          "translation": "if their election campaign is too expensive",
-          "isCorrect": false
         },
         {
           "id": 44,
@@ -4079,44 +2336,9 @@
         {
           "id": 62,
           "kind": "answer",
-          "text": "Kommunalwahl",
-          "translation": "Local election",
-          "isCorrect": false
-        },
-        {
-          "id": 62,
-          "kind": "answer",
           "text": "Landtagswahl",
           "translation": "State election",
           "isCorrect": true
-        },
-        {
-          "id": 62,
-          "kind": "answer",
-          "text": "Europawahl",
-          "translation": "European elections",
-          "isCorrect": false
-        },
-        {
-          "id": 62,
-          "kind": "answer",
-          "text": "Bundestagswahl",
-          "translation": "Federal election",
-          "isCorrect": false
-        },
-        {
-          "id": 65,
-          "kind": "answer",
-          "text": "die Bundeskanzlerin/den Bundeskanzler zu wählen.",
-          "translation": "to elect the Federal Chancellor.",
-          "isCorrect": false
-        },
-        {
-          "id": 70,
-          "kind": "answer",
-          "text": "Sie/Er wählt die Ministerinnen/Minister aus.",
-          "translation": "She/He selects the ministers.",
-          "isCorrect": false
         },
         {
           "id": 70,
@@ -4156,38 +2378,10 @@
           "translation": "At what age are you allowed to take part in the elections to the German Bundestag in Germany?"
         },
         {
-          "id": 95,
-          "kind": "answer",
-          "text": "Wahlpflicht",
-          "translation": "Compulsory voting",
-          "isCorrect": false
-        },
-        {
-          "id": 98,
-          "kind": "answer",
-          "text": "dürfen die Wählerinnen/Wähler dieser Abgeordneten noch einmal wählen.",
-          "translation": "The voters of these representatives can vote again.",
-          "isCorrect": false
-        },
-        {
           "id": 105,
           "kind": "question",
           "text": "Was ist eine Aufgabe von Wahlhelferinnen/Wahlhelfern in Deutschland?",
           "translation": "What is the task of election workers in Germany?"
-        },
-        {
-          "id": 105,
-          "kind": "answer",
-          "text": "Sie helfen alten Menschen bei der Stimmabgabe in der Wahlkabine.",
-          "translation": "They help old people cast their votes in the voting booth.",
-          "isCorrect": false
-        },
-        {
-          "id": 105,
-          "kind": "answer",
-          "text": "Sie schreiben die Wahlbenachrichtigungen vor der Wahl.",
-          "translation": "They write the election notifications before the election.",
-          "isCorrect": false
         },
         {
           "id": 105,
@@ -4201,20 +2395,6 @@
           "kind": "question",
           "text": "In Deutschland helfen ehrenamtliche Wahlhelferinnen und Wahlhelfer bei den Wahlen. Was ist eine Aufgabe von Wahlhelferinnen/Wahlhelfern?",
           "translation": "In Germany, volunteer election workers help with elections. What is the job of poll workers?"
-        },
-        {
-          "id": 106,
-          "kind": "answer",
-          "text": "Sie helfen Kindern und alten Menschen beim Wählen.",
-          "translation": "They help children and old people vote.",
-          "isCorrect": false
-        },
-        {
-          "id": 106,
-          "kind": "answer",
-          "text": "Sie schreiben Karten und Briefe mit der Angabe des Wahllokals.",
-          "translation": "They write cards and letters with the details of the polling station.",
-          "isCorrect": false
         },
         {
           "id": 106,
@@ -4234,13 +2414,6 @@
           "kind": "question",
           "text": "Bei einer Bundestagswahl in Deutschland darf jede/jeder wählen, die/der …",
           "translation": "In a federal election in Germany, anyone can vote who..."
-        },
-        {
-          "id": 108,
-          "kind": "answer",
-          "text": "in der Bundesrepublik Deutschland wohnt und wählen möchte.",
-          "translation": "lives in the Federal Republic of Germany and would like to vote.",
-          "isCorrect": false
         },
         {
           "id": 109,
@@ -4267,13 +2440,6 @@
           "translation": "Elections in Germany are won by the party that..."
         },
         {
-          "id": 113,
-          "kind": "answer",
-          "text": "die meisten Männer mehrheitlich gewählt haben.",
-          "translation": "most men voted in the majority.",
-          "isCorrect": false
-        },
-        {
           "id": 114,
           "kind": "question",
           "text": "An demokratischen Wahlen in Deutschland teilzunehmen ist …",
@@ -4288,20 +2454,6 @@
         {
           "id": 115,
           "kind": "answer",
-          "text": "Man kann gewählt werden.",
-          "translation": "You can be elected.",
-          "isCorrect": false
-        },
-        {
-          "id": 115,
-          "kind": "answer",
-          "text": "Man muss wählen gehen.",
-          "translation": "You have to go vote.",
-          "isCorrect": false
-        },
-        {
-          "id": 115,
-          "kind": "answer",
           "text": "Man kann wählen.",
           "translation": "You can vote.",
           "isCorrect": true
@@ -4311,27 +2463,6 @@
           "kind": "question",
           "text": "Wenn Sie bei einer Bundestagswahl in Deutschland wählen dürfen, heißt das …",
           "translation": "If you are allowed to vote in a federal election in Germany, that means..."
-        },
-        {
-          "id": 116,
-          "kind": "answer",
-          "text": "aktive Wahlkampagne.",
-          "translation": "active election campaign.",
-          "isCorrect": false
-        },
-        {
-          "id": 116,
-          "kind": "answer",
-          "text": "aktives Wahlverfahren.",
-          "translation": "active voting process.",
-          "isCorrect": false
-        },
-        {
-          "id": 116,
-          "kind": "answer",
-          "text": "aktiver Wahlkampf.",
-          "translation": "active campaigning.",
-          "isCorrect": false
         },
         {
           "id": 116,
@@ -4355,30 +2486,9 @@
         {
           "id": 119,
           "kind": "answer",
-          "text": "Alle verurteilten Straftäterinnen/Straftäter dürfen nicht wählen.",
-          "translation": "All convicted criminals are not allowed to vote.",
-          "isCorrect": false
-        },
-        {
-          "id": 119,
-          "kind": "answer",
-          "text": "Wenn ich wählen gehen möchte, muss meine Arbeitgeberin/mein Arbeitgeber mir frei geben.",
-          "translation": "If I want to vote, my employer must give me time off.",
-          "isCorrect": false
-        },
-        {
-          "id": 119,
-          "kind": "answer",
           "text": "Jede Person kann ohne Zwang entscheiden, ob sie wählen möchte und wen sie wählen möchte.",
           "translation": "Each person can decide without coercion whether they want to vote and who they want to vote for.",
           "isCorrect": true
-        },
-        {
-          "id": 119,
-          "kind": "answer",
-          "text": "Ich kann frei entscheiden, wo ich wählen gehen möchte.",
-          "translation": "I can freely decide where I want to vote.",
-          "isCorrect": false
         },
         {
           "id": 120,
@@ -4389,30 +2499,9 @@
         {
           "id": 120,
           "kind": "answer",
-          "text": "Zensuswahlrecht.",
-          "translation": "census suffrage.",
-          "isCorrect": false
-        },
-        {
-          "id": 120,
-          "kind": "answer",
-          "text": "Dreiklassenwahlrecht.",
-          "translation": "three-class suffrage.",
-          "isCorrect": false
-        },
-        {
-          "id": 120,
-          "kind": "answer",
           "text": "Mehrheits- und Verhältniswahlrecht.",
           "translation": "majoritarian and proportional representation.",
           "isCorrect": true
-        },
-        {
-          "id": 120,
-          "kind": "answer",
-          "text": "allgemeines Männerwahlrecht.",
-          "translation": "universal male suffrage.",
-          "isCorrect": false
         },
         {
           "id": 121,
@@ -4466,13 +2555,6 @@
           "isCorrect": true
         },
         {
-          "id": 126,
-          "kind": "answer",
-          "text": "eine Wahlerlaubnis von der Bundespräsidentin/von dem Bundespräsidenten",
-          "translation": "a voting permit from the Federal President",
-          "isCorrect": false
-        },
-        {
           "id": 127,
           "kind": "question",
           "text": "Warum gibt es die 5%-Hürde im Wahlgesetz der Bundesrepublik Deutschland? Es gibt sie, weil …",
@@ -4505,37 +2587,9 @@
         {
           "id": 133,
           "kind": "answer",
-          "text": "Der Ehemann wählt für seine Frau mit.",
-          "translation": "The husband votes for his wife.",
-          "isCorrect": false
-        },
-        {
-          "id": 133,
-          "kind": "answer",
           "text": "Man kann durch Briefwahl seine Stimme abgeben.",
           "translation": "You can cast your vote by postal vote.",
           "isCorrect": true
-        },
-        {
-          "id": 133,
-          "kind": "answer",
-          "text": "Man kann am Wahltag telefonisch seine Stimme abgeben.",
-          "translation": "You can cast your vote by telephone on election day.",
-          "isCorrect": false
-        },
-        {
-          "id": 133,
-          "kind": "answer",
-          "text": "Kinder ab dem Alter von 14 Jahren dürfen wählen.",
-          "translation": "Children aged 14 and over are allowed to vote.",
-          "isCorrect": false
-        },
-        {
-          "id": 153,
-          "kind": "answer",
-          "text": "Wahl von Konrad Adenauer zum Bundeskanzler",
-          "translation": "Election of Konrad Adenauer as Federal Chancellor",
-          "isCorrect": false
         },
         {
           "id": 159,
@@ -4543,13 +2597,6 @@
           "text": "freie Wahlen",
           "translation": "free elections",
           "isCorrect": true
-        },
-        {
-          "id": 164,
-          "kind": "answer",
-          "text": "Die Nationalsozialisten verlieren eine Wahl und lösen den Reichstag auf.",
-          "translation": "The National Socialists lose an election and dissolve the Reichstag.",
-          "isCorrect": false
         },
         {
           "id": 230,
@@ -4562,13 +2609,6 @@
           "kind": "question",
           "text": "Wer wird bei der Europawahl gewählt?",
           "translation": "Who will be elected in the European elections?"
-        },
-        {
-          "id": 260,
-          "kind": "answer",
-          "text": "Wahlfreiheit für alle Fächer.",
-          "translation": "Freedom of choice for all subjects.",
-          "isCorrect": false
         },
         {
           "id": 268,
@@ -4611,45 +2651,10 @@
           "translation": "Elections in Germany are free. What does that mean?"
         },
         {
-          "id": 5,
-          "kind": "answer",
-          "text": "Nur Personen, die noch nie im Gefängnis waren, dürfen wählen.",
-          "translation": "Only people who have never been in prison are allowed to vote.",
-          "isCorrect": false
-        },
-        {
-          "id": 5,
-          "kind": "answer",
-          "text": "Alle wahlberechtigten Personen müssen wählen.",
-          "translation": "All eligible voters must vote.",
-          "isCorrect": false
-        },
-        {
-          "id": 30,
-          "kind": "answer",
-          "text": "regelmäßige Wahlen",
-          "translation": "regular elections",
-          "isCorrect": false
-        },
-        {
           "id": 44,
           "kind": "question",
           "text": "Wen kann man als Bürgerin/Bürger in Deutschland nicht direkt wählen?",
           "translation": "Who cannot you vote directly as a citizen in Germany?"
-        },
-        {
-          "id": 65,
-          "kind": "answer",
-          "text": "die Bundeskanzlerin/den Bundeskanzler zu wählen.",
-          "translation": "to elect the Federal Chancellor.",
-          "isCorrect": false
-        },
-        {
-          "id": 98,
-          "kind": "answer",
-          "text": "dürfen die Wählerinnen/Wähler dieser Abgeordneten noch einmal wählen.",
-          "translation": "The voters of these representatives can vote again.",
-          "isCorrect": false
         },
         {
           "id": 106,
@@ -4658,24 +2663,10 @@
           "translation": "In Germany, volunteer election workers help with elections. What is the job of poll workers?"
         },
         {
-          "id": 106,
-          "kind": "answer",
-          "text": "Sie helfen Kindern und alten Menschen beim Wählen.",
-          "translation": "They help children and old people vote.",
-          "isCorrect": false
-        },
-        {
           "id": 108,
           "kind": "question",
           "text": "Bei einer Bundestagswahl in Deutschland darf jede/jeder wählen, die/der …",
           "translation": "In a federal election in Germany, anyone can vote who..."
-        },
-        {
-          "id": 108,
-          "kind": "answer",
-          "text": "in der Bundesrepublik Deutschland wohnt und wählen möchte.",
-          "translation": "lives in the Federal Republic of Germany and would like to vote.",
-          "isCorrect": false
         },
         {
           "id": 109,
@@ -4704,13 +2695,6 @@
         {
           "id": 115,
           "kind": "answer",
-          "text": "Man muss wählen gehen.",
-          "translation": "You have to go vote.",
-          "isCorrect": false
-        },
-        {
-          "id": 115,
-          "kind": "answer",
           "text": "Man kann wählen.",
           "translation": "You can vote.",
           "isCorrect": true
@@ -4730,30 +2714,9 @@
         {
           "id": 119,
           "kind": "answer",
-          "text": "Alle verurteilten Straftäterinnen/Straftäter dürfen nicht wählen.",
-          "translation": "All convicted criminals are not allowed to vote.",
-          "isCorrect": false
-        },
-        {
-          "id": 119,
-          "kind": "answer",
-          "text": "Wenn ich wählen gehen möchte, muss meine Arbeitgeberin/mein Arbeitgeber mir frei geben.",
-          "translation": "If I want to vote, my employer must give me time off.",
-          "isCorrect": false
-        },
-        {
-          "id": 119,
-          "kind": "answer",
           "text": "Jede Person kann ohne Zwang entscheiden, ob sie wählen möchte und wen sie wählen möchte.",
           "translation": "Each person can decide without coercion whether they want to vote and who they want to vote for.",
           "isCorrect": true
-        },
-        {
-          "id": 119,
-          "kind": "answer",
-          "text": "Ich kann frei entscheiden, wo ich wählen gehen möchte.",
-          "translation": "I can freely decide where I want to vote.",
-          "isCorrect": false
         },
         {
           "id": 122,
@@ -4772,13 +2735,6 @@
           "kind": "question",
           "text": "Was ist bei Bundestags- und Landtagswahlen in Deutschland erlaubt?",
           "translation": "What is allowed in federal and state elections in Germany?"
-        },
-        {
-          "id": 133,
-          "kind": "answer",
-          "text": "Kinder ab dem Alter von 14 Jahren dürfen wählen.",
-          "translation": "Children aged 14 and over are allowed to vote.",
-          "isCorrect": false
         },
         {
           "id": 159,
@@ -4840,13 +2796,6 @@
           "translation": "How many federal states were added to the Federal Republic of Germany when it was reunified in 1990?"
         },
         {
-          "id": 220,
-          "kind": "answer",
-          "text": "an die Wiedervereinigung Deutschlands",
-          "translation": "to the reunification of Germany",
-          "isCorrect": false
-        },
-        {
           "id": 228,
           "kind": "answer",
           "text": "Deutsche Wiedervereinigung",
@@ -4861,20 +2810,6 @@
       "context": "In the Basic Law phrase Die Würde des Menschen ist unantastbar, human dignity is inviolable and comes before ordinary politics.",
       "range": "T-Z",
       "matches": [
-        {
-          "id": 8,
-          "kind": "answer",
-          "text": "Die Würde des Menschen ist unantastbar.",
-          "translation": "Human dignity is inviolable.",
-          "isCorrect": false
-        },
-        {
-          "id": 9,
-          "kind": "answer",
-          "text": "Menschenwürde",
-          "translation": "human dignity",
-          "isCorrect": false
-        },
         {
           "id": 18,
           "kind": "answer",
@@ -4905,13 +2840,6 @@
           "kind": "question",
           "text": "Wann wurde die Bundesrepublik Deutschland gegründet?",
           "translation": "When was the Federal Republic of Germany founded?"
-        },
-        {
-          "id": 170,
-          "kind": "answer",
-          "text": "den Schutz der Menschenwürde",
-          "translation": "the protection of human dignity",
-          "isCorrect": false
         },
         {
           "id": 172,
@@ -4966,13 +2894,6 @@
           "kind": "question",
           "text": "2007 wurde das 50-jährige Jubiläum der \"Römischen Verträge\" gefeiert. Was war der Inhalt der Verträge?",
           "translation": "In 2007 the 50th anniversary of the “Treaty of Rome” was celebrated. What was the content of the contracts?"
-        },
-        {
-          "id": 262,
-          "kind": "answer",
-          "text": "Niemand darf gegen Personen klagen, wenn sie benachteiligt wurden.",
-          "translation": "Nobody is allowed to sue people if they have been disadvantaged.",
-          "isCorrect": false
         },
         {
           "id": 299,
