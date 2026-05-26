@@ -458,6 +458,28 @@ test("long mobile question typography does not overflow", async ({ page }) => {
   }
 });
 
+test("bottom navigation stays pinned to the viewport", async ({ page }) => {
+  for (const viewport of [
+    { width: 1280, height: 720 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await openTrainer(page);
+
+    const nav = page.locator("#cardNav");
+    await expect(nav).toBeVisible();
+    await expect(nav).toHaveCSS("position", "sticky");
+
+    await page.locator("#card").evaluate((card) => {
+      card.scrollTop = card.scrollHeight;
+    });
+
+    const navBox = await nav.boundingBox();
+    expect(navBox).not.toBeNull();
+    expect(Math.abs(navBox.y + navBox.height - viewport.height)).toBeLessThanOrEqual(2);
+  }
+});
+
 test("desktop review panel stays open after selecting a filter", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 860 });
   await openTrainer(page);

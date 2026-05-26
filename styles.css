@@ -2259,6 +2259,9 @@ button {
 }
 
 .bp-nav {
+  position: sticky;
+  bottom: 0;
+  z-index: 6;
   display: grid;
   grid-template-columns: minmax(64px, 0.9fr) minmax(128px, 1.18fr) minmax(72px, 0.9fr);
   border-top: 1px solid var(--bp-rule);
