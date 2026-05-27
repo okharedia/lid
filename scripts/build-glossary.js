@@ -3,7 +3,27 @@ const path = require("node:path");
 
 const root = path.join(__dirname, "..");
 const data = JSON.parse(fs.readFileSync(path.join(root, "data/lid-berlin-source-of-truth.json"), "utf8"));
-const sourceQuestions = Array.isArray(data) ? data : data.questions;
+function normalizeSourceQuestions(database) {
+  const entries = Array.isArray(database)
+    ? database.map((question) => [question.id, question])
+    : Object.entries(database?.questions || database || {});
+
+  return entries
+    .map(([id, question]) => {
+      const questionId = Number(question?.id ?? id);
+      return {
+        ...question,
+        id: questionId,
+        answers: (question.answers || []).map((answer, index) => (
+          typeof answer === "string" ? { index, text: answer } : { index: answer.index ?? index, ...answer }
+        )),
+      };
+    })
+    .filter((question) => Number.isInteger(question.id))
+    .sort((left, right) => left.id - right.id);
+}
+
+const sourceQuestions = normalizeSourceQuestions(data);
 const metadata = JSON.parse(fs.readFileSync(path.join(root, "data/lid-berlin-question-metadata.json"), "utf8"));
 const i18n = JSON.parse(fs.readFileSync(path.join(root, "data/i18n/en.json"), "utf8"));
 const messages = i18n.messages || {};

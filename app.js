@@ -295,6 +295,26 @@ function correctAnswerIndex(question) {
   return question?.correctAnswerIndex ?? question?.correctIndex ?? 0;
 }
 
+function normalizeSourceQuestions(database) {
+  const entries = Array.isArray(database)
+    ? database.map((question) => [question.id, question])
+    : Object.entries(database?.questions || database || {});
+
+  return entries
+    .map(([id, question]) => {
+      const questionId = Number(question?.id ?? id);
+      return {
+        ...question,
+        id: questionId,
+        answers: (question.answers || []).map((answer, index) => (
+          typeof answer === "string" ? { index, text: answer } : { index: answer.index ?? index, ...answer }
+        )),
+      };
+    })
+    .filter((question) => Number.isInteger(question.id))
+    .sort((left, right) => left.id - right.id);
+}
+
 function glossaryRefs(card) {
   return card.glossaryRefs || [];
 }
@@ -1829,7 +1849,7 @@ async function init() {
   const glossaryResponse = await fetch("/data/glossary.json", { cache: "no-store" });
   if (!glossaryResponse.ok) throw new Error(ui("ui.error.loadDatabase", { status: glossaryResponse.status }));
   glossary = await glossaryResponse.json();
-  const sourceQuestions = Array.isArray(database) ? database : database.questions;
+  const sourceQuestions = normalizeSourceQuestions(database);
   questions = sourceQuestions.map((question) => {
     const meta = metadataById.get(question.id) || {};
     const answerMetaByIndex = new Map((meta.answers || []).map((answer) => [answer.index, answer]));

@@ -909,15 +909,13 @@
             <article class="example-card">
               <h4><svg class="icon" aria-hidden="true"><use href="#tabler-database"></use></svg> Slim question source</h4>
               <pre><code>{
-  <span class="json-key">"id"</span>: <span class="json-num">166</span>,
-  <span class="json-key">"question"</span>: <span class="json-string">"Bei welchen Demonstrationen ..."</span>,
-  <span class="json-key">"correctAnswerIndex"</span>: <span class="json-num">3</span>,
-  <span class="json-key">"answers"</span>: [
-    {
-      <span class="json-key">"index"</span>: <span class="json-num">0</span>,
-      <span class="json-key">"text"</span>: <span class="json-string">"beim Arbeiteraufstand 1953 in der DDR"</span>
-    }
-  ]
+  <span class="json-key">"166"</span>: {
+    <span class="json-key">"question"</span>: <span class="json-string">"Bei welchen Demonstrationen ..."</span>,
+    <span class="json-key">"correctAnswerIndex"</span>: <span class="json-num">3</span>,
+    <span class="json-key">"answers"</span>: [
+      <span class="json-string">"beim Arbeiteraufstand 1953 in der DDR"</span>
+    ]
+  }
 }</code></pre>
             </article>
             <article class="example-card">
@@ -1058,7 +1056,7 @@
         },
         truth: {
           title: "Source-of-truth JSON",
-          body: "data/lid-berlin-source-of-truth.json is intentionally slim: a flat array of official German questions, official German answers, image references, and correctAnswerIndex."
+          body: "data/lid-berlin-source-of-truth.json is intentionally slim: a question-ID-keyed object containing official German questions, official German answer strings, image references, and correctAnswerIndex."
         },
         i18n: {
           title: "Translation catalog",
@@ -1076,17 +1074,15 @@
 
       const schemaSnippets = {
         question: `// data/lid-berlin-source-of-truth.json
-Question 166 {
-  id: 166,
+{
+  "166": {
   question: "Bei welchen Demonstrationen in Deutschland riefen die Menschen \"Wir sind das Volk\"?",
   correctAnswerIndex: 3,
-  answers: Answer[]
+  answers: string[]
+  }
 }`,
-        answer: `// one item inside questions[166].answers
-Answer {
-  index: 0,
-  text: "beim Arbeiteraufstand 1953 in der DDR"
-}`,
+        answer: `// one item inside source["166"].answers
+"beim Arbeiteraufstand 1953 in der DDR"`,
         study: `// data/lid-berlin-question-metadata.json
 QuestionMetadata 166 {
   id: 166,

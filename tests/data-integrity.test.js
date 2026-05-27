@@ -21,7 +21,30 @@ const messages = i18n.messages;
 const indexHtml = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8");
 const glossaryDesignHtml = fs.readFileSync(path.join(__dirname, "..", "design/Glossary.html"), "utf8");
 const metadataById = new Map(metadata.questions.map((question) => [question.id, question]));
-const sourceQuestions = Array.isArray(data) ? data : data.questions;
+function normalizeSourceQuestions(database) {
+  const entries = Array.isArray(database)
+    ? database.map((question) => [question.id, question])
+    : Object.entries(database?.questions || database || {});
+
+  return entries
+    .map(([id, question]) => {
+      const questionId = Number(question?.id ?? id);
+      return {
+        ...question,
+        id: questionId,
+        answers: (question.answers || []).map((answer, index) => (
+          typeof answer === "string" ? { index, text: answer } : { index: answer.index ?? index, ...answer }
+        )),
+      };
+    })
+    .filter((question) => Number.isInteger(question.id))
+    .sort((left, right) => left.id - right.id);
+}
+
+const sourceQuestionEntries = Array.isArray(data)
+  ? data.map((question) => [String(question.id), question])
+  : Object.entries(data.questions || data);
+const sourceQuestions = normalizeSourceQuestions(data);
 const questions = sourceQuestions.map((question) => {
   const meta = metadataById.get(question.id) || {};
   const answerMetaByIndex = new Map((meta.answers || []).map((answer) => [answer.index, answer]));
@@ -50,14 +73,24 @@ test("source-of-truth stays slim and avoids derived learner fields", () => {
   const forbiddenAnswerFields = ["isCorrect", "dangerWords", "translationKey", "whyKey"];
   const problems = [];
 
-  for (const question of sourceQuestions) {
+  for (const [id, question] of sourceQuestionEntries) {
+    if (!/^[1-9]\d*$/.test(id)) problems.push(`source key ${id} should be a question id`);
     for (const field of forbiddenQuestionFields) {
-      if (field in question) problems.push(`Q${question.id} source question still has ${field}`);
+      if (field in question) problems.push(`Q${id} source question still has ${field}`);
     }
-    if (!Number.isInteger(question.correctAnswerIndex)) problems.push(`Q${question.id} missing correctAnswerIndex`);
-    for (const answer of question.answers) {
+    if ("id" in question) problems.push(`Q${id} source question still has id`);
+    if (!Number.isInteger(question.correctAnswerIndex)) problems.push(`Q${id} missing correctAnswerIndex`);
+    if (!Array.isArray(question.answers)) problems.push(`Q${id} missing answers array`);
+    if (question.answers?.length !== 4) problems.push(`Q${id} should have four answers`);
+    if (question.answers && !question.answers[question.correctAnswerIndex]) {
+      problems.push(`Q${id} correctAnswerIndex does not point to an answer`);
+    }
+    for (const [index, answer] of (question.answers || []).entries()) {
+      if (typeof answer !== "string") problems.push(`Q${id} answer[${index}] should be a string`);
       for (const field of forbiddenAnswerFields) {
-        if (field in answer) problems.push(`Q${question.id} answer[${answer.index}] source answer still has ${field}`);
+        if (answer && typeof answer === "object" && field in answer) {
+          problems.push(`Q${id} answer[${index}] source answer still has ${field}`);
+        }
       }
     }
   }
