@@ -42,7 +42,7 @@ This pass keeps the static LiD trainer architecture and Tabler icons, but shifts
 - Snackbar: short-lived confirmation surface for reversible study actions, currently used for `Marked as mastered` with `Undo`.
 - Jump dialog: small Material-style modal for direct question navigation from the progress counter.
 - Empty states: softened copy and icon treatment, using sentence case instead of command-like uppercase.
-- Compact phone tuning: under 430px, hide the truncated category label in the question meta row, reduce headline/answer type scale, tighten top-bar controls, and protect the bottom action bar from clipping down to 280px wide.
+- Compact phone tuning: under 430px, hide the truncated category label in the question meta row, reduce headline/answer type scale, tighten top-bar controls, shorten the bottom mastered action to `Mastered`, and protect the bottom action bar from clipping down to 280px wide.
 
 ## Implementation Notes
 

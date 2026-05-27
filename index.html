@@ -384,7 +384,11 @@
         <button id="prevButton" type="button" aria-label="Previous" data-i18n-aria-label="ui.nav.previousQuestion">
           <svg class="icon arrow" aria-hidden="true"><use href="#tabler-arrow-left"></use></svg> <span data-i18n="ui.nav.prev">Prev</span>
         </button>
-        <button id="middleButton" class="known-btn" type="button"><svg class="icon" aria-hidden="true"><use href="#tabler-star"></use></svg> <span data-i18n="ui.mastered.mark">Mark as mastered</span></button>
+        <button id="middleButton" class="known-btn" type="button">
+          <svg class="icon" aria-hidden="true"><use href="#tabler-star"></use></svg>
+          <span class="mastered-label-full" data-i18n="ui.mastered.mark">Mark as mastered</span>
+          <span class="mastered-label-compact" data-i18n="ui.tab.mastered">Mastered</span>
+        </button>
         <button id="nextButton" type="button">
           <span data-i18n="ui.nav.next">Next</span> <svg class="icon arrow" aria-hidden="true"><use href="#tabler-arrow-right"></use></svg>
         </button>

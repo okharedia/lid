@@ -1024,7 +1024,9 @@ function renderNav(card, isLearn, isAnswered, total) {
     els.middleButton.className = `known-btn ${isKnown ? "on" : ""}`;
     els.middleButton.disabled = !card;
     els.middleButton.setAttribute("aria-label", ui(isKnown ? "ui.mastered.remove" : "ui.mastered.mark"));
-    els.middleButton.innerHTML = isKnown ? `${icon("star", "mastered-icon")} ${uiHtml("ui.tab.mastered")}` : `${icon("star")} ${uiHtml("ui.mastered.mark")}`;
+    els.middleButton.innerHTML = isKnown
+      ? `${icon("star", "mastered-icon")} <span>${uiHtml("ui.tab.mastered")}</span>`
+      : `${icon("star")} <span class="mastered-label-full">${uiHtml("ui.mastered.mark")}</span><span class="mastered-label-compact">${uiHtml("ui.tab.mastered")}</span>`;
     els.nextButton.disabled = !card || nextIndex === state.index;
     els.nextButton.setAttribute("aria-label", ui("ui.nav.nextQuestion"));
     els.nextButton.innerHTML = `${uiHtml("ui.nav.next")} ${icon("arrow-right", "arrow")}`;

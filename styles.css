@@ -2337,6 +2337,10 @@ button {
   padding-inline: 12px;
 }
 
+.bp-nav .mastered-label-compact {
+  display: none;
+}
+
 .bp-nav .known-btn.on {
   background: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
@@ -4095,6 +4099,14 @@ button {
     font-size: 12px;
   }
 
+  .bp-nav .mastered-label-full {
+    display: none;
+  }
+
+  .bp-nav .mastered-label-compact {
+    display: inline;
+  }
+
   .bp-app.fit-tight .bp-card {
     padding-top: var(--md-density-compact-card-padding-top);
     padding-bottom: var(--md-density-compact-card-padding-bottom);
@@ -4286,6 +4298,10 @@ button {
   }
 
   .bp-nav .known-btn span {
+    display: inline;
+  }
+
+  .bp-nav .known-btn .mastered-label-full {
     display: none;
   }
 }
