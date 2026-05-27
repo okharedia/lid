@@ -42,6 +42,7 @@ This pass keeps the static LiD trainer architecture and Tabler icons, but shifts
 - Snackbar: short-lived confirmation surface for reversible study actions, currently used for `Marked as mastered` with `Undo`.
 - Jump dialog: small Material-style modal for direct question navigation from the progress counter.
 - Empty states: softened copy and icon treatment, using sentence case instead of command-like uppercase.
+- Compact phone tuning: under 430px, hide the truncated category label in the question meta row, reduce headline/answer type scale, tighten top-bar controls, and protect the bottom action bar from clipping down to 280px wide.
 
 ## Implementation Notes
 
@@ -54,6 +55,7 @@ This pass keeps the static LiD trainer architecture and Tabler icons, but shifts
 - Answers are exposed as a radio group while preserving the existing button interaction model.
 - Theme preference defaults to system, then persists light/dark/system after explicit user selection.
 - Dark-mode screenshots live alongside light screenshots in `design/screenshots/md3-*-dark.png`.
+- Compact mobile QA screenshots live in `design/screenshots/mobile-compact-280-q2.png`, `design/screenshots/mobile-compact-320-q2.png`, and `design/screenshots/mobile-compact-390-q2.png`.
 - Surface hierarchy is intentionally token-first: app canvas, app bar, review rail, card content, bottom navigation, dialogs, snackbars, and study sheet each use a named Material surface role.
 - Disabled and dimmed answer states avoid low-opacity text in dark mode; contrast comes from tokenized disabled color and softer containers.
 - Adaptive layout follows MD3 window-size intent: compact under 600px uses a modal drawer, medium 600-839px uses a non-modal standard drawer, and expanded 840px+ uses the persistent rail/drawer layout.

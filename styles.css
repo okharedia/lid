@@ -3843,16 +3843,23 @@ button {
   }
 
   .bp-top {
-    min-height: 76px;
-    padding: 10px 18px;
+    min-height: 64px;
+    padding: 8px 14px;
   }
 
   .bp-top-actions {
-    gap: 6px;
+    gap: 5px;
+  }
+
+  .bp-filter-toggle,
+  .bp-icon-button {
+    width: 44px;
+    height: 44px;
   }
 
   .bp-language {
-    min-width: 58px;
+    min-width: 62px;
+    height: 44px;
     padding: 0 8px;
   }
 
@@ -4010,24 +4017,42 @@ button {
     min-height: 0;
     overflow-x: hidden;
     overflow-y: auto;
+    padding-inline: 16px;
   }
 
   .bp-q-label {
     font-size: 11px;
-    gap: 6px;
+    gap: 5px;
   }
 
   .progress-nav {
-    gap: 10px;
+    grid-template-columns: 30px minmax(66px, auto) 30px;
+    gap: 6px;
+  }
+
+  .progress,
+  .progress-step {
+    min-height: 30px;
+  }
+
+  .progress {
+    min-width: 66px;
+    padding: 0 8px;
+    font-size: 13px;
+  }
+
+  .progress-step {
+    width: 30px;
   }
 
   .bp-q {
-    font-size: clamp(22px, 6.5vw, 28px);
+    font-size: clamp(20px, 5.4vw, 23px);
+    line-height: 1.1;
   }
 
   .bp-q-en {
     margin-top: -2px;
-    font-size: 13.5px;
+    font-size: 13px;
     line-height: 1.4;
   }
 
@@ -4038,7 +4063,7 @@ button {
   }
 
   .bp-answer .text {
-    font-size: var(--bp-type-answer-size);
+    font-size: 15.5px;
     line-height: var(--bp-type-answer-line-height);
   }
 
@@ -4053,7 +4078,7 @@ button {
   }
 
   .bp-study-dock {
-    margin: 0 10px;
+    margin: 0 8px;
     overflow-y: hidden;
   }
 
@@ -4066,8 +4091,8 @@ button {
   }
 
   .bp-nav button {
-    padding: 0 10px;
-    font-size: var(--bp-type-nav-label-compact-size);
+    padding: 0 8px;
+    font-size: 12px;
   }
 
   .bp-app.fit-tight .bp-card {
@@ -4136,6 +4161,132 @@ button {
   .cat-pill:not([aria-pressed="true"]):hover,
   .theme-control button:not([aria-pressed="true"]):hover {
     background: transparent;
+  }
+}
+
+@media (max-width: 430px) {
+  .bp-q-label #categoryLabel {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .bp-top {
+    min-height: 58px;
+    padding: 7px 10px;
+  }
+
+  .bp-top-actions {
+    gap: 4px;
+  }
+
+  .bp-filter-toggle,
+  .bp-icon-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .bp-language {
+    min-width: 56px;
+    height: 40px;
+    padding: 0 6px;
+  }
+
+  .bp-language .icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .bp-language select {
+    font-size: 11px;
+  }
+
+  .bp-top-actions .icon,
+  .bp-primary-nav .icon,
+  .bp-filter-toggle .icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .bp-card {
+    padding-inline: 14px;
+  }
+
+  .bp-q-label .tag {
+    padding-inline: 8px;
+  }
+
+  .progress-nav {
+    margin-left: auto;
+    grid-template-columns: 28px minmax(62px, auto) 28px;
+    gap: 5px;
+  }
+
+  .progress,
+  .progress-step {
+    min-height: 28px;
+  }
+
+  .progress {
+    min-width: 62px;
+    padding: 0 7px;
+    font-size: 12px;
+  }
+
+  .progress-step {
+    width: 28px;
+  }
+
+  .progress-step .icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .bp-q {
+    font-size: clamp(19px, 6vw, 22px);
+    line-height: 1.08;
+  }
+
+  .bp-q-en {
+    font-size: 12.5px;
+  }
+
+  .bp-answer {
+    padding-inline: 10px;
+  }
+
+  .bp-answer .text {
+    font-size: 14.5px;
+  }
+
+  .bp-answer .text .en {
+    font-size: 12px;
+  }
+
+  .bp-hint {
+    font-size: 13.5px;
+    line-height: 1.34;
+  }
+
+  .bp-study-dock .bp-hint {
+    padding-inline: 16px;
+  }
+
+  .bp-nav {
+    grid-template-columns: minmax(54px, 0.8fr) minmax(44px, 1fr) minmax(70px, 0.9fr);
+    gap: 6px;
+    padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+  }
+
+  .bp-nav button {
+    min-height: 42px;
+    padding: 0 7px;
+    gap: 4px;
+    font-size: 11px;
+  }
+
+  .bp-nav .known-btn span {
+    display: none;
   }
 }
 
