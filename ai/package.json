@@ -1,0 +1,25 @@
+{
+  "name": "lid-ai",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Local content-generation pipeline for LiD glossary + study notes.",
+  "scripts": {
+    "extract": "tsx extract-curriculum.ts",
+    "run": "tsx run.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^2.0.0",
+    "ai": "^6.0.0",
+    "dotenv": "^17.0.0",
+    "p-map": "^7.0.3",
+    "pdf-parse": "^1.1.1",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/pdf-parse": "^1.1.4",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
