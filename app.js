@@ -69,6 +69,7 @@ let modeTimer = 0;
 let answerTimer = 0;
 let swipeTimer = 0;
 let swipeStart = null;
+let answerTextDrag = null;
 let drawerReturnFocus = null;
 
 const els = {
@@ -994,15 +995,16 @@ function render() {
       const mark = reveal && isCorrectAnswer ? icon("check") : reveal && selected === index ? icon("x") : "";
       const answerTranslation = showTranslations ? visibleAnswerTranslation(answer) : "";
       const checked = reveal ? (isLearn ? isCorrectAnswer : selected === index) : !isLearn && selected === index;
+      const disabled = isLearn || isAnswered;
       return `
         <li>
-          <button class="${className}" type="button" role="radio" aria-checked="${checked}" data-answer="${index}" ${isLearn || isAnswered ? "disabled" : ""}>
+          <div class="${className}" role="radio" aria-checked="${checked}" aria-disabled="${disabled}" tabindex="${disabled ? -1 : 0}" data-answer="${index}">
             <span class="text">
               ${highlightedAnswerText(answer.text, card)}
               ${answerTranslation ? `<span class="en">${escapeHtml(answerTranslation)}</span>` : ""}
             </span>
-            <span class="mark">${mark}</span>
-          </button>
+            <span class="mark" aria-hidden="true">${mark}</span>
+          </div>
         </li>
       `;
     })
@@ -1306,6 +1308,43 @@ function move(step) {
   rememberCurrentProgress();
   render();
   animateMove(step);
+}
+
+function hasActiveAnswerSelection(answer) {
+  const selection = window.getSelection?.();
+  if (!selection || selection.isCollapsed || !selection.toString().trim()) return false;
+  return answer.contains(selection.anchorNode) || answer.contains(selection.focusNode);
+}
+
+function startAnswerTextDrag(event) {
+  const answer = event.target.closest("[data-answer]");
+  if (!answer || answer.getAttribute("aria-disabled") === "true") return;
+  if (!event.target.closest(".text")) return;
+  answerTextDrag = {
+    answer,
+    pointerId: event.pointerId,
+    x: event.clientX,
+    y: event.clientY,
+    moved: false,
+  };
+}
+
+function updateAnswerTextDrag(event) {
+  if (!answerTextDrag || answerTextDrag.pointerId !== event.pointerId) return;
+  const dx = event.clientX - answerTextDrag.x;
+  const dy = event.clientY - answerTextDrag.y;
+  if (Math.hypot(dx, dy) > 4) answerTextDrag.moved = true;
+}
+
+function finishAnswerTextDrag(event) {
+  if (!answerTextDrag || answerTextDrag.pointerId !== event.pointerId) return;
+  window.setTimeout(() => {
+    answerTextDrag = null;
+  }, 0);
+}
+
+function isAnswerTextDragSelection(answer) {
+  return Boolean(answerTextDrag?.moved && answerTextDrag.answer === answer);
 }
 
 function pickAnswer(index) {
@@ -1633,9 +1672,22 @@ function bindEvents() {
     openQuestionLink(link.dataset.questionLink);
   });
   els.answers.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-answer]");
-    if (!button) return;
-    pickAnswer(Number(button.dataset.answer));
+    const answer = event.target.closest("[data-answer]");
+    if (!answer || answer.getAttribute("aria-disabled") === "true") return;
+    if (isAnswerTextDragSelection(answer)) return;
+    if (hasActiveAnswerSelection(answer)) return;
+    pickAnswer(Number(answer.dataset.answer));
+  });
+  els.answers.addEventListener("pointerdown", startAnswerTextDrag);
+  els.answers.addEventListener("pointermove", updateAnswerTextDrag);
+  els.answers.addEventListener("pointerup", finishAnswerTextDrag);
+  els.answers.addEventListener("pointercancel", finishAnswerTextDrag);
+  els.answers.addEventListener("keydown", (event) => {
+    const answer = event.target.closest("[data-answer]");
+    if (!answer || answer.getAttribute("aria-disabled") === "true") return;
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    pickAnswer(Number(answer.dataset.answer));
   });
   els.firstQuestionButton.addEventListener("click", () => jumpToLearnEdge("first"));
   els.lastQuestionButton.addEventListener("click", () => jumpToLearnEdge("last"));

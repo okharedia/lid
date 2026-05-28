@@ -45,6 +45,32 @@ test("takes a two-question test through result view", async ({ page }) => {
   await expect(page.getByRole("button", { name: /Try again/ })).toBeVisible();
 });
 
+test("answer text can be selected without choosing an answer", async ({ page }) => {
+  await openTrainer(page);
+  await switchToTestMode(page);
+
+  const firstAnswer = page.locator("#answers [data-answer]").first();
+  const firstAnswerText = firstAnswer.locator(".text");
+  await expect(firstAnswer).toHaveAttribute("aria-disabled", "false");
+
+  const box = await firstAnswerText.boundingBox();
+  expect(box).not.toBeNull();
+
+  await page.mouse.move(box.x + 8, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(box.x + Math.min(box.width - 8, 220), box.y + box.height / 2, { steps: 8 });
+  await page.mouse.up();
+
+  const selectedText = await page.evaluate(() => window.getSelection().toString().trim());
+  expect(selectedText.length).toBeGreaterThan(0);
+  await expect(firstAnswer).toHaveAttribute("aria-checked", "false");
+  await expect(page.locator("#feedback")).toBeHidden();
+
+  await page.evaluate(() => window.getSelection().removeAllRanges());
+  await firstAnswer.click();
+  await expect(page.locator("#feedback")).toBeVisible();
+});
+
 test("opens question deeplinks in learn mode", async ({ page }) => {
   await page.goto("/q/24?testSize=2");
   await expect(page.locator("#questionTag")).toContainText("FRAGE 024");

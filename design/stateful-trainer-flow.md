@@ -26,6 +26,7 @@
 - The progress counter and first/last controls use borderless filled surfaces; in Test, the counter collapses to a single right-aligned pill.
 - The progress counter opens a compact anchored popover with a numeric field and icon submit button; jumping to a different number opens that question link and resets the filter to all.
 - Answer rows use borderless filled surfaces, with correctness communicated by state fill, text color, and the trailing mark. Revealed non-selected wrong answers use dedicated dim-answer tokens so the fill stays visible without dropping text below readable contrast.
+- Answer rows keep radio-option behavior while rendering selectable text, so learners can copy terms without choosing an answer.
 
 ## Known Questions
 

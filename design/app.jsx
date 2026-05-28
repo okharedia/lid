@@ -183,10 +183,13 @@ function App() {
               cls += ' is-dim';
             }
             return (
-              <li key={i}>
-                  <button
+                <li key={i}>
+                  <div
                   className={cls}
-                  disabled={isLearn || isAnswered}
+                  role="radio"
+                  aria-checked={revealNow ? isCorrectAns : selected === i}
+                  aria-disabled={isLearn || isAnswered}
+                  tabIndex={isLearn || isAnswered ? -1 : 0}
                   onClick={() => pickAnswer(i)}>
                   
                     <span className="text">
@@ -204,7 +207,7 @@ function App() {
                     <span className="mark">
                       {revealNow && isCorrectAns ? '✓' : revealNow && selected === i ? '✕' : ''}
                     </span>
-                  </button>
+                  </div>
                 </li>);
 
           })}
