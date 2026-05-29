@@ -183,8 +183,8 @@ function highlight(text, keywords) {
   return escapeHtml(text).replace(re, '<span class="kw">$1</span>');
 }
 
-function highlightAnswer(text, keywords, isCorrect, reveal) {
-  return reveal && isCorrect ? highlight(text, keywords) : escapeHtml(text);
+function highlightAnswer(text, keywords, isCorrect, reveal, isTest) {
+  return !isTest && reveal && isCorrect ? highlight(text, keywords) : escapeHtml(text);
 }
 
 function render() {
@@ -214,7 +214,7 @@ function render() {
   els.questionTag.textContent = scenario.tag;
   els.categoryLabel.textContent = scenario.category;
   els.progressText.innerHTML = `${scenario.progress.split("/")[0]}<span class="pct">/${scenario.progress.split("/")[1]}</span>`;
-  els.questionText.innerHTML = highlight(scenario.question, scenario.keywords);
+  els.questionText.innerHTML = isTest ? escapeHtml(scenario.question) : highlight(scenario.question, scenario.keywords);
   els.questionTranslation.textContent = scenario.questionEn;
   els.questionImage.classList.toggle("visible", Boolean(scenario.image));
   if (scenario.image) {
@@ -246,7 +246,7 @@ function render() {
         <li>
           <button class="${className}" type="button" ${reveal ? "disabled" : ""}>
             <span class="text">
-              ${highlightAnswer(de, scenario.keywords, i === scenario.correct, reveal)}
+              ${highlightAnswer(de, scenario.keywords, i === scenario.correct, reveal, isTest)}
               <span class="en">${escapeHtml(en)}</span>
             </span>
             <span class="mark">${reveal && i === scenario.correct ? icon("circle-check") : ""}</span>

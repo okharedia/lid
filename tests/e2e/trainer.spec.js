@@ -45,6 +45,36 @@ test("takes a two-question test through result view", async ({ page }) => {
   await expect(page.getByRole("button", { name: /Try again/ })).toBeVisible();
 });
 
+test("test mode does not highlight words in questions or answers", async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem("lid-test-size", "1");
+    localStorage.setItem("lid-trainer-v7", JSON.stringify({
+      mode: "test",
+      category: "Alle Kategorien",
+      testSession: {
+        category: "Alle Kategorien",
+        size: 2,
+        seed: 1,
+        questionIds: [1, 2],
+        answers: {},
+        index: 0,
+      },
+    }));
+  });
+
+  await openTrainer(page);
+  await expect(page.getByLabel("Primary navigation").getByRole("button", { name: "Test" })).toHaveAttribute("aria-current", "page");
+  await expect(page.locator("#questionText")).toContainText("offen etwas gegen die Regierung");
+  await expect(page.locator("#answers")).toContainText("Meinungsfreiheit");
+  await expect(page.locator("#questionText .kw")).toHaveCount(0);
+  await expect(page.locator("#answers .kw")).toHaveCount(0);
+
+  await page.locator("#answers [data-answer]").first().click();
+  await expect(page.locator("#feedback")).toBeVisible();
+  await expect(page.locator("#questionText .kw")).toHaveCount(0);
+  await expect(page.locator("#answers .kw")).toHaveCount(0);
+});
+
 test("answer text can be selected without choosing an answer", async ({ page }) => {
   await openTrainer(page);
   await switchToTestMode(page);

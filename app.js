@@ -417,7 +417,8 @@ function highlightTerms(card) {
   return glossaryRefs(card).map((ref) => ref.term || ref).filter(Boolean);
 }
 
-function highlightedText(text, card) {
+function highlightedText(text, card, enabled = true) {
+  if (!enabled) return escapeHtml(text);
   const terms = highlightTerms(card);
   if (!terms.length) return escapeHtml(text);
 
@@ -429,8 +430,8 @@ function highlightedText(text, card) {
   });
 }
 
-function highlightedAnswerText(answer, card) {
-  return highlightedText(answer, card);
+function highlightedAnswerText(answer, card, enabled = true) {
+  return highlightedText(answer, card, enabled);
 }
 
 function pad(value, width = 2) {
@@ -1050,7 +1051,7 @@ function render() {
   els.progressText.setAttribute("aria-label", ui("ui.aria.jumpToQuestionCurrent", { current: state.index + 1, total }));
   els.lastQuestionButton.hidden = !isLearn;
   els.lastQuestionButton.disabled = Boolean(state.result) || !total || lastIndex === -1 || state.index === lastIndex;
-  els.questionText.innerHTML = highlightedText(card.question, card);
+  els.questionText.innerHTML = highlightedText(card.question, card, isLearn);
   const questionTranslation = t(card.translationKey);
   els.questionTranslation.textContent = questionTranslation;
   els.questionTranslation.hidden = !showTranslations || !questionTranslation;
@@ -1093,7 +1094,7 @@ function render() {
         <li>
           <div class="${className}" role="radio" aria-checked="${checked}" aria-disabled="${disabled}" tabindex="${disabled ? -1 : 0}" data-answer="${index}">
             <span class="text">
-              ${highlightedAnswerText(answer.text, card)}
+              ${highlightedAnswerText(answer.text, card, isLearn)}
               ${answerTranslation ? `<span class="en">${escapeHtml(answerTranslation)}</span>` : ""}
             </span>
             <span class="mark" aria-hidden="true">${mark}</span>
