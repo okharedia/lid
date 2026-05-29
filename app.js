@@ -3,6 +3,17 @@ const OLD_STORAGE_KEY = "lid-trainer-v6";
 const ALL_CATS = "Alle Kategorien";
 const DEFAULT_LOCALE = "en";
 const SUPPORTED_LOCALES = new Set(["en", "es", "fr"]);
+
+// Data lives on Vercel Blob so it can be republished out-of-band (AI workflow,
+// PDF cross-checker) without a git deploy. The app always fetches from blob;
+// only UI chrome strings ship bundled with the app.
+const BLOB_BASE = "https://6kw2btozzbl6adaj.public.blob.vercel-storage.com";
+const DATA_URLS = {
+  sourceOfTruth: `${BLOB_BASE}/lid-berlin-source-of-truth.json`,
+  learnerData: `${BLOB_BASE}/lid-berlin-learner-data.json`,
+};
+const contentI18nUrl = (loc) => `${BLOB_BASE}/lid-berlin-i18n-${loc}.json`;
+const uiI18nUrl = (loc) => `/data/i18n/ui.${loc}.json`;
 const DEFAULT_TEST_SIZE = 3;
 const PASS_SCORE = 90;
 const MOTION_MEDIUM_MS = 180;
@@ -39,7 +50,9 @@ let questionById = new Map();
 let categories = [ALL_CATS];
 let messages = {};
 let locale = DEFAULT_LOCALE;
-let glossary = { ranges: ["A-D", "E-H", "I-S", "T-Z"], terms: [] };
+const GLOSSARY_RANGES = ["A-D", "E-H", "I-S", "T-Z"];
+let glossary = { ranges: GLOSSARY_RANGES, terms: [] };
+let glossaryRegistry = []; // [{ term, translationKey, explanationKey }] from learner-data
 
 const state = {
   mode: "learn",
@@ -281,13 +294,25 @@ function requestedLocale() {
   return SUPPORTED_LOCALES.has(nextLocale) ? nextLocale : DEFAULT_LOCALE;
 }
 
+async function fetchJson(url) {
+  const response = await fetch(url);
+  return response.ok ? response.json() : null;
+}
+
 async function loadMessages(nextLocale = DEFAULT_LOCALE) {
-  const response = await fetch(`/data/i18n/${nextLocale}.json`, { cache: "no-store" });
-  if (!response.ok && nextLocale !== DEFAULT_LOCALE) return loadMessages(DEFAULT_LOCALE);
-  if (!response.ok) return;
-  const translationCatalog = await response.json();
-  locale = translationCatalog.locale || nextLocale;
-  messages = translationCatalog.messages || {};
+  // UI chrome ships bundled with the app; content translations (questions +
+  // glossary) come from blob. Merge the two, falling back to the default
+  // locale for whichever isn't available yet.
+  let [ui, content] = await Promise.all([
+    fetchJson(uiI18nUrl(nextLocale)),
+    fetchJson(contentI18nUrl(nextLocale)),
+  ]);
+  if (!ui && nextLocale !== DEFAULT_LOCALE) ui = await fetchJson(uiI18nUrl(DEFAULT_LOCALE));
+  if (!content && nextLocale !== DEFAULT_LOCALE) content = await fetchJson(contentI18nUrl(DEFAULT_LOCALE));
+
+  const resolved = (ui && nextLocale) || nextLocale;
+  locale = (ui?.locale || content?.locale || resolved || nextLocale);
+  messages = { ...(ui?.messages || {}), ...(content?.messages || {}) };
   if (els.languageSelect) els.languageSelect.value = locale;
   document.documentElement.dataset.locale = locale;
 }
@@ -314,6 +339,74 @@ function normalizeSourceQuestions(database) {
     })
     .filter((question) => Number.isInteger(question.id))
     .sort((left, right) => left.id - right.id);
+}
+
+// --- runtime glossary build (was scripts/build-glossary.js at build time) ---
+function glNormalize(value = "") {
+  return String(value)
+    .toLocaleLowerCase("de-DE")
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .replace(/ß/g, "ss");
+}
+function glRangeFor(term) {
+  const firstLetter = glNormalize(term).match(/[a-z]/)?.[0] || "t";
+  if ("abcd".includes(firstLetter)) return "A-D";
+  if ("efgh".includes(firstLetter)) return "E-H";
+  if ("ijklmnopqrs".includes(firstLetter)) return "I-S";
+  return "T-Z";
+}
+function glIncludesTerm(text, term) {
+  return glNormalize(text).includes(glNormalize(term));
+}
+
+// Build the glossary view from the registry + the loaded questions + the
+// current locale's messages. Runs at init and on language change.
+function rebuildGlossary() {
+  const questionsByTerm = new Map();
+  for (const question of questions) {
+    for (const ref of question.glossaryRefs || []) {
+      const term = ref.term || ref;
+      if (!questionsByTerm.has(term)) questionsByTerm.set(term, []);
+      questionsByTerm.get(term).push(question);
+    }
+  }
+
+  const terms = glossaryRegistry
+    .filter((entry) => questionsByTerm.has(entry.term))
+    .map((entry) => {
+      const term = entry.term;
+      const translationKey = entry.translationKey || `glossary.${term}`;
+      const explanationKey = entry.explanationKey || `glossary.${term}.context`;
+      const linked = questionsByTerm.get(term) || [];
+      const matches = linked.flatMap((question) => {
+        const items = [];
+        const answer = question.answers[correctAnswerIndex(question)];
+        const inQuestion = glIncludesTerm(question.question, term);
+        const inAnswer = answer && glIncludesTerm(answer.text, term);
+        if (inQuestion) {
+          items.push({ id: question.id, kind: "question", text: question.question, translation: messages[question.translationKey] || "" });
+        }
+        if (inAnswer) {
+          items.push({ id: question.id, kind: "answer", text: answer.text, translation: messages[answer.translationKey] || "", isCorrect: true });
+        }
+        if (!inQuestion && !inAnswer) {
+          items.push({ id: question.id, kind: "question", text: question.question, translation: messages[question.translationKey] || "" });
+        }
+        return items;
+      });
+      return {
+        term,
+        translation: messages[translationKey] || term,
+        context: messages[explanationKey] || "",
+        range: glRangeFor(term),
+        matches,
+      };
+    })
+    .filter((entry) => entry.matches.length)
+    .sort((left, right) => left.term.localeCompare(right.term, "de-DE", { sensitivity: "base" }));
+
+  glossary = { ranges: GLOSSARY_RANGES, terms };
 }
 
 function glossaryRefs(card) {
@@ -1578,6 +1671,7 @@ function bindEvents() {
     const nextLocale = SUPPORTED_LOCALES.has(els.languageSelect.value) ? els.languageSelect.value : DEFAULT_LOCALE;
     localStorage.setItem("lid-locale", nextLocale);
     await loadMessages(nextLocale);
+    rebuildGlossary();
     applyStaticTranslations();
     render();
   });
@@ -1890,17 +1984,20 @@ async function init() {
   state.testImmediateFeedback = saved.testImmediateFeedback !== false;
   applyTheme();
 
-  const response = await fetch("/data/lid-berlin-source-of-truth.json", { cache: "no-store" });
-  if (!response.ok) throw new Error(ui("ui.error.loadDatabase", { status: response.status }));
-  const database = await response.json();
-  const metadataResponse = await fetch("/data/lid-berlin-question-metadata.json", { cache: "no-store" });
-  if (!metadataResponse.ok) throw new Error(ui("ui.error.loadDatabase", { status: metadataResponse.status }));
-  const metadata = await metadataResponse.json();
+  // Questions + learner data come from blob (republishable without a deploy).
+  const [database, metadata] = await Promise.all([
+    fetch(DATA_URLS.sourceOfTruth).then((r) => {
+      if (!r.ok) throw new Error(ui("ui.error.loadDatabase", { status: r.status }));
+      return r.json();
+    }),
+    fetch(DATA_URLS.learnerData).then((r) => {
+      if (!r.ok) throw new Error(ui("ui.error.loadDatabase", { status: r.status }));
+      return r.json();
+    }),
+  ]);
   const metadataById = new Map((metadata.questions || []).map((question) => [question.id, question]));
   const glossaryKeyByTerm = new Map((metadata.glossary || []).map((entry) => [entry.term, entry.translationKey]));
-  const glossaryResponse = await fetch("/data/glossary.json", { cache: "no-store" });
-  if (!glossaryResponse.ok) throw new Error(ui("ui.error.loadDatabase", { status: glossaryResponse.status }));
-  glossary = await glossaryResponse.json();
+  glossaryRegistry = metadata.glossary || [];
   const sourceQuestions = normalizeSourceQuestions(database);
   questions = sourceQuestions.map((question) => {
     const meta = metadataById.get(question.id) || {};
@@ -1930,6 +2027,7 @@ async function init() {
   questionById = new Map(questions.map((question) => [question.id, question]));
   categories = [ALL_CATS, ...new Set(questions.map((question) => question.theme))];
   if (!categories.includes(state.category)) state.category = ALL_CATS;
+  rebuildGlossary();
 
   bindEvents();
   const hasQuestionLink = applyQuestionLinkFromUrl();
