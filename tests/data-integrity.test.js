@@ -105,7 +105,13 @@ test("learner metadata uses glossary refs and notes instead of hint-memory keywo
     if (/^questions\.\d+\.study\.(hint|memory)$/.test(key)) problems.push(`old study key remains: ${key}`);
   }
   for (const question of metadata.questions) {
-    if (!question.study?.noteKey || !question.study?.note) problems.push(`Q${question.id} missing German study note metadata`);
+    // Every question carries a study note entry with a translation key. The
+    // German note itself may be an empty string for pure-recall questions
+    // (capital city, bare date, abbreviation expansion) — those intentionally
+    // have no learner note.
+    if (!question.study?.noteKey || typeof question.study?.note !== "string") {
+      problems.push(`Q${question.id} missing German study note metadata`);
+    }
     if ("keywordRefs" in question || "highlightTerms" in question || "dangerTerms" in question) {
       problems.push(`Q${question.id} still uses old keyword/highlight/danger metadata`);
     }
@@ -221,7 +227,11 @@ test("generated glossary is sourced from real question glossary refs", () => {
     if (!term.translation || !term.context || !term.matches?.length) {
       problems.push(`${term.term} is missing translation, context, or matches`);
     }
-    if (/\b(cards?|linked|questions?|exam|tested|practice items?)\b|used to test|appears in .* questions|quick anchor/i.test(term.context)) {
+    // Reject exam/UI/test meta-language and the old auto-generated placeholder
+    // templates. Targets meta *phrases* — not innocent civic prose that happens
+    // to use words like "linked" ("the right is linked to age 18") or "question"
+    // ("a legal question arises").
+    if (/\bflash ?cards?\b|\bpractice items?\b|appears in .{0,40}questions?|used to test|\b(is|are|being) tested\b|quick anchor|in this question\b|on the (test|exam)\b|this exam\b|memoriz/i.test(term.context)) {
       problems.push(`${term.term} has placeholder learner context: ${term.context}`);
     }
     if (new RegExp(`^${term.term.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&")}\\s+means\\b`, "i").test(term.context)) {
