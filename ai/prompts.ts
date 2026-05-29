@@ -76,7 +76,10 @@ Aufgaben:
    - \`canonical\`: Singular/Grundform,
    - \`draftExplanation\`: kurze deutsche Erklärung im Kontext DIESER Frage und der richtigen Antwort (2–3 Sätze, sachlich, ohne Prüfungssprache).
 
-Wenn nach den Filterregeln kein sinnvoller Begriff übrig bleibt, gib eine leere Liste zurück.`;
+Wenn nach den Filterregeln kein sinnvoller Begriff übrig bleibt, gib eine leere Liste zurück.
+
+Gib GENAU dieses JSON-Format zurück (exakt diese Schlüssel, keine zusätzlichen):
+{"needsNote": true, "noteReason": "...", "candidateTerms": [{"surface": "...", "canonical": "...", "draftExplanation": "..."}]}`;
 }
 
 export function buildFinalGlossaryPrompt(group: MergedTermGroup): string {
@@ -96,7 +99,10 @@ Anforderungen:
 - Funktioniert für ALLE verlinkten Fragen, nicht nur eine.
 - Synthese der Roh-Erklärungen, nicht blind kopieren.
 - Stabile zivilgesellschaftliche / rechtliche / historische Hintergründe — keine aktuellen Politiknamen oder Tagesfakten.
-- Keine Prüfungs-, UI- oder Eselsbrücken-Sprache.`;
+- Keine Prüfungs-, UI- oder Eselsbrücken-Sprache.
+
+Gib GENAU dieses JSON-Format zurück (exakt dieser Schlüssel, keine zusätzlichen):
+{"explanation": "..."}`;
 }
 
 export function buildFinalNotePrompt(
@@ -122,7 +128,10 @@ Anforderungen:
 - Erklärt den Kontext genau dieser Frage und warum die richtige Antwort passt.
 - Unterscheidet sich klar von den Glossarerklärungen — sie wiederholt diese nicht.
 - Spricht direkt vom Thema, nicht von der Frage. Keine Phrasen wie „Die Frage zeigt …", „In dieser Frage geht es …".
-- Keine Eselsbrücken, kein UI-Bezug, keine Prüfungssprache, keine zeitabhängigen Fakten.`;
+- Keine Eselsbrücken, kein UI-Bezug, keine Prüfungssprache, keine zeitabhängigen Fakten.
+
+Gib GENAU dieses JSON-Format zurück (exakt dieser Schlüssel "note", keine zusätzlichen Schlüssel wie "id" oder "study_note"):
+{"note": "..."}`;
 }
 
 export function buildTranslationPrompt(items: Array<{ key: string; de: string }>): string {
@@ -135,6 +144,9 @@ Rules:
 - Keep German civic proper nouns (Grundgesetz, Bundestag, Bundesrat, Bundespräsident, DDR, etc.) in German; add a short English gloss in parentheses only on first mention if a learner would need it.
 - Preserve neutral, factual tone. Do not embellish.
 - Return one item per input key. The \`key\` field must match the input exactly.
+
+Return EXACTLY this JSON shape — ALWAYS an "items" array, even for a single item:
+{"items": [{"key": "...", "en": "..."}]}
 
 Items:
 ${lines}`;
@@ -150,6 +162,9 @@ Rules:
 - German proper nouns of institutions/laws/eras keep their German form (e.g. "Grundgesetz" → "Basic Law" is fine; "Bundestag" → "Bundestag"; "DDR" → "East Germany"; "Holocaust" → "Holocaust").
 - Years and dates: translate naturally ("3. Oktober" → "3 October"; "1989" → "1989").
 - Return one item per key. The \`key\` field must match the input exactly.
+
+Return EXACTLY this JSON shape — ALWAYS an "items" array, even for a single item:
+{"items": [{"key": "...", "en": "..."}]}
 
 Terms:
 ${lines}`;

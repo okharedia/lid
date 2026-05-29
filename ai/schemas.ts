@@ -59,11 +59,22 @@ export const FinalGlossarySchema = z.object({
 });
 export type FinalGlossary = z.infer<typeof FinalGlossarySchema>;
 
-export const FinalNoteSchema = z.object({
+// Lenient: the CLI path sometimes returns `study_note`/`studyNote`/`text`
+// instead of `note`. Coerce common aliases before validation.
+export const FinalNoteSchema = z.preprocess((v) => {
+  if (v && typeof v === 'object' && !Array.isArray(v)) {
+    const o = v as Record<string, unknown>;
+    if (typeof o.note !== 'string') {
+      const alt = o.study_note ?? o.studyNote ?? o.studienote ?? o.text;
+      if (typeof alt === 'string') return { note: alt };
+    }
+  }
+  return v;
+}, z.object({
   note: z
     .string()
     .describe('One or two short German sentences explaining the civic context of this question. No memory tricks, no exam meta language, no "Die Frage zeigt …" or "In dieser Frage geht es …".'),
-});
+}));
 export type FinalNote = z.infer<typeof FinalNoteSchema>;
 
 // Translation batching: one call translates up to N items. Items are addressed
@@ -72,9 +83,20 @@ export const TranslationItemSchema = z.object({
   key: z.string().describe('Stable key passed by the caller; must be returned unchanged.'),
   en: z.string().describe('English translation. Plain learner prose, no meta language.'),
 });
-export const TranslationBatchSchema = z.object({
+// Lenient: the CLI path sometimes returns a bare array or a single {key,en}
+// object instead of {items:[...]}. Normalise to the wrapped shape.
+function wrapItems(v: unknown): unknown {
+  if (Array.isArray(v)) return { items: v };
+  if (v && typeof v === 'object') {
+    const o = v as Record<string, unknown>;
+    if (!('items' in o) && 'key' in o && 'en' in o) return { items: [o] };
+  }
+  return v;
+}
+
+export const TranslationBatchSchema = z.preprocess(wrapItems, z.object({
   items: arrayOrJsonString(TranslationItemSchema),
-});
+}));
 export type TranslationBatch = z.infer<typeof TranslationBatchSchema>;
 
 // Short English label for a glossary term (e.g. "asylum" for "Asyl").
@@ -82,9 +104,9 @@ export const ShortLabelItemSchema = z.object({
   key: z.string(),
   en: z.string().describe('Short English label, 1–4 words, lowercase unless a proper noun. No definitions, no sentences.'),
 });
-export const ShortLabelBatchSchema = z.object({
+export const ShortLabelBatchSchema = z.preprocess(wrapItems, z.object({
   items: arrayOrJsonString(ShortLabelItemSchema),
-});
+}));
 export type ShortLabelBatch = z.infer<typeof ShortLabelBatchSchema>;
 
 // Final on-disk artifact shape.

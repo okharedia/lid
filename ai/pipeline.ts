@@ -4,7 +4,8 @@ import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
 import pMap from 'p-map';
 
-import { call, MODEL } from './llm.js';
+import { call, MODEL, TRANSLATION_MODEL } from './llm.js';
+import { appendCheckpoint, loadCheckpoint } from './ckpt.js';
 import {
   buildFinalGlossaryPrompt,
   buildFinalNotePrompt,
@@ -32,9 +33,19 @@ const METADATA_JSON = resolve(REPO_ROOT, 'data/lid-berlin-question-metadata.json
 const CURRICULUM_MD = resolve(__dirname, 'curriculum.md');
 const OUT_DIR = resolve(__dirname, 'out');
 
-// Tier-1 Anthropic rate limit is 30k input tokens/min. Concurrency 2 keeps us
-// safely under it even when several calls in flight all miss cache.
-const CONCURRENCY = 2;
+// Resumable checkpoints (append-only JSONL). Successful results are flushed as
+// they complete; a re-run skips keys already present. gitignored via out/.
+const CKPT = {
+  perQuestion: resolve(OUT_DIR, 'ckpt-per-question.jsonl'),
+  glossary: resolve(OUT_DIR, 'ckpt-glossary-de.jsonl'),
+  notes: resolve(OUT_DIR, 'ckpt-notes-de.jsonl'),
+  translations: resolve(OUT_DIR, 'ckpt-translations.jsonl'),
+};
+
+// Concurrency. For the API path, tier-1 rate limit (30k input tokens/min)
+// caps this ~2. For the CLI path each call is a ~30s process cold-start, so
+// higher parallelism is the main speed lever. Override via CONCURRENCY env.
+const CONCURRENCY = Number(process.env.CONCURRENCY ?? (process.env.USE_CLAUDE_CLI ? 6 : 2));
 const TRANSLATION_BATCH = 12;
 
 interface RawQuestion {
@@ -100,7 +111,10 @@ async function stagePerQuestion(
   questions: MinimalQuestion[],
   system: string,
 ): Promise<PerQuestionEntry[]> {
+  const cache = loadCheckpoint<PerQuestionResult>(CKPT.perQuestion);
   const runOne = async (q: MinimalQuestion): Promise<PerQuestionEntry> => {
+    const cached = cache.get(q.id);
+    if (cached) return { id: q.id, ...cached };
     try {
       const result = await call({
         schema: PerQuestionResultSchema,
@@ -109,6 +123,7 @@ async function stagePerQuestion(
         user: buildPerQuestionPrompt(q),
         maxOutputTokens: 1500,
       });
+      appendCheckpoint(CKPT.perQuestion, q.id, result);
       return { id: q.id, ...result };
     } catch (err) {
       logFail(`per-question q${q.id}`, err);
@@ -116,25 +131,36 @@ async function stagePerQuestion(
     }
   };
 
+  const todo = questions.filter((q) => !cache.has(q.id));
+  console.log(`  resume: ${questions.length - todo.length}/${questions.length} from checkpoint, ${todo.length} to fetch`);
+
   const results: PerQuestionEntry[] = [];
-  if (questions.length === 0) return results;
+  if (todo.length === 0) return questions.map((q) => ({ id: q.id, ...cache.get(q.id)! }));
+
+  // Warm the prompt cache with one call before fanning out.
   process.stdout.write('  warming prompt cache... ');
-  results.push(await runOne(questions[0]!));
+  const warmDone = await runOne(todo[0]!);
   process.stdout.write('done\n');
 
   let done = 1;
-  const total = questions.length;
-  const rest = await pMap(
-    questions.slice(1),
+  const total = todo.length;
+  await pMap(
+    todo.slice(1),
     async (q) => {
-      const r = await runOne(q);
+      await runOne(q);
       done += 1;
       if (done % 25 === 0 || done === total) process.stdout.write(`  per-question ${done}/${total}\n`);
-      return r;
     },
     { concurrency: CONCURRENCY },
   );
-  return [...results, ...rest];
+  void warmDone;
+
+  // Reload so the returned set includes everything (cached + freshly written).
+  const merged = loadCheckpoint<PerQuestionResult>(CKPT.perQuestion);
+  return questions.map((q) => {
+    const r = merged.get(q.id);
+    return r ? { id: q.id, ...r } : { id: q.id, needsNote: false, noteReason: 'extraction-failed', candidateTerms: [] };
+  });
 }
 
 // Stage 3: deterministic merge by canonical (case-insensitive, German locale).
@@ -179,23 +205,30 @@ async function stageFinalGlossary(
   merged: MergedTermGroup[],
   system: string,
 ): Promise<GlossaryEntryDe[]> {
+  const cache = loadCheckpoint<string>(CKPT.glossary); // term -> explanationDe
+  const todoCount = merged.filter((g) => !cache.has(g.canonical)).length;
+  console.log(`  resume: ${merged.length - todoCount}/${merged.length} from checkpoint, ${todoCount} to fetch`);
+
   let done = 0;
   const total = merged.length;
   const entries = await pMap(
     merged,
     async (g) => {
-      let explanationDe = '';
-      try {
-        const result = await call({
-          schema: FinalGlossarySchema,
-          schemaName: 'FinalGlossary',
-          system,
-          user: buildFinalGlossaryPrompt(g),
-          maxOutputTokens: 800,
-        });
-        explanationDe = result.explanation;
-      } catch (err) {
-        logFail(`glossary "${g.canonical}"`, err);
+      let explanationDe = cache.get(g.canonical) ?? '';
+      if (!explanationDe) {
+        try {
+          const result = await call({
+            schema: FinalGlossarySchema,
+            schemaName: 'FinalGlossary',
+            system,
+            user: buildFinalGlossaryPrompt(g),
+            maxOutputTokens: 800,
+          });
+          explanationDe = result.explanation;
+          appendCheckpoint(CKPT.glossary, g.canonical, explanationDe);
+        } catch (err) {
+          logFail(`glossary "${g.canonical}"`, err);
+        }
       }
       done += 1;
       if (done % 20 === 0 || done === total) process.stdout.write(`  glossary ${done}/${total}\n`);
@@ -227,7 +260,11 @@ async function stageFinalNotes(
     }
   }
 
+  const cache = loadCheckpoint<string>(CKPT.notes); // id -> noteDe
   const toWrite = questions.filter((q) => needsNoteById.get(q.id));
+  const todoCount = toWrite.filter((q) => !cache.has(q.id)).length;
+  console.log(`  resume: ${toWrite.length - todoCount}/${toWrite.length} from checkpoint, ${todoCount} to fetch`);
+
   let done = 0;
   const total = toWrite.length;
 
@@ -235,18 +272,21 @@ async function stageFinalNotes(
     toWrite,
     async (q) => {
       const linked = glossaryByQuestion.get(q.id) ?? [];
-      let noteDe = '';
-      try {
-        const result = await call({
-          schema: FinalNoteSchema,
-          schemaName: 'FinalNote',
-          system,
-          user: buildFinalNotePrompt(q, linked),
-          maxOutputTokens: 600,
-        });
-        noteDe = result.note;
-      } catch (err) {
-        logFail(`note q${q.id}`, err);
+      let noteDe = cache.get(q.id) ?? '';
+      if (!noteDe) {
+        try {
+          const result = await call({
+            schema: FinalNoteSchema,
+            schemaName: 'FinalNote',
+            system,
+            user: buildFinalNotePrompt(q, linked),
+            maxOutputTokens: 600,
+          });
+          noteDe = result.note;
+          appendCheckpoint(CKPT.notes, q.id, noteDe);
+        } catch (err) {
+          logFail(`note q${q.id}`, err);
+        }
       }
       done += 1;
       if (done % 20 === 0 || done === total) process.stdout.write(`  notes ${done}/${total}\n`);
@@ -267,6 +307,7 @@ function chunk<T>(items: T[], size: number): T[][] {
   return out;
 }
 
+// Translation runs on the cheaper Haiku model — it's a mechanical DE→EN task.
 async function translateBatch(
   items: Array<{ key: string; de: string }>,
   system: string,
@@ -276,8 +317,8 @@ async function translateBatch(
     schemaName: 'TranslationBatch',
     system,
     user: buildTranslationPrompt(items),
-    // Each item is ~50 tokens of EN. 12 items × ~100 tokens for safety = 1200.
     maxOutputTokens: 2500,
+    model: TRANSLATION_MODEL,
   });
   return new Map(result.items.map((it) => [it.key, it.en]));
 }
@@ -292,6 +333,7 @@ async function shortLabelBatch(
     system,
     user: buildShortLabelPrompt(items),
     maxOutputTokens: 800,
+    model: TRANSLATION_MODEL,
   });
   return new Map(result.items.map((it) => [it.key, it.en]));
 }
@@ -301,94 +343,85 @@ async function stageTranslate(
   notes: NoteDe[],
   system: string,
 ): Promise<{ glossary: SuggestionsFile['glossary']; notes: SuggestionsFile['notes'] }> {
-  // Glossary long explanations
-  const explanationItems = glossary.map((g) => ({ key: `g:${g.term}`, de: g.explanationDe }));
-  // Glossary short labels (just from the German headword)
+  // Single checkpoint keyed by item key (g:<term>, n:<id>, s:<term>).
+  const cache = loadCheckpoint<string>(CKPT.translations);
+
+  // Glossary long explanations + short labels + question notes (skip empties).
+  const explanationItems = glossary
+    .filter((g) => g.explanationDe)
+    .map((g) => ({ key: `g:${g.term}`, de: g.explanationDe }));
   const shortItems = glossary.map((g) => ({ key: `s:${g.term}`, term: g.term }));
-  // Question notes (skip empties)
   const noteItems = notes
     .filter((n) => n.noteDe !== '')
     .map((n) => ({ key: `n:${n.id}`, de: n.noteDe }));
 
-  const explanationBatches = chunk(explanationItems, TRANSLATION_BATCH);
-  const shortBatches = chunk(shortItems, TRANSLATION_BATCH);
-  const noteBatches = chunk(noteItems, TRANSLATION_BATCH);
+  const todoExpl = explanationItems.filter((it) => !cache.has(it.key));
+  const todoShort = shortItems.filter((it) => !cache.has(it.key));
+  const todoNote = noteItems.filter((it) => !cache.has(it.key));
+  console.log(
+    `  resume: glossary ${explanationItems.length - todoExpl.length}/${explanationItems.length}, ` +
+      `notes ${noteItems.length - todoNote.length}/${noteItems.length}, ` +
+      `labels ${shortItems.length - todoShort.length}/${shortItems.length} from checkpoint`,
+  );
 
-  let doneE = 0;
-  let doneN = 0;
-  let doneS = 0;
-
-  const safeTranslate = async (
-    batch: Array<{ key: string; de: string }>,
+  const runTextBatches = async (
+    todo: Array<{ key: string; de: string }>,
     label: string,
-  ): Promise<Map<string, string>> => {
-    try {
-      return await translateBatch(batch, system);
-    } catch (err) {
-      logFail(`${label} batch (${batch.length} items)`, err);
-      return new Map();
-    }
-  };
-  const safeShortLabels = async (
-    batch: Array<{ key: string; term: string }>,
-  ): Promise<Map<string, string>> => {
-    try {
-      return await shortLabelBatch(batch, system);
-    } catch (err) {
-      logFail(`short-label batch (${batch.length} items)`, err);
-      return new Map();
-    }
+  ): Promise<void> => {
+    let done = 0;
+    await pMap(
+      chunk(todo, TRANSLATION_BATCH),
+      async (batch) => {
+        try {
+          const m = await translateBatch(batch, system);
+          for (const [k, v] of m) {
+            cache.set(k, v);
+            appendCheckpoint(CKPT.translations, k, v);
+          }
+        } catch (err) {
+          logFail(`${label} batch (${batch.length} items)`, err);
+        }
+        done += batch.length;
+        process.stdout.write(`  ${label} ${done}/${todo.length}\n`);
+      },
+      { concurrency: CONCURRENCY },
+    );
   };
 
-  const explanationMaps = await pMap(
-    explanationBatches,
+  await runTextBatches(todoExpl, 'translate glossary');
+  await runTextBatches(todoNote, 'translate notes');
+
+  // Short labels (different prompt shape).
+  let doneS = 0;
+  await pMap(
+    chunk(todoShort, TRANSLATION_BATCH),
     async (batch) => {
-      const m = await safeTranslate(batch, 'translate glossary');
-      doneE += batch.length;
-      process.stdout.write(`  translate glossary ${doneE}/${explanationItems.length}\n`);
-      return m;
-    },
-    { concurrency: CONCURRENCY },
-  );
-  const noteMaps = await pMap(
-    noteBatches,
-    async (batch) => {
-      const m = await safeTranslate(batch, 'translate notes');
-      doneN += batch.length;
-      process.stdout.write(`  translate notes ${doneN}/${noteItems.length}\n`);
-      return m;
-    },
-    { concurrency: CONCURRENCY },
-  );
-  const shortMaps = await pMap(
-    shortBatches,
-    async (batch) => {
-      const m = await safeShortLabels(batch);
+      try {
+        const m = await shortLabelBatch(batch, system);
+        for (const [k, v] of m) {
+          cache.set(k, v);
+          appendCheckpoint(CKPT.translations, k, v);
+        }
+      } catch (err) {
+        logFail(`short-label batch (${batch.length} items)`, err);
+      }
       doneS += batch.length;
-      process.stdout.write(`  short labels ${doneS}/${shortItems.length}\n`);
-      return m;
+      process.stdout.write(`  short labels ${doneS}/${todoShort.length}\n`);
     },
     { concurrency: CONCURRENCY },
   );
-
-  const explanationEn = new Map<string, string>();
-  for (const m of explanationMaps) for (const [k, v] of m) explanationEn.set(k, v);
-  const noteEn = new Map<string, string>();
-  for (const m of noteMaps) for (const [k, v] of m) noteEn.set(k, v);
-  const shortEn = new Map<string, string>();
-  for (const m of shortMaps) for (const [k, v] of m) shortEn.set(k, v);
 
   const outGlossary: SuggestionsFile['glossary'] = glossary.map((g) => ({
     term: g.term,
-    shortEn: shortEn.get(`s:${g.term}`) ?? g.term,
+    shortEn: cache.get(`s:${g.term}`) ?? g.term,
     explanationDe: g.explanationDe,
-    explanationEn: explanationEn.get(`g:${g.term}`) ?? '',
+    explanationEn: cache.get(`g:${g.term}`) ?? '',
     questionIds: g.questionIds,
   }));
   const outNotes: SuggestionsFile['notes'] = notes.map((n) => ({
     id: n.id,
     noteDe: n.noteDe,
-    noteEn: n.noteDe === '' ? '' : noteEn.get(`n:${n.id}`) ?? '',
+    noteEn: n.noteDe === '' ? '' : cache.get(`n:${n.id}`) ?? '',
   }));
 
   return { glossary: outGlossary, notes: outNotes };
@@ -398,6 +431,7 @@ export async function runPipeline(limit: number | null): Promise<SuggestionsFile
   const runId = randomUUID();
   const { questions, curriculum } = await loadSources(limit);
   console.log(`[1] loaded ${questions.length} questions, ~${curriculum.length.toLocaleString()} chars curriculum`);
+  console.log(`    model=${MODEL} translation=${TRANSLATION_MODEL} concurrency=${CONCURRENCY} (resumable)`);
 
   const system = buildSystemPrompt(curriculum);
 
