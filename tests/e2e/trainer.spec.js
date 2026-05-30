@@ -275,6 +275,16 @@ test("question images advertise and open a larger view", async ({ page }) => {
   await expect(dialog).toBeHidden();
 });
 
+test("EU flag question renders the local four-option image", async ({ page }) => {
+  await page.goto("/q/226?testSize=2", { waitUntil: "domcontentloaded" });
+  await expect(page.locator("#questionTag")).toContainText("FRAGE 226");
+
+  const image = page.locator("#questionImage");
+  await expect(image).toHaveAttribute("src", /\/data\/images\/q226-flags\.png$/);
+  await expect.poll(() => image.evaluate((img) => img.naturalWidth)).toBeGreaterThan(0);
+  await expect(page.locator("#answers [data-answer] .text").first()).toContainText("Bild 2");
+});
+
 test("test translation preference defaults off and persists changes", async ({ page }) => {
   await openTrainer(page);
 
