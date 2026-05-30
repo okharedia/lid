@@ -669,3 +669,29 @@ test("glossary works on mobile and dark mode", async ({ page }) => {
   await page.locator("#glossarySearch").fill("Asyl");
   await expect(page.locator(".gl-term-de", { hasText: "Asyl" })).toBeVisible();
 });
+
+test("long glossary terms wrap instead of creating horizontal page scroll", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/glossary");
+
+  await page.locator("#glossarySearch").fill("Berufsinformationszentrum");
+  await expect(page.locator(".gl-term-de", { hasText: "Berufsinformationszentrum" })).toBeVisible();
+
+  const overflow = await page.evaluate(() => ({
+    documentScrollWidth: document.documentElement.scrollWidth,
+    viewportWidth: window.innerWidth,
+    overflowingText: [".gl-term-de", ".gl-term-en", ".gl-term-context", ".gl-match-text"].flatMap((selector) =>
+      [...document.querySelectorAll(selector)]
+        .filter((element) => element.checkVisibility())
+        .map((element) => ({
+          selector,
+          text: element.textContent.trim().replace(/\s+/g, " ").slice(0, 80),
+          clipsX: element.scrollWidth > element.clientWidth + 1,
+        }))
+        .filter(({ clipsX }) => clipsX),
+    ),
+  }));
+
+  expect(overflow.documentScrollWidth).toBeLessThanOrEqual(overflow.viewportWidth + 1);
+  expect(overflow.overflowingText).toEqual([]);
+});
