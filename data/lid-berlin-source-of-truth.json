@@ -2476,7 +2476,7 @@
   },
   "226": {
     "question": "Welche ist die Flagge der Europäischen Union?",
-    "imageUrl": "https://www.gesetze-im-internet.de/normengrafiken/bgbl1_2013/j0585-1_0030.jpg",
+    "imageUrl": "/data/images/q226-flags.png",
     "correctAnswerIndex": 1,
     "answers": [
       "Bild 1",

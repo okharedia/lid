@@ -4,15 +4,23 @@ const ALL_CATS = "Alle Kategorien";
 const DEFAULT_LOCALE = "en";
 const SUPPORTED_LOCALES = new Set(["en", "es", "fr"]);
 
-// Data lives on Vercel Blob so it can be republished out-of-band (AI workflow,
-// PDF cross-checker) without a git deploy. The app always fetches from blob;
-// only UI chrome strings ship bundled with the app.
+// Prefer tracked app data so preview deploys reflect PR content changes.
+// Blob URLs stay as fallbacks for out-of-band data publishes.
 const BLOB_BASE = "https://6kw2btozzbl6adaj.public.blob.vercel-storage.com";
 const DATA_URLS = {
-  sourceOfTruth: `${BLOB_BASE}/lid-berlin-source-of-truth.json`,
-  learnerData: `${BLOB_BASE}/lid-berlin-learner-data.json`,
+  sourceOfTruth: [
+    "/data/lid-berlin-source-of-truth.json",
+    `${BLOB_BASE}/lid-berlin-source-of-truth.json`,
+  ],
+  learnerData: [
+    "/data/lid-berlin-question-metadata.json",
+    `${BLOB_BASE}/lid-berlin-learner-data.json`,
+  ],
 };
-const contentI18nUrl = (loc) => `${BLOB_BASE}/lid-berlin-i18n-${loc}.json`;
+const contentI18nUrls = (loc) => [
+  `/data/i18n/${loc}.json`,
+  `${BLOB_BASE}/lid-berlin-i18n-${loc}.json`,
+];
 const uiI18nUrl = (loc) => `/data/i18n/ui.${loc}.json`;
 const DEFAULT_TEST_SIZE = 3;
 const PASS_SCORE = 90;
@@ -300,16 +308,23 @@ async function fetchJson(url) {
   return response.ok ? response.json() : null;
 }
 
+async function fetchFirstJson(urls) {
+  for (const url of urls) {
+    const json = await fetchJson(url).catch(() => null);
+    if (json) return json;
+  }
+  return null;
+}
+
 async function loadMessages(nextLocale = DEFAULT_LOCALE) {
-  // UI chrome ships bundled with the app; content translations (questions +
-  // glossary) come from blob. Merge the two, falling back to the default
-  // locale for whichever isn't available yet.
+  // UI chrome and default content translations ship bundled with the app.
+  // Blob content remains a fallback for locales/data that are published later.
   let [ui, content] = await Promise.all([
     fetchJson(uiI18nUrl(nextLocale)),
-    fetchJson(contentI18nUrl(nextLocale)),
+    fetchFirstJson(contentI18nUrls(nextLocale)),
   ]);
   if (!ui && nextLocale !== DEFAULT_LOCALE) ui = await fetchJson(uiI18nUrl(DEFAULT_LOCALE));
-  if (!content && nextLocale !== DEFAULT_LOCALE) content = await fetchJson(contentI18nUrl(DEFAULT_LOCALE));
+  if (!content && nextLocale !== DEFAULT_LOCALE) content = await fetchFirstJson(contentI18nUrls(DEFAULT_LOCALE));
 
   const resolved = (ui && nextLocale) || nextLocale;
   locale = (ui?.locale || content?.locale || resolved || nextLocale);
@@ -2042,17 +2057,11 @@ async function init() {
   state.testImmediateFeedback = saved.testImmediateFeedback !== false;
   applyTheme();
 
-  // Questions + learner data come from blob (republishable without a deploy).
   const [database, metadata] = await Promise.all([
-    fetch(DATA_URLS.sourceOfTruth).then((r) => {
-      if (!r.ok) throw new Error(ui("ui.error.loadDatabase", { status: r.status }));
-      return r.json();
-    }),
-    fetch(DATA_URLS.learnerData).then((r) => {
-      if (!r.ok) throw new Error(ui("ui.error.loadDatabase", { status: r.status }));
-      return r.json();
-    }),
+    fetchFirstJson(DATA_URLS.sourceOfTruth),
+    fetchFirstJson(DATA_URLS.learnerData),
   ]);
+  if (!database || !metadata) throw new Error(ui("ui.error.loadDatabase", { status: "network" }));
   const metadataById = new Map((metadata.questions || []).map((question) => [question.id, question]));
   const glossaryKeyByTerm = new Map((metadata.glossary || []).map((entry) => [entry.term, entry.translationKey]));
   glossaryRegistry = metadata.glossary || [];
