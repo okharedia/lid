@@ -401,6 +401,8 @@
         max-width: 100%;
         overflow-x: auto;
         overflow-y: hidden;
+        overscroll-behavior-x: contain;
+        overscroll-behavior-y: auto;
         padding: 0 2px 14px;
         scroll-snap-type: x mandatory;
         scrollbar-color: color-mix(in srgb, var(--gl-ink-soft) 32%, transparent) transparent;
@@ -639,6 +641,8 @@
           flex-wrap: nowrap;
           justify-content: flex-start;
           overflow-x: auto;
+          overscroll-behavior-x: contain;
+          overscroll-behavior-y: auto;
           gap: 8px;
           border-left: 0;
           border-block: 1px solid var(--gl-rule);
@@ -1096,6 +1100,58 @@
         });
       }
 
+      let touchScroll = null;
+
+      function scrollerMaxScroll(scroller) {
+        return Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+      }
+
+      function matchScrollerFromEvent(event) {
+        return event.target.closest?.(".match-grid") || null;
+      }
+
+      function startTouchScroll(event) {
+        const scroller = matchScrollerFromEvent(event);
+        if (!scroller || event.touches.length !== 1) {
+          touchScroll = null;
+          return;
+        }
+
+        const touch = event.touches[0];
+        touchScroll = {
+          scroller,
+          x: touch.clientX,
+          y: touch.clientY,
+        };
+      }
+
+      function containTouchScroll(event) {
+        if (!touchScroll || event.touches.length !== 1) return;
+        const { scroller, x, y } = touchScroll;
+        if (!scroller.isConnected) {
+          touchScroll = null;
+          return;
+        }
+
+        const touch = event.touches[0];
+        const dx = touch.clientX - x;
+        const dy = touch.clientY - y;
+        if (Math.abs(dx) < 6 || Math.abs(dx) <= Math.abs(dy)) return;
+
+        const maxScroll = scrollerMaxScroll(scroller);
+        if (maxScroll <= 1) return;
+
+        const atStart = scroller.scrollLeft <= 1;
+        const atEnd = scroller.scrollLeft >= maxScroll - 1;
+        if (event.cancelable && ((atStart && dx > 0) || (atEnd && dx < 0))) {
+          event.preventDefault();
+        }
+      }
+
+      function clearTouchScroll() {
+        touchScroll = null;
+      }
+
       function updateCarouselControls(strip) {
         const strips = strip ? [strip] : [...groups.querySelectorAll(".match-strip")];
         strips.forEach((matchStrip) => {
@@ -1206,6 +1262,10 @@
         if (!scroller) return;
         updateCarouselControls(scroller.closest(".match-strip"));
       }, true);
+      groups.addEventListener("touchstart", startTouchScroll, { passive: true });
+      groups.addEventListener("touchmove", containTouchScroll, { passive: false });
+      groups.addEventListener("touchend", clearTouchScroll);
+      groups.addEventListener("touchcancel", clearTouchScroll);
       window.addEventListener("resize", () => updateCarouselControls());
       window.addEventListener("hashchange", render);
 

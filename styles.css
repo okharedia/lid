@@ -2957,6 +2957,8 @@ button {
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: auto;
   padding: 0 2px 14px;
   scroll-snap-type: x mandatory;
   scrollbar-color: color-mix(in srgb, var(--bp-ink-soft) 32%, transparent) transparent;
@@ -3168,6 +3170,8 @@ button {
     flex-direction: row;
     justify-content: flex-start;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
     gap: 8px;
     border-left: 0;
     border-block: 1px solid var(--bp-rule);
