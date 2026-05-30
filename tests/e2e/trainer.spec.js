@@ -16,6 +16,18 @@ async function switchToTestMode(page) {
   await page.getByLabel("Primary navigation").getByRole("button", { name: "Test" }).click();
 }
 
+async function openConfigPanel(page) {
+  await expect(page.getByRole("heading", { level: 1 })).not.toHaveText("Loading...");
+  const panelOpen = await page.locator(".bp-app").evaluate((app) => app.classList.contains("filters-open"));
+  if (!panelOpen) {
+    await page.locator("#filterButton").click();
+  }
+  if (await page.locator("#testConfigPane").isHidden()) {
+    await page.locator("#testConfigTab").evaluate((tab) => tab.click());
+  }
+  await expect(page.locator("#testConfigPane")).toBeVisible();
+}
+
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() => localStorage.clear());
@@ -187,8 +199,7 @@ test("theme preference defaults to system and persists explicit selection", asyn
   const initialState = await page.evaluate(() => JSON.parse(localStorage.getItem("lid-trainer-v7")));
   expect(initialState.theme).toBeUndefined();
 
-  await page.locator("#filterButton").click();
-  await page.getByRole("tab", { name: /Config/ }).click();
+  await openConfigPanel(page);
   await expect(page.getByRole("button", { name: "System" })).toHaveAttribute("aria-pressed", "true");
 
   await page.getByRole("button", { name: "Dark" }).click();
@@ -200,7 +211,7 @@ test("theme preference defaults to system and persists explicit selection", asyn
 
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await page.locator("#filterButton").click();
+  await openConfigPanel(page);
   await expect(page.getByRole("button", { name: "Dark" })).toHaveAttribute("aria-pressed", "true");
 });
 
@@ -288,8 +299,7 @@ test("EU flag question renders the local four-option image", async ({ page }) =>
 test("test translation preference defaults off and persists changes", async ({ page }) => {
   await openTrainer(page);
 
-  await page.locator("#filterButton").click();
-  await page.getByRole("tab", { name: /Config/ }).click();
+  await openConfigPanel(page);
   const translationSwitch = page.getByRole("switch", { name: /Show translations in tests/ });
 
   await expect(translationSwitch).not.toBeChecked();
@@ -302,7 +312,7 @@ test("test translation preference defaults off and persists changes", async ({ p
   expect(savedState.testTranslations).toBe(true);
 
   await page.reload();
-  await page.locator("#filterButton").click();
+  await openConfigPanel(page);
   await expect(translationSwitch).toBeChecked();
 
   await translationSwitch.click();
@@ -311,15 +321,14 @@ test("test translation preference defaults off and persists changes", async ({ p
   expect(savedState.testTranslations).toBe(false);
 
   await page.reload();
-  await page.locator("#filterButton").click();
+  await openConfigPanel(page);
   await expect(translationSwitch).not.toBeChecked();
 });
 
 test("can delay test feedback until results", async ({ page }) => {
   await openTrainer(page);
 
-  await page.locator("#filterButton").click();
-  await page.getByRole("tab", { name: /Config/ }).click();
+  await openConfigPanel(page);
   const feedbackSwitch = page.getByRole("switch", { name: /Show feedback while testing/ });
 
   await expect(feedbackSwitch).toBeChecked();
@@ -342,8 +351,7 @@ test("can delay test feedback until results", async ({ page }) => {
   expect(savedState.testImmediateFeedback).toBe(false);
 
   await page.reload();
-  await page.locator("#filterButton").click();
-  await page.getByRole("tab", { name: /Config/ }).click();
+  await openConfigPanel(page);
   await expect(feedbackSwitch).not.toBeChecked();
 });
 
@@ -400,13 +408,12 @@ test("glossary notes start expanded and handle toggles it", async ({ page }) => 
 });
 
 test("glossary notes hide the drawer handle when content already fits", async ({ page }) => {
-  await openTrainer(page);
+  await page.goto("/q/21?testSize=2");
+  await expect(page.locator("#questionTag")).toContainText("021");
 
   const studyDock = page.locator("#studyDock");
   const studyHandle = page.locator("#studyHandle");
 
-  await page.getByRole("button", { name: "Next" }).click();
-  await expect(page.locator("#questionTag")).toContainText("002");
   await expect(studyDock).toHaveClass(/is-static/);
   await expect(studyHandle).toBeHidden();
 });
@@ -606,7 +613,7 @@ test("glossary filters ranges and opens matching question cards", async ({ page 
   await expect(page.getByRole("button", { name: "Learn" })).toHaveAttribute("aria-current", "false");
 
   await page.locator("#glossarySearch").fill("Bundestag");
-  await expect(page.locator(".gl-term-de", { hasText: "Bundestag" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Bundestag", exact: true })).toBeVisible();
   await expect(page.locator(".gl-term-de", { hasText: "Demokratie" })).toHaveCount(0);
   await expect(page.locator(".gl-match-grid").first()).toHaveCSS("display", "flex");
   const hasCarouselControls = await page.evaluate(() => matchMedia("(hover: hover) and (pointer: fine)").matches);
@@ -626,7 +633,7 @@ test("glossary filters ranges and opens matching question cards", async ({ page 
     await expect(page.locator(".gl-carousel-control.is-next").first()).toBeHidden();
   }
 
-  await page.locator("#glossarySearch").fill("Asyl");
+  await page.locator("#glossarySearch").fill("Bundestagssitz");
   await page.waitForFunction(() =>
     [...document.querySelectorAll(".gl-match-strip")].every((strip) => {
       const scroller = strip.querySelector(".gl-match-grid");
@@ -651,7 +658,7 @@ test("glossary filters ranges and opens matching question cards", async ({ page 
   await card.evaluate((element) => element.scrollIntoView({ block: "center", inline: "center" }));
   await card.click({ force: true });
   await expect(page).toHaveURL(new RegExp(`${href}$`));
-  await expect(page.locator("#answers")).toContainText("Meinungsfreiheit");
+  await expect(page.locator("#questionText")).toContainText("Meinungsfreiheit");
 });
 
 test("glossary term hashes open the right item and range", async ({ page }) => {
@@ -661,8 +668,8 @@ test("glossary term hashes open the right item and range", async ({ page }) => {
   await expect(page.locator("#range-I-S")).toBeVisible();
   await expect(page.locator("#range-A-D")).toBeHidden();
 
-  await page.evaluate(() => window.location.hash = "asyl");
-  await expect(page.locator("#asyl .gl-term-de")).toHaveText("Asyl");
+  await page.evaluate(() => window.location.hash = "bundestag");
+  await expect(page.locator("#bundestag .gl-term-de")).toHaveText("Bundestag");
   await expect(page.getByRole("button", { name: "A-D" })).toHaveAttribute("aria-pressed", "true");
 });
 
@@ -676,6 +683,32 @@ test("glossary works on mobile and dark mode", async ({ page }) => {
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await expect(page.locator(".gl-range-rail")).toBeVisible();
   await expect(page.locator(".gl-range-rail")).toHaveCSS("flex-direction", "row");
-  await page.locator("#glossarySearch").fill("Asyl");
-  await expect(page.locator(".gl-term-de", { hasText: "Asyl" })).toBeVisible();
+  await page.locator("#glossarySearch").fill("Bundestag");
+  await expect(page.getByRole("heading", { name: "Bundestag", exact: true })).toBeVisible();
+});
+
+test("long glossary terms wrap instead of creating horizontal page scroll", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/glossary");
+
+  await page.locator("#glossarySearch").fill("Berufsinformationszentrum");
+  await expect(page.locator(".gl-term-de", { hasText: "Berufsinformationszentrum" })).toBeVisible();
+
+  const overflow = await page.evaluate(() => ({
+    documentScrollWidth: document.documentElement.scrollWidth,
+    viewportWidth: window.innerWidth,
+    overflowingText: [".gl-term-de", ".gl-term-en", ".gl-term-context", ".gl-match-text"].flatMap((selector) =>
+      [...document.querySelectorAll(selector)]
+        .filter((element) => element.checkVisibility())
+        .map((element) => ({
+          selector,
+          text: element.textContent.trim().replace(/\s+/g, " ").slice(0, 80),
+          clipsX: element.scrollWidth > element.clientWidth + 1,
+        }))
+        .filter(({ clipsX }) => clipsX),
+    ),
+  }));
+
+  expect(overflow.documentScrollWidth).toBeLessThanOrEqual(overflow.viewportWidth + 1);
+  expect(overflow.overflowingText).toEqual([]);
 });

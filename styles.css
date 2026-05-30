@@ -402,6 +402,7 @@ button {
 
 html,
 body {
+  max-width: 100%;
   margin: 0;
   padding: 0;
   background: var(--bp-canvas);
@@ -414,6 +415,7 @@ body {
 }
 
 body {
+  max-width: 100vw;
   min-height: 100vh;
   min-height: 100dvh;
   overflow-x: hidden;
@@ -1802,6 +1804,7 @@ button {
   letter-spacing: 0;
   color: var(--bp-ink);
   margin: 0;
+  overflow-wrap: anywhere;
   text-wrap: pretty;
 }
 
@@ -1820,6 +1823,7 @@ button {
   margin: -6px 0 0;
   padding: 0;
   text-align: left;
+  overflow-wrap: anywhere;
 }
 
 .danger {
@@ -1899,7 +1903,7 @@ button {
 
 .bp-answer {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   column-gap: 14px;
   align-items: center;
   padding: var(--md-density-answer-padding-block) var(--md-density-answer-padding-inline-end)
@@ -1949,6 +1953,8 @@ button {
   font-weight: 560;
   line-height: var(--bp-type-answer-line-height);
   letter-spacing: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
   cursor: text;
   user-select: text !important;
   -webkit-user-select: text !important;
@@ -2076,6 +2082,7 @@ button {
   line-height: 1.45;
   color: var(--bp-ink-soft);
   margin: 0;
+  overflow-wrap: anywhere;
   text-wrap: pretty;
 }
 
@@ -2927,6 +2934,8 @@ button {
   line-height: 0.98;
   font-weight: 560;
   letter-spacing: 0;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .gl-term-en {
@@ -2934,6 +2943,7 @@ button {
   color: var(--bp-ink-soft);
   font-size: 20px;
   line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 
 .gl-term-context {
@@ -2942,6 +2952,7 @@ button {
   color: var(--bp-ink-soft);
   font-size: 16px;
   line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .gl-match-strip {
@@ -2979,6 +2990,7 @@ button {
   border-radius: var(--md-sys-shape-corner-large);
   background: var(--md-sys-color-surface-container-low);
   color: var(--bp-ink);
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -3105,6 +3117,7 @@ button {
   color: var(--bp-ink);
   font-size: 30px;
   line-height: 1.16;
+  overflow-wrap: anywhere;
 }
 
 .gl-empty {
