@@ -28,6 +28,22 @@ _Avoid_: Hint, memory aid, keyword tip
 A meaningful German word or phrase highlighted in a **Question** and explained in the glossary.
 _Avoid_: Keyword, danger word
 
+**Matched Term Text**:
+The exact German text span from a **Question** prompt or correct answer that supports a **Glossary Term**.
+_Avoid_: Lemma, normalized term
+
+**Question Content Draft**:
+An AI-generated review artifact for one **Question** containing candidate **Glossary Terms**, draft glossary explanations, and a draft **Study Note**.
+_Avoid_: Final metadata, automatic import
+
+**Corpus Content Review**:
+The review pass that deduplicates **Glossary Terms** and refines glossary explanations and **Study Notes** across all **Questions**.
+_Avoid_: Per-question generation, final write
+
+**Content Suggestion File**:
+A structured review file containing final proposed learner-support content before it is accepted into **Learner Metadata** or translation files.
+_Avoid_: Metadata, generated source of truth
+
 **Known Question**:
 A question the learner has marked as mastered, excluding it from learning and tests until the mark is removed.
 _Avoid_: Completed card, saved question
@@ -77,6 +93,32 @@ _Avoid_: Score page, report
 - **Learner Metadata** must not redefine official German question or answer text.
 - A **Study Note** belongs to one **Question** and explains that question's context.
 - A **Glossary Term** can be highlighted inside a **Question** and linked to its glossary explanation.
+- A **Glossary Term** for a **Question** must appear in that **Question**'s prompt or correct answer.
+- A **Glossary Term** must not be selected from a wrong answer only.
+- Obvious function words such as "alle", "nicht", "nur", "kein", "keine", "muss", "kann", "darf", "richtig", and "falsch" are not **Glossary Terms**.
+- "Berlin" is not a **Glossary Term** in this trainer.
+- A **Glossary Term** can have many **Matched Term Texts** across **Questions**.
+- A **Matched Term Text** belongs to exactly one **Question** occurrence.
+- A **Matched Term Text** must be validated against the **Question** prompt or correct answer.
+- A **Glossary Term** has one final glossary explanation across all accepted **Matched Term Texts**.
+- A final glossary explanation should be two or three short German sentences unless the content direction changes.
+- A final **Glossary Term** must keep provenance to the **Question IDs** and **Matched Term Texts** that caused its inclusion.
+- A **Study Note** carries the question-specific explanation that does not belong in the global glossary explanation.
+- A final **Study Note** is traced by **Question ID** and does not need claim-level provenance.
+- A **Study Note** may explain naturally without mentioning every linked **Glossary Term**.
+- A **Study Note** should be one or two short German sentences unless the content direction changes.
+- **Study Notes** and glossary explanations may include factual civic background beyond the **Question Source**.
+- Civic background in **Study Notes** and glossary explanations must be stable historical, legal, or civic context, not current officeholders, coalitions, election results, or time-sensitive facts.
+- A **Question Content Draft** belongs to exactly one **Question**.
+- A **Question Content Draft** is based on the **Question** prompt and correct answer only.
+- A **Question Content Draft** can propose multiple **Glossary Terms**.
+- A **Question Content Draft** uses German as the canonical language for learner-support prose.
+- A **Corpus Content Review** combines many **Question Content Drafts** into one reviewable set.
+- A **Content Suggestion File** contains final proposed content, not per-question draft artifacts.
+- A **Content Suggestion File** must not modify **Question Source**.
+- AI generation writes proposed learner-support content to a **Content Suggestion File** before production metadata or translation files are updated.
+- A **Content Suggestion File** contains German learner-support prose and stable translation keys, not translated learner prose.
+- Accepted **Content Suggestion File** entries can update **Learner Metadata** and translation files.
 - A **Known Question** is excluded from both learning and tests.
 - A **Question Link** can open a **Known Question** even though known questions are excluded from normal learning flow.
 - Marking the current learning **Question** known removes it from learning immediately.
