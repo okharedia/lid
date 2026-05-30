@@ -1155,6 +1155,8 @@
         if (event.cancelable && ((atStart && dx > 0) || (atEnd && dx < 0))) {
           event.preventDefault();
         }
+        touchScroll.x = touch.clientX;
+        touchScroll.y = touch.clientY;
       }
 
       function clearTouchScroll() {

@@ -1642,6 +1642,8 @@ function containGlossaryTouchScroll(event) {
   if (event.cancelable && ((atStart && dx > 0) || (atEnd && dx < 0))) {
     event.preventDefault();
   }
+  glossaryTouchScroll.x = touch.clientX;
+  glossaryTouchScroll.y = touch.clientY;
 }
 
 function clearGlossaryTouchScroll() {
