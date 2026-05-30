@@ -83,6 +83,7 @@ let answerTimer = 0;
 let swipeTimer = 0;
 let swipeStart = null;
 let answerTextDrag = null;
+let glossaryTouchScroll = null;
 let drawerReturnFocus = null;
 
 const els = {
@@ -1597,6 +1598,56 @@ function closeReviewPanel(restoreFocus = true) {
   drawerReturnFocus = null;
 }
 
+function glossaryScrollerMaxScroll(scroller) {
+  return Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+}
+
+function glossaryMatchScrollerFromEvent(event) {
+  return event.target.closest?.(".gl-match-grid") || null;
+}
+
+function startGlossaryTouchScroll(event) {
+  const scroller = glossaryMatchScrollerFromEvent(event);
+  if (!scroller || event.touches.length !== 1) {
+    glossaryTouchScroll = null;
+    return;
+  }
+
+  const touch = event.touches[0];
+  glossaryTouchScroll = {
+    scroller,
+    x: touch.clientX,
+    y: touch.clientY,
+  };
+}
+
+function containGlossaryTouchScroll(event) {
+  if (!glossaryTouchScroll || event.touches.length !== 1) return;
+  const { scroller, x, y } = glossaryTouchScroll;
+  if (!scroller.isConnected) {
+    glossaryTouchScroll = null;
+    return;
+  }
+
+  const touch = event.touches[0];
+  const dx = touch.clientX - x;
+  const dy = touch.clientY - y;
+  if (Math.abs(dx) < 6 || Math.abs(dx) <= Math.abs(dy)) return;
+
+  const maxScroll = glossaryScrollerMaxScroll(scroller);
+  if (maxScroll <= 1) return;
+
+  const atStart = scroller.scrollLeft <= 1;
+  const atEnd = scroller.scrollLeft >= maxScroll - 1;
+  if (event.cancelable && ((atStart && dx > 0) || (atEnd && dx < 0))) {
+    event.preventDefault();
+  }
+}
+
+function clearGlossaryTouchScroll() {
+  glossaryTouchScroll = null;
+}
+
 function bindEvents() {
   els.learnMode.addEventListener("click", () => setMode("learn"));
   els.testMode.addEventListener("click", () => setMode("test"));
@@ -1653,6 +1704,10 @@ function bindEvents() {
     if (!scroller) return;
     updateGlossaryCarouselControls(scroller.closest(".gl-match-strip"));
   }, true);
+  els.glossaryGroups.addEventListener("touchstart", startGlossaryTouchScroll, { passive: true });
+  els.glossaryGroups.addEventListener("touchmove", containGlossaryTouchScroll, { passive: false });
+  els.glossaryGroups.addEventListener("touchend", clearGlossaryTouchScroll);
+  els.glossaryGroups.addEventListener("touchcancel", clearGlossaryTouchScroll);
   els.filtersTab.addEventListener("click", () => setPanelTab("filters"));
   els.knownTab.addEventListener("click", () => setPanelTab("known"));
   els.testConfigTab.addEventListener("click", () => setPanelTab("test"));
@@ -1820,7 +1875,7 @@ function bindEvents() {
     render();
   });
   els.app.addEventListener("pointerdown", (event) => {
-    if (!isMobileDrawer() || els.app.classList.contains("filters-open") || state.result) return;
+    if (isGlossaryPath() || !isMobileDrawer() || els.app.classList.contains("filters-open") || state.result) return;
     if (event.pointerType === "mouse") return;
     if (event.target.closest(".bp-top, .bp-nav, #filterBar")) return;
     window.clearTimeout(swipeTimer);
